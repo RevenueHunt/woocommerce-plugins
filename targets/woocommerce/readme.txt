@@ -5,7 +5,7 @@ Tags: quiz, product recommendation, woocommerce, sales automation, ecommerce
 Requires at least: 3.0.1
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 2.3.8
+Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,11 @@ Visit our [FAQs page](https://revenuehunt.com/faqs/ "Frequently Asked Questions"
 8. Cart integration – Link recommendations directly to your WooCommerce cart.
 
 == Changelog ==
+
+= 2.4.0 =
+* Fix - Hardened rate limiting on the connection endpoints (throttle by server-verified IP; ignore the spoofable X-Forwarded-For header unless a proxy is explicitly trusted; no fail-open when the IP is unknown)
+* Fix - Deactivating the plugin no longer deletes your connection credentials; only uninstalling does
+* Dev - The WordPress and WooCommerce editions now build from a single shared source
 
 = 2.3.6 =
 * Dev - Update WC tested up to: 10.7.0

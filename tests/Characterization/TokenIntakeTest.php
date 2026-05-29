@@ -58,23 +58,33 @@ final class TokenIntakeTest extends TestCase
         $this->assertSame(['status' => 429], $result->get_error_data());
     }
 
-    public function test_rate_limit_allows_when_no_ip_present(): void
+    public function test_rate_limit_no_ip_is_throttled_not_open(): void
     {
-        // SECURITY BASELINE (MED-1 fail-open): no IP -> request is allowed.
+        // MED-1 fix: no determinable IP must NOT fail open — it is throttled
+        // through a shared bucket and still 429s at the threshold.
+        $captured = null;
         Functions\when('get_transient')->justReturn(0);
-        Functions\when('set_transient')->justReturn(true);
+        Functions\when('set_transient')->alias(function ($key, $val, $exp) use (&$captured) {
+            $captured = $key;
+            return true;
+        });
 
-        $this->assertTrue(prq_check_rate_limit());
+        $this->assertTrue(prq_check_rate_limit());        // counted, not bypassed
+        $this->assertSame('prq_rate_unknown', $captured); // shared bucket
+
+        Functions\when('get_transient')->justReturn(10);
+        $this->assertInstanceOf(WP_Error::class, prq_check_rate_limit());
     }
 
-    public function test_rate_limit_keys_on_xforwardedfor_before_remote_addr(): void
+    public function test_rate_limit_ignores_spoofed_xff_uses_remote_addr(): void
     {
-        // SECURITY BASELINE (MED-1): a spoofable XFF header takes precedence,
-        // so the throttle is keyed on attacker-controlled input.
+        // MED-1 fix: with no trusted proxy, a spoofable XFF header is ignored;
+        // the throttle keys on REMOTE_ADDR.
         $_SERVER['HTTP_X_FORWARDED_FOR'] = '1.2.3.4, 9.9.9.9';
         $_SERVER['REMOTE_ADDR']          = '203.0.113.7';
 
         $captured = null;
+        Functions\when('apply_filters')->justReturn(false); // proxy not trusted
         Functions\when('get_transient')->justReturn(0);
         Functions\when('set_transient')->alias(function ($key, $val, $exp) use (&$captured) {
             $captured = $key;
@@ -83,8 +93,27 @@ final class TokenIntakeTest extends TestCase
 
         prq_check_rate_limit();
 
-        // first XFF entry wins, NOT REMOTE_ADDR
-        $this->assertSame('prq_rate_' . md5('1.2.3.4'), $captured);
+        $this->assertSame('prq_rate_' . md5('203.0.113.7'), $captured);
+    }
+
+    public function test_rate_limit_trusts_xff_only_behind_configured_proxy(): void
+    {
+        // MED-1 fix: when explicitly behind a trusted proxy, trust the
+        // proxy-appended (LAST) entry, not the client-supplied head.
+        $_SERVER['HTTP_X_FORWARDED_FOR'] = '1.2.3.4, 198.51.100.9';
+        $_SERVER['REMOTE_ADDR']          = '203.0.113.7';
+
+        $captured = null;
+        Functions\when('apply_filters')->justReturn(true); // proxy trusted
+        Functions\when('get_transient')->justReturn(0);
+        Functions\when('set_transient')->alias(function ($key, $val, $exp) use (&$captured) {
+            $captured = $key;
+            return true;
+        });
+
+        prq_check_rate_limit();
+
+        $this->assertSame('prq_rate_' . md5('198.51.100.9'), $captured);
     }
 
     /* ---------- prq_verify_signature ---------- */

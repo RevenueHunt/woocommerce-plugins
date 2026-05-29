@@ -15,6 +15,12 @@ abstract class TestCase extends PHPUnitTestCase
 
     protected function tearDown(): void
     {
+        // Count Brain Monkey / Mockery expectations as PHPUnit assertions so
+        // expectation-only tests aren't flagged "risky" under failOnRisky.
+        $container = \Mockery::getContainer();
+        if ($container !== null) {
+            $this->addToAssertionCount($container->mockery_getExpectationCount());
+        }
         Monkey\tearDown();
         // keep $_SERVER clean between tests
         unset($_SERVER['HTTP_X_FORWARDED_FOR'], $_SERVER['REMOTE_ADDR']);

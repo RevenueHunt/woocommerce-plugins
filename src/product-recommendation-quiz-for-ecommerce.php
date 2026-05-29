@@ -16,7 +16,7 @@
  * Plugin Name:       Product Recommendation Quiz for eCommerce
  * Plugin URI:        https://revenuehunt.com/product-recommendation-quiz-woocommerce/
  * Description:       Advise and delight your customers by engaging them with a personal shopper experience on your store, guiding your customers from start to cart and helping them find the products that best match their needs.
- * Version:           2.3.8
+ * Version:           2.4.0
  * Author:            RevenueHunt
  * Author URI:        https://revenuehunt.com/
  * License:           GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PRQ_PLUGIN_VERSION', '2.3.8' );
+define( 'PRQ_PLUGIN_VERSION', '2.4.0' );
 
 /**
  * Option keys used by the plugin.
@@ -156,29 +156,48 @@ function prq_validate_shop_hashid( $shop_hashid ) {
 }
 
 /**
+ * Determine the client IP used for rate limiting.
+ *
+ * Defaults to REMOTE_ADDR, which the client cannot spoof. The X-Forwarded-For
+ * header is consulted ONLY when the site explicitly opts in via the
+ * `prq_trust_forwarded_for` filter (e.g. behind a known reverse proxy / CDN),
+ * and then only the proxy-appended (last) entry is trusted — never the
+ * client-supplied head of the list.
+ *
+ * @since 2.4.0
+ * @return string The client IP, or '' if none could be determined.
+ */
+function prq_get_client_ip() {
+	$remote = isset( $_SERVER['REMOTE_ADDR'] )
+		? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
+		: '';
+
+	if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] )
+		&& apply_filters( 'prq_trust_forwarded_for', false ) ) {
+		$forwarded = explode( ',', sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) );
+		$proxied   = trim( end( $forwarded ) );
+		if ( '' !== $proxied ) {
+			return $proxied;
+		}
+	}
+
+	return $remote;
+}
+
+/**
  * Check rate limit for REST API requests.
  *
  * Limits requests to 10 per minute per IP address to prevent brute force attacks.
+ * When no IP can be determined the request is NOT allowed through unchecked — it
+ * is throttled via a shared bucket so the limit still applies (no fail-open).
  *
  * @since 2.2.15
  * @return true|WP_Error True if under limit, WP_Error if rate limited.
  */
 function prq_check_rate_limit() {
-	// Get client IP - check for proxies
-	$ip = '';
-	if ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-		// Take the first IP if multiple are provided
-		$forwarded_ips = explode( ',', sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) );
-		$ip = trim( $forwarded_ips[0] );
-	} elseif ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
-		$ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) );
-	}
-
-	if ( empty( $ip ) ) {
-		return true; // Can't rate limit without IP
-	}
-
-	$transient_key = 'prq_rate_' . md5( $ip );
+	$ip            = prq_get_client_ip();
+	$bucket        = '' !== $ip ? md5( $ip ) : 'unknown';
+	$transient_key = 'prq_rate_' . $bucket;
 	$attempts      = (int) get_transient( $transient_key );
 
 	if ( $attempts >= 10 ) {

@@ -69,13 +69,16 @@ class Product_Recommendation_Quiz_For_Ecommerce_Deactivator {
 	/**
 	 * Plugin deactivation handler.
 	 *
-	 * Called when the plugin is deactivated. Clears all plugin data
-	 * including options from the database.
+	 * Called when the plugin is deactivated. Clears cached options but does
+	 * NOT delete stored credentials — deactivation is routinely used for
+	 * troubleshooting, and wiping credentials severs the connection and
+	 * re-opens the unauthenticated first-write window. Destructive cleanup
+	 * happens on uninstall only (uninstall.php calls cleanup( true )).
 	 *
 	 * @since 1.0.0
 	 * @return void
 	 */
 	public static function deactivate() {
-		self::cleanup( true );
+		self::cleanup( false );
 	}
 }
