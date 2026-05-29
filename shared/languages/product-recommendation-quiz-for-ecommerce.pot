@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-29T17:20:30+00:00\n"
+"POT-Creation-Date: 2026-05-29T17:23:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: product-recommendation-quiz-for-ecommerce\n"
@@ -120,6 +120,7 @@ msgid "Please %s if you encounter any issues."
 msgstr ""
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php:106
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:85
 msgid "Product Recommendation Quiz"
 msgstr ""
 
@@ -222,6 +223,90 @@ msgstr ""
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:115
 msgid "Base currency"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:58
+msgid "Product Recommendation Quiz: permalink structure"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:62
+msgid "Product Recommendation Quiz: HTTPS"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:66
+msgid "Product Recommendation Quiz: WPML compatibility"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:70
+msgid "Product Recommendation Quiz: REST API reachability"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:99
+msgid "Your permalink structure is set to \"Plain\""
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:102
+msgid "The Product Recommendation Quiz needs a permalink structure other than \"Plain\" to authenticate with your store. Change it under Settings > Permalinks."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:106
+msgid "Open Permalinks settings"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:113
+msgid "Your permalink structure works with the quiz"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:116
+msgid "Your permalink structure is not set to \"Plain\", so the quiz can authenticate with your store."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:130
+msgid "Your site is served over HTTPS"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:133
+msgid "A valid HTTPS connection is present, which the quiz requires."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:139
+msgid "Your site is not served over HTTPS"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:142
+msgid "The Product Recommendation Quiz requires a valid HTTPS/SSL certificate to work."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:156
+msgid "A WPML version that breaks authentication is active"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:159
+msgid "WPML versions older than 4.5.0 interfere with WooCommerce authentication. Update WPML to 4.5.0 or later."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:165
+msgid "No conflicting WPML version detected"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:168
+msgid "No WPML version known to interfere with authentication is active."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:187
+msgid "Your store REST API is reachable"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:190
+msgid "The RevenueHunt server can reach your WooCommerce REST API."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:196
+msgid "Your store REST API could not be reached"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:199
+msgid "The RevenueHunt server could not reach your WooCommerce REST API, or it returned an unexpected response (a security plugin, a wrong content type, or a blocked request can cause this). The quiz cannot authenticate until this is resolved."
 msgstr ""
 
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:176

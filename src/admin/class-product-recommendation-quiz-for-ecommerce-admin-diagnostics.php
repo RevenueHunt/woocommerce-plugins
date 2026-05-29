@@ -329,33 +329,39 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics {
 	}
 
 	/**
-	 * Check for problematic WPML versions.
+	 * Whether a problematic (pre-4.5.0) WPML version is active.
 	 *
 	 * WPML versions below 4.5.0 have a known issue that interferes with
-	 * WooCommerce authentication. This method checks for this condition
-	 * and returns whether to block the OAuth flow.
+	 * WooCommerce authentication. Pure predicate (no output), reused by both the
+	 * OAuth-flow gate and the Site Health test.
+	 *
+	 * @since 2.4.0
+	 * @return bool True if a problematic WPML version is active, false otherwise.
+	 */
+	public function is_wpml_problematic() {
+		if ( ! function_exists( 'icl_object_id' ) ) {
+			return false;
+		}
+
+		// WPML 4.5.0+ fixed the endpoint-encoding issue that breaks authentication.
+		// See https://wpml.org/errata/endpoints-containing-slashes-are-incorrectly-encoded/.
+		if ( defined( 'ICL_SITEPRESS_VERSION' ) && version_compare( ICL_SITEPRESS_VERSION, '4.5.0', '>=' ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check for problematic WPML versions, warning the merchant if found.
 	 *
 	 * @since 1.0.0
 	 * @return bool True if problematic WPML detected (should block), false otherwise.
 	 */
 	public function check_wpml() {
-		if ( function_exists( 'icl_object_id' ) ) {
-			// WPML is active
-			$should_show_warning = true;
-
-			if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
-				$current_version = ICL_SITEPRESS_VERSION;
-				if ( version_compare( $current_version, '4.5.0', '>=' ) ) {
-					// WPML version is 4.5.0 or higher, no need to trigger warning
-					// https://wpml.org/errata/endpoints-containing-slashes-are-incorrectly-encoded/
-					$should_show_warning = false;
-				}
-			}
-
-			if ( $should_show_warning ) {
-				$this->wpml_active();
-				return true;
-			}
+		if ( $this->is_wpml_problematic() ) {
+			$this->wpml_active();
+			return true;
 		}
 		return false;
 	}

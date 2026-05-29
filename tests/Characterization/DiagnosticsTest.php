@@ -105,4 +105,31 @@ final class DiagnosticsTest extends TestCase
         $this->assertTrue($blocked);
         $this->assertStringContainsString('WPML Multilingual CMS', $html);
     }
+
+    /* ---------- is_wpml_problematic (pure predicate) ---------- */
+
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
+    public function test_is_wpml_problematic_false_when_wpml_absent(): void
+    {
+        $this->assertFalse($this->diag()->is_wpml_problematic());
+    }
+
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
+    public function test_is_wpml_problematic_true_for_pre_4_5(): void
+    {
+        Functions\when('icl_object_id')->justReturn(0);
+        define('ICL_SITEPRESS_VERSION', '4.4.0');
+        $this->assertTrue($this->diag()->is_wpml_problematic());
+    }
+
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
+    public function test_is_wpml_problematic_false_for_4_5_plus(): void
+    {
+        Functions\when('icl_object_id')->justReturn(0);
+        define('ICL_SITEPRESS_VERSION', '4.5.0');
+        $this->assertFalse($this->diag()->is_wpml_problematic());
+    }
 }

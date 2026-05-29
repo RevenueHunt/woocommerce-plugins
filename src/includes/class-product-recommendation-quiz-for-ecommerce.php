@@ -221,6 +221,7 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 		$delivery  = Product_Recommendation_Quiz_For_Ecommerce_Delivery_Resolver::resolve( $this->plugin_name, $this->version );
 		$shortcode = new Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode( $delivery );
 		$block     = new Product_Recommendation_Quiz_For_Ecommerce_Front_Block( $delivery );
+		$health    = new Product_Recommendation_Quiz_For_Ecommerce_Site_Health();
 
 		add_action( 'plugins_loaded', array( $i18n, 'load_plugin_textdomain' ) );
 		add_action( 'admin_enqueue_scripts', array( $menu, 'enqueue_scripts' ) );
@@ -229,6 +230,7 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 		add_filter( 'script_loader_tag', array( $embed, 'add_async_to_embed_script' ), 10, 3 );
 		add_action( 'init', array( $shortcode, 'register' ) );
 		add_action( 'init', array( $block, 'register' ) );
+		add_filter( 'site_status_tests', array( $health, 'register_tests' ) );
 	}
 
 }
