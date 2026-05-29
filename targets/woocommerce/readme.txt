@@ -5,7 +5,7 @@ Tags: quiz, product recommendation, woocommerce, sales automation, ecommerce
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.3.10
+Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,12 @@ This plugin connects to RevenueHunt to build and serve your product recommendati
 Data is sent to RevenueHunt only as needed to provide the quiz. For details, see RevenueHunt's Privacy Policy (https://revenuehunt.com/privacy/), Terms of Service (https://revenuehunt.com/tos/), and Security overview (https://revenuehunt.com/security/).
 
 == Changelog ==
+
+= 2.4.0 =
+* New - Place the quiz inline anywhere with the [product_recommendation_quiz] shortcode or the new "Product Recommendation Quiz" block in the block editor.
+* New - A native status panel in the admin shows your connection state, store domain, the translation and multi-currency plugins detected on your store, your WordPress and WooCommerce versions, and your base language and currency.
+* New - WordPress Site Health now reports the plugin's prerequisites (permalink structure, HTTPS, WPML compatibility and REST API reachability), so issues are easy to spot in the standard place.
+* Dev - Placement is built on a delivery-agnostic seam and a pluggable connection layer that future editions reuse.
 
 = 2.3.10 =
 * New - The plugin's admin screens, setup flow and error notices are now translatable, and ship with Dutch, German, French, Spanish, Italian, Polish and Portuguese (Brazil) translations.
