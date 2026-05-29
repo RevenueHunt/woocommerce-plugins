@@ -115,7 +115,7 @@ This plugin connects to RevenueHunt to build and serve your product recommendati
 2. Connection check — From the plugin's admin page only, your store domain is sent to https://api.revenuehunt.com/api/v1/woocommerce/check to verify that your store's REST API is reachable during setup.
 3. Account connection — During setup, your store's WooCommerce API credentials and connection identifiers are exchanged with RevenueHunt's servers to link your store to your RevenueHunt account.
 
-Data is sent to RevenueHunt only as needed to provide the quiz. See RevenueHunt's terms and privacy policy at https://revenuehunt.com/.
+Data is sent to RevenueHunt only as needed to provide the quiz. For details, see RevenueHunt's Privacy Policy (https://revenuehunt.com/privacy/), Terms of Service (https://revenuehunt.com/tos/), and Security overview (https://revenuehunt.com/security/).
 
 == Changelog ==
 
