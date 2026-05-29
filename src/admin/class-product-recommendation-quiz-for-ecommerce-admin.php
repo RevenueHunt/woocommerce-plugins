@@ -411,6 +411,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 		// Force IPv4 for this request to mirror legacy curl behavior on hosts with broken IPv6.
 		$ipv4_filter = function ( $handle ) {
 			if ( defined( 'CURLOPT_IPRESOLVE' ) && defined( 'CURL_IPRESOLVE_V4' ) ) {
+				// phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt -- Setting CURLOPT_IPRESOLVE is only possible via the http_api_curl hook; WP's HTTP API exposes no option to force IPv4.
 				curl_setopt( $handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
 			}
 			return $handle;

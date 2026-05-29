@@ -44,16 +44,12 @@ jobs:
       - name: Build-diff guard (one source -> two artifacts)
         run: bash tools/verify-build.sh
 
-  # wp.org submission readiness. Isolated in its own job so the official action
-  # owns a clean wp-env/Docker environment (it sets up Node 24 + wp-env start +
-  # runs the check via wp-cli). Informational for now: Plugin Check has no
-  # baseline mechanism, so job-level continue-on-error keeps overall CI green
-  # while legacy V1 findings are triaged. Remove continue-on-error to make it a
-  # hard gate once those are addressed.
+  # wp.org submission readiness. Self-managed wp-env (the official action's
+  # wp-env start no-op'd). Blocking on ERROR-severity findings only; WARNING
+  # findings are reported but deferred (Plugin Check has no baseline mechanism).
   plugin-check:
-    name: WordPress Plugin Check (informational)
+    name: WordPress Plugin Check
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
@@ -89,7 +85,17 @@ jobs:
           wp-env start
           wp-env run cli wp core version
 
-      - name: Run Plugin Check
+      - name: Run Plugin Check (errors block; warnings reported)
         run: |
           wp-env run cli wp plugin activate product-recommendation-quiz-for-ecommerce
-          wp-env run cli wp plugin check product-recommendation-quiz-for-ecommerce
+          # Full human-readable report (warnings included) for visibility.
+          wp-env run cli wp plugin check product-recommendation-quiz-for-ecommerce || true
+          # Gate on ERROR-severity findings only; warnings are deferred.
+          wp-env run cli wp plugin check product-recommendation-quiz-for-ecommerce --format=json 2>/dev/null > pc.json || true
+          [ -s pc.json ] || echo '[]' > pc.json
+          if ! jq -e . pc.json >/dev/null 2>&1; then
+            echo "::error::Could not parse Plugin Check JSON output:"; cat pc.json; exit 1
+          fi
+          ERRORS=$(jq '[.[] | select(.type == "ERROR")] | length' pc.json)
+          echo "Plugin Check ERROR-severity findings: $ERRORS"
+          test "$ERRORS" -eq 0

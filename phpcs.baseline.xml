@@ -26,7 +26,6 @@
 <violation file="src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php" sniff="Universal.NamingConventions.NoReservedKeywordParameterNames.stringFound" signature="796d1b0a1c66604289f7758195a17e844a7d671b"/>
 <violation file="src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php" sniff="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound" signature="6c7c2b45d1c5630c4ee657943b3de7f7c682ea54"/>
 <violation file="src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php" sniff="WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode" signature="838c072871c182a5c9c971d8bedb3fc86cfa4f29"/>
-<violation file="src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php" sniff="WordPress.WP.AlternativeFunctions.curl_curl_setopt" signature="a2be6dde1889b0d3326d2fed06c7be107a7b6860"/>
 <violation file="src/admin/index.php" sniff="Squiz.Commenting.FileComment.WrongStyle" signature="eb222e35589876306a5d3f28aefdba7a61777af3"/>
 <violation file="src/admin/index.php" sniff="Squiz.Commenting.InlineComment.InvalidEndChar" signature="eb222e35589876306a5d3f28aefdba7a61777af3"/>
 <violation file="src/includes/class-product-recommendation-quiz-for-ecommerce-activator.php" sniff="Squiz.Commenting.InlineComment.InvalidEndChar" signature="10b9c6ee9f5b4468c63b235b0b700a250eb3bf64"/>
