@@ -28,6 +28,24 @@ if ( ! defined( 'WPINC' ) ) {
 class Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics {
 
 	/**
+	 * Tags allowed when echoing a translated sentence that embeds a link.
+	 *
+	 * Translatable sentences are kept whole (one msgid) and the anchor is
+	 * injected via a sprintf() placeholder, then sanitized for output with
+	 * wp_kses(). Only the anchor and its safe attributes are permitted.
+	 *
+	 * @since 2.3.10
+	 * @var array<string, array<string, array<empty, empty>>>
+	 */
+	const ALLOWED_LINK_HTML = array(
+		'a' => array(
+			'href'   => array(),
+			'target' => array(),
+			'rel'    => array(),
+		),
+	);
+
+	/**
 	 * Check if permalinks are set to plain structure.
 	 *
 	 * @since 1.0.0
@@ -45,11 +63,22 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics {
 	 * @return void
 	 */
 	public function woocommerce_missing() {
+		$woocommerce_link = '<a href="https://wordpress.org/plugins/woocommerce/" target="_blank" rel="noopener noreferrer">'
+			. esc_html__( 'WooCommerce', 'product-recommendation-quiz-for-ecommerce' ) . '</a>';
 		?>
 		<div class="error">
-			<p><strong><?php esc_html_e( 'Product Recommendation Quiz for eCommerce requires the WooCommerce plugin to be installed and active. You can download', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://wordpress.org/plugins/woocommerce/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'WooCommerce', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
-				<?php esc_html_e( 'here. If you want this plugin developed for your eCommerce platform, please send us a message.', 'product-recommendation-quiz-for-ecommerce' ); ?></strong></p>
+			<p><strong>
+			<?php
+			echo wp_kses(
+				sprintf(
+					/* translators: %s: link to the WooCommerce plugin on wordpress.org (anchor text "WooCommerce"). */
+					__( 'Product Recommendation Quiz for eCommerce requires the WooCommerce plugin to be installed and active. You can download %s here. If you want this plugin developed for your eCommerce platform, please send us a message.', 'product-recommendation-quiz-for-ecommerce' ),
+					$woocommerce_link
+				),
+				self::ALLOWED_LINK_HTML
+			);
+			?>
+			</strong></p>
 		</div>
 		<?php
 	}
@@ -90,9 +119,24 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics {
 	 */
 	public function plain_permalink_warning() {
 		?>
+		<?php
+		$permalinks_link = '<a href="' . esc_url( admin_url( 'options-permalink.php' ) ) . '">'
+			. esc_html__( 'Settings > Permalinks', 'product-recommendation-quiz-for-ecommerce' ) . '</a>';
+		?>
 		<div class="error">
 			<p><strong><?php esc_html_e( 'Your current permalink structure is set to "Plain". For this plugin to authenticate correctly, a different permalink structure (such as "Post name") is required.', 'product-recommendation-quiz-for-ecommerce' ); ?></strong></p>
-			<p><?php esc_html_e( 'Please update your permalink settings under ', 'product-recommendation-quiz-for-ecommerce' ); ?><a href="<?php echo esc_url( admin_url( 'options-permalink.php' ) ); ?>"><?php esc_html_e( 'Settings > Permalinks', 'product-recommendation-quiz-for-ecommerce' ); ?></a><?php esc_html_e( ' to ensure seamless authentication.', 'product-recommendation-quiz-for-ecommerce' ); ?></p>
+			<p>
+			<?php
+			echo wp_kses(
+				sprintf(
+					/* translators: %s: link to the WordPress "Settings > Permalinks" screen. */
+					__( 'Please update your permalink settings under %s to ensure seamless authentication.', 'product-recommendation-quiz-for-ecommerce' ),
+					$permalinks_link
+				),
+				self::ALLOWED_LINK_HTML
+			);
+			?>
+			</p>
 		</div>
 		<?php
 	}
@@ -105,10 +149,22 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics {
 	 */
 	public function wpml_active() {
 		?>
+		<?php
+		$more_info_link = '<a href="https://revenuehunt.com/faqs/woocommerce-authentication-error-404-not-found-missing-parameter-app-name/" target="_blank" rel="noopener noreferrer">'
+			. esc_html__( 'here', 'product-recommendation-quiz-for-ecommerce' ) . '</a>';
+		?>
 		<div class="error">
-			<p><strong><?php esc_html_e( 'There\'s an issue with the WPML Multilingual CMS plugin which interferes with the authentication process of other plugins. Please deactivate the WPML Multilingual CMS plugin temporarily, you can reactivate it later.', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<?php esc_html_e( 'More info', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://revenuehunt.com/faqs/woocommerce-authentication-error-404-not-found-missing-parameter-app-name/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'here', 'product-recommendation-quiz-for-ecommerce' ); ?></a>.
+			<p><strong>
+			<?php
+			echo wp_kses(
+				sprintf(
+					/* translators: %s: link to the troubleshooting FAQ (anchor text "here"). */
+					__( 'There\'s an issue with the WPML Multilingual CMS plugin which interferes with the authentication process of other plugins. Please deactivate the WPML Multilingual CMS plugin temporarily, you can reactivate it later. More info %s.', 'product-recommendation-quiz-for-ecommerce' ),
+					$more_info_link
+				),
+				self::ALLOWED_LINK_HTML
+			);
+			?>
 			</strong></p>
 		</div>
 		<?php
@@ -122,13 +178,25 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics {
 	 */
 	public function wp_json_error() {
 		?>
+		<?php
+		$rest_api_link  = '<a href="https://developer.wordpress.org/rest-api/" target="_blank" rel="noopener noreferrer">'
+			. esc_html__( 'WordPress REST API', 'product-recommendation-quiz-for-ecommerce' ) . '</a>';
+		$more_info_link = '<a href="https://revenuehunt.com/faqs/woocommerce-authentication-error-404-not-found-missing-parameter-app-name/" target="_blank" rel="noopener noreferrer">'
+			. esc_html__( 'here', 'product-recommendation-quiz-for-ecommerce' ) . '</a>';
+		?>
 		<div class="error">
 			<p><strong>
-				<?php esc_html_e( 'It seems like there\'s something interfering with your', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://developer.wordpress.org/rest-api/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'WordPress REST API', 'product-recommendation-quiz-for-ecommerce' ); ?></a>.
-				<?php esc_html_e( 'This needs to be fixed in order to grant access to this plugin.', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<?php esc_html_e( 'More info', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://revenuehunt.com/faqs/woocommerce-authentication-error-404-not-found-missing-parameter-app-name/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'here', 'product-recommendation-quiz-for-ecommerce' ); ?></a>. <?php esc_html_e( 'We\'re getting the following error accessing your WooCommerce API from our server:', 'product-recommendation-quiz-for-ecommerce' ); ?>
+			<?php
+			echo wp_kses(
+				sprintf(
+					/* translators: 1: link to the WordPress REST API docs (anchor "WordPress REST API"); 2: link to the troubleshooting FAQ (anchor "here"). */
+					__( 'It seems like there\'s something interfering with your %1$s. This needs to be fixed in order to grant access to this plugin. More info %2$s. We\'re getting the following error accessing your WooCommerce API from our server:', 'product-recommendation-quiz-for-ecommerce' ),
+					$rest_api_link,
+					$more_info_link
+				),
+				self::ALLOWED_LINK_HTML
+			);
+			?>
 			</strong></p>
 		</div>
 		<?php
@@ -175,12 +243,33 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics {
 	 */
 	public function migration_warning() {
 		?>
+		<?php
+		$contact_link = '<a href="https://revenuehunt.com/contact/" target="_blank" rel="noopener noreferrer">'
+			. esc_html__( 'contact us', 'product-recommendation-quiz-for-ecommerce' ) . '</a>';
+		?>
 		<div class="error">
-			<p><strong><?php esc_html_e( 'We\'ve detected that you\'ve changed the domain name. We\'re migrating your Product Recommendation Quiz account from', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<?php echo esc_html( get_option( PRQ_OPTION_DOMAIN ) ); ?> <?php esc_html_e( 'to', 'product-recommendation-quiz-for-ecommerce' ); ?> <?php echo esc_html( PRQ_STORE_URL ); ?></p>
-			<p><?php esc_html_e( 'Please', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://revenuehunt.com/contact/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'contact us', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
-				<?php esc_html_e( 'if you encounter any issues.', 'product-recommendation-quiz-for-ecommerce' ); ?></strong></p>
+			<p><strong>
+			<?php
+			printf(
+				/* translators: 1: previous store domain; 2: new store domain. */
+				esc_html__( 'We\'ve detected that you\'ve changed the domain name. We\'re migrating your Product Recommendation Quiz account from %1$s to %2$s', 'product-recommendation-quiz-for-ecommerce' ),
+				esc_html( get_option( PRQ_OPTION_DOMAIN ) ),
+				esc_html( PRQ_STORE_URL )
+			);
+			?>
+			</strong></p>
+			<p><strong>
+			<?php
+			echo wp_kses(
+				sprintf(
+					/* translators: %s: link to the RevenueHunt contact page (anchor "contact us"). */
+					__( 'Please %s if you encounter any issues.', 'product-recommendation-quiz-for-ecommerce' ),
+					$contact_link
+				),
+				self::ALLOWED_LINK_HTML
+			);
+			?>
+			</strong></p>
 		</div>
 		<?php
 	}

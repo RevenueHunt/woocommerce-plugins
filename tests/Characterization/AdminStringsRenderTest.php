@@ -37,6 +37,9 @@ final class AdminStringsRenderTest extends TestCase
         Functions\when('esc_url')->returnArg();
         Functions\when('admin_url')->returnArg();
         Functions\when('plugin_dir_url')->justReturn('');
+        // wp_kses sanitizes the assembled sentence for output; the <a> markup it
+        // keeps is stripped by visibleText() anyway, so identity is sufficient.
+        Functions\when('wp_kses')->returnArg();
 
         ob_start();
         $render();

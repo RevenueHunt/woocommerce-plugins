@@ -39,7 +39,10 @@ final class AdminPageTest extends TestCase
         Functions\when('current_user_can')->justReturn(true);
         Functions\when('site_url')->justReturn('https://example.com');
         Functions\when('wp_parse_url')->justReturn('example.com');
-        Functions\when('esc_html_e')->alias(function ($text) { echo $text; });
+        Functions\when('esc_html__')->returnArg();
+        // woocommerce_missing() assembles a whole sentence and outputs it via
+        // wp_kses(); identity is enough to assert the rendered copy.
+        Functions\when('wp_kses')->returnArg();
 
         // WooCommerce class is not defined in the test harness, so the
         // prerequisite check fails naturally and the notice is rendered.

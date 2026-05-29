@@ -93,7 +93,9 @@ final class DiagnosticsTest extends TestCase
     public function test_check_wpml_blocks_and_warns_on_pre_4_5_wpml(): void
     {
         Functions\when('icl_object_id')->justReturn(0);
-        Functions\when('esc_html_e')->alias(function ($text) { echo $text; });
+        // wpml_active() now emits one whole sentence via wp_kses(sprintf(__())).
+        Functions\when('esc_html__')->returnArg();
+        Functions\when('wp_kses')->returnArg();
         define('ICL_SITEPRESS_VERSION', '4.4.0');
 
         ob_start();

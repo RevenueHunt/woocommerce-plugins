@@ -28,6 +28,23 @@ if ( ! defined( 'WPINC' ) ) {
 class Product_Recommendation_Quiz_For_Ecommerce_Admin_Page {
 
 	/**
+	 * Tags allowed when echoing a translated sentence that embeds a link.
+	 *
+	 * The sentence stays one msgid; the anchor is injected via a sprintf()
+	 * placeholder and sanitized for output with wp_kses().
+	 *
+	 * @since 2.3.10
+	 * @var array<string, array<string, array<empty, empty>>>
+	 */
+	const ALLOWED_LINK_HTML = array(
+		'a' => array(
+			'href'   => array(),
+			'target' => array(),
+			'rel'    => array(),
+		),
+	);
+
+	/**
 	 * Prerequisite checks and diagnostic error screens.
 	 *
 	 * @since    2.3.9
@@ -67,8 +84,17 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Page {
 			<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'img/revenuehunt-logo.png' ); ?>" width="24" height="24" alt="<?php esc_attr_e( 'RevenueHunt', 'product-recommendation-quiz-for-ecommerce' ); ?>" />
 			<p class="fright h-24 mtop-0 prq-author">
 				<?php esc_html_e( 'Product Recommendation Quiz for eCommerce', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<span class="fright"><?php esc_html_e( 'by', 'product-recommendation-quiz-for-ecommerce' ); ?>
-					<a href="https://revenuehunt.com/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'RevenueHunt', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
+				<span class="fright">
+				<?php
+				echo wp_kses(
+					sprintf(
+						/* translators: %s: link to the RevenueHunt website (anchor "RevenueHunt"). */
+						__( 'by %s', 'product-recommendation-quiz-for-ecommerce' ),
+						'<a href="https://revenuehunt.com/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'RevenueHunt', 'product-recommendation-quiz-for-ecommerce' ) . '</a>'
+					),
+					self::ALLOWED_LINK_HTML
+				);
+				?>
 				</span>
 			</p>
 			<iframe title="<?php esc_attr_e( 'Product Recommendation Quiz for eCommerce', 'product-recommendation-quiz-for-ecommerce' ); ?>" src="<?php echo esc_url( $this->oauth_url_builder->prquiz_get_oauth_url() ); ?>" name="app-iframe" context="Main" class="prq-iframe"></iframe>
@@ -88,8 +114,17 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Page {
 			<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'img/revenuehunt-logo.png' ); ?>" width="24" height="24" alt="<?php esc_attr_e( 'RevenueHunt', 'product-recommendation-quiz-for-ecommerce' ); ?>" />
 			<p class="fright h-24 mtop-0 prq-author">
 				<?php esc_html_e( 'Product Recommendation Quiz for eCommerce', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<span class="fright"><?php esc_html_e( 'by', 'product-recommendation-quiz-for-ecommerce' ); ?>
-					<a href="https://revenuehunt.com/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'RevenueHunt', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
+				<span class="fright">
+				<?php
+				echo wp_kses(
+					sprintf(
+						/* translators: %s: link to the RevenueHunt website (anchor "RevenueHunt"). */
+						__( 'by %s', 'product-recommendation-quiz-for-ecommerce' ),
+						'<a href="https://revenuehunt.com/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'RevenueHunt', 'product-recommendation-quiz-for-ecommerce' ) . '</a>'
+					),
+					self::ALLOWED_LINK_HTML
+				);
+				?>
 				</span>
 			</p>
 			<hr>
@@ -100,8 +135,18 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Page {
 				<a class="btn btn-main" href="<?php echo esc_url( $this->oauth_url_builder->prquiz_get_woocommerce_auth_url() ); ?>"><?php esc_html_e( 'grant permission now', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
 			</p>
 			<p class="alcenter mtop-30">
-				<?php esc_html_e( 'Are you having trouble granting access? ', 'product-recommendation-quiz-for-ecommerce' ); ?><?php esc_html_e( 'Check out ', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://revenuehunt.com/faqs/troubleshooting-product-recommendation-quiz-app-issues-for-wordpress-woocommerce/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'this article', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
+			<?php
+			$article_link = '<a href="https://revenuehunt.com/faqs/troubleshooting-product-recommendation-quiz-app-issues-for-wordpress-woocommerce/" target="_blank" rel="noopener noreferrer">'
+				. esc_html__( 'this article', 'product-recommendation-quiz-for-ecommerce' ) . '</a>';
+			echo wp_kses(
+				sprintf(
+					/* translators: %s: link to the troubleshooting article (anchor "this article"). */
+					__( 'Are you having trouble granting access? Check out %s', 'product-recommendation-quiz-for-ecommerce' ),
+					$article_link
+				),
+				self::ALLOWED_LINK_HTML
+			);
+			?>
 			</p>
 		</div>
 		<?php
