@@ -62,11 +62,10 @@
 					} ),
 					el( SelectControl, {
 						label: __( 'Height unit', domain ),
-						help: __( 'Percent is relative to the surrounding container and can collapse if that container has no set height; pixels and vh render predictably everywhere.', domain ),
+						help: __( 'Pixels is a fixed height; vh is a percentage of the screen height.', domain ),
 						value: attributes.heightUnit,
 						options: [
 							{ label: __( 'Pixels (px)', domain ), value: 'px' },
-							{ label: __( 'Percent (%)', domain ), value: '%' },
 							{ label: __( 'Viewport height (vh)', domain ), value: 'vh' }
 						],
 						onChange: function ( value ) {
@@ -94,10 +93,8 @@
 
 			var content;
 			if ( attributes.id ) {
-				// Live preview honors the chosen unit literally, matching what the
-				// published page emits. A '%' height is relative to the surrounding
-				// container, which the editor canvas doesn't define, so it may
-				// resolve short here — min-height keeps the preview visible.
+				// Live preview honors the chosen unit (px/vh) literally, matching
+				// what the published page emits; min-height keeps it visible.
 				content = el( 'iframe', {
 					src: adminOrigin + '/public/quiz/' + encodeURIComponent( attributes.id ),
 					title: __( 'Product Recommendation Quiz preview', domain ),

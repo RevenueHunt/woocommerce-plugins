@@ -140,7 +140,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 	 * @since 2.4.0
 	 * @param array<string, mixed> $atts Placement attributes: 'id' (quiz id, required),
 	 *                                   'height' (number, default 600), 'height_unit'
-	 *                                   ('px'|'%'|'vh', default 'px'), 'fixed_height'
+	 *                                   ('px'|'vh', default 'px'), 'fixed_height'
 	 *                                   (bool, default false), 'autoscroll' (bool, default true).
 	 * @return string The placement HTML, or '' when no quiz id is given.
 	 */
@@ -156,7 +156,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 		}
 
 		$unit = isset( $atts['height_unit'] ) ? (string) $atts['height_unit'] : 'px';
-		if ( ! in_array( $unit, array( 'px', '%', 'vh' ), true ) ) {
+		if ( ! in_array( $unit, array( 'px', 'vh' ), true ) ) {
 			$unit = 'px';
 		}
 

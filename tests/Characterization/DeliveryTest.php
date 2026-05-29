@@ -139,18 +139,19 @@ final class DeliveryTest extends TestCase
         Functions\when('wp_enqueue_script')->justReturn(true);
         Functions\when('wp_localize_script')->justReturn(true);
 
-        $html = $this->delivery()->render(['id' => 'abc', 'height' => 80, 'height_unit' => '%']);
-        $this->assertStringContainsString('height:80%;', $html);
+        $html = $this->delivery()->render(['id' => 'abc', 'height' => 80, 'height_unit' => 'vh']);
+        $this->assertStringContainsString('height:80vh;', $html);
     }
 
-    public function test_render_falls_back_to_px_for_invalid_unit(): void
+    public function test_render_falls_back_to_px_for_unsupported_unit(): void
     {
         Functions\when('esc_url')->returnArg();
         Functions\when('wp_enqueue_script')->justReturn(true);
         Functions\when('wp_localize_script')->justReturn(true);
 
-        $html = $this->delivery()->render(['id' => 'abc', 'height' => 500, 'height_unit' => 'furlongs']);
-        $this->assertStringContainsString('height:500px;', $html);
+        // Only px and vh are supported; anything else (incl. the removed '%') -> px.
+        $this->assertStringContainsString('height:500px;', $this->delivery()->render(['id' => 'abc', 'height' => 500, 'height_unit' => '%']));
+        $this->assertStringContainsString('height:500px;', $this->delivery()->render(['id' => 'abc', 'height' => 500, 'height_unit' => 'furlongs']));
     }
 
     public function test_render_returns_empty_and_does_not_enqueue_without_id(): void
