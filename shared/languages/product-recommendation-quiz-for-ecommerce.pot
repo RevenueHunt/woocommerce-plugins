@@ -9,16 +9,16 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-29T10:46:44+00:00\n"
+"POT-Creation-Date: 2026-05-29T17:20:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: product-recommendation-quiz-for-ecommerce\n"
 
 #. Plugin Name of the plugin
 #: product-recommendation-quiz-for-ecommerce.php
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:86
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:100
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:116
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:96
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:111
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:127
 msgid "Product Recommendation Quiz for eCommerce"
 msgstr ""
 
@@ -34,10 +34,10 @@ msgstr ""
 
 #. Author of the plugin
 #: product-recommendation-quiz-for-ecommerce.php
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:84
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:93
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:114
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:123
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:94
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:103
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:125
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:134
 msgid "RevenueHunt"
 msgstr ""
 
@@ -128,48 +128,100 @@ msgid "Product Quiz"
 msgstr ""
 
 #. translators: %s: link to the RevenueHunt website (anchor "RevenueHunt").
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:92
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:122
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:102
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:133
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:131
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:142
 msgid "Congratulations!"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:132
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:143
 msgid "You're one step away from getting more conversions and sales in your store."
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:133
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:144
 msgid "We just need you to grant this plugin permission to access your WooCommerce store:"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:135
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:146
 msgid "grant permission now"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:140
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:151
 msgid "this article"
 msgstr ""
 
 #. translators: %s: link to the troubleshooting article (anchor "this article").
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:144
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:155
 #, php-format
 msgid "Are you having trouble granting access? Check out %s"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:168
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:179
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:169
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:180
 msgid "Permission Denied"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:220
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:231
 msgid "The cURL extension is required but not installed on your server."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:72
+msgid "Connection status"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:75
+msgid "Connection"
+msgstr ""
+
+#. translators: %s: backend host the store is connected to.
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:81
+#, php-format
+msgid "Connected to %s"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:85
+msgid "Not connected"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:91
+msgid "Store domain"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:95
+msgid "WordPress version"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:99
+msgid "WooCommerce version"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:100
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:104
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:108
+msgid "None detected"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:103
+msgid "Translation plugin"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:107
+msgid "Multi-currency plugin"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:111
+msgid "Base language"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php:115
+msgid "Base currency"
 msgstr ""
 
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:176
@@ -182,4 +234,34 @@ msgstr ""
 
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:219
 msgid "Invalid api_key format."
+msgstr ""
+
+#: front/blocks/quiz/block.json
+msgctxt "block title"
+msgid "Product Recommendation Quiz"
+msgstr ""
+
+#: front/blocks/quiz/block.json
+msgctxt "block description"
+msgid "Embed a RevenueHunt product recommendation quiz inline on this page."
+msgstr ""
+
+#: front/blocks/quiz/block.json
+msgctxt "block keyword"
+msgid "quiz"
+msgstr ""
+
+#: front/blocks/quiz/block.json
+msgctxt "block keyword"
+msgid "recommendation"
+msgstr ""
+
+#: front/blocks/quiz/block.json
+msgctxt "block keyword"
+msgid "revenuehunt"
+msgstr ""
+
+#: front/blocks/quiz/block.json
+msgctxt "block keyword"
+msgid "product finder"
 msgstr ""

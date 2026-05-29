@@ -83,6 +83,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Autoloader {
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Environment':
 				require_once plugin_dir_path( __DIR__ ) . 'admin/class-product-recommendation-quiz-for-ecommerce-environment.php';
 				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_Admin_Status_Panel':
+				require_once plugin_dir_path( __DIR__ ) . 'admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php';
+				break;
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder':
 				require_once plugin_dir_path( __DIR__ ) . 'admin/class-product-recommendation-quiz-for-ecommerce-admin-oauth-url-builder.php';
 				break;

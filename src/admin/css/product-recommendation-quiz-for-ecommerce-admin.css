@@ -75,3 +75,42 @@ a.btn:hover{
     margin-left: -21px !important;
     height: calc(100vh - 85px) !important;
 }
+
+.prq-status-panel{
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 12px 0;
+}
+
+.prq-status-title{
+    font-size: 14px;
+    margin: 0 0 8px;
+}
+
+.prq-status-list{
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 4px 24px;
+}
+
+.prq-status-list li{
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid #f0f0f1;
+    font-size: 13px;
+}
+
+.prq-status-label{
+    color: #646970;
+}
+
+.prq-status-value{
+    font-weight: 600;
+    text-align: right;
+}
