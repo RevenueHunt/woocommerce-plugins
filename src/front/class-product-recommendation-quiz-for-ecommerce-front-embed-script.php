@@ -45,6 +45,18 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 	private $version;
 
 	/**
+	 * Whether the full-width breakout CSS has already been emitted this request.
+	 *
+	 * The resolver builds one delivery instance per request shared by every
+	 * placement (shortcode + block), so this instance flag prints the small
+	 * scoped <style> at most once even with several full-width quizzes on a page.
+	 *
+	 * @since 2.4.0
+	 * @var bool
+	 */
+	private $full_width_css_printed = false;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    2.3.9
@@ -137,11 +149,18 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 	 * embed.js — the quiz expands to fit content and auto-scrolls — so an
 	 * attribute is only emitted to opt OUT.
 	 *
+	 * Full-width is a plugin-side wrapper concern, NOT an embed.js attribute: when
+	 * 'full_width' is set the same hydration container is wrapped in a breakout
+	 * element so it spans the viewport instead of the content column. The inner
+	 * `rh-widget rh-inline` element is byte-identical either way, so the embed.js
+	 * contract is untouched.
+	 *
 	 * @since 2.4.0
 	 * @param array<string, mixed> $atts Placement attributes: 'id' (quiz id, required),
 	 *                                   'height' (number, default 600), 'height_unit'
 	 *                                   ('px'|'vh', default 'px'), 'fixed_height'
-	 *                                   (bool, default false), 'autoscroll' (bool, default true).
+	 *                                   (bool, default false), 'autoscroll' (bool, default true),
+	 *                                   'full_width' (bool, default false).
 	 * @return string The placement HTML, or '' when no quiz id is given.
 	 */
 	public function render( array $atts ): string {
@@ -175,13 +194,44 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 
 		$quiz_url = $this->admin_origin() . '/public/quiz/' . rawurlencode( $quiz_id );
 
-		return sprintf(
+		$container = sprintf(
 			'<div class="rh-widget rh-inline" data-url="%s"%s style="margin:10px auto;width:100%%;height:%d%s;display:flex;"></div>',
 			esc_url( $quiz_url ),
 			$data_attrs,
 			$height,
 			$unit
 		);
+
+		if ( ! empty( $atts['full_width'] ) ) {
+			return $this->wrap_full_width( $container );
+		}
+
+		return $container;
+	}
+
+	/**
+	 * Wrap an inline placement so it breaks out of the content column to span the
+	 * full viewport width.
+	 *
+	 * The wrapper carries the breakout CSS via a scoped class; the inner
+	 * container keeps its `width:100%`, which now resolves to 100% of the
+	 * full-viewport-wide wrapper. The technique is the standard, theme-agnostic
+	 * negative-margin breakout (`margin-left/right: calc(50% - 50vw)`, the same
+	 * math WordPress's `alignfull` uses), with `max-width:100vw` as the overflow
+	 * guard. The scoped <style> is printed at most once per request.
+	 *
+	 * @since 2.4.0
+	 * @param string $container The inline hydration container to wrap.
+	 * @return string The full-width wrapper markup, plus the scoped CSS on first use.
+	 */
+	private function wrap_full_width( string $container ): string {
+		$style = '';
+		if ( ! $this->full_width_css_printed ) {
+			$this->full_width_css_printed = true;
+			$style                        = '<style id="prq-full-width-css">.prq-quiz--full-width{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}</style>';
+		}
+
+		return $style . '<div class="prq-quiz prq-quiz--full-width">' . $container . '</div>';
 	}
 
 	/**

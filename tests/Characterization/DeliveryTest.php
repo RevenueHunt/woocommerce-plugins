@@ -154,6 +154,51 @@ final class DeliveryTest extends TestCase
         $this->assertStringContainsString('height:500px;', $this->delivery()->render(['id' => 'abc', 'height' => 500, 'height_unit' => 'furlongs']));
     }
 
+    public function test_render_default_is_not_full_width(): void
+    {
+        Functions\when('esc_url')->returnArg();
+        Functions\when('wp_enqueue_script')->justReturn(true);
+        Functions\when('wp_localize_script')->justReturn(true);
+
+        // No full_width -> bare container, no wrapper, no breakout CSS.
+        $html = $this->delivery()->render(['id' => 'abc']);
+        $this->assertStringNotContainsString('prq-quiz--full-width', $html);
+        $this->assertStringNotContainsString('<style', $html);
+    }
+
+    public function test_render_wraps_full_width_with_breakout_css(): void
+    {
+        Functions\when('esc_url')->returnArg();
+        Functions\when('wp_enqueue_script')->justReturn(true);
+        Functions\when('wp_localize_script')->justReturn(true);
+
+        $html = $this->delivery()->render(['id' => 'abc', 'full_width' => true]);
+
+        // The inner hydration container is unchanged (embed.js contract intact)...
+        $this->assertStringContainsString('<div class="rh-widget rh-inline" data-url="https://admin.revenuehunt.com/public/quiz/abc"', $html);
+        // ...wrapped in the breakout element, with the scoped breakout CSS.
+        $this->assertStringContainsString('<div class="prq-quiz prq-quiz--full-width">', $html);
+        $this->assertStringContainsString('.prq-quiz--full-width{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}', $html);
+    }
+
+    public function test_render_emits_breakout_css_only_once_per_request(): void
+    {
+        Functions\when('esc_url')->returnArg();
+        Functions\when('wp_enqueue_script')->justReturn(true);
+        Functions\when('wp_localize_script')->justReturn(true);
+
+        // One delivery instance per request (the resolver shares it across
+        // shortcode + block), so a second full-width quiz reuses the same <style>.
+        $delivery = $this->delivery();
+        $first    = $delivery->render(['id' => 'abc', 'full_width' => true]);
+        $second   = $delivery->render(['id' => 'def', 'full_width' => true]);
+
+        $this->assertStringContainsString('<style id="prq-full-width-css">', $first);
+        $this->assertStringNotContainsString('<style', $second);
+        // Both still get the breakout wrapper.
+        $this->assertStringContainsString('prq-quiz--full-width', $second);
+    }
+
     public function test_render_returns_empty_and_does_not_enqueue_without_id(): void
     {
         Functions\expect('wp_enqueue_script')->never();
