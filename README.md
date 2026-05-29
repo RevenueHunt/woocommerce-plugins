@@ -5,7 +5,7 @@ One source of truth for both distributions of the **Product Recommendation Quiz*
 | Artifact | Slug | Distribution |
 |---|---|---|
 | WP Plugin (eCommerce) | `product-recommendation-quiz-for-ecommerce` | wordpress.org (free) |
-| WooCommerce Extension | `product-recommendation-quiz-for-woocommerce` | woocommerce.com (paid channel) |
+| WooCommerce Extension | `product-recommendation-quiz-for-woocommerce` | woocommerce.com (free) |
 
 Both plugins are ~identical thin wrappers that enqueue `embed.js` and drive the
 WooCommerce OAuth/token flow. They used to be maintained as two drifting copies;
