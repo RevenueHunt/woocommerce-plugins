@@ -1,6 +1,6 @@
 <?php
 /**
- * The admin-specific functionality of the plugin.
+ * The admin menu and admin-area asset registration.
  *
  * @link       https://revenuehunt.com/
  * @since      1.0.0
@@ -15,15 +15,14 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * The admin-specific functionality of the plugin.
+ * Registers the admin menu and admin-area assets.
  *
- * Registers the admin menu and admin-area assets, delegating the settings-page
- * rendering to the admin page unit.
+ * Delegates the settings-page rendering to the admin page unit.
  *
  * @package    Product_Recommendation_Quiz_For_Ecommerce
  * @subpackage Product_Recommendation_Quiz_For_Ecommerce/admin
  */
-class Product_Recommendation_Quiz_For_Ecommerce_Admin {
+class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 
 	/**
 	 * The ID of this plugin.
@@ -53,8 +52,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $plugin_name       The name of this plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
@@ -113,5 +112,4 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 			58
 		);
 	}
-
 }

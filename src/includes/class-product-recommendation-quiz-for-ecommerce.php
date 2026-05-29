@@ -226,7 +226,7 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 	 *
 	 * - Product_Recommendation_Quiz_For_Ecommerce_Loader. Orchestrates the hooks of the plugin.
 	 * - Product_Recommendation_Quiz_For_Ecommerce_I18n. Defines internationalization functionality.
-	 * - Product_Recommendation_Quiz_For_Ecommerce_Admin. Defines all hooks for the admin area.
+	 * - Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu. Defines all hooks for the admin area.
 	 * - Product_Recommendation_Quiz_For_Ecommerce_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
@@ -262,7 +262,7 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 	 * @since    1.0.0
 	 */
 	private function define_admin_hooks() {
-		$plugin_admin = new Product_Recommendation_Quiz_For_Ecommerce_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'my_plugin_menu' );

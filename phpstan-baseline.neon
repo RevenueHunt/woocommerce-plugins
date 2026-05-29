@@ -6,6 +6,26 @@ parameters:
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php
 
 		-
+			message: "#^Constant PRQ_ADMIN_URL not found\\.$#"
+			count: 1
+			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php
+
+		-
+			message: "#^Constant PRQ_STORE_URL not found\\.$#"
+			count: 2
+			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php
+
+		-
+			message: "#^Constant PRQ_WOO_VERSION not found\\.$#"
+			count: 1
+			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php
+
+		-
+			message: "#^Constant PRQ_WP_VERSION not found\\.$#"
+			count: 1
+			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php
+
+		-
 			message: "#^Constant PRQ_API_URL not found\\.$#"
 			count: 1
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-oauth-url-builder.php
@@ -29,26 +49,6 @@ parameters:
 			message: "#^Constant PRQ_STORE_URL not found\\.$#"
 			count: 2
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php
-
-		-
-			message: "#^Constant PRQ_ADMIN_URL not found\\.$#"
-			count: 1
-			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php
-
-		-
-			message: "#^Constant PRQ_STORE_URL not found\\.$#"
-			count: 2
-			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php
-
-		-
-			message: "#^Constant PRQ_WOO_VERSION not found\\.$#"
-			count: 1
-			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php
-
-		-
-			message: "#^Constant PRQ_WP_VERSION not found\\.$#"
-			count: 1
-			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php
 
 		-
 			message: "#^Constant PRQ_ADMIN_URL not found\\.$#"
