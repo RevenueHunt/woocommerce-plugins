@@ -50,6 +50,14 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 	private $diagnostics;
 
 	/**
+	 * Connection-layer URL builder (WooCommerce OAuth handshake).
+	 *
+	 * @since    2.3.9
+	 * @var      Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder    $oauth_url_builder    URL builder.
+	 */
+	private $oauth_url_builder;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -58,9 +66,10 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
-		$this->diagnostics = new Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics();
+		$this->plugin_name       = $plugin_name;
+		$this->version           = $version;
+		$this->diagnostics       = new Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics();
+		$this->oauth_url_builder = new Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder();
 	}
 
 	/**
@@ -97,85 +106,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 	}
 
 	/**
-	 * Get WooCommerce authorization URL for initial plugin setup.
-	 *
-	 * @since 1.0.0
-	 * @return string The WooCommerce authorization URL.
-	 */
-	public function prquiz_get_woocommerce_auth_url() {
-		$auth_base    = get_site_url( null, '/wc-auth/v1/authorize/' );
-		$return_url   = admin_url( 'admin.php?page=prqfw' );
-		$callback_url = PRQ_API_URL . '/api/v1/woocommerce/create';
-
-		$params = array(
-			'app_name'     => 'Product Recommendation Quiz',
-			'scope'        => 'read_write',
-			'user_id'      => PRQ_STORE_URL,
-			'return_url'   => $return_url,
-			'callback_url' => $callback_url,
-		);
-
-		// Add PHP_QUERY_RFC3986 so spaces are encoded as %20 and not +
-		$query = http_build_query( $params, '', '&', PHP_QUERY_RFC3986 );
-
-		return $auth_base . '?' . $query;
-	}
-	
-	/**
-	 * Get OAuth URL for authenticated admin panel access.
-	 *
-	 * @since 1.0.0
-	 * @return string The OAuth URL with all required parameters.
-	 */
-	public function prquiz_get_oauth_url() {
-		if ( Product_Recommendation_Quiz_For_Ecommerce::is_development_environment() ) {
-			$oauth_url = 'http://localhost:9528/public/woocommerce/oauth';
-		} else {
-			$oauth_url = 'https://admin.revenuehunt.com/public/woocommerce/oauth';
-		}
-
-		$shop_hashid = get_option( PRQ_OPTION_SHOP_HASHID );
-		$api_key     = get_option( PRQ_OPTION_API_KEY );
-		$country     = function_exists( 'WC' ) && WC() && WC()->countries ? WC()->countries->get_base_country() : '';
-		$time        = time();
-
-		$data = sprintf(
-			'hashid=%s&domain=%s&plugin_version=%s&timestamp=%s',
-			$shop_hashid,
-			PRQ_STORE_URL,
-			PRQ_PLUGIN_VERSION,
-			(string) $time
-		);
-		$hmac = base64_encode( hash_hmac( 'sha256', $data, $api_key, true ) );
-
-		$locale_parts = explode( '_', get_locale() );
-		$locale       = isset( $locale_parts[0] ) ? $locale_parts[0] : 'en';
-
-		$params = array(
-			'timestamp'      => $time,
-			'domain'         => PRQ_STORE_URL,
-			'shop_hashid'    => $shop_hashid,
-			'channel'        => 'wordpress',
-			'country'        => $country,
-			'plugin_version' => PRQ_PLUGIN_VERSION,
-			'woo_version'    => PRQ_WOO_VERSION,
-			'wp_version'     => PRQ_WP_VERSION,
-			'name'           => get_bloginfo( 'name' ),
-			'email'          => get_bloginfo( 'admin_email' ),
-			'locale'         => $locale,
-			'timezone'       => get_option( 'gmt_offset' ),
-			'currency'       => function_exists( 'get_woocommerce_currency' ) ? get_woocommerce_currency() : '',
-			'symbol'         => function_exists( 'get_woocommerce_currency_symbol' ) ? html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ) : '',
-			'hmac'           => $hmac,
-		);
-
-		// Use PHP_QUERY_RFC3986 so spaces are encoded as %20 and not +
-		$query = http_build_query( $params, '', '&', PHP_QUERY_RFC3986 );
-
-		return $oauth_url . '?' . $query;
-	}
-
-	/**
 	 * Display the authenticated admin panel with iframe.
 	 *
 	 * @since 1.0.0
@@ -191,7 +121,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 					<a href="https://revenuehunt.com/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'RevenueHunt', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
 				</span>
 			</p>
-			<iframe title="<?php esc_attr_e( 'Product Recommendation Quiz for eCommerce', 'product-recommendation-quiz-for-ecommerce' ); ?>" src="<?php echo esc_url( $this->prquiz_get_oauth_url() ); ?>" name="app-iframe" context="Main" class="prq-iframe"></iframe>
+			<iframe title="<?php esc_attr_e( 'Product Recommendation Quiz for eCommerce', 'product-recommendation-quiz-for-ecommerce' ); ?>" src="<?php echo esc_url( $this->oauth_url_builder->prquiz_get_oauth_url() ); ?>" name="app-iframe" context="Main" class="prq-iframe"></iframe>
 		</div>
 		<?php
 	}
@@ -217,7 +147,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 			<p class="lg alcenter"><?php esc_html_e( 'You\'re one step away from getting more conversions and sales in your store.', 'product-recommendation-quiz-for-ecommerce' ); ?></p>
 			<p class="lg alcenter"><?php esc_html_e( 'We just need you to grant this plugin permission to access your WooCommerce store:', 'product-recommendation-quiz-for-ecommerce' ); ?></p>
 			<p class="lg alcenter mtop-30">
-				<a class="btn btn-main" href="<?php echo esc_url( $this->prquiz_get_woocommerce_auth_url() ); ?>"><?php esc_html_e( 'grant permission now', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
+				<a class="btn btn-main" href="<?php echo esc_url( $this->oauth_url_builder->prquiz_get_woocommerce_auth_url() ); ?>"><?php esc_html_e( 'grant permission now', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
 			</p>
 			<p class="alcenter mtop-30">
 				<?php esc_html_e( 'Are you having trouble granting access? ', 'product-recommendation-quiz-for-ecommerce' ); ?><?php esc_html_e( 'Check out ', 'product-recommendation-quiz-for-ecommerce' ); ?>
