@@ -37,7 +37,7 @@ svn cp ^/product-recommendation-quiz-for-ecommerce/trunk \
 The wp.org **listing** reads `trunk/README.txt`; the **download** is served from
 `tags/X.Y.Z/`. A matching SVN tag is required for the new version to publish.
 
-## woocommerce.com (paid channel)
+## woocommerce.com (free channel)
 
 ```bash
 cd build

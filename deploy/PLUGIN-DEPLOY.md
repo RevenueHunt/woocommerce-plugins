@@ -7,7 +7,7 @@ Two plugins, two pipelines. Keep this short. Full SOPs live next to each codebas
 | | WP Plugin (eCommerce) | WooCommerce Extension |
 |---|---|---|
 | Slug | `product-recommendation-quiz-for-ecommerce` | `product-recommendation-quiz-for-woocommerce` |
-| Distribution | wordpress.org (free) | woocommerce.com marketplace (paid) |
+| Distribution | wordpress.org (free) | woocommerce.com marketplace (free) |
 | Local source | `~/Projects/RevenueHunt/woocommerce/svn-wporg/trunk/` (SVN checkout — **deploy target only**) | `~/Projects/local/productrecommendationquiz/app/public/wp-content/plugins/product-recommendation-quiz-for-woocommerce/` (git, master) |
 | Remote | `https://plugins.svn.wordpress.org/product-recommendation-quiz-for-ecommerce/` | `keybase://team/revenuehunt.admin/woocommerce` |
 | Deploy mechanism | SVN trunk + tag | Keybase git push + ZIP upload to vendor dashboard |
