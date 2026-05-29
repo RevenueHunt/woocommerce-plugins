@@ -40,6 +40,7 @@ final class CoreBootstrapTest extends TestCase
         $this->assertContains('admin_enqueue_scripts', $GLOBALS['__prq_actions']);
         $this->assertContains('admin_menu', $GLOBALS['__prq_actions']);
         $this->assertContains('wp_enqueue_scripts', $GLOBALS['__prq_actions']);
+        $this->assertContains('init', $GLOBALS['__prq_actions']); // shortcode registration
         $this->assertContains('script_loader_tag', $GLOBALS['__prq_filters']);
     }
 }

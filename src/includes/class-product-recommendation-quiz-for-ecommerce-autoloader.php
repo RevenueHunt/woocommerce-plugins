@@ -86,6 +86,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Autoloader {
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Delivery_Resolver':
 				require_once plugin_dir_path( __DIR__ ) . 'front/class-product-recommendation-quiz-for-ecommerce-delivery-resolver.php';
 				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode':
+				require_once plugin_dir_path( __DIR__ ) . 'front/class-product-recommendation-quiz-for-ecommerce-front-shortcode.php';
+				break;
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller':
 				require_once plugin_dir_path( __DIR__ ) . 'rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php';
 				break;

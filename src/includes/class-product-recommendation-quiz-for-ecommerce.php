@@ -215,15 +215,18 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 	 * @since    1.0.0
 	 */
 	public function run() {
-		$i18n  = new Product_Recommendation_Quiz_For_Ecommerce_I18n();
-		$menu  = new Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu( $this->plugin_name, $this->version );
-		$embed = new Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script( $this->plugin_name, $this->version );
+		$i18n      = new Product_Recommendation_Quiz_For_Ecommerce_I18n();
+		$menu      = new Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu( $this->plugin_name, $this->version );
+		$embed     = new Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script( $this->plugin_name, $this->version );
+		$delivery  = Product_Recommendation_Quiz_For_Ecommerce_Delivery_Resolver::resolve( $this->plugin_name, $this->version );
+		$shortcode = new Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode( $delivery );
 
 		add_action( 'plugins_loaded', array( $i18n, 'load_plugin_textdomain' ) );
 		add_action( 'admin_enqueue_scripts', array( $menu, 'enqueue_scripts' ) );
 		add_action( 'admin_menu', array( $menu, 'my_plugin_menu' ) );
 		add_action( 'wp_enqueue_scripts', array( $embed, 'enqueue_scripts' ) );
 		add_filter( 'script_loader_tag', array( $embed, 'add_async_to_embed_script' ), 10, 3 );
+		add_action( 'init', array( $shortcode, 'register' ) );
 	}
 
 }
