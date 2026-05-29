@@ -26,6 +26,7 @@
   "scripts": {
     "test": "phpunit",
     "build": "php tools/build.php all",
+    "i18n:pot": "bash tools/make-pot.sh",
     "lint": "phpcs",
     "lint:fix": "phpcbf",
     "analyse": "phpstan analyse --memory-limit=1G",
