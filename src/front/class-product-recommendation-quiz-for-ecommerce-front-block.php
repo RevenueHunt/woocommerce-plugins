@@ -90,7 +90,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Block {
 	 *
 	 * @since 2.4.0
 	 * @param array<string, mixed> $attributes Block attributes ('id', 'height',
-	 *                                         'heightUnit', 'fixedHeight', 'autoscroll').
+	 *                                         'heightUnit', 'fixedHeight', 'autoscroll',
+	 *                                         'fullWidth').
 	 * @return string The placement HTML, or '' when no quiz id is set.
 	 */
 	public function render_block( $attributes ) {
@@ -101,6 +102,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Block {
 				'height_unit'  => isset( $attributes['heightUnit'] ) ? $attributes['heightUnit'] : 'px',
 				'fixed_height' => ! empty( $attributes['fixedHeight'] ),
 				'autoscroll'   => ! isset( $attributes['autoscroll'] ) || (bool) $attributes['autoscroll'],
+				'full_width'   => ! empty( $attributes['fullWidth'] ),
 			)
 		);
 	}

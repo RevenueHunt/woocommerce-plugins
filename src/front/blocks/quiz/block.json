@@ -33,6 +33,10 @@
 		"autoscroll": {
 			"type": "boolean",
 			"default": true
+		},
+		"fullWidth": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"editorScript": "product-recommendation-quiz-for-ecommerce-block-editor"

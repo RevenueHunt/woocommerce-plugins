@@ -75,6 +75,7 @@ final class FrontBlockTest extends TestCase
                 'height_unit'  => '%',
                 'fixed_height' => true,
                 'autoscroll'   => false,
+                'full_width'   => true,
             ])
             ->andReturn('<div class="rh-widget rh-inline"></div>');
 
@@ -85,6 +86,7 @@ final class FrontBlockTest extends TestCase
             'heightUnit' => '%',
             'fixedHeight' => true,
             'autoscroll' => false,
+            'fullWidth'  => true,
         ]);
 
         $this->assertSame('<div class="rh-widget rh-inline"></div>', $out);
@@ -101,6 +103,7 @@ final class FrontBlockTest extends TestCase
                 'height_unit'  => 'px',
                 'fixed_height' => false,
                 'autoscroll'   => true,
+                'full_width'   => false,
             ])
             ->andReturn('');
 

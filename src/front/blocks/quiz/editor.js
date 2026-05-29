@@ -23,7 +23,6 @@
 	var SelectControl = components.SelectControl;
 	var ToggleControl = components.ToggleControl;
 	var Placeholder = components.Placeholder;
-	var domain = 'product-recommendation-quiz-for-ecommerce';
 
 	// Origin of the hosted quiz, provided by PHP (respects dev/prod); falls back
 	// to production if the localized data is unavailable.
@@ -42,50 +41,58 @@
 				null,
 				el(
 					PanelBody,
-					{ title: __( 'Quiz settings', domain ), initialOpen: true },
+					{ title: __( 'Quiz settings', 'product-recommendation-quiz-for-ecommerce' ), initialOpen: true },
 					el( TextControl, {
-						label: __( 'Quiz ID', domain ),
-						help: __( 'The code from your quiz Share link, e.g. the CODE in /public/quiz/CODE.', domain ),
+						label: __( 'Quiz ID', 'product-recommendation-quiz-for-ecommerce' ),
+						help: __( 'The code from your quiz Share link, e.g. the CODE in /public/quiz/CODE.', 'product-recommendation-quiz-for-ecommerce' ),
 						value: attributes.id,
 						onChange: function ( value ) {
 							setAttributes( { id: value } );
 						}
 					} ),
 					el( TextControl, {
-						label: __( 'Quiz height', domain ),
+						label: __( 'Quiz height', 'product-recommendation-quiz-for-ecommerce' ),
 						type: 'number',
-						help: __( 'Initial height of the quiz. If it is not tall enough, it expands to fit the content after the first question (unless a fixed height is set).', domain ),
+						help: __( 'Initial height of the quiz. If it is not tall enough, it expands to fit the content after the first question (unless a fixed height is set).', 'product-recommendation-quiz-for-ecommerce' ),
 						value: attributes.height,
 						onChange: function ( value ) {
 							setAttributes( { height: parseInt( value, 10 ) || 0 } );
 						}
 					} ),
 					el( SelectControl, {
-						label: __( 'Height unit', domain ),
-						help: __( 'Pixels is a fixed height; vh is a percentage of the screen height.', domain ),
+						label: __( 'Height unit', 'product-recommendation-quiz-for-ecommerce' ),
+						help: __( 'Pixels is a fixed height; vh is a percentage of the screen height.', 'product-recommendation-quiz-for-ecommerce' ),
 						value: attributes.heightUnit,
 						options: [
-							{ label: __( 'Pixels (px)', domain ), value: 'px' },
-							{ label: __( 'Viewport height (vh)', domain ), value: 'vh' }
+							{ label: __( 'Pixels (px)', 'product-recommendation-quiz-for-ecommerce' ), value: 'px' },
+							{ label: __( 'Viewport height (vh)', 'product-recommendation-quiz-for-ecommerce' ), value: 'vh' }
 						],
 						onChange: function ( value ) {
 							setAttributes( { heightUnit: value } );
 						}
 					} ),
 					el( ToggleControl, {
-						label: __( 'Fixed height', domain ),
-						help: __( 'When enabled the quiz stays at the height above instead of expanding to fit its content.', domain ),
+						label: __( 'Fixed height', 'product-recommendation-quiz-for-ecommerce' ),
+						help: __( 'When enabled the quiz stays at the height above instead of expanding to fit its content.', 'product-recommendation-quiz-for-ecommerce' ),
 						checked: attributes.fixedHeight,
 						onChange: function ( value ) {
 							setAttributes( { fixedHeight: value } );
 						}
 					} ),
 					el( ToggleControl, {
-						label: __( 'Auto-scroll', domain ),
-						help: __( 'When enabled the page scrolls to the quiz as the shopper moves through it.', domain ),
+						label: __( 'Auto-scroll', 'product-recommendation-quiz-for-ecommerce' ),
+						help: __( 'When enabled the page scrolls to the quiz as the shopper moves through it.', 'product-recommendation-quiz-for-ecommerce' ),
 						checked: attributes.autoscroll,
 						onChange: function ( value ) {
 							setAttributes( { autoscroll: value } );
+						}
+					} ),
+					el( ToggleControl, {
+						label: __( 'Full width quiz', 'product-recommendation-quiz-for-ecommerce' ),
+						help: __( 'Enable this to make the quiz span the full width of the screen.', 'product-recommendation-quiz-for-ecommerce' ),
+						checked: attributes.fullWidth,
+						onChange: function ( value ) {
+							setAttributes( { fullWidth: value } );
 						}
 					} )
 				)
@@ -97,7 +104,7 @@
 				// what the published page emits; min-height keeps it visible.
 				content = el( 'iframe', {
 					src: adminOrigin + '/public/quiz/' + encodeURIComponent( attributes.id ),
-					title: __( 'Product Recommendation Quiz preview', domain ),
+					title: __( 'Product Recommendation Quiz preview', 'product-recommendation-quiz-for-ecommerce' ),
 					style: {
 						width: '100%',
 						height: ( attributes.height || 600 ) + ( attributes.heightUnit || 'px' ),
@@ -113,8 +120,8 @@
 					Placeholder,
 					{
 						icon: 'format-chat',
-						label: __( 'Product Recommendation Quiz', domain ),
-						instructions: __( 'Enter your Quiz ID in the block settings on the right to preview and display the quiz.', domain )
+						label: __( 'Product Recommendation Quiz', 'product-recommendation-quiz-for-ecommerce' ),
+						instructions: __( 'Enter your Quiz ID in the block settings on the right to preview and display the quiz.', 'product-recommendation-quiz-for-ecommerce' )
 					}
 				);
 			}
