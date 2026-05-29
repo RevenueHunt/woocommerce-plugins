@@ -26,13 +26,18 @@ parameters:
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-oauth-url-builder.php
 
 		-
+			message: "#^Constant PRQ_STORE_URL not found\\.$#"
+			count: 2
+			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php
+
+		-
 			message: "#^Constant PRQ_ADMIN_URL not found\\.$#"
 			count: 1
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php
 
 		-
 			message: "#^Constant PRQ_STORE_URL not found\\.$#"
-			count: 4
+			count: 2
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php
 
 		-
