@@ -53,4 +53,5 @@ mirror is still maintained.
 
 - `[youtube …]` bracket shortcode is required in `README.txt` for the video to render on wp.org.
 - Dev files never reach an artifact — `build.php` only assembles `src/` + `shared/` + the target's files.
+- Translations (`.pot`/`.po`/`.mo`, adding a locale, the build/CI i18n gates): see [`I18N.md`](I18N.md).
 - See the per-pipeline SOPs in this folder and `~/Projects/RevenueHunt/PLUGIN-DEPLOY.md`.
