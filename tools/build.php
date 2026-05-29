@@ -112,6 +112,22 @@ function build_target(string $key): void {
         file_put_contents("$dest/languages/$slug.pot", strtr(file_get_contents($pot), $repl));
     }
 
+    // Bundled translations: opt-in per target. The eCommerce free plugin relies
+    // on translate.wordpress.org language packs (ships the .pot only); the Woo
+    // plugin is not on GlotPress, so it ships compiled .mo (+ source .po). The
+    // canonical .po (eCommerce identity) is token-substituted like every other
+    // text file so its msgids match this target's transformed source strings,
+    // then compiled to .mo in pure PHP (no gettext/WP-CLI dependency).
+    if (!empty($cfg['bundleTranslations'])) {
+        require_once __DIR__ . '/po2mo.php';
+        foreach (glob(ROOT . '/shared/languages/*.po') as $po) {
+            $locale  = substr(basename($po, '.po'), strlen(CANON['slug']) + 1);
+            $po_text = strtr(file_get_contents($po), $repl);
+            file_put_contents("$dest/languages/$slug-$locale.po", $po_text);
+            file_put_contents("$dest/languages/$slug-$locale.mo", prq_compile_mo($po_text));
+        }
+    }
+
     // 3. per-target readmes (verbatim — distribution-specific copy)
     foreach ($cfg['readmes'] as $r) {
         copy(ROOT . "/targets/$key/$r", "$dest/$r");

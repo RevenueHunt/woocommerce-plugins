@@ -1,0 +1,220 @@
+# Translation of Plugins - Quiz Builder for WooCommerce &#8211; Product Recommendations - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Quiz Builder for WooCommerce &#8211; Product Recommendations - Stable (latest release) package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Product Recommendation Quiz for eCommerce\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/product-recommendation-quiz-for-ecommerce\n"
+"PO-Revision-Date: 2026-05-29 00:00+0000\n"
+"Last-Translator: translate.wordpress.org community\n"
+"Language-Team: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"X-Domain: product-recommendation-quiz-for-ecommerce\n"
+
+#. Plugin Name of the plugin
+#: product-recommendation-quiz-for-ecommerce.php
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:86
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:100
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:116
+msgid "Product Recommendation Quiz for eCommerce"
+msgstr "Product Recommendation Quiz for eCommerce"
+
+#. Plugin URI of the plugin
+#: product-recommendation-quiz-for-ecommerce.php
+msgid "https://revenuehunt.com/product-recommendation-quiz-woocommerce/"
+msgstr "https://revenuehunt.com/product-recommendation-quiz-woocommerce/"
+
+#. Description of the plugin
+#: product-recommendation-quiz-for-ecommerce.php
+msgid "Advise and delight your customers by engaging them with a personal shopper experience on your store, guiding your customers from start to cart and helping them find the products that best match their needs."
+msgstr "Aconseja y deleita a tus clientes atrayéndoles con una experiencia de compra personal en tu tienda, guiando a tus clientes desde el inicio hasta la finalización de la compra y ayudándoles a encontrar los productos que mejor se adaptan a sus necesidades."
+
+#. Author of the plugin
+#: product-recommendation-quiz-for-ecommerce.php
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:84
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:93
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:114
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:123
+msgid "RevenueHunt"
+msgstr "RevenueHunt"
+
+#. Author URI of the plugin
+#: product-recommendation-quiz-for-ecommerce.php
+msgid "https://revenuehunt.com/"
+msgstr "https://revenuehunt.com/"
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:67
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#. translators: %s: link to the WooCommerce plugin on wordpress.org (anchor text "WooCommerce").
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:75
+#, php-format
+msgid "Product Recommendation Quiz for eCommerce requires the WooCommerce plugin to be installed and active. You can download %s here. If you want this plugin developed for your eCommerce platform, please send us a message."
+msgstr "Product Recommendation Quiz for eCommerce necesita que el plugin WooCommerce esté instalado y activo. Puedes descargar %s aquí. Si quieres que este plugin se desarrolle para tu plataforma de comercio electrónico, por favor, envíanos un mensaje."
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:95
+msgid "Product Recommendation Quiz for eCommerce requires your website to have a valid HTTPS/SSL certificate."
+msgstr "Product Recommendation Quiz for eCommerce necesita que tu web tenga un certificado HTTPS/SSL válido."
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:109
+msgid "This plugin does not work on local environments. It needs to be installed on a live website. Your website needs to be public and not hidden by a site under construction plugin because it needs connection to our server in order to work."
+msgstr "Este plugin no funciona en entornos locales. Tiene que ser instalado en una web en producción. Tu web debe ser pública y no estar oculta por un plugin de «sitio en construcción» porque necesita conexión a nuestro servidor para poder funcionar."
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:124
+msgid "Settings > Permalinks"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:127
+msgid "Your current permalink structure is set to \"Plain\". For this plugin to authenticate correctly, a different permalink structure (such as \"Post name\") is required."
+msgstr ""
+
+#. translators: %s: link to the WordPress "Settings > Permalinks" screen.
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:133
+#, php-format
+msgid "Please update your permalink settings under %s to ensure seamless authentication."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:154
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:185
+msgid "here"
+msgstr "aquí"
+
+#. translators: %s: link to the troubleshooting FAQ (anchor text "here").
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:162
+#, php-format
+msgid "There's an issue with the WPML Multilingual CMS plugin which interferes with the authentication process of other plugins. Please deactivate the WPML Multilingual CMS plugin temporarily, you can reactivate it later. More info %s."
+msgstr "Hay un problema con el plugin WPML Multilingual CMS que interfiere con el proceso de identificación de otros plugins. Por favor, desactiva temporalmente el plugin WPML Multilingual CMS. Puedes reactivarlo más tarde. Más información %s."
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:183
+msgid "WordPress REST API"
+msgstr "API REST de WordPress"
+
+#. translators: 1: link to the WordPress REST API docs (anchor "WordPress REST API"); 2: link to the troubleshooting FAQ (anchor "here").
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:193
+#, php-format
+msgid "It seems like there's something interfering with your %1$s. This needs to be fixed in order to grant access to this plugin. More info %2$s. We're getting the following error accessing your WooCommerce API from our server:"
+msgstr "Parece que hay algo que interfiere con tu %1$s. Esto tiene que corregirse para poder otorgar acceso a este plugin. Más información %2$s. Estamos recibiendo el siguiente error al acceder a tu API de WooCommerce desde nuestro servidor:"
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:216
+msgid "The following REST API endpoint is returning a valid JSON but the returned content-type is text/html instead of the expected application/json:"
+msgstr "La siguiente variable de la API REST devuelve un JSON válido, pero el tipo de contenido devuelto es de texto/html en lugar del tipo aplicación/json esperado:"
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:248
+msgid "contact us"
+msgstr "contacta con nosotros"
+
+#. translators: 1: previous store domain; 2: new store domain.
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:255
+#, php-format
+msgid "We've detected that you've changed the domain name. We're migrating your Product Recommendation Quiz account from %1$s to %2$s"
+msgstr "Hemos detectado que has cambiado el nombre de dominio. Estamos migrando tu cuenta de Product Recommendation Quiz de %1$s a %2$s"
+
+#. translators: %s: link to the RevenueHunt contact page (anchor "contact us").
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:266
+#, php-format
+msgid "Please %s if you encounter any issues."
+msgstr "Por favor, %s si encuentras algún problema."
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php:106
+msgid "Product Recommendation Quiz"
+msgstr "Cuestionario de recomendación de productos"
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php:107
+msgid "Product Quiz"
+msgstr "Cuestionario de productos"
+
+#. translators: %s: link to the RevenueHunt website (anchor "RevenueHunt").
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:92
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:122
+#, php-format
+msgid "by %s"
+msgstr "por %s"
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:131
+msgid "Congratulations!"
+msgstr "¡Enhorabuena!"
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:132
+msgid "You're one step away from getting more conversions and sales in your store."
+msgstr "Estás a un paso de conseguir más conversiones y ventas en tu tienda."
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:133
+msgid "We just need you to grant this plugin permission to access your WooCommerce store:"
+msgstr "Solo necesitamos que otorgues permiso a este plugin para acceder a tu tienda WooCommerce:"
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:135
+msgid "grant permission now"
+msgstr "otorgar permiso ahora"
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:140
+msgid "this article"
+msgstr ""
+
+#. translators: %s: link to the troubleshooting article (anchor "this article").
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:144
+#, php-format
+msgid "Are you having trouble granting access? Check out %s"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:168
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:169
+msgid "Permission Denied"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:220
+msgid "The cURL extension is required but not installed on your server."
+msgstr ""
+
+#: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:176
+msgid "Too many requests. Please try again later."
+msgstr ""
+
+#: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:210
+msgid "Invalid shop hashid format. Only alphanumeric characters are allowed."
+msgstr ""
+
+#: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:219
+msgid "Invalid api_key format."
+msgstr "Formato de api_key no válido."
+
+#~ msgid "We're getting the following error accessing your WooCommerce API from our server:"
+#~ msgstr "Estamos recibiendo el siguiente error al acceder a tu API de WooCommerce desde nuestro servidor:"
+
+#~ msgid "There's an issue with the WPML Multilingual CMS plugin which interferes with the authentication process of other plugins. Please deactivate the WPML Multilingual CMS plugin temporarily, you can reactivate it later."
+#~ msgstr "Hay un problema con el plugin WPML Multilingual CMS que interfiere con el proceso de identificación de otros plugins. Por favor, desactiva temporalmente el plugin WPML Multilingual CMS. Puedes reactivarlo más tarde."
+
+#~ msgid "More info"
+#~ msgstr "Más información"
+
+#~ msgid "This needs to be fixed in order to grant access to this plugin."
+#~ msgstr "Esto tiene que corregirse para poder otorgar acceso a este plugin."
+
+#~ msgid "It seems like there's something interfering with your"
+#~ msgstr "Parece que hay algo que interfiere con tu"
+
+#~ msgid "if you encounter any issues."
+#~ msgstr "si encuentras algún problema."
+
+#~ msgid "Please"
+#~ msgstr "Por favor,"
+
+#~ msgid "to"
+#~ msgstr "a"
+
+#~ msgid "We've detected that you've changed the domain name. We're migrating your Product Recommendation Quiz account from"
+#~ msgstr "Hemos detectado que has cambiado el nombre de dominio. Estamos migrando tu cuenta de Product Recommendation Quiz de"
+
+#~ msgid "here. If you want this plugin developed for your eCommerce platform, please send us a message."
+#~ msgstr "aquí. Si quieres que este plugin se desarrolle para tu plataforma de comercio electrónico, por favor, envíanos un mensaje."
+
+#~ msgid "Product Recommendation Quiz for eCommerce requires the WooCommerce plugin to be installed and active. You can download"
+#~ msgstr "Product Recommendation Quiz for eCommerce necesita que el plugin WooCommerce esté instalado y activo. Puedes descargar"
+
+#~ msgid "by"
+#~ msgstr "por"
