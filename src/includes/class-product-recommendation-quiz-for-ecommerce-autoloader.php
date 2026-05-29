@@ -34,7 +34,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Autoloader {
 	 * @since 2.3.9
 	 * @var string[]
 	 */
-	private static $dirs = array( 'includes', 'admin', 'public', 'rest', 'front' );
+	private static $dirs = array( 'includes', 'admin', 'rest', 'front' );
 
 	/**
 	 * Register the autoloader with the SPL stack.

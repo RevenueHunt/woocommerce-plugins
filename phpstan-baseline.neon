@@ -26,6 +26,31 @@ parameters:
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php
 
 		-
+			message: "#^Constant PRQ_ADMIN_URL not found\\.$#"
+			count: 1
+			path: src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php
+
+		-
+			message: "#^Constant PRQ_STORE_URL not found\\.$#"
+			count: 2
+			path: src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php
+
+		-
+			message: "#^Constant PRQ_WOO_VERSION not found\\.$#"
+			count: 1
+			path: src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php
+
+		-
+			message: "#^Constant PRQ_WP_VERSION not found\\.$#"
+			count: 1
+			path: src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php
+
+		-
+			message: "#^Property Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script\\:\\:\\$version is never read, only written\\.$#"
+			count: 1
+			path: src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php
+
+		-
 			message: "#^Parameter \\#4 \\$autoload of function add_option expects bool\\|null, string given\\.$#"
 			count: 1
 			path: src/includes/class-product-recommendation-quiz-for-ecommerce-activator.php
@@ -34,28 +59,3 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
 			count: 1
 			path: src/product-recommendation-quiz-for-ecommerce.php
-
-		-
-			message: "#^Constant PRQ_ADMIN_URL not found\\.$#"
-			count: 1
-			path: src/public/class-product-recommendation-quiz-for-ecommerce-public.php
-
-		-
-			message: "#^Constant PRQ_STORE_URL not found\\.$#"
-			count: 2
-			path: src/public/class-product-recommendation-quiz-for-ecommerce-public.php
-
-		-
-			message: "#^Constant PRQ_WOO_VERSION not found\\.$#"
-			count: 1
-			path: src/public/class-product-recommendation-quiz-for-ecommerce-public.php
-
-		-
-			message: "#^Constant PRQ_WP_VERSION not found\\.$#"
-			count: 1
-			path: src/public/class-product-recommendation-quiz-for-ecommerce-public.php
-
-		-
-			message: "#^Property Product_Recommendation_Quiz_For_Ecommerce_Public\\:\\:\\$version is never read, only written\\.$#"
-			count: 1
-			path: src/public/class-product-recommendation-quiz-for-ecommerce-public.php

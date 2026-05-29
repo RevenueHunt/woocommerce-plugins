@@ -1,12 +1,16 @@
 <?php
 /**
- * The public-facing functionality of the plugin.
+ * Front-end delivery: the embed.js storefront script.
+ *
+ * One implementation of the plugin's front-end delivery seam — it loads the V1
+ * embed.js from admin.revenuehunt.com. Isolating it here keeps "how the quiz
+ * reaches the storefront" swappable without touching the rest of the plugin.
  *
  * @link       https://revenuehunt.com/
- * @since      1.0.0
+ * @since      2.3.9
  *
  * @package    Product_Recommendation_Quiz_For_Ecommerce
- * @subpackage Product_Recommendation_Quiz_For_Ecommerce/public
+ * @subpackage Product_Recommendation_Quiz_For_Ecommerce/front
  */
 
 // Prevent direct access.
@@ -15,20 +19,17 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * The public-facing functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the public-facing stylesheet and JavaScript.
+ * Enqueues the embed.js delivery script on the storefront.
  *
  * @package    Product_Recommendation_Quiz_For_Ecommerce
- * @subpackage Product_Recommendation_Quiz_For_Ecommerce/public
+ * @subpackage Product_Recommendation_Quiz_For_Ecommerce/front
  */
-class Product_Recommendation_Quiz_For_Ecommerce_Public {
+class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script {
 
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    2.3.9
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
 	private $plugin_name;
@@ -36,7 +37,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Public {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    2.3.9
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
@@ -44,14 +45,14 @@ class Product_Recommendation_Quiz_For_Ecommerce_Public {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of the plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @since    2.3.9
+	 * @param      string $plugin_name       The name of the plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) { 
+	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 	}
 
 	/**
@@ -65,7 +66,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Public {
 	 * where it IS enqueued, a slow or failed connection to admin.revenuehunt.com
 	 * will not block page rendering or execution.
 	 *
-	 * @since    1.0.0
+	 * @since    2.3.9
 	 */
 	public function enqueue_scripts() {
 		// Don't load the embed script on WooCommerce checkout or cart pages.
@@ -98,7 +99,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Public {
 	 * to ISP routing issues), the merchant's page continues to load and function
 	 * normally. The quiz simply won't appear — graceful degradation.
 	 *
-	 * @since    2.3.3
+	 * @since    2.3.9
 	 * @param string $tag    The full script tag HTML.
 	 * @param string $handle The script's registered handle.
 	 * @param string $src    The script source URL.
@@ -116,5 +117,4 @@ class Product_Recommendation_Quiz_For_Ecommerce_Public {
 
 		return str_replace( '<script ', '<script async ', $tag );
 	}
-
 }
