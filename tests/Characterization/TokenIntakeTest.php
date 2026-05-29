@@ -4,6 +4,7 @@ namespace RevenueHunt\PRQ\Tests\Characterization;
 
 use Brain\Monkey\Functions;
 use RevenueHunt\PRQ\Tests\TestCase;
+use Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller as Controller;
 use WP_Error;
 use WP_REST_Request;
 
@@ -21,19 +22,19 @@ final class TokenIntakeTest extends TestCase
 
     public function test_validate_shop_hashid_accepts_alphanumeric(): void
     {
-        $this->assertTrue(prq_validate_shop_hashid('abc123XYZ'));
+        $this->assertTrue(Controller::validate_shop_hashid('abc123XYZ'));
     }
 
     public function test_validate_shop_hashid_rejects_symbols(): void
     {
-        $this->assertFalse(prq_validate_shop_hashid('abc-123'));
-        $this->assertFalse(prq_validate_shop_hashid('abc 123'));
-        $this->assertFalse(prq_validate_shop_hashid('drop;table'));
+        $this->assertFalse(Controller::validate_shop_hashid('abc-123'));
+        $this->assertFalse(Controller::validate_shop_hashid('abc 123'));
+        $this->assertFalse(Controller::validate_shop_hashid('drop;table'));
     }
 
     public function test_validate_shop_hashid_rejects_empty(): void
     {
-        $this->assertFalse(prq_validate_shop_hashid(''));
+        $this->assertFalse(Controller::validate_shop_hashid(''));
     }
 
     /* ---------- prq_check_rate_limit ---------- */
@@ -44,7 +45,7 @@ final class TokenIntakeTest extends TestCase
         Functions\when('get_transient')->justReturn(3);
         Functions\when('set_transient')->justReturn(true);
 
-        $this->assertTrue(prq_check_rate_limit());
+        $this->assertTrue((new Controller())->check_rate_limit());
     }
 
     public function test_rate_limit_returns_429_at_threshold(): void
@@ -52,7 +53,7 @@ final class TokenIntakeTest extends TestCase
         $_SERVER['REMOTE_ADDR'] = '203.0.113.7';
         Functions\when('get_transient')->justReturn(10);
 
-        $result = prq_check_rate_limit();
+        $result = (new Controller())->check_rate_limit();
         $this->assertInstanceOf(WP_Error::class, $result);
         $this->assertSame('rate_limited', $result->get_error_code());
         $this->assertSame(['status' => 429], $result->get_error_data());
@@ -69,11 +70,11 @@ final class TokenIntakeTest extends TestCase
             return true;
         });
 
-        $this->assertTrue(prq_check_rate_limit());        // counted, not bypassed
+        $this->assertTrue((new Controller())->check_rate_limit());        // counted, not bypassed
         $this->assertSame('prq_rate_unknown', $captured); // shared bucket
 
         Functions\when('get_transient')->justReturn(10);
-        $this->assertInstanceOf(WP_Error::class, prq_check_rate_limit());
+        $this->assertInstanceOf(WP_Error::class, (new Controller())->check_rate_limit());
     }
 
     public function test_rate_limit_ignores_spoofed_xff_uses_remote_addr(): void
@@ -91,7 +92,7 @@ final class TokenIntakeTest extends TestCase
             return true;
         });
 
-        prq_check_rate_limit();
+        (new Controller())->check_rate_limit();
 
         $this->assertSame('prq_rate_' . md5('203.0.113.7'), $captured);
     }
@@ -111,7 +112,7 @@ final class TokenIntakeTest extends TestCase
             return true;
         });
 
-        prq_check_rate_limit();
+        (new Controller())->check_rate_limit();
 
         $this->assertSame('prq_rate_' . md5('198.51.100.9'), $captured);
     }
@@ -122,7 +123,7 @@ final class TokenIntakeTest extends TestCase
     {
         Functions\when('get_option')->justReturn('secret');
         $req = new WP_REST_Request(['signature' => 'x']); // missing shop_hashid + token
-        $this->assertFalse(prq_verify_signature($req));
+        $this->assertFalse((new Controller())->verify_signature($req));
     }
 
     public function test_verify_signature_skips_verification_when_no_api_key(): void
@@ -135,7 +136,7 @@ final class TokenIntakeTest extends TestCase
             'shop_hashid' => 'attacker',
             'token'       => 'attackertoken',
         ]);
-        $this->assertTrue(prq_verify_signature($req));
+        $this->assertTrue((new Controller())->verify_signature($req));
     }
 
     public function test_verify_signature_accepts_valid_hmac(): void
@@ -149,7 +150,7 @@ final class TokenIntakeTest extends TestCase
             'shop_hashid' => 'shop1',
             'token'       => 'tok1',
         ]);
-        $this->assertTrue(prq_verify_signature($req));
+        $this->assertTrue((new Controller())->verify_signature($req));
     }
 
     public function test_verify_signature_rejects_bad_hmac(): void
@@ -160,7 +161,7 @@ final class TokenIntakeTest extends TestCase
             'shop_hashid' => 'shop1',
             'token'       => 'tok1',
         ]);
-        $this->assertFalse(prq_verify_signature($req));
+        $this->assertFalse((new Controller())->verify_signature($req));
     }
 
     public function test_verify_signature_replays_when_timestamp_omitted(): void
@@ -176,7 +177,7 @@ final class TokenIntakeTest extends TestCase
             'shop_hashid' => 'shop1',
             'token'       => 'tok1',
         ]);
-        $this->assertTrue(prq_verify_signature($req));
+        $this->assertTrue((new Controller())->verify_signature($req));
     }
 
     public function test_verify_signature_rejects_expired_timestamp(): void
@@ -192,24 +193,24 @@ final class TokenIntakeTest extends TestCase
             'token'       => 'tok1',
             'timestamp'   => $oldTs,
         ]);
-        $this->assertFalse(prq_verify_signature($req));
+        $this->assertFalse((new Controller())->verify_signature($req));
     }
 
     /* ---------- LOW-4: credential format validation ---------- */
 
     public function test_credential_format_accepts_realistic_keys(): void
     {
-        $this->assertTrue(prq_validate_credential_format('AbC123def456'));            // alnum
-        $this->assertTrue(prq_validate_credential_format('aGVsbG8+d29ybGQ/Zm9v=='));  // base64
-        $this->assertTrue(prq_validate_credential_format('550e8400-e29b-41d4-a716-446655440000')); // uuid
+        $this->assertTrue(Controller::validate_credential_format('AbC123def456'));            // alnum
+        $this->assertTrue(Controller::validate_credential_format('aGVsbG8+d29ybGQ/Zm9v=='));  // base64
+        $this->assertTrue(Controller::validate_credential_format('550e8400-e29b-41d4-a716-446655440000')); // uuid
     }
 
     public function test_credential_format_rejects_malformed(): void
     {
-        $this->assertFalse(prq_validate_credential_format(''));               // empty
-        $this->assertFalse(prq_validate_credential_format('has space'));      // whitespace
-        $this->assertFalse(prq_validate_credential_format("ctrl\x00char"));   // control char
-        $this->assertFalse(prq_validate_credential_format(str_repeat('a', 256))); // oversized
+        $this->assertFalse(Controller::validate_credential_format(''));               // empty
+        $this->assertFalse(Controller::validate_credential_format('has space'));      // whitespace
+        $this->assertFalse(Controller::validate_credential_format("ctrl\x00char"));   // control char
+        $this->assertFalse(Controller::validate_credential_format(str_repeat('a', 256))); // oversized
     }
 
     public function test_set_token_rejects_malformed_api_key(): void
@@ -222,7 +223,7 @@ final class TokenIntakeTest extends TestCase
             'api_key'     => 'bad key with spaces',
         ]);
 
-        $result = prq_set_token($req);
+        $result = (new Controller())->handle($req);
         $this->assertInstanceOf(WP_Error::class, $result);
         $this->assertSame('invalid_api_key', $result->get_error_code());
         $this->assertSame(['status' => 400], $result->get_error_data());
