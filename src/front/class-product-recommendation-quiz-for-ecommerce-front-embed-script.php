@@ -2,9 +2,11 @@
 /**
  * Front-end delivery: the embed.js storefront script.
  *
- * One implementation of the plugin's front-end delivery seam — it loads the V1
- * embed.js from admin.revenuehunt.com. Isolating it here keeps "how the quiz
- * reaches the storefront" swappable without touching the rest of the plugin.
+ * The V1 implementation of the plugin's front-end delivery seam
+ * (Product_Recommendation_Quiz_For_Ecommerce_Delivery) — it loads embed.js from
+ * admin.revenuehunt.com and returns the inline hydration container embed.js
+ * targets. Isolating it here keeps "how the quiz reaches the storefront"
+ * swappable without touching the rest of the plugin.
  *
  * @link       https://revenuehunt.com/
  * @since      2.3.9
@@ -24,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @package    Product_Recommendation_Quiz_For_Ecommerce
  * @subpackage Product_Recommendation_Quiz_For_Ecommerce/front
  */
-class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script {
+class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Product_Recommendation_Quiz_For_Ecommerce_Delivery {
 
 	/**
 	 * The ID of this plugin.
@@ -79,6 +81,33 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script {
 			return;
 		}
 
+		$this->enqueue_embed();
+	}
+
+	/**
+	 * The origin embed.js and the hosted quiz are served from.
+	 *
+	 * Single accessor for the backend origin so both the global enqueue and the
+	 * placement renderer reference it identically.
+	 *
+	 * @since 2.4.0
+	 * @return string The admin/backend origin (no trailing slash).
+	 */
+	private function admin_origin() {
+		return PRQ_ADMIN_URL;
+	}
+
+	/**
+	 * Enqueue embed.js with its js_vars payload.
+	 *
+	 * Shared by the site-wide hook and by placement rendering. WordPress dedupes
+	 * by script handle, so calling this more than once per request never
+	 * double-loads the script.
+	 *
+	 * @since 2.4.0
+	 * @return void
+	 */
+	private function enqueue_embed() {
 		$data_to_pass = array(
 			'shop'           => PRQ_STORE_URL,
 			'platform'       => 'woocommerce',
@@ -88,8 +117,45 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script {
 			'wp_version'     => PRQ_WP_VERSION,
 		);
 
-		wp_enqueue_script( $this->plugin_name, PRQ_ADMIN_URL . '/embed.js?shop=' . rawurlencode( PRQ_STORE_URL ), array(), PRQ_PLUGIN_VERSION, true );
+		wp_enqueue_script( $this->plugin_name, $this->admin_origin() . '/embed.js?shop=' . rawurlencode( PRQ_STORE_URL ), array(), PRQ_PLUGIN_VERSION, true );
 		wp_localize_script( $this->plugin_name, 'js_vars', $data_to_pass );
+	}
+
+	/**
+	 * Render an inline quiz placement and ensure embed.js is loaded.
+	 *
+	 * Returns the container embed.js hydrates in place (the documented
+	 * `rh-widget rh-inline` element with the quiz's public data-url). Placement
+	 * is explicit merchant intent, so — unlike the site-wide enqueue — it does
+	 * not skip cart/checkout. embed.js keeps its async / graceful-degradation
+	 * behavior (the script_loader_tag filter applies to this enqueue too), and
+	 * the shared handle means the script is never loaded twice on a page.
+	 *
+	 * @since 2.4.0
+	 * @param array<string, mixed> $atts Placement attributes: 'id' (quiz id, required),
+	 *                                   'height' (px, default 600).
+	 * @return string The placement HTML, or '' when no quiz id is given.
+	 */
+	public function render( array $atts ): string {
+		$quiz_id = isset( $atts['id'] ) ? sanitize_text_field( (string) $atts['id'] ) : '';
+		if ( '' === $quiz_id ) {
+			return '';
+		}
+
+		$height = isset( $atts['height'] ) ? absint( $atts['height'] ) : 600;
+		if ( 0 === $height ) {
+			$height = 600;
+		}
+
+		$this->enqueue_embed();
+
+		$quiz_url = $this->admin_origin() . '/public/quiz/' . rawurlencode( $quiz_id );
+
+		return sprintf(
+			'<div class="rh-widget rh-inline" data-url="%s" style="margin:10px auto;width:100%%;height:%dpx;display:flex;"></div>',
+			esc_url( $quiz_url ),
+			$height
+		);
 	}
 
 	/**
