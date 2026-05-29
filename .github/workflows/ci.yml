@@ -64,14 +64,32 @@ jobs:
           tools: composer
           coverage: none
 
-      - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist
-
       - name: Build free artifact
         run: php tools/build.php all
 
-      - name: Plugin Check
-        uses: WordPress/plugin-check-action@v1
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          build-dir: ./build/product-recommendation-quiz-for-ecommerce
-          wp-version: latest
+          node-version: 20
+
+      - name: Start wp-env (built plugin + Plugin Check)
+        # Self-managed wp-env (vs the official action, whose wp-env start no-op'd):
+        # explicit config + a readiness probe make provisioning and errors visible.
+        run: |
+          npm -g --no-fund install @wordpress/env
+          cat > .wp-env.json <<'JSON'
+          {
+            "plugins": [
+              "./build/product-recommendation-quiz-for-ecommerce",
+              "https://downloads.wordpress.org/plugin/plugin-check.latest-stable.zip"
+            ],
+            "testsEnvironment": false
+          }
+          JSON
+          wp-env start
+          wp-env run cli wp core version
+
+      - name: Run Plugin Check
+        run: |
+          wp-env run cli wp plugin activate product-recommendation-quiz-for-ecommerce
+          wp-env run cli wp plugin check product-recommendation-quiz-for-ecommerce
