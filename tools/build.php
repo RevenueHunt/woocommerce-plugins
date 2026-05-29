@@ -15,7 +15,10 @@
  */
 
 const ROOT   = __DIR__ . '/..';
-const TEXT_EXT = ['php', 'txt', 'md', 'css', 'pot', 'po', 'json', 'html'];
+// 'js' is included so the block editor script's block name + text domain get the
+// same per-target identity substitution as block.json (it carries no class/func
+// prefixes, only the slug/display tokens).
+const TEXT_EXT = ['php', 'txt', 'md', 'css', 'pot', 'po', 'json', 'html', 'js'];
 
 // Canonical tokens — the identity src/ is authored in (eCommerce).
 const CANON = [
