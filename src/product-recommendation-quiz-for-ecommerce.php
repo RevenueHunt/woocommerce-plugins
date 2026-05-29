@@ -51,11 +51,16 @@ define( 'PRQ_OPTION_DOMAIN', 'rh_domain' );
 define( 'PRQ_OPTION_TOKEN', 'rh_token' );
 
 /**
+ * Self-contained class autoloader (replaces the manual require_once chains).
+ */
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-autoloader.php';
+Product_Recommendation_Quiz_For_Ecommerce_Autoloader::register();
+
+/**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-product-recommendation-quiz-for-ecommerce-activator.php
  */
 function product_recommendation_quiz_for_ecommerce_activate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-activator.php';
 	Product_Recommendation_Quiz_For_Ecommerce_Activator::activate();
 }
 
@@ -64,18 +69,11 @@ function product_recommendation_quiz_for_ecommerce_activate() {
  * This action is documented in includes/class-product-recommendation-quiz-for-ecommerce-deactivator.php
  */
 function product_recommendation_quiz_for_ecommerce_deactivate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-deactivator.php';
 	Product_Recommendation_Quiz_For_Ecommerce_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'product_recommendation_quiz_for_ecommerce_activate' );
 register_deactivation_hook( __FILE__, 'product_recommendation_quiz_for_ecommerce_deactivate' );
-
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require plugin_dir_path( __FILE__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce.php';
 
 /**
  * Begins execution of the plugin.

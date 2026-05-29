@@ -232,32 +232,12 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
+	 * Classes are pulled in on demand by the plugin autoloader (registered in
+	 * the bootstrap file), so no manual require_once chain is needed here.
+	 *
 	 * @since    1.0.0
 	 */
 	private function load_dependencies() {
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-product-recommendation-quiz-for-ecommerce-loader.php';
-
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-product-recommendation-quiz-for-ecommerce-i18n.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-product-recommendation-quiz-for-ecommerce-admin.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-product-recommendation-quiz-for-ecommerce-public.php';
-
 		$this->loader = new Product_Recommendation_Quiz_For_Ecommerce_Loader();
 	}
 
