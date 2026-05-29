@@ -178,7 +178,7 @@ final class DeliveryTest extends TestCase
         $this->assertStringContainsString('<div class="rh-widget rh-inline" data-url="https://admin.revenuehunt.com/public/quiz/abc"', $html);
         // ...wrapped in the breakout element, with the scoped breakout CSS.
         $this->assertStringContainsString('<div class="prq-quiz prq-quiz--full-width">', $html);
-        $this->assertStringContainsString('.prq-quiz--full-width{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}', $html);
+        $this->assertStringContainsString('.prq-quiz--full-width{width:100vw!important;max-width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important}', $html);
     }
 
     public function test_render_emits_breakout_css_only_once_per_request(): void

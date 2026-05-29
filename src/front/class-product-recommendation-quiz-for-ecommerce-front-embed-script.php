@@ -217,8 +217,15 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 	 * container keeps its `width:100%`, which now resolves to 100% of the
 	 * full-viewport-wide wrapper. The technique is the standard, theme-agnostic
 	 * negative-margin breakout (`margin-left/right: calc(50% - 50vw)`, the same
-	 * math WordPress's `alignfull` uses), with `max-width:100vw` as the overflow
-	 * guard. The scoped <style> is printed at most once per request.
+	 * math WordPress's `alignfull` uses): the negative margins land the wrapper
+	 * flush against both viewport edges.
+	 *
+	 * The declarations are `!important` because block themes cap content children
+	 * with `max-width: var(--content-size)` and re-center them with
+	 * `margin-inline: auto` — without `!important` that cap clamps `width:100vw`
+	 * and leaves the quiz centered with gutters instead of full-bleed. The inner
+	 * container's margins are reset to 0 so nothing re-centers it inside the
+	 * now-full-width wrapper. The scoped <style> is printed at most once per request.
 	 *
 	 * @since 2.4.0
 	 * @param string $container The inline hydration container to wrap.
@@ -228,7 +235,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 		$style = '';
 		if ( ! $this->full_width_css_printed ) {
 			$this->full_width_css_printed = true;
-			$style                        = '<style id="prq-full-width-css">.prq-quiz--full-width{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}</style>';
+			$style                        = '<style id="prq-full-width-css">.prq-quiz--full-width{width:100vw!important;max-width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important}.prq-quiz--full-width>.rh-inline{max-width:none!important;margin-left:0!important;margin-right:0!important}</style>';
 		}
 
 		return $style . '<div class="prq-quiz prq-quiz--full-width">' . $container . '</div>';
