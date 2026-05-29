@@ -156,6 +156,24 @@ function prq_validate_shop_hashid( $shop_hashid ) {
 }
 
 /**
+ * Validate the format of a credential (api_key / token).
+ *
+ * Permissive defense-in-depth: credentials must be printable, whitespace-free
+ * ASCII of a bounded length. Rejects control characters and oversized payloads
+ * without assuming the server's exact key format.
+ *
+ * @since 2.3.9
+ * @param string $value The credential value to validate.
+ * @return bool True if the format is acceptable, false otherwise.
+ */
+function prq_validate_credential_format( $value ) {
+	if ( null === $value || '' === $value ) {
+		return false;
+	}
+	return (bool) preg_match( '/^[\x21-\x7E]{1,255}$/', $value );
+}
+
+/**
  * Determine the client IP used for rate limiting.
  *
  * Defaults to REMOTE_ADDR, which the client cannot spoof. The X-Forwarded-For
@@ -238,6 +256,15 @@ function prq_set_token( $request ) {
 		return new WP_Error(
 			'invalid_shop_hashid',
 			__( 'Invalid shop hashid format. Only alphanumeric characters are allowed.', 'product-recommendation-quiz-for-ecommerce' ),
+			array( 'status' => 400 )
+		);
+	}
+
+	// Validate api_key format if provided
+	if ( ! empty( $new_api_key ) && ! prq_validate_credential_format( $new_api_key ) ) {
+		return new WP_Error(
+			'invalid_api_key',
+			__( 'Invalid api_key format.', 'product-recommendation-quiz-for-ecommerce' ),
 			array( 'status' => 400 )
 		);
 	}

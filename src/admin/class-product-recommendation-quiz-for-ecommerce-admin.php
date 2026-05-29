@@ -404,9 +404,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 			'timeout'     => 10,
 			'redirection' => 5,
 		);
-		if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-			$args['user-agent'] = sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) );
-		}
+		// Identify with a fixed plugin user-agent rather than reflecting the
+		// visitor's User-Agent header to our API.
+		$args['user-agent'] = 'ProductRecommendationQuiz/' . PRQ_PLUGIN_VERSION;
 
 		// Force IPv4 for this request to mirror legacy curl behavior on hosts with broken IPv6.
 		$ipv4_filter = function ( $handle ) {

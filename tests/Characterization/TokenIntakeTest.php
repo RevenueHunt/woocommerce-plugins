@@ -194,4 +194,37 @@ final class TokenIntakeTest extends TestCase
         ]);
         $this->assertFalse(prq_verify_signature($req));
     }
+
+    /* ---------- LOW-4: credential format validation ---------- */
+
+    public function test_credential_format_accepts_realistic_keys(): void
+    {
+        $this->assertTrue(prq_validate_credential_format('AbC123def456'));            // alnum
+        $this->assertTrue(prq_validate_credential_format('aGVsbG8+d29ybGQ/Zm9v=='));  // base64
+        $this->assertTrue(prq_validate_credential_format('550e8400-e29b-41d4-a716-446655440000')); // uuid
+    }
+
+    public function test_credential_format_rejects_malformed(): void
+    {
+        $this->assertFalse(prq_validate_credential_format(''));               // empty
+        $this->assertFalse(prq_validate_credential_format('has space'));      // whitespace
+        $this->assertFalse(prq_validate_credential_format("ctrl\x00char"));   // control char
+        $this->assertFalse(prq_validate_credential_format(str_repeat('a', 256))); // oversized
+    }
+
+    public function test_set_token_rejects_malformed_api_key(): void
+    {
+        Functions\when('get_transient')->justReturn(0);
+        Functions\when('set_transient')->justReturn(true);
+
+        $req = new WP_REST_Request([
+            'shop_hashid' => 'abc123',
+            'api_key'     => 'bad key with spaces',
+        ]);
+
+        $result = prq_set_token($req);
+        $this->assertInstanceOf(WP_Error::class, $result);
+        $this->assertSame('invalid_api_key', $result->get_error_code());
+        $this->assertSame(['status' => 400], $result->get_error_data());
+    }
 }
