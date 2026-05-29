@@ -54,6 +54,7 @@ final class ShortcodeTest extends TestCase
                 'height_unit'  => 'px',
                 'fixed_height' => false,
                 'autoscroll'   => true,
+                'full_width'   => false,
             ])
             ->andReturn('<div class="rh-widget rh-inline"></div>');
 
@@ -74,6 +75,7 @@ final class ShortcodeTest extends TestCase
                 'height_unit'  => '%',
                 'fixed_height' => true,
                 'autoscroll'   => false,
+                'full_width'   => true,
             ])
             ->andReturn('<div></div>');
 
@@ -84,6 +86,7 @@ final class ShortcodeTest extends TestCase
             'height_unit'  => '%',
             'fixed_height' => 'true',
             'autoscroll'   => 'false',
+            'full_width'   => 'true',
         ]);
     }
 
@@ -98,6 +101,7 @@ final class ShortcodeTest extends TestCase
                 'height_unit'  => 'px',
                 'fixed_height' => false,
                 'autoscroll'   => true,
+                'full_width'   => false,
             ])
             ->andReturn('');
 
