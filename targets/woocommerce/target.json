@@ -1,0 +1,19 @@
+{
+  "key": "woocommerce",
+  "slug": "product-recommendation-quiz-for-woocommerce",
+  "channel": "woocommerce",
+  "pluginName": "Product Recommendation Quiz for WooCommerce",
+  "display": "WooCommerce",
+  "classPrefix": "Product_Recommendation_Quiz_For_Woocommerce",
+  "canonical": false,
+  "wcHeaders": {
+    "WC requires at least": "3.5",
+    "WC tested up to": "10.8.0"
+  },
+  "readmes": ["readme.txt"],
+  "deploy": {
+    "type": "zip",
+    "note": "woocommerce.com marketplace. Zip folder MUST be named exactly the slug.",
+    "zipFolderName": "product-recommendation-quiz-for-woocommerce"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "key": "ecommerce",
+  "slug": "product-recommendation-quiz-for-ecommerce",
+  "channel": "wordpress",
+  "pluginName": "Product Recommendation Quiz for eCommerce",
+  "display": "eCommerce",
+  "classPrefix": "Product_Recommendation_Quiz_For_Ecommerce",
+  "canonical": true,
+  "wcHeaders": false,
+  "readmes": ["README.txt", "README.md"],
+  "deploy": {
+    "type": "svn",
+    "note": "wp.org SVN. Build output rsynced into ../svn-wporg/trunk/; screenshots into ../svn-wporg/assets/.",
+    "checkout": "../../svn-wporg"
+  }
+}

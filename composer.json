@@ -1,0 +1,25 @@
+{
+  "name": "revenuehunt/woocommerce-plugins",
+  "description": "Single source of truth for RevenueHunt's WordPress & WooCommerce plugins (Product Recommendation Quiz). One source builds two distribution artifacts.",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5 || ^10.5",
+    "brain/monkey": "^2.6"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "RevenueHunt\\PRQ\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "build": "php tools/build.php all"
+  },
+  "config": {
+    "platform-check": false
+  }
+}

@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Characterization suite (must be green before AND after every change)
+        run: composer test
+
+      - name: Build both artifacts
+        run: php tools/build.php all
+
+      - name: Build-diff guard (one source -> two artifacts)
+        run: bash tools/verify-build.sh
