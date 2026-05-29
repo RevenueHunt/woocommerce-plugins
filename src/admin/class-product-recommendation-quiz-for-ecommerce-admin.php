@@ -42,16 +42,25 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 	private $version;
 
 	/**
+	 * Prerequisite checks and diagnostic error screens.
+	 *
+	 * @since    2.3.9
+	 * @var      Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics    $diagnostics    Diagnostics helper.
+	 */
+	private $diagnostics;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) { 
+	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
+		$this->diagnostics = new Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics();
 	}
 
 	/**
@@ -219,250 +228,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 	}
 
 	/**
-	 * Check if permalinks are set to plain structure.
-	 *
-	 * @since 1.0.0
-	 * @return bool True if plain permalinks, false otherwise.
-	 */
-	public function check_plain_permalink() {
-		$permalink_structure = get_option( 'permalink_structure' );
-		return empty( $permalink_structure );
-	}
-
-	/**
-	 * Display WooCommerce missing error.
-	 *
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function woocommerce_missing() {
-		?>
-		<div class="error">
-			<p><strong><?php esc_html_e( 'Product Recommendation Quiz for eCommerce requires the WooCommerce plugin to be installed and active. You can download', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://wordpress.org/plugins/woocommerce/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'WooCommerce', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
-				<?php esc_html_e( 'here. If you want this plugin developed for your eCommerce platform, please send us a message.', 'product-recommendation-quiz-for-ecommerce' ); ?></strong></p>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Display HTTPS/SSL missing error.
-	 *
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function https_ssl_missing() {
-		?>
-		<div class="error">
-			<p><strong><?php esc_html_e( 'Product Recommendation Quiz for eCommerce requires your website to have a valid HTTPS/SSL certificate.', 'product-recommendation-quiz-for-ecommerce' ); ?></strong></p>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Display localhost error.
-	 *
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function is_localhost() {
-		?>
-		<div class="error">
-			<p><strong><?php esc_html_e( 'This plugin does not work on local environments. It needs to be installed on a live website. Your website needs to be public and not hidden by a site under construction plugin because it needs connection to our server in order to work.', 'product-recommendation-quiz-for-ecommerce' ); ?></strong></p>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Display plain permalink warning.
-	 *
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function plain_permalink_warning() {
-		?>
-		<div class="error">
-			<p><strong><?php esc_html_e( 'Your current permalink structure is set to "Plain". For this plugin to authenticate correctly, a different permalink structure (such as "Post name") is required.', 'product-recommendation-quiz-for-ecommerce' ); ?></strong></p>
-			<p><?php esc_html_e( 'Please update your permalink settings under ', 'product-recommendation-quiz-for-ecommerce' ); ?><a href="<?php echo esc_url( admin_url( 'options-permalink.php' ) ); ?>"><?php esc_html_e( 'Settings > Permalinks', 'product-recommendation-quiz-for-ecommerce' ); ?></a><?php esc_html_e( ' to ensure seamless authentication.', 'product-recommendation-quiz-for-ecommerce' ); ?></p>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Display WPML compatibility warning.
-	 *
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function wpml_active() {
-		?>
-		<div class="error">
-			<p><strong><?php esc_html_e( 'There\'s an issue with the WPML Multilingual CMS plugin which interferes with the authentication process of other plugins. Please deactivate the WPML Multilingual CMS plugin temporarily, you can reactivate it later.', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<?php esc_html_e( 'More info', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://revenuehunt.com/faqs/woocommerce-authentication-error-404-not-found-missing-parameter-app-name/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'here', 'product-recommendation-quiz-for-ecommerce' ); ?></a>.
-			</strong></p>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Display WordPress REST API error.
-	 *
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function wp_json_error() {
-		?>
-		<div class="error">
-			<p><strong>
-				<?php esc_html_e( 'It seems like there\'s something interfering with your', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://developer.wordpress.org/rest-api/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'WordPress REST API', 'product-recommendation-quiz-for-ecommerce' ); ?></a>.
-				<?php esc_html_e( 'This needs to be fixed in order to grant access to this plugin.', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<?php esc_html_e( 'More info', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://revenuehunt.com/faqs/woocommerce-authentication-error-404-not-found-missing-parameter-app-name/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'here', 'product-recommendation-quiz-for-ecommerce' ); ?></a>. <?php esc_html_e( 'We\'re getting the following error accessing your WooCommerce API from our server:', 'product-recommendation-quiz-for-ecommerce' ); ?>
-			</strong></p>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Display error when REST API returns HTML content-type.
-	 *
-	 * @since 1.0.0
-	 * @param string $domain The store domain.
-	 * @return void
-	 */
-	public function wp_json_error_html_content_type( $domain ) {
-		?>
-		<div class="error">
-			<p><strong>
-				<?php esc_html_e( 'The following REST API endpoint is returning a valid JSON but the returned content-type is text/html instead of the expected application/json:', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="<?php echo esc_url( 'https://' . $domain . '/wp-json/wc/v3/' ); ?>" target="_blank" rel="noopener noreferrer">https://<?php echo esc_html( $domain ); ?>/wp-json/wc/v3/</a>
-			</strong></p>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Display REST API error response body.
-	 *
-	 * @since 1.0.0
-	 * @param string $wp_api_check_body The API response body to display.
-	 * @return void
-	 */
-	public function wp_json_error_body( $wp_api_check_body ) {
-		?>
-		<div class="error">
-			<p><strong><?php echo esc_html( wp_strip_all_tags( $wp_api_check_body ) ); ?></strong></p>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Display domain migration warning.
-	 *
-	 * @since 1.0.0
-	 * @return void
-	 */
-	public function migration_warning() {
-		?>
-		<div class="error">
-			<p><strong><?php esc_html_e( 'We\'ve detected that you\'ve changed the domain name. We\'re migrating your Product Recommendation Quiz account from', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<?php echo esc_html( get_option( PRQ_OPTION_DOMAIN ) ); ?> <?php esc_html_e( 'to', 'product-recommendation-quiz-for-ecommerce' ); ?> <?php echo esc_html( PRQ_STORE_URL ); ?></p>
-			<p><?php esc_html_e( 'Please', 'product-recommendation-quiz-for-ecommerce' ); ?>
-				<a href="https://revenuehunt.com/contact/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'contact us', 'product-recommendation-quiz-for-ecommerce' ); ?></a>
-				<?php esc_html_e( 'if you encounter any issues.', 'product-recommendation-quiz-for-ecommerce' ); ?></strong></p>
-		</div>
-		<?php
-	}
-	
-	/**
-	 * Check if a string is valid JSON.
-	 *
-	 * @since 1.0.0
-	 * @param string $string The string to check.
-	 * @return bool True if valid JSON, false otherwise.
-	 */
-	public function is_json( $string ) {
-		json_decode( $string );
-		return json_last_error() === JSON_ERROR_NONE;
-	}
-	
-	/**
-	 * Check WooCommerce REST API accessibility from RevenueHunt server.
-	 *
-	 * Makes a request to the RevenueHunt API to verify that this store's
-	 * WooCommerce REST API is accessible from the outside.
-	 *
-	 * @since 1.0.0
-	 * @param string $domain The store domain to check.
-	 * @return array Tuple [HTTP code, response body string]. HTTP code is 0 on transport error.
-	 */
-	public function api_check_json( $domain ) {
-		$url  = 'https://api.revenuehunt.com/api/v1/woocommerce/check?domain=' . rawurlencode( $domain );
-		$args = array(
-			'timeout'     => 10,
-			'redirection' => 5,
-		);
-		// Identify with a fixed plugin user-agent rather than reflecting the
-		// visitor's User-Agent header to our API.
-		$args['user-agent'] = 'ProductRecommendationQuiz/' . PRQ_PLUGIN_VERSION;
-
-		// Force IPv4 for this request to mirror legacy curl behavior on hosts with broken IPv6.
-		$ipv4_filter = function ( $handle ) {
-			if ( defined( 'CURLOPT_IPRESOLVE' ) && defined( 'CURL_IPRESOLVE_V4' ) ) {
-				// phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt -- Setting CURLOPT_IPRESOLVE is only possible via the http_api_curl hook; WP's HTTP API exposes no option to force IPv4.
-				curl_setopt( $handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
-			}
-			return $handle;
-		};
-		add_action( 'http_api_curl', $ipv4_filter );
-		$response = wp_remote_post( $url, $args );
-		remove_action( 'http_api_curl', $ipv4_filter );
-
-		if ( is_wp_error( $response ) ) {
-			return array( 0, '' );
-		}
-
-		return array(
-			(int) wp_remote_retrieve_response_code( $response ),
-			wp_remote_retrieve_body( $response ),
-		);
-	}
-
-	/**
-	 * Check for problematic WPML versions.
-	 *
-	 * WPML versions below 4.5.0 have a known issue that interferes with
-	 * WooCommerce authentication. This method checks for this condition
-	 * and returns whether to block the OAuth flow.
-	 *
-	 * @since 1.0.0
-	 * @return bool True if problematic WPML detected (should block), false otherwise.
-	 */
-	public function check_wpml() {
-		if ( function_exists( 'icl_object_id' ) ) {
-			// WPML is active
-			$should_show_warning = true;
-
-			if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
-				$current_version = ICL_SITEPRESS_VERSION;
-				if ( version_compare( $current_version, '4.5.0', '>=' ) ) {
-					// WPML version is 4.5.0 or higher, no need to trigger warning
-					// https://wpml.org/errata/endpoints-containing-slashes-are-incorrectly-encoded/
-					$should_show_warning = false;
-				}
-			}
-
-			if ( $should_show_warning ) {
-				$this->wpml_active();
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Render the main plugin options page.
 	 *
 	 * Performs prerequisite checks and displays either the OAuth flow
@@ -485,7 +250,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 
 		// Check WooCommerce is installed
 		if ( ! class_exists( 'WooCommerce' ) ) {
-			$this->woocommerce_missing();
+			$this->diagnostics->woocommerce_missing();
 			return;
 		}
 
@@ -502,24 +267,24 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 			}
 		} else {
 			// Your website doesn't have HTTPS - ERROR
-			$this->https_ssl_missing();
+			$this->diagnostics->https_ssl_missing();
 			return;
 		}
 
 		// Check not running on localhost
 		if ( 'localhost' === $domain ) {
-			$this->is_localhost();
+			$this->diagnostics->is_localhost();
 			return;
 		}
 
 		// Check permalinks are not set to plain
-		if ( $this->check_plain_permalink() ) {
-			$this->plain_permalink_warning();
+		if ( $this->diagnostics->check_plain_permalink() ) {
+			$this->diagnostics->plain_permalink_warning();
 			return;
 		}
 
 		// Check REST API accessibility
-		$wp_api_check = $this->api_check_json( PRQ_STORE_URL );
+		$wp_api_check = $this->diagnostics->api_check_json( PRQ_STORE_URL );
 
 		// Handle cURL missing error
 		if ( 0 === $wp_api_check[0] ) {
@@ -543,19 +308,19 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 		 * 429 tested more than 10 times per minute
 		 */
 		if ( 404 === $wp_api_check[0] ) {
-			$this->wp_json_error();
+			$this->diagnostics->wp_json_error();
 
 			$wp_api_check_json = json_decode( $wp_api_check[1] );
 			if ( isset( $wp_api_check_json->content_type ) ) {
 				$is_html_type = strpos( $wp_api_check_json->content_type, 'text/html' ) !== false;
-				$is_json_body = isset( $wp_api_check_json->body ) && $this->is_json( $wp_api_check_json->body );
+				$is_json_body = isset( $wp_api_check_json->body ) && $this->diagnostics->is_json( $wp_api_check_json->body );
 
 				if ( $is_html_type && $is_json_body ) {
-					$this->wp_json_error_html_content_type( PRQ_STORE_URL );
+					$this->diagnostics->wp_json_error_html_content_type( PRQ_STORE_URL );
 				}
 
 				if ( isset( $wp_api_check_json->body ) ) {
-					$this->wp_json_error_body( $wp_api_check_json->body );
+					$this->diagnostics->wp_json_error_body( $wp_api_check_json->body );
 				}
 			}
 			return;
@@ -571,7 +336,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin {
 			// Needs to receive credentials from our server
 			// Check if WPML is active, it causes authentication issues
 			// https://stackoverflow.com/questions/65776787/woocommerce-is-encoding-the-authorization-endpoint
-			if ( $this->check_wpml() ) {
+			if ( $this->diagnostics->check_wpml() ) {
 				return;
 			}
 			$this->prquiz_first_visit();

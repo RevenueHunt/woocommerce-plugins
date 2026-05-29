@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Constant PRQ_STORE_URL not found\\.$#"
+			count: 1
+			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php
+
+		-
 			message: "#^Constant PRQ_ADMIN_URL not found\\.$#"
 			count: 1
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php
@@ -12,7 +17,7 @@ parameters:
 
 		-
 			message: "#^Constant PRQ_STORE_URL not found\\.$#"
-			count: 8
+			count: 7
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin.php
 
 		-
