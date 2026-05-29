@@ -103,8 +103,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 	 */
 	public function my_plugin_menu() {
 		add_menu_page(
-			'Product Recommendation Quiz',
-			'Product Quiz',
+			__( 'Product Recommendation Quiz', 'product-recommendation-quiz-for-ecommerce' ),
+			__( 'Product Quiz', 'product-recommendation-quiz-for-ecommerce' ),
 			'manage_options',
 			'prqfw',
 			array( $this->admin_page, 'prquiz_options' ),
