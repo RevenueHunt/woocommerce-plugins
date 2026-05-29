@@ -52,5 +52,13 @@
 				<element value="product_recommendation_quiz_for_ecommerce"/>
 			</property>
 		</properties>
+		<!--
+			'prq'/'PRQ' are established, shipped prefixes that can't change without
+			breaking the plugin, so the "short prefix" advisory is not actionable.
+			It's also a config-level message attached to the first-processed file,
+			which is non-deterministic under parallel runs (passes locally, fails in
+			CI depending on file order) — exclude it for a stable, meaningful gate.
+		-->
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed"/>
 	</rule>
 </ruleset>
