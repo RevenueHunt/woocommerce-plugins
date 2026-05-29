@@ -121,7 +121,6 @@ Data is sent to RevenueHunt only as needed to provide the quiz. For details, see
 
 = 2.4.0 =
 * New - Place the quiz inline anywhere with the [product_recommendation_quiz] shortcode or the new "Product Recommendation Quiz" block in the block editor.
-* New - A native status panel in the admin shows your connection state, store domain, the translation and multi-currency plugins detected on your store, your WordPress and WooCommerce versions, and your base language and currency.
 * New - WordPress Site Health now reports the plugin's prerequisites (permalink structure, HTTPS, WPML compatibility and REST API reachability), so issues are easy to spot in the standard place.
 * Dev - Placement is built on a delivery-agnostic seam and a pluggable connection layer that future editions reuse.
 

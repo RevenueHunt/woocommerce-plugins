@@ -61,25 +61,15 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Page {
 	private $oauth_url_builder;
 
 	/**
-	 * Native at-a-glance status panel (rendered above the management iframe).
-	 *
-	 * @since    2.4.0
-	 * @var      Product_Recommendation_Quiz_For_Ecommerce_Admin_Status_Panel    $status_panel    Status panel.
-	 */
-	private $status_panel;
-
-	/**
 	 * Initialize the page with its collaborators.
 	 *
 	 * @since 2.3.9
 	 * @param Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics|null       $diagnostics       Diagnostics helper.
 	 * @param Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder|null $oauth_url_builder URL builder.
-	 * @param Product_Recommendation_Quiz_For_Ecommerce_Admin_Status_Panel|null      $status_panel      Status panel.
 	 */
-	public function __construct( $diagnostics = null, $oauth_url_builder = null, $status_panel = null ) {
+	public function __construct( $diagnostics = null, $oauth_url_builder = null ) {
 		$this->diagnostics       = $diagnostics ? $diagnostics : new Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics();
 		$this->oauth_url_builder = $oauth_url_builder ? $oauth_url_builder : new Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder();
-		$this->status_panel      = $status_panel ? $status_panel : new Product_Recommendation_Quiz_For_Ecommerce_Admin_Status_Panel();
 	}
 
 	/**
@@ -107,7 +97,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Page {
 				?>
 				</span>
 			</p>
-			<?php $this->status_panel->render(); ?>
 			<iframe title="<?php esc_attr_e( 'Product Recommendation Quiz for eCommerce', 'product-recommendation-quiz-for-ecommerce' ); ?>" src="<?php echo esc_url( $this->oauth_url_builder->prquiz_get_oauth_url() ); ?>" name="app-iframe" context="Main" class="prq-iframe"></iframe>
 		</div>
 		<?php

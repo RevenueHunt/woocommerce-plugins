@@ -74,18 +74,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_Autoloader {
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Admin_Diagnostics':
 				require_once plugin_dir_path( __DIR__ ) . 'admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php';
 				break;
-			case 'Product_Recommendation_Quiz_For_Ecommerce_Connection':
-				require_once plugin_dir_path( __DIR__ ) . 'admin/interface-product-recommendation-quiz-for-ecommerce-connection.php';
-				break;
-			case 'Product_Recommendation_Quiz_For_Ecommerce_Oauth_Connection':
-				require_once plugin_dir_path( __DIR__ ) . 'admin/class-product-recommendation-quiz-for-ecommerce-oauth-connection.php';
-				break;
-			case 'Product_Recommendation_Quiz_For_Ecommerce_Environment':
-				require_once plugin_dir_path( __DIR__ ) . 'admin/class-product-recommendation-quiz-for-ecommerce-environment.php';
-				break;
-			case 'Product_Recommendation_Quiz_For_Ecommerce_Admin_Status_Panel':
-				require_once plugin_dir_path( __DIR__ ) . 'admin/class-product-recommendation-quiz-for-ecommerce-admin-status-panel.php';
-				break;
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Site_Health':
 				require_once plugin_dir_path( __DIR__ ) . 'admin/class-product-recommendation-quiz-for-ecommerce-site-health.php';
 				break;

@@ -2,7 +2,6 @@
 
 2026-05-29 - version 2.4.0
 * New - Place the quiz inline with a [product_recommendation_quiz] shortcode or the new "Product Recommendation Quiz" block
-* New - Native connection status panel in the admin (connection state, store domain, detected translation and multi-currency plugins, WordPress/WooCommerce versions, base language and currency)
 * New - WordPress Site Health checks for the plugin's prerequisites (permalink structure, HTTPS, WPML compatibility, REST API reachability)
 * Dev - Delivery-agnostic placement seam and a pluggable connection layer that future editions reuse
 
