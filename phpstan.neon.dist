@@ -1,0 +1,13 @@
+includes:
+	- phpstan-baseline.neon
+
+parameters:
+	level: 5
+	paths:
+		- src
+	# WordPress/WooCommerce symbols are provided by szepeviktor/phpstan-wordpress
+	# (auto-registered via phpstan/extension-installer). Pre-existing findings in
+	# the legacy V1 source are grandfathered in phpstan-baseline.neon; new code
+	# must analyse clean.
+	bootstrapFiles:
+		- vendor/szepeviktor/phpstan-wordpress/bootstrap.php

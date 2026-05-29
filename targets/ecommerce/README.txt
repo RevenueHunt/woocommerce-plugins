@@ -2,9 +2,9 @@
 Contributors: revenuehunt
 Donate link: https://revenuehunt.com/
 Tags: quiz, product recommendation, woocommerce, ecommerce, personalization
-Requires at least: 3.0.1
+Requires at least: 6.0
 Tested up to: 7.0
-Requires PHP: 5.6
+Requires PHP: 7.4
 Stable tag: 2.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

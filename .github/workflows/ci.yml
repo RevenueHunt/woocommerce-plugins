@@ -16,15 +16,42 @@ jobs:
         with:
           php-version: '8.2'
           tools: composer
+          coverage: none
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
 
+      # --- Quality gates (block merge on red) ---
+
+      - name: Coding standards (WPCS, baselined)
+        # phpcs.baseline.xml grandfathers pre-existing V1 findings; new/changed
+        # code must pass clean. See phpcs.xml.dist.
+        run: composer lint
+
+      - name: Static analysis (PHPStan, baselined)
+        # phpstan-baseline.neon grandfathers pre-existing V1 findings; new code
+        # must analyse clean. See phpstan.neon.dist.
+        run: composer analyse
+
       - name: Characterization suite (must be green before AND after every change)
         run: composer test
+
+      # --- Build + integrity ---
 
       - name: Build both artifacts
         run: php tools/build.php all
 
       - name: Build-diff guard (one source -> two artifacts)
         run: bash tools/verify-build.sh
+
+      # --- wp.org submission readiness ---
+
+      - name: WordPress Plugin Check (informational)
+        # The official wp.org Plugin Check, run against the built free artifact.
+        # Plugin Check has no baseline mechanism, so this is informational while
+        # the legacy V1 findings are triaged. Remove continue-on-error to make it
+        # a hard gate once those are addressed.
+        continue-on-error: true
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: ./build/product-recommendation-quiz-for-ecommerce
