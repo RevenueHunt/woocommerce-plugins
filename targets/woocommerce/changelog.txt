@@ -1,5 +1,9 @@
 *** Product Recommendation Quiz for WooCommerce ***
 
+2026-05-29 - version 2.3.10
+* New - Admin screens, setup flow and error notices are now translatable; bundled Dutch, German, French, Spanish, Italian, Polish and Portuguese (Brazil) translations
+* Dev - i18n: whole-sentence translatable strings, .pot regenerated in the build, translation-freshness + split-sentence checks in CI
+
 2026-05-29 - version 2.3.9
 * Fix - Hardened rate limiting on the connection endpoints (server-verified IP; X-Forwarded-For ignored unless a proxy is explicitly trusted; no fail-open when the IP is unknown)
 * Fix - Deactivating the plugin no longer deletes your connection credentials; only uninstalling does

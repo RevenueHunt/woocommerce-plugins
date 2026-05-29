@@ -5,7 +5,7 @@ Tags: quiz, product recommendation, woocommerce, sales automation, ecommerce
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.3.9
+Stable tag: 2.3.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,10 @@ This plugin connects to RevenueHunt to build and serve your product recommendati
 Data is sent to RevenueHunt only as needed to provide the quiz. For details, see RevenueHunt's Privacy Policy (https://revenuehunt.com/privacy/), Terms of Service (https://revenuehunt.com/tos/), and Security overview (https://revenuehunt.com/security/).
 
 == Changelog ==
+
+= 2.3.10 =
+* New - The plugin's admin screens, setup flow and error notices are now translatable, and ship with Dutch, German, French, Spanish, Italian, Polish and Portuguese (Brazil) translations.
+* Dev - Internationalization pass: admin sentences are now single, whole translatable strings (no fragments), the translation template regenerates from source in the build, and CI guards translation freshness.
 
 = 2.3.9 =
 * Fix - Hardened rate limiting on the connection endpoints (throttle by server-verified IP; ignore the spoofable X-Forwarded-For header unless a proxy is explicitly trusted; no fail-open when the IP is unknown)
