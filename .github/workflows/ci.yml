@@ -15,7 +15,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          tools: composer
+          # wp-cli powers the i18n make-pot / .pot-freshness gate below.
+          tools: composer, wp-cli
           coverage: none
 
       - name: Install dependencies
@@ -27,6 +28,12 @@ jobs:
         # phpcs.baseline.xml grandfathers pre-existing V1 findings; new/changed
         # code must pass clean. See phpcs.xml.dist.
         run: composer lint
+
+      - name: i18n lint (no split / fragmented translatable strings)
+        run: composer i18n:lint
+
+      - name: .pot freshness (committed template matches a fresh make-pot)
+        run: composer i18n:pot-check
 
       - name: Static analysis (PHPStan, baselined)
         # phpstan-baseline.neon grandfathers pre-existing V1 findings; new code

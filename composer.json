@@ -27,11 +27,14 @@
     "test": "phpunit",
     "build": "php tools/build.php all",
     "i18n:pot": "bash tools/make-pot.sh",
+    "i18n:lint": "php tools/i18n-lint.php",
+    "i18n:pot-check": "bash tools/check-pot-fresh.sh",
     "lint": "phpcs",
     "lint:fix": "phpcbf",
     "analyse": "phpstan analyse --memory-limit=1G",
     "check": [
       "@lint",
+      "@i18n:lint",
       "@analyse",
       "@test"
     ]
