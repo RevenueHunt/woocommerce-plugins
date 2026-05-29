@@ -83,7 +83,10 @@ function prq_po_unescape(string $s): string {
  * Compile a parsed [msgid => msgstr] map into the binary .mo format.
  *
  * Little-endian, revision 0, originals sorted (gettext convention). No hash
- * table (size/offset zero) — WordPress's reader does not require one.
+ * table (size zero), but its offset is set just past the translations index
+ * table: WordPress derives the translations-table length from
+ * (hash_addr - translations_lengths_addr) and rejects the file unless that
+ * equals total*8, so hash_addr must point at the string blob, not 0.
  *
  * @param array<string, string> $entries Ordered translations (header as '').
  * @return string Binary .mo contents.
@@ -117,13 +120,13 @@ function prq_build_mo(array $entries): string {
 
     $header = pack(
         'VVVVVVV',
-        0x950412de, // magic
-        0,          // revision
-        $count,     // number of strings
-        $ids_table, // offset of originals table
-        $strs_table,// offset of translations table
-        0,          // hash table size
-        0           // hash table offset
+        0x950412de,  // magic
+        0,           // revision
+        $count,      // number of strings
+        $ids_table,  // offset of originals table
+        $strs_table, // offset of translations table
+        0,           // hash table size (no hash table)
+        $blob_start  // hash table offset == end of translations table (= string blob)
     );
 
     return $header . $id_offsets . $str_offsets . $blob;
