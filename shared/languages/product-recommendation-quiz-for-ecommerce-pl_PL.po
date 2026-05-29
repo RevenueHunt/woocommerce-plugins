@@ -65,17 +65,17 @@ msgstr "Wtyczka nie działa w środowiskach lokalnych. Musi być zainstalowana w
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:124
 msgid "Settings > Permalinks"
-msgstr ""
+msgstr "Ustawienia > Bezpośrednie odnośniki"
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:127
 msgid "Your current permalink structure is set to \"Plain\". For this plugin to authenticate correctly, a different permalink structure (such as \"Post name\") is required."
-msgstr ""
+msgstr "Bieżąca struktura bezpośrednich odnośników jest ustawiona na „Zwykły”. Aby ta wtyczka mogła się poprawnie uwierzytelnić, wymagana jest inna struktura bezpośrednich odnośników (np. „Nazwa wpisu”)."
 
 #. translators: %s: link to the WordPress "Settings > Permalinks" screen.
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:133
 #, php-format
 msgid "Please update your permalink settings under %s to ensure seamless authentication."
-msgstr ""
+msgstr "Zaktualizuj ustawienia bezpośrednich odnośników w %s, aby zapewnić bezproblemowe uwierzytelnianie."
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:154
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php:185
@@ -151,33 +151,33 @@ msgstr "przyznaj uprawnienia teraz"
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:140
 msgid "this article"
-msgstr ""
+msgstr "ten artykuł"
 
 #. translators: %s: link to the troubleshooting article (anchor "this article").
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:144
 #, php-format
 msgid "Are you having trouble granting access? Check out %s"
-msgstr ""
+msgstr "Masz problem z przyznaniem dostępu? Sprawdź %s"
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:168
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
+msgstr "Nie masz wystarczających uprawnień, aby uzyskać dostęp do tej strony."
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:169
 msgid "Permission Denied"
-msgstr ""
+msgstr "Odmowa dostępu"
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:220
 msgid "The cURL extension is required but not installed on your server."
-msgstr ""
+msgstr "Rozszerzenie cURL jest wymagane, ale nie jest zainstalowane na twoim serwerze."
 
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:176
 msgid "Too many requests. Please try again later."
-msgstr ""
+msgstr "Zbyt wiele żądań. Spróbuj ponownie później."
 
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:210
 msgid "Invalid shop hashid format. Only alphanumeric characters are allowed."
-msgstr ""
+msgstr "Nieprawidłowy format hashid sklepu. Dozwolone są tylko znaki alfanumeryczne."
 
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:219
 msgid "Invalid api_key format."

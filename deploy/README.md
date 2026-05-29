@@ -55,3 +55,17 @@ mirror is still maintained.
 - Dev files never reach an artifact — `build.php` only assembles `src/` + `shared/` + the target's files.
 - Translations (`.pot`/`.po`/`.mo`, adding a locale, the build/CI i18n gates): see [`I18N.md`](I18N.md).
 - See the per-pipeline SOPs in this folder and `~/Projects/RevenueHunt/PLUGIN-DEPLOY.md`.
+
+## Accepted Plugin Check warnings
+
+These wp.org Plugin Check **warnings** (non-blocking) are intentional and may be
+left in place at submission:
+
+- **`mismatched_plugin_name`** — the eCommerce `README.txt` title is
+  *"Quiz Builder for WooCommerce - Product Recommendations"* (an SEO-optimized
+  listing title) while the `Plugin Name:` header is *"Product Recommendation
+  Quiz for eCommerce"*. The mismatch is deliberate: aligning them would sacrifice
+  the SEO title. Keep as-is.
+- **`PrefixAllGlobals` short-prefix advisory** (`prq`/`PRQ`) — already excluded in
+  `phpcs.xml.dist` with rationale; the shipped prefixes can't change without churn
+  and the message is non-deterministic under parallel runs.

@@ -161,23 +161,23 @@ msgstr "Avez-vous des difficultés à accorder l’accès ? Commander %s"
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:168
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
+msgstr "Vous n’avez pas les droits suffisants pour accéder à cette page."
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:169
 msgid "Permission Denied"
-msgstr ""
+msgstr "Autorisation refusée"
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:220
 msgid "The cURL extension is required but not installed on your server."
-msgstr ""
+msgstr "L’extension cURL est requise mais n’est pas installée sur votre serveur."
 
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:176
 msgid "Too many requests. Please try again later."
-msgstr ""
+msgstr "Trop de requêtes. Veuillez réessayer plus tard."
 
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:210
 msgid "Invalid shop hashid format. Only alphanumeric characters are allowed."
-msgstr ""
+msgstr "Format de hashid de la boutique non valide. Seuls les caractères alphanumériques sont autorisés."
 
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:219
 msgid "Invalid api_key format."
