@@ -1,6 +1,6 @@
 *** Product Recommendation Quiz for WooCommerce ***
 
-2026-05-29 - version 2.4.0
+2026-05-29 - version 2.3.9
 * Fix - Hardened rate limiting on the connection endpoints (server-verified IP; X-Forwarded-For ignored unless a proxy is explicitly trusted; no fail-open when the IP is unknown)
 * Fix - Deactivating the plugin no longer deletes your connection credentials; only uninstalling does
 * Dev - The WordPress and WooCommerce editions now build from a single shared source

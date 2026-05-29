@@ -5,7 +5,7 @@ Tags: quiz, product recommendation, woocommerce, sales automation, ecommerce
 Requires at least: 3.0.1
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 2.4.0
+Stable tag: 2.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -109,7 +109,7 @@ Visit our [FAQs page](https://revenuehunt.com/faqs/ "Frequently Asked Questions"
 
 == Changelog ==
 
-= 2.4.0 =
+= 2.3.9 =
 * Fix - Hardened rate limiting on the connection endpoints (throttle by server-verified IP; ignore the spoofable X-Forwarded-For header unless a proxy is explicitly trusted; no fail-open when the IP is unknown)
 * Fix - Deactivating the plugin no longer deletes your connection credentials; only uninstalling does
 * Dev - The WordPress and WooCommerce editions now build from a single shared source
