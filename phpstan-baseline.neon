@@ -1,86 +1,103 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Constant PRQ_STORE_URL not found\\.$#"
+			message: '#^Constant PRQ_STORE_URL not found\.$#'
+			identifier: constant.notFound
 			count: 1
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php
 
 		-
-			message: "#^Constant PRQ_ADMIN_URL not found\\.$#"
+			message: '#^Constant PRQ_ADMIN_URL not found\.$#'
+			identifier: constant.notFound
 			count: 1
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php
 
 		-
-			message: "#^Constant PRQ_STORE_URL not found\\.$#"
+			message: '#^Constant PRQ_STORE_URL not found\.$#'
+			identifier: constant.notFound
 			count: 2
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php
 
 		-
-			message: "#^Constant PRQ_WOO_VERSION not found\\.$#"
+			message: '#^Constant PRQ_WOO_VERSION not found\.$#'
+			identifier: constant.notFound
 			count: 1
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php
 
 		-
-			message: "#^Constant PRQ_WP_VERSION not found\\.$#"
+			message: '#^Constant PRQ_WP_VERSION not found\.$#'
+			identifier: constant.notFound
 			count: 1
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php
 
 		-
-			message: "#^Constant PRQ_API_URL not found\\.$#"
+			message: '#^Constant PRQ_API_URL not found\.$#'
+			identifier: constant.notFound
 			count: 1
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-oauth-url-builder.php
 
 		-
-			message: "#^Constant PRQ_STORE_URL not found\\.$#"
+			message: '#^Constant PRQ_STORE_URL not found\.$#'
+			identifier: constant.notFound
 			count: 3
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-oauth-url-builder.php
 
 		-
-			message: "#^Constant PRQ_WOO_VERSION not found\\.$#"
+			message: '#^Constant PRQ_WOO_VERSION not found\.$#'
+			identifier: constant.notFound
 			count: 1
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-oauth-url-builder.php
 
 		-
-			message: "#^Constant PRQ_WP_VERSION not found\\.$#"
+			message: '#^Constant PRQ_WP_VERSION not found\.$#'
+			identifier: constant.notFound
 			count: 1
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-oauth-url-builder.php
 
 		-
-			message: "#^Constant PRQ_STORE_URL not found\\.$#"
+			message: '#^Constant PRQ_STORE_URL not found\.$#'
+			identifier: constant.notFound
 			count: 2
 			path: src/admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php
 
 		-
-			message: "#^Constant PRQ_ADMIN_URL not found\\.$#"
+			message: '#^Constant PRQ_ADMIN_URL not found\.$#'
+			identifier: constant.notFound
 			count: 1
 			path: src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php
 
 		-
-			message: "#^Constant PRQ_STORE_URL not found\\.$#"
+			message: '#^Constant PRQ_STORE_URL not found\.$#'
+			identifier: constant.notFound
 			count: 2
 			path: src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php
 
 		-
-			message: "#^Constant PRQ_WOO_VERSION not found\\.$#"
+			message: '#^Constant PRQ_WOO_VERSION not found\.$#'
+			identifier: constant.notFound
 			count: 1
 			path: src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php
 
 		-
-			message: "#^Constant PRQ_WP_VERSION not found\\.$#"
+			message: '#^Constant PRQ_WP_VERSION not found\.$#'
+			identifier: constant.notFound
 			count: 1
 			path: src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php
 
 		-
-			message: "#^Property Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script\\:\\:\\$version is never read, only written\\.$#"
+			message: '#^Property Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script\:\:\$version is never read, only written\.$#'
+			identifier: property.onlyWritten
 			count: 1
 			path: src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php
 
 		-
-			message: "#^Parameter \\#4 \\$autoload of function add_option expects bool\\|null, string given\\.$#"
+			message: '#^Parameter \#4 \$autoload of function add_option expects bool\|null, string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/includes/class-product-recommendation-quiz-for-ecommerce-activator.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
+			message: '#^Strict comparison using \=\=\= between null and string will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
 			count: 1
 			path: src/rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php

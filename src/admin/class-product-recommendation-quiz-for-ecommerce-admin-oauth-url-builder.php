@@ -81,7 +81,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder {
 		$hmac = base64_encode( hash_hmac( 'sha256', $data, $api_key, true ) );
 
 		$locale_parts = explode( '_', get_locale() );
-		$locale       = isset( $locale_parts[0] ) ? $locale_parts[0] : 'en';
+		$locale       = $locale_parts[0];
 
 		$params = array(
 			'timestamp'      => $time,
