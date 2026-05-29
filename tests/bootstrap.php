@@ -20,8 +20,8 @@ if (!defined('MINUTE_IN_SECONDS')) define('MINUTE_IN_SECONDS', 60);
 /* ---- deterministic helper stubs (not the behavior under test) ---- */
 if (!function_exists('register_activation_hook'))   { function register_activation_hook($f, $c) {} }
 if (!function_exists('register_deactivation_hook')) { function register_deactivation_hook($f, $c) {} }
-if (!function_exists('add_action'))                 { function add_action(...$a) { return true; } }
-if (!function_exists('add_filter'))                 { function add_filter(...$a) { return true; } }
+if (!function_exists('add_action'))                 { function add_action($hook = '', ...$a) { $GLOBALS['__prq_actions'][] = $hook; return true; } }
+if (!function_exists('add_filter'))                 { function add_filter($hook = '', ...$a) { $GLOBALS['__prq_filters'][] = $hook; return true; } }
 if (!function_exists('plugin_dir_path'))            { function plugin_dir_path($f) { return rtrim(dirname($f), '/') . '/'; } }
 if (!function_exists('sanitize_text_field'))        { function sanitize_text_field($s) { return is_string($s) ? trim(preg_replace('/[\r\n\t]+|\s{2,}/', ' ', strip_tags($s))) : ''; } }
 if (!function_exists('wp_unslash'))                 { function wp_unslash($v) { return is_string($v) ? stripslashes($v) : $v; } }
