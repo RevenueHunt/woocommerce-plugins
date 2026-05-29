@@ -74,6 +74,11 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Block {
 			true
 		);
 
+		// The editor preview iframes the hosted quiz; give it the backend origin
+		// (respects the dev/prod split the core class resolves at runtime).
+		$admin_origin = defined( 'PRQ_ADMIN_URL' ) ? constant( 'PRQ_ADMIN_URL' ) : 'https://admin.revenuehunt.com';
+		wp_localize_script( self::EDITOR_HANDLE, 'prqQuizBlock', array( 'adminOrigin' => $admin_origin ) );
+
 		register_block_type(
 			plugin_dir_path( __FILE__ ) . 'blocks/quiz',
 			array( 'render_callback' => array( $this, 'render_block' ) )

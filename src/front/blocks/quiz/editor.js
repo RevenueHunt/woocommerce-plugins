@@ -3,7 +3,9 @@
  *
  * Hand-authored against the global wp.* packages (no JSX, no build step). The
  * block is dynamic: save() returns null and the server render callback emits the
- * delivery markup, so the editor only needs a clean placeholder + the settings.
+ * delivery markup. In the editor the block shows a LIVE preview of the quiz
+ * (an iframe to the hosted quiz, the same source the published page uses); the
+ * Quiz ID and other options live only in the sidebar inspector.
  *
  * The block name and text domain below are the canonical (eCommerce) tokens; the
  * single-source build substitutes them per distribution, so the editor block
@@ -22,6 +24,12 @@
 	var ToggleControl = components.ToggleControl;
 	var Placeholder = components.Placeholder;
 	var domain = 'product-recommendation-quiz-for-ecommerce';
+
+	// Origin of the hosted quiz, provided by PHP (respects dev/prod); falls back
+	// to production if the localized data is unavailable.
+	var adminOrigin = ( window.prqQuizBlock && window.prqQuizBlock.adminOrigin )
+		? window.prqQuizBlock.adminOrigin
+		: 'https://admin.revenuehunt.com';
 
 	blocks.registerBlockType( 'revenuehunt/product-recommendation-quiz-for-ecommerce', {
 		edit: function ( props ) {
@@ -83,25 +91,35 @@
 				)
 			);
 
-			var placeholder = el(
-				Placeholder,
-				{
-					icon: 'format-chat',
-					label: __( 'Product Recommendation Quiz', domain ),
-					instructions: attributes.id
-						? __( 'Your quiz will appear here on the published page.', domain )
-						: __( 'Enter your Quiz ID to display the quiz on this page.', domain )
-				},
-				el( TextControl, {
-					label: __( 'Quiz ID', domain ),
-					value: attributes.id,
-					onChange: function ( value ) {
-						setAttributes( { id: value } );
+			var content;
+			if ( attributes.id ) {
+				// Live preview: a px/vh height renders reliably in the editor; a
+				// percentage has no sized parent here, so preview it in pixels.
+				var previewUnit = ( attributes.heightUnit === 'vh' ) ? 'vh' : 'px';
+				content = el( 'iframe', {
+					src: adminOrigin + '/public/quiz/' + encodeURIComponent( attributes.id ),
+					title: __( 'Product Recommendation Quiz preview', domain ),
+					style: {
+						width: '100%',
+						height: ( attributes.height || 600 ) + previewUnit,
+						border: '0',
+						display: 'block',
+						// Preview only: let clicks select the block instead of the quiz.
+						pointerEvents: 'none'
 					}
-				} )
-			);
+				} );
+			} else {
+				content = el(
+					Placeholder,
+					{
+						icon: 'format-chat',
+						label: __( 'Product Recommendation Quiz', domain ),
+						instructions: __( 'Enter your Quiz ID in the block settings on the right to preview and display the quiz.', domain )
+					}
+				);
+			}
 
-			return el( 'div', blockProps, inspector, placeholder );
+			return el( 'div', blockProps, inspector, content );
 		},
 		save: function () {
 			return null;

@@ -28,6 +28,14 @@ final class FrontBlockTest extends TestCase
             PRQ_PLUGIN_VERSION,
             true
         );
+        // The editor preview origin is localized to the editor script.
+        Functions\expect('wp_localize_script')->once()->with(
+            'product-recommendation-quiz-for-ecommerce-block-editor',
+            'prqQuizBlock',
+            \Mockery::on(function ($data) {
+                return isset($data['adminOrigin']) && is_string($data['adminOrigin']);
+            })
+        );
 
         $captured_args = null;
         Functions\expect('register_block_type')->once()->with(
