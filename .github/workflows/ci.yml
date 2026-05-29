@@ -92,10 +92,11 @@ jobs:
           wp-env run cli wp plugin check product-recommendation-quiz-for-ecommerce || true
           # Gate on ERROR-severity findings only; warnings are deferred.
           wp-env run cli wp plugin check product-recommendation-quiz-for-ecommerce --format=json 2>/dev/null > pc.json || true
-          [ -s pc.json ] || echo '[]' > pc.json
-          if ! jq -e . pc.json >/dev/null 2>&1; then
+          # wp plugin check emits one JSON array per file; slurp + merge them, then
+          # count ERROR-severity rows.
+          ERRORS=$(jq -s 'map(select(type=="array")) | add // [] | map(select(.type=="ERROR")) | length' pc.json 2>/dev/null || echo "")
+          if [ -z "$ERRORS" ]; then
             echo "::error::Could not parse Plugin Check JSON output:"; cat pc.json; exit 1
           fi
-          ERRORS=$(jq '[.[] | select(.type == "ERROR")] | length' pc.json)
           echo "Plugin Check ERROR-severity findings: $ERRORS"
           test "$ERRORS" -eq 0
