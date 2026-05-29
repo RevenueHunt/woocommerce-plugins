@@ -73,8 +73,11 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode {
 	public function render_shortcode( $atts ) {
 		$atts = shortcode_atts(
 			array(
-				'id'     => '',
-				'height' => 600,
+				'id'           => '',
+				'height'       => 600,
+				'height_unit'  => 'px',
+				'fixed_height' => 'false',
+				'autoscroll'   => 'true',
 			),
 			$atts,
 			self::TAG
@@ -82,8 +85,11 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode {
 
 		return $this->delivery->render(
 			array(
-				'id'     => $atts['id'],
-				'height' => $atts['height'],
+				'id'           => $atts['id'],
+				'height'       => $atts['height'],
+				'height_unit'  => $atts['height_unit'],
+				'fixed_height' => filter_var( $atts['fixed_height'], FILTER_VALIDATE_BOOLEAN ),
+				'autoscroll'   => filter_var( $atts['autoscroll'], FILTER_VALIDATE_BOOLEAN ),
 			)
 		);
 	}

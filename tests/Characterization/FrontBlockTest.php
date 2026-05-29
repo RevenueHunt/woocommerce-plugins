@@ -61,11 +61,23 @@ final class FrontBlockTest extends TestCase
         $delivery = \Mockery::mock(Product_Recommendation_Quiz_For_Ecommerce_Delivery::class);
         $delivery->shouldReceive('render')
             ->once()
-            ->with(['id' => 'rkHm6Y', 'height' => 450])
+            ->with([
+                'id'           => 'rkHm6Y',
+                'height'       => 450,
+                'height_unit'  => '%',
+                'fixed_height' => true,
+                'autoscroll'   => false,
+            ])
             ->andReturn('<div class="rh-widget rh-inline"></div>');
 
         $block = new Product_Recommendation_Quiz_For_Ecommerce_Front_Block($delivery);
-        $out = $block->render_block(['id' => 'rkHm6Y', 'height' => 450]);
+        $out = $block->render_block([
+            'id'         => 'rkHm6Y',
+            'height'     => 450,
+            'heightUnit' => '%',
+            'fixedHeight' => true,
+            'autoscroll' => false,
+        ]);
 
         $this->assertSame('<div class="rh-widget rh-inline"></div>', $out);
     }
@@ -75,7 +87,13 @@ final class FrontBlockTest extends TestCase
         $delivery = \Mockery::mock(Product_Recommendation_Quiz_For_Ecommerce_Delivery::class);
         $delivery->shouldReceive('render')
             ->once()
-            ->with(['id' => '', 'height' => 600])
+            ->with([
+                'id'           => '',
+                'height'       => 600,
+                'height_unit'  => 'px',
+                'fixed_height' => false,
+                'autoscroll'   => true,
+            ])
             ->andReturn('');
 
         $block = new Product_Recommendation_Quiz_For_Ecommerce_Front_Block($delivery);

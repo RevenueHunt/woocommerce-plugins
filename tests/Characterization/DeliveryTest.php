@@ -100,6 +100,59 @@ final class DeliveryTest extends TestCase
         $this->assertStringContainsString('height:600px;', $html);
     }
 
+    public function test_render_defaults_emit_no_optional_attributes(): void
+    {
+        Functions\when('esc_url')->returnArg();
+        Functions\when('wp_enqueue_script')->justReturn(true);
+        Functions\when('wp_localize_script')->justReturn(true);
+
+        $html = $this->delivery()->render(['id' => 'abc']);
+
+        // embed.js defaults: expands to content + auto-scrolls -> no opt-out attrs.
+        $this->assertStringNotContainsString('data-fixed-height', $html);
+        $this->assertStringNotContainsString('data-autoscroll', $html);
+    }
+
+    public function test_render_emits_fixed_height_when_set(): void
+    {
+        Functions\when('esc_url')->returnArg();
+        Functions\when('wp_enqueue_script')->justReturn(true);
+        Functions\when('wp_localize_script')->justReturn(true);
+
+        $html = $this->delivery()->render(['id' => 'abc', 'fixed_height' => true]);
+        $this->assertStringContainsString('data-fixed-height="true"', $html);
+    }
+
+    public function test_render_emits_autoscroll_false_when_disabled(): void
+    {
+        Functions\when('esc_url')->returnArg();
+        Functions\when('wp_enqueue_script')->justReturn(true);
+        Functions\when('wp_localize_script')->justReturn(true);
+
+        $html = $this->delivery()->render(['id' => 'abc', 'autoscroll' => false]);
+        $this->assertStringContainsString('data-autoscroll="false"', $html);
+    }
+
+    public function test_render_applies_height_unit(): void
+    {
+        Functions\when('esc_url')->returnArg();
+        Functions\when('wp_enqueue_script')->justReturn(true);
+        Functions\when('wp_localize_script')->justReturn(true);
+
+        $html = $this->delivery()->render(['id' => 'abc', 'height' => 80, 'height_unit' => '%']);
+        $this->assertStringContainsString('height:80%;', $html);
+    }
+
+    public function test_render_falls_back_to_px_for_invalid_unit(): void
+    {
+        Functions\when('esc_url')->returnArg();
+        Functions\when('wp_enqueue_script')->justReturn(true);
+        Functions\when('wp_localize_script')->justReturn(true);
+
+        $html = $this->delivery()->render(['id' => 'abc', 'height' => 500, 'height_unit' => 'furlongs']);
+        $this->assertStringContainsString('height:500px;', $html);
+    }
+
     public function test_render_returns_empty_and_does_not_enqueue_without_id(): void
     {
         Functions\expect('wp_enqueue_script')->never();

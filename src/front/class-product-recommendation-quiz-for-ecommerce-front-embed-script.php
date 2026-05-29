@@ -131,9 +131,17 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 	 * behavior (the script_loader_tag filter applies to this enqueue too), and
 	 * the shared handle means the script is never loaded twice on a page.
 	 *
+	 * Maps placement attributes to the inline embed contract embed.js reads (the
+	 * same one the app's Share tab emits): the height/unit in the style, plus the
+	 * optional data-fixed-height and data-autoscroll attributes. Defaults match
+	 * embed.js — the quiz expands to fit content and auto-scrolls — so an
+	 * attribute is only emitted to opt OUT.
+	 *
 	 * @since 2.4.0
 	 * @param array<string, mixed> $atts Placement attributes: 'id' (quiz id, required),
-	 *                                   'height' (px, default 600).
+	 *                                   'height' (number, default 600), 'height_unit'
+	 *                                   ('px'|'%'|'vh', default 'px'), 'fixed_height'
+	 *                                   (bool, default false), 'autoscroll' (bool, default true).
 	 * @return string The placement HTML, or '' when no quiz id is given.
 	 */
 	public function render( array $atts ): string {
@@ -147,14 +155,32 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 			$height = 600;
 		}
 
+		$unit = isset( $atts['height_unit'] ) ? (string) $atts['height_unit'] : 'px';
+		if ( ! in_array( $unit, array( 'px', '%', 'vh' ), true ) ) {
+			$unit = 'px';
+		}
+
+		$fixed_height = ! empty( $atts['fixed_height'] );
+		$autoscroll   = ! isset( $atts['autoscroll'] ) || (bool) $atts['autoscroll'];
+
+		$data_attrs = '';
+		if ( $fixed_height ) {
+			$data_attrs .= ' data-fixed-height="true"';
+		}
+		if ( ! $autoscroll ) {
+			$data_attrs .= ' data-autoscroll="false"';
+		}
+
 		$this->enqueue_embed();
 
 		$quiz_url = $this->admin_origin() . '/public/quiz/' . rawurlencode( $quiz_id );
 
 		return sprintf(
-			'<div class="rh-widget rh-inline" data-url="%s" style="margin:10px auto;width:100%%;height:%dpx;display:flex;"></div>',
+			'<div class="rh-widget rh-inline" data-url="%s"%s style="margin:10px auto;width:100%%;height:%d%s;display:flex;"></div>',
 			esc_url( $quiz_url ),
-			$height
+			$data_attrs,
+			$height,
+			$unit
 		);
 	}
 

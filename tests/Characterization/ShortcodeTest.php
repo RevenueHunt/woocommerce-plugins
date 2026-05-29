@@ -48,7 +48,13 @@ final class ShortcodeTest extends TestCase
         $delivery = \Mockery::mock(Product_Recommendation_Quiz_For_Ecommerce_Delivery::class);
         $delivery->shouldReceive('render')
             ->once()
-            ->with(['id' => 'rkHm6Y', 'height' => '450'])
+            ->with([
+                'id'           => 'rkHm6Y',
+                'height'       => '450',
+                'height_unit'  => 'px',
+                'fixed_height' => false,
+                'autoscroll'   => true,
+            ])
             ->andReturn('<div class="rh-widget rh-inline"></div>');
 
         $shortcode = new Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode($delivery);
@@ -57,12 +63,42 @@ final class ShortcodeTest extends TestCase
         $this->assertSame('<div class="rh-widget rh-inline"></div>', $out);
     }
 
+    public function test_render_parses_boolean_and_unit_attributes(): void
+    {
+        $delivery = \Mockery::mock(Product_Recommendation_Quiz_For_Ecommerce_Delivery::class);
+        $delivery->shouldReceive('render')
+            ->once()
+            ->with([
+                'id'           => 'rkHm6Y',
+                'height'       => '80',
+                'height_unit'  => '%',
+                'fixed_height' => true,
+                'autoscroll'   => false,
+            ])
+            ->andReturn('<div></div>');
+
+        $shortcode = new Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode($delivery);
+        $shortcode->render_shortcode([
+            'id'           => 'rkHm6Y',
+            'height'       => '80',
+            'height_unit'  => '%',
+            'fixed_height' => 'true',
+            'autoscroll'   => 'false',
+        ]);
+    }
+
     public function test_render_uses_defaults_and_returns_empty_without_id(): void
     {
         $delivery = \Mockery::mock(Product_Recommendation_Quiz_For_Ecommerce_Delivery::class);
         $delivery->shouldReceive('render')
             ->once()
-            ->with(['id' => '', 'height' => 600])
+            ->with([
+                'id'           => '',
+                'height'       => 600,
+                'height_unit'  => 'px',
+                'fixed_height' => false,
+                'autoscroll'   => true,
+            ])
             ->andReturn('');
 
         $shortcode = new Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode($delivery);

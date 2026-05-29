@@ -18,7 +18,8 @@
 	var useBlockProps = blockEditor.useBlockProps;
 	var PanelBody = components.PanelBody;
 	var TextControl = components.TextControl;
-	var RangeControl = components.RangeControl;
+	var SelectControl = components.SelectControl;
+	var ToggleControl = components.ToggleControl;
 	var Placeholder = components.Placeholder;
 	var domain = 'product-recommendation-quiz-for-ecommerce';
 
@@ -42,14 +43,41 @@
 							setAttributes( { id: value } );
 						}
 					} ),
-					el( RangeControl, {
-						label: __( 'Height (px)', domain ),
+					el( TextControl, {
+						label: __( 'Quiz height', domain ),
+						type: 'number',
+						help: __( 'Initial height of the quiz. If it is not tall enough, it expands to fit the content after the first question (unless a fixed height is set).', domain ),
 						value: attributes.height,
-						min: 200,
-						max: 2000,
-						step: 10,
 						onChange: function ( value ) {
-							setAttributes( { height: value } );
+							setAttributes( { height: parseInt( value, 10 ) || 0 } );
+						}
+					} ),
+					el( SelectControl, {
+						label: __( 'Height unit', domain ),
+						value: attributes.heightUnit,
+						options: [
+							{ label: __( 'Pixels (px)', domain ), value: 'px' },
+							{ label: __( 'Percent (%)', domain ), value: '%' },
+							{ label: __( 'Viewport height (vh)', domain ), value: 'vh' }
+						],
+						onChange: function ( value ) {
+							setAttributes( { heightUnit: value } );
+						}
+					} ),
+					el( ToggleControl, {
+						label: __( 'Fixed height', domain ),
+						help: __( 'When enabled the quiz stays at the height above instead of expanding to fit its content.', domain ),
+						checked: attributes.fixedHeight,
+						onChange: function ( value ) {
+							setAttributes( { fixedHeight: value } );
+						}
+					} ),
+					el( ToggleControl, {
+						label: __( 'Auto-scroll', domain ),
+						help: __( 'When enabled the page scrolls to the quiz as the shopper moves through it.', domain ),
+						checked: attributes.autoscroll,
+						onChange: function ( value ) {
+							setAttributes( { autoscroll: value } );
 						}
 					} )
 				)

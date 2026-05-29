@@ -21,6 +21,18 @@
 		"height": {
 			"type": "number",
 			"default": 600
+		},
+		"heightUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"fixedHeight": {
+			"type": "boolean",
+			"default": false
+		},
+		"autoscroll": {
+			"type": "boolean",
+			"default": true
 		}
 	},
 	"editorScript": "product-recommendation-quiz-for-ecommerce-block-editor"
