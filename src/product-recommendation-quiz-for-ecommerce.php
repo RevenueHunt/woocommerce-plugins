@@ -98,11 +98,25 @@ add_action(
 	}
 );
 
-add_action( 'before_woocommerce_init', function() {
+/**
+ * Declare compatibility with WooCommerce feature flags.
+ *
+ * Hooked on before_woocommerce_init. Declares HPOS (custom_order_tables) and the
+ * Cart/Checkout Blocks so WooCommerce does not flag the plugin as incompatible
+ * on the Features screen. Both are accurate: the plugin stores no order data and
+ * adds nothing to the cart/checkout flow. No-ops on WooCommerce versions without
+ * the FeaturesUtil API.
+ *
+ * @since 2.4.0
+ * @return void
+ */
+function product_recommendation_quiz_for_ecommerce_declare_woo_compatibility() {
 	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
 	}
-} );
+}
+add_action( 'before_woocommerce_init', 'product_recommendation_quiz_for_ecommerce_declare_woo_compatibility' );
 
 // Guard allows the unit-test harness to load this file (function/constant
 // definitions) without booting the full plugin. PRQ_SKIP_BOOTSTRAP is never

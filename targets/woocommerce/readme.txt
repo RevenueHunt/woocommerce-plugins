@@ -121,7 +121,9 @@ Data is sent to RevenueHunt only as needed to provide the quiz. For details, see
 
 = 2.4.0 =
 * New - Place the quiz inline anywhere with the [product_recommendation_quiz] shortcode or the new "Product Recommendation Quiz" block in the block editor.
+* New - "Full width quiz" option on the inline block/shortcode makes a placed quiz break out of the content column and span the full width of the screen.
 * New - WordPress Site Health now reports the plugin's prerequisites (permalink structure, HTTPS, WPML compatibility and REST API reachability), so issues are easy to spot in the standard place.
+* Dev - Declared compatibility with the WooCommerce Cart and Checkout Blocks, so the plugin shows as compatible and is not flagged.
 * Dev - Placement is built on a delivery-agnostic seam and a pluggable connection layer that future editions reuse.
 
 = 2.3.10 =

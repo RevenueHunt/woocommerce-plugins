@@ -1,8 +1,10 @@
 *** Product Recommendation Quiz for WooCommerce ***
 
-2026-05-29 - version 2.4.0
+2026-05-30 - version 2.4.0
 * New - Place the quiz inline with a [product_recommendation_quiz] shortcode or the new "Product Recommendation Quiz" block
+* New - "Full width quiz" option on the inline block/shortcode to make a placed quiz span the full width of the screen
 * New - WordPress Site Health checks for the plugin's prerequisites (permalink structure, HTTPS, WPML compatibility, REST API reachability)
+* Dev - Declared compatibility with the WooCommerce Cart and Checkout Blocks
 * Dev - Delivery-agnostic placement seam and a pluggable connection layer that future editions reuse
 
 2026-05-29 - version 2.3.10
