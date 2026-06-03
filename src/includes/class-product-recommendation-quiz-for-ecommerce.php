@@ -224,6 +224,7 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 		$health    = new Product_Recommendation_Quiz_For_Ecommerce_Site_Health();
 		$embeds    = new Product_Recommendation_Quiz_For_Ecommerce_Admin_Embeds_Page();
 		$global    = new Product_Recommendation_Quiz_For_Ecommerce_Front_Global_Embed();
+		$blocks    = new Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks();
 
 		add_action( 'plugins_loaded', array( $i18n, 'load_plugin_textdomain' ) );
 		add_action( 'admin_enqueue_scripts', array( $menu, 'enqueue_scripts' ) );
@@ -235,6 +236,7 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 		add_action( 'wp_footer', array( $global, 'render' ) );
 		add_action( 'init', array( $shortcode, 'register' ) );
 		add_action( 'init', array( $block, 'register' ) );
+		add_action( 'init', array( $blocks, 'register' ) );
 		add_filter( 'site_status_tests', array( $health, 'register_tests' ) );
 	}
 
