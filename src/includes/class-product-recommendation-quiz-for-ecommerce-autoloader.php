@@ -95,6 +95,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Autoloader {
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Embed_Markers':
 				require_once plugin_dir_path( __DIR__ ) . 'front/class-product-recommendation-quiz-for-ecommerce-embed-markers.php';
 				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_Front_Global_Embed':
+				require_once plugin_dir_path( __DIR__ ) . 'front/class-product-recommendation-quiz-for-ecommerce-front-global-embed.php';
+				break;
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Delivery_Resolver':
 				require_once plugin_dir_path( __DIR__ ) . 'front/class-product-recommendation-quiz-for-ecommerce-delivery-resolver.php';
 				break;
