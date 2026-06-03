@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-29T20:05:52+00:00\n"
+"POT-Creation-Date: 2026-06-03T19:47:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: product-recommendation-quiz-for-ecommerce\n"
@@ -119,6 +119,152 @@ msgstr ""
 msgid "Please %s if you encounter any issues."
 msgstr ""
 
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:58
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:59
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:108
+msgid "Display"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:96
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:168
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:97
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:169
+msgid "Permission Denied"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:109
+msgid "Enable the site-wide quiz embeds. These appear on every page of your store (except cart and checkout). To place a quiz at a specific spot instead, use the quiz blocks in the editor."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:114
+msgid "Auto popup"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:115
+msgid "Opens the quiz in a popup automatically after a delay or on exit intent."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:118
+msgid "Enable auto popup"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:122
+msgid "Show the auto popup site-wide"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:127
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:178
+#: front/blocks/embed-blocks-editor.js:30
+#: front/blocks/quiz/editor.js:46
+msgid "Quiz ID"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:130
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:181
+#: front/blocks/embed-blocks-editor.js:31
+#: front/blocks/quiz/editor.js:47
+msgid "The code from your quiz Share link, e.g. the CODE in /public/quiz/CODE."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:134
+#: front/blocks/embed-blocks-editor.js:58
+msgid "Timeout (seconds)"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:138
+#: front/blocks/embed-blocks-editor.js:66
+msgid "Exit intent"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:142
+msgid "Also open when the shopper moves to leave the page"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:147
+#: front/blocks/embed-blocks-editor.js:74
+msgid "Aggressive"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:151
+msgid "Reopen more persistently"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:156
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:211
+#: front/blocks/embed-blocks-editor.js:82
+#: front/blocks/embed-blocks-editor.js:159
+msgid "Popup width (px)"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:157
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:161
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:212
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:216
+msgid "Leave 0 for the default."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:160
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:215
+#: front/blocks/embed-blocks-editor.js:90
+#: front/blocks/embed-blocks-editor.js:167
+msgid "Popup height (px)"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:165
+msgid "Chat button"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:166
+msgid "A floating button in the bottom-right corner that opens the quiz when clicked."
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:169
+msgid "Enable chat button"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:173
+msgid "Show the chat button site-wide"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:185
+#: front/blocks/embed-blocks-editor.js:130
+msgid "Button color"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:189
+#: front/blocks/embed-blocks-editor.js:137
+msgid "Greeting text"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:193
+#: front/blocks/embed-blocks-editor.js:144
+msgid "Notification dot"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:197
+msgid "Show a notification dot on the button"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:202
+#: front/blocks/embed-blocks-editor.js:151
+msgid "Hidden"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:206
+msgid "Keep the button hidden initially"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:220
+msgid "Link popup"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:222
+msgid "Any link on your store whose URL is \"#quiz-CODE\" (where CODE is your quiz ID) opens that quiz in a popup when clicked — no setting required. You can also add a Link Popup block from the editor."
+msgstr ""
+
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php:106
 #: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:85
 #: front/blocks/quiz/editor.js:123
@@ -160,14 +306,6 @@ msgstr ""
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:144
 #, php-format
 msgid "Are you having trouble granting access? Check out %s"
-msgstr ""
-
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:168
-msgid "You do not have sufficient permissions to access this page."
-msgstr ""
-
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:169
-msgid "Permission Denied"
 msgstr ""
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:220
@@ -258,6 +396,11 @@ msgstr ""
 msgid "The RevenueHunt server could not reach your WooCommerce REST API, or it returned an unexpected response (a security plugin, a wrong content type, or a blocked request can cause this). The quiz cannot authenticate until this is resolved."
 msgstr ""
 
+#: front/class-product-recommendation-quiz-for-ecommerce-front-embed-blocks.php:142
+#: front/blocks/embed-blocks-editor.js:216
+msgid "Take the quiz"
+msgstr ""
+
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:176
 msgid "Too many requests. Please try again later."
 msgstr ""
@@ -270,16 +413,62 @@ msgstr ""
 msgid "Invalid api_key format."
 msgstr ""
 
+#: front/blocks/embed-blocks-editor.js:55
+msgid "Auto popup settings"
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:67
+msgid "Also open when the shopper moves to leave the page."
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:75
+msgid "Reopen more persistently."
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:102
+msgid "Auto Popup Quiz"
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:104
+msgid "Fires automatically on pages that use this template."
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:105
+#: front/blocks/embed-blocks-editor.js:182
+#: front/blocks/embed-blocks-editor.js:228
+msgid "Enter your Quiz ID in the block settings on the right."
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:127
+msgid "Chat button settings"
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:152
+msgid "Keep the button hidden initially."
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:179
+msgid "Chat Button Quiz"
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:181
+msgid "A floating chat button appears on pages that use this template."
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:204
+msgid "Link popup settings"
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:207
+msgid "Button label"
+msgstr ""
+
+#: front/blocks/embed-blocks-editor.js:227
+msgid "Link Popup Quiz"
+msgstr ""
+
 #: front/blocks/quiz/editor.js:44
 msgid "Quiz settings"
-msgstr ""
-
-#: front/blocks/quiz/editor.js:46
-msgid "Quiz ID"
-msgstr ""
-
-#: front/blocks/quiz/editor.js:47
-msgid "The code from your quiz Share link, e.g. the CODE in /public/quiz/CODE."
 msgstr ""
 
 #: front/blocks/quiz/editor.js:54
@@ -338,6 +527,80 @@ msgstr ""
 msgid "Enter your Quiz ID in the block settings on the right to preview and display the quiz."
 msgstr ""
 
+#: front/blocks/auto-popup/block.json
+msgctxt "block title"
+msgid "Auto Popup Quiz"
+msgstr ""
+
+#: front/blocks/auto-popup/block.json
+msgctxt "block description"
+msgid "Open a RevenueHunt quiz automatically in a popup on pages using this template."
+msgstr ""
+
+#: front/blocks/auto-popup/block.json
+#: front/blocks/chat-button/block.json
+#: front/blocks/link-popup/block.json
+#: front/blocks/quiz/block.json
+msgctxt "block keyword"
+msgid "quiz"
+msgstr ""
+
+#: front/blocks/auto-popup/block.json
+msgctxt "block keyword"
+msgid "popup"
+msgstr ""
+
+#: front/blocks/auto-popup/block.json
+#: front/blocks/chat-button/block.json
+#: front/blocks/link-popup/block.json
+#: front/blocks/quiz/block.json
+msgctxt "block keyword"
+msgid "revenuehunt"
+msgstr ""
+
+#: front/blocks/auto-popup/block.json
+#: front/blocks/chat-button/block.json
+#: front/blocks/link-popup/block.json
+#: front/blocks/quiz/block.json
+msgctxt "block keyword"
+msgid "product finder"
+msgstr ""
+
+#: front/blocks/chat-button/block.json
+msgctxt "block title"
+msgid "Chat Button Quiz"
+msgstr ""
+
+#: front/blocks/chat-button/block.json
+msgctxt "block description"
+msgid "Show a floating chat button that opens a RevenueHunt quiz on pages using this template."
+msgstr ""
+
+#: front/blocks/chat-button/block.json
+msgctxt "block keyword"
+msgid "chat"
+msgstr ""
+
+#: front/blocks/link-popup/block.json
+msgctxt "block title"
+msgid "Link Popup Quiz"
+msgstr ""
+
+#: front/blocks/link-popup/block.json
+msgctxt "block description"
+msgid "A button that opens a RevenueHunt quiz in a popup when clicked."
+msgstr ""
+
+#: front/blocks/link-popup/block.json
+msgctxt "block keyword"
+msgid "link"
+msgstr ""
+
+#: front/blocks/link-popup/block.json
+msgctxt "block keyword"
+msgid "button"
+msgstr ""
+
 #: front/blocks/quiz/block.json
 msgctxt "block title"
 msgid "Product Recommendation Quiz"
@@ -350,20 +613,5 @@ msgstr ""
 
 #: front/blocks/quiz/block.json
 msgctxt "block keyword"
-msgid "quiz"
-msgstr ""
-
-#: front/blocks/quiz/block.json
-msgctxt "block keyword"
 msgid "recommendation"
-msgstr ""
-
-#: front/blocks/quiz/block.json
-msgctxt "block keyword"
-msgid "revenuehunt"
-msgstr ""
-
-#: front/blocks/quiz/block.json
-msgctxt "block keyword"
-msgid "product finder"
 msgstr ""
