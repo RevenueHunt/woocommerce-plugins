@@ -1,5 +1,8 @@
 *** Product Recommendation Quiz for WooCommerce ***
 
+2026-06-17 - version 2.5.0
+* New - Capture the connecting store operator (the logged-in WordPress admin) as a contact, in addition to the store email
+
 2026-05-30 - version 2.4.0
 * New - Place the quiz inline with a [product_recommendation_quiz] shortcode or the new "Product Recommendation Quiz" block
 * New - "Full width quiz" option on the inline block/shortcode to make a placed quiz span the full width of the screen
