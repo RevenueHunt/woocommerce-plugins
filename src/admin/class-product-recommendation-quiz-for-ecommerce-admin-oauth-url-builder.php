@@ -85,7 +85,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder {
 
 		// Logged-in WordPress admin (operator), captured as a contact alongside the store email.
 		$current_user = wp_get_current_user();
-		$has_user     = $current_user && $current_user->exists();
+		$has_user     = $current_user->exists();
 
 		$params = array(
 			'timestamp'      => $time,
