@@ -71,11 +71,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Operator_Capture {
 				'plugin_version=' . PRQ_PLUGIN_VERSION,
 				'timestamp=' . (string) $timestamp,
 				'operator_email=' . $operator['email'],
-				'operator_name=' . $operator['display_name'],
-				'operator_first_name=' . $operator['first_name'],
-				'operator_last_name=' . $operator['last_name'],
-				'operator_roles=' . implode( ',', $operator['roles'] ),
-				'operator_locale=' . $operator['locale'],
 			)
 		);
 		$hmac      = base64_encode( hash_hmac( 'sha256', $data, $api_key, true ) );
