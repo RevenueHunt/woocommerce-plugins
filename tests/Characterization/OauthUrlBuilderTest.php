@@ -82,18 +82,6 @@ final class OauthUrlBuilderTest extends TestCase
         $wc->countries = $countries;
         Functions\when('WC')->justReturn($wc);
 
-        $operator = new class {
-            public $user_email  = 'jane@example.com';
-            public $display_name = 'Jane Operator';
-            public $ID          = 7;
-            public $roles       = ['administrator'];
-            public function exists()
-            {
-                return true;
-            }
-        };
-        Functions\when('wp_get_current_user')->justReturn($operator);
-
         $url   = $this->builder()->prquiz_get_oauth_url();
         $parts = wp_parse_str_compat(parse_url($url, PHP_URL_QUERY));
 
@@ -109,11 +97,10 @@ final class OauthUrlBuilderTest extends TestCase
         $this->assertSame('en', $parts['locale']);
         $this->assertSame('USD', $parts['currency']);
 
-        // Operator (logged-in WordPress admin) captured alongside the store email.
-        $this->assertSame('jane@example.com', $parts['operator_email']);
-        $this->assertSame('Jane Operator', $parts['operator_name']);
-        $this->assertSame('7', $parts['operator_wp_id']);
-        $this->assertSame('administrator', $parts['operator_roles']);
+        $this->assertArrayNotHasKey('operator_email', $parts);
+        $this->assertArrayNotHasKey('operator_name', $parts);
+        $this->assertArrayNotHasKey('operator_wp_id', $parts);
+        $this->assertArrayNotHasKey('operator_roles', $parts);
 
         // HMAC: recompute over the exact documented payload using the URL's own
         // timestamp; it must match the hmac the builder emitted.

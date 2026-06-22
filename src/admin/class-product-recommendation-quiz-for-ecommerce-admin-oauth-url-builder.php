@@ -83,10 +83,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder {
 		$locale_parts = explode( '_', get_locale() );
 		$locale       = $locale_parts[0];
 
-		// Logged-in WordPress admin (operator), captured as a contact alongside the store email.
-		$current_user = wp_get_current_user();
-		$has_user     = $current_user->exists();
-
 		$params = array(
 			'timestamp'      => $time,
 			'domain'         => PRQ_STORE_URL,
@@ -98,10 +94,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder {
 			'wp_version'     => PRQ_WP_VERSION,
 			'name'           => get_bloginfo( 'name' ),
 			'email'          => get_bloginfo( 'admin_email' ),
-			'operator_email' => $has_user ? $current_user->user_email : '',
-			'operator_name'  => $has_user ? $current_user->display_name : '',
-			'operator_wp_id' => $has_user ? (string) $current_user->ID : '',
-			'operator_roles' => $has_user ? implode( ',', (array) $current_user->roles ) : '',
 			'locale'         => $locale,
 			'timezone'       => get_option( 'gmt_offset' ),
 			'currency'       => function_exists( 'get_woocommerce_currency' ) ? get_woocommerce_currency() : '',
