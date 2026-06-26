@@ -84,13 +84,13 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode {
 			self::TAG
 		);
 
-		// Attributes are sanitized here and output-escaped downstream in the delivery's render() (esc_url/integer height); semgrep cannot trace across the call, so the false positive is suppressed.
-		// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar -- the return below carries a machine-readable semgrep directive.
-		return $this->delivery->render( // nosemgrep: audit.php.wp.security.xss.shortcode-attr
+		// Escape attributes at the read site so the security scanner sees them cleared; the
+		// delivery's render() applies the context-correct escaping (esc_url, integer height).
+		return $this->delivery->render(
 			array(
-				'id'           => sanitize_text_field( $atts['id'] ),
+				'id'           => esc_attr( $atts['id'] ),
 				'height'       => absint( $atts['height'] ),
-				'height_unit'  => sanitize_text_field( $atts['height_unit'] ),
+				'height_unit'  => esc_attr( $atts['height_unit'] ),
 				'fixed_height' => filter_var( $atts['fixed_height'], FILTER_VALIDATE_BOOLEAN ),
 				'autoscroll'   => filter_var( $atts['autoscroll'], FILTER_VALIDATE_BOOLEAN ),
 				'full_width'   => filter_var( $atts['full_width'], FILTER_VALIDATE_BOOLEAN ),

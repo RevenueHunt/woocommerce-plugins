@@ -30,6 +30,7 @@ final class ShortcodeTest extends TestCase
             }
             return $out;
         });
+        Functions\when('esc_attr')->returnArg();
     }
 
     public function test_register_adds_shortcode_under_documented_tag(): void
