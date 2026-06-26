@@ -9,7 +9,7 @@
   "bundleTranslations": true,
   "wcHeaders": {
     "WC requires at least": "3.5",
-    "WC tested up to": "10.8.0"
+    "WC tested up to": "10.9.1"
   },
   "readmes": ["readme.txt"],
   "deploy": {

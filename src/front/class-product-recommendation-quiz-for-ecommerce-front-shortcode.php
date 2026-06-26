@@ -86,9 +86,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode {
 
 		return $this->delivery->render(
 			array(
-				'id'           => $atts['id'],
-				'height'       => $atts['height'],
-				'height_unit'  => $atts['height_unit'],
+				'id'           => sanitize_text_field( $atts['id'] ),
+				'height'       => absint( $atts['height'] ),
+				'height_unit'  => sanitize_text_field( $atts['height_unit'] ),
 				'fixed_height' => filter_var( $atts['fixed_height'], FILTER_VALIDATE_BOOLEAN ),
 				'autoscroll'   => filter_var( $atts['autoscroll'], FILTER_VALIDATE_BOOLEAN ),
 				'full_width'   => filter_var( $atts['full_width'], FILTER_VALIDATE_BOOLEAN ),

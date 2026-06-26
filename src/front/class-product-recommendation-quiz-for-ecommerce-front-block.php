@@ -97,9 +97,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Block {
 	public function render_block( $attributes ) {
 		return $this->delivery->render(
 			array(
-				'id'           => isset( $attributes['id'] ) ? $attributes['id'] : '',
-				'height'       => isset( $attributes['height'] ) ? $attributes['height'] : 600,
-				'height_unit'  => isset( $attributes['heightUnit'] ) ? $attributes['heightUnit'] : 'px',
+				'id'           => isset( $attributes['id'] ) ? sanitize_text_field( (string) $attributes['id'] ) : '',
+				'height'       => isset( $attributes['height'] ) ? absint( $attributes['height'] ) : 600,
+				'height_unit'  => isset( $attributes['heightUnit'] ) ? sanitize_text_field( (string) $attributes['heightUnit'] ) : 'px',
 				'fixed_height' => ! empty( $attributes['fixedHeight'] ),
 				'autoscroll'   => ! isset( $attributes['autoscroll'] ) || (bool) $attributes['autoscroll'],
 				'full_width'   => ! empty( $attributes['fullWidth'] ),

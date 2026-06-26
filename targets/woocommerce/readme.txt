@@ -5,7 +5,7 @@ Tags: quiz, product recommendation, woocommerce, sales automation, ecommerce
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.5.0
+Stable tag: 2.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,10 @@ This plugin connects to RevenueHunt to build and serve your product recommendati
 Data is sent to RevenueHunt only as needed to provide the quiz. For details, see RevenueHunt's Privacy Policy (https://revenuehunt.com/privacy/), Terms of Service (https://revenuehunt.com/tos/), and Security overview (https://revenuehunt.com/security/).
 
 == Changelog ==
+
+= 2.5.1 =
+* Fix - Sanitize quiz block and shortcode attributes at render time to harden against potential cross-site scripting.
+* Dev - Update WC tested up to: 10.9.1
 
 = 2.5.0 =
 * New - Capture the connecting store operator (the logged-in WordPress admin) as a contact, in addition to the store email.

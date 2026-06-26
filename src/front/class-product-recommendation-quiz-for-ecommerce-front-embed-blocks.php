@@ -89,12 +89,12 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 	public function render_auto_popup( $attributes ) {
 		return Product_Recommendation_Quiz_For_Ecommerce_Embed_Markers::auto_popup_once(
 			array(
-				'quiz_id'      => isset( $attributes['quizId'] ) ? $attributes['quizId'] : '',
-				'timeout'      => isset( $attributes['timeout'] ) ? $attributes['timeout'] : 0,
+				'quiz_id'      => isset( $attributes['quizId'] ) ? sanitize_text_field( (string) $attributes['quizId'] ) : '',
+				'timeout'      => isset( $attributes['timeout'] ) ? absint( $attributes['timeout'] ) : 0,
 				'exit_intent'  => ! empty( $attributes['exitIntent'] ),
 				'aggressive'   => ! empty( $attributes['aggressive'] ),
-				'popup_width'  => isset( $attributes['popupWidth'] ) ? $attributes['popupWidth'] : 0,
-				'popup_height' => isset( $attributes['popupHeight'] ) ? $attributes['popupHeight'] : 0,
+				'popup_width'  => isset( $attributes['popupWidth'] ) ? absint( $attributes['popupWidth'] ) : 0,
+				'popup_height' => isset( $attributes['popupHeight'] ) ? absint( $attributes['popupHeight'] ) : 0,
 			)
 		);
 	}
@@ -110,13 +110,13 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 	public function render_chat_button( $attributes ) {
 		return Product_Recommendation_Quiz_For_Ecommerce_Embed_Markers::chat_once(
 			array(
-				'quiz_id'      => isset( $attributes['quizId'] ) ? $attributes['quizId'] : '',
-				'color'        => isset( $attributes['color'] ) ? $attributes['color'] : '',
+				'quiz_id'      => isset( $attributes['quizId'] ) ? sanitize_text_field( (string) $attributes['quizId'] ) : '',
+				'color'        => isset( $attributes['color'] ) ? sanitize_text_field( (string) $attributes['color'] ) : '',
 				'dot'          => ! empty( $attributes['dot'] ),
 				'hide'         => ! empty( $attributes['hide'] ),
-				'greeting'     => isset( $attributes['greeting'] ) ? $attributes['greeting'] : '',
-				'popup_width'  => isset( $attributes['popupWidth'] ) ? $attributes['popupWidth'] : 0,
-				'popup_height' => isset( $attributes['popupHeight'] ) ? $attributes['popupHeight'] : 0,
+				'greeting'     => isset( $attributes['greeting'] ) ? sanitize_text_field( (string) $attributes['greeting'] ) : '',
+				'popup_width'  => isset( $attributes['popupWidth'] ) ? absint( $attributes['popupWidth'] ) : 0,
+				'popup_height' => isset( $attributes['popupHeight'] ) ? absint( $attributes['popupHeight'] ) : 0,
 			)
 		);
 	}

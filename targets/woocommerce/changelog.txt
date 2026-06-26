@@ -1,5 +1,9 @@
 *** Product Recommendation Quiz for WooCommerce ***
 
+2026-06-26 - version 2.5.1
+* Fix - Sanitize quiz block and shortcode attributes at render time to harden against potential cross-site scripting
+* Dev - Update WC tested up to: 10.9.1
+
 2026-06-17 - version 2.5.0
 * New - Capture the connecting store operator (the logged-in WordPress admin) as a contact, in addition to the store email
 
