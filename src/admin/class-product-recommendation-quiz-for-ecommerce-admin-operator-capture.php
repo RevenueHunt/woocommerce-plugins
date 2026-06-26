@@ -41,7 +41,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Operator_Capture {
 		}
 
 		$current_user = wp_get_current_user();
-		if ( ! $current_user || ! $current_user->exists() ) {
+		if ( ! $current_user->exists() ) {
 			return;
 		}
 

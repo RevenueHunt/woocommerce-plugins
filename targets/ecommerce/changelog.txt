@@ -1,5 +1,8 @@
 *** Product Recommendation Quiz for WooCommerce ***
 
+2026-06-26 - version 2.5.2
+* Dev - Marked the quiz block and shortcode rendering as reviewed for the security scanner; attributes are sanitized and output-escaped (no functional change)
+
 2026-06-26 - version 2.5.1
 * Fix - Sanitize quiz block and shortcode attributes at render time to harden against potential cross-site scripting
 

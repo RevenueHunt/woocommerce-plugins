@@ -45,9 +45,9 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="prq"/>
+				<element value="prq_"/>
 				<element value="prquiz"/>
-				<element value="PRQ"/>
+				<element value="PRQ_"/>
 				<element value="Product_Recommendation_Quiz_For_Ecommerce"/>
 				<element value="product_recommendation_quiz_for_ecommerce"/>
 			</property>

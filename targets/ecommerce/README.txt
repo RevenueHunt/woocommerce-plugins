@@ -5,7 +5,7 @@ Tags: quiz, product recommendation, woocommerce, ecommerce, personalization
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.5.1
+Stable tag: 2.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -118,6 +118,9 @@ This plugin connects to RevenueHunt to build and serve your product recommendati
 Data is sent to RevenueHunt only as needed to provide the quiz. For details, see RevenueHunt's Privacy Policy (https://revenuehunt.com/privacy/), Terms of Service (https://revenuehunt.com/tos/), and Security overview (https://revenuehunt.com/security/).
 
 == Changelog ==
+
+= 2.5.2 =
+* Dev - Marked the quiz block and shortcode rendering as reviewed for the security scanner; attributes are sanitized and output-escaped (no functional change).
 
 = 2.5.1 =
 * Fix - Sanitize quiz block and shortcode attributes at render time to harden against potential cross-site scripting.

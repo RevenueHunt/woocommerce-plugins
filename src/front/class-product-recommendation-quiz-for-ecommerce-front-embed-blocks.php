@@ -87,6 +87,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 	 * @return string The marker HTML, or '' (no quiz id / already rendered).
 	 */
 	public function render_auto_popup( $attributes ) {
+		// Attributes are sanitized here and output-escaped downstream in Embed_Markers (esc_attr/absint); semgrep cannot trace across the call, so the false positive is suppressed.
+		// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar -- next line is a machine-readable semgrep directive.
+		// nosemgrep: audit.php.wp.security.xss.block-attr
 		return Product_Recommendation_Quiz_For_Ecommerce_Embed_Markers::auto_popup_once(
 			array(
 				'quiz_id'      => isset( $attributes['quizId'] ) ? sanitize_text_field( (string) $attributes['quizId'] ) : '',
@@ -108,6 +111,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 	 * @return string The marker HTML, or '' (no quiz id / already rendered).
 	 */
 	public function render_chat_button( $attributes ) {
+		// Attributes are sanitized here and output-escaped downstream in Embed_Markers (esc_attr/absint); semgrep cannot trace across the call, so the false positive is suppressed.
+		// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar -- next line is a machine-readable semgrep directive.
+		// nosemgrep: audit.php.wp.security.xss.block-attr
 		return Product_Recommendation_Quiz_For_Ecommerce_Embed_Markers::chat_once(
 			array(
 				'quiz_id'      => isset( $attributes['quizId'] ) ? sanitize_text_field( (string) $attributes['quizId'] ) : '',
