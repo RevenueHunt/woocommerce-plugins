@@ -91,9 +91,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode {
 		$quiz_id     = esc_attr( $atts['id'] );
 		$height      = absint( $atts['height'] );
 		$height_unit = esc_attr( $atts['height_unit'] );
-		$fixed       = filter_var( $atts['fixed_height'], FILTER_VALIDATE_BOOLEAN );
-		$autoscroll  = filter_var( $atts['autoscroll'], FILTER_VALIDATE_BOOLEAN );
-		$full_width  = filter_var( $atts['full_width'], FILTER_VALIDATE_BOOLEAN );
+		$fixed       = absint( filter_var( $atts['fixed_height'], FILTER_VALIDATE_BOOLEAN ) );
+		$autoscroll  = absint( filter_var( $atts['autoscroll'], FILTER_VALIDATE_BOOLEAN ) );
+		$full_width  = absint( filter_var( $atts['full_width'], FILTER_VALIDATE_BOOLEAN ) );
 
 		return $this->delivery->render(
 			array(
