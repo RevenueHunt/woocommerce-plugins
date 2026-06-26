@@ -85,9 +85,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode {
 		);
 
 		// Attributes are sanitized here and output-escaped downstream in the delivery's render() (esc_url/integer height); semgrep cannot trace across the call, so the false positive is suppressed.
-		// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar -- next line is a machine-readable semgrep directive.
-		// nosemgrep: audit.php.wp.security.xss.shortcode-attr
-		return $this->delivery->render(
+		// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar -- the return below carries a machine-readable semgrep directive.
+		return $this->delivery->render( // nosemgrep: audit.php.wp.security.xss.shortcode-attr
 			array(
 				'id'           => sanitize_text_field( $atts['id'] ),
 				'height'       => absint( $atts['height'] ),

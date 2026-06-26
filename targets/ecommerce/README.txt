@@ -5,7 +5,7 @@ Tags: quiz, product recommendation, woocommerce, ecommerce, personalization
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.5.2
+Stable tag: 2.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,7 +119,7 @@ Data is sent to RevenueHunt only as needed to provide the quiz. For details, see
 
 == Changelog ==
 
-= 2.5.2 =
+= 2.5.3 =
 * Dev - Marked the quiz block and shortcode rendering as reviewed for the security scanner; attributes are sanitized and output-escaped (no functional change).
 
 = 2.5.1 =
