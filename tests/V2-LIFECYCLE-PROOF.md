@@ -119,7 +119,10 @@ The actual uninstall still succeeded. No real V2 receiver was contacted.
 
 After uninstall: **webhooks=0, pending PRQ=0, in-progress PRQ=0, export files=0,
 all V2 options=0, connection absent**. Exact plugin-owned guarded uploads were
-removed; there is **no dedicated export directory** in this plugin's layout.
+removed: **export files removed (no dedicated directory)**. Following the owner's
+clarification, cleanup's glob itself is restricted to `prq-catalog-` followed by
+exactly 48 lowercase hex characters and `.php`; it never enumerates a wider
+filename pattern in uploads.
 Canceled/historical Action Scheduler records are retained by Action Scheduler;
 the zero counts refer to runnable work, not audit-history rows.
 

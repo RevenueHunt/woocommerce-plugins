@@ -328,10 +328,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog {
 	public function cleanup_all() {
 		global $wpdb;
 		$uploads = wp_upload_dir();
-		foreach ( glob( $uploads['basedir'] . '/prq-catalog-*.php' ) as $path ) {
-			if ( preg_match( '/^prq-catalog-[a-f0-9]{48}\.php$/', basename( $path ) ) ) {
-				wp_delete_file( $path );
-			}
+		$pattern = $uploads['basedir'] . '/prq-catalog-' . str_repeat( '[a-f0-9]', 48 ) . '.php';
+		foreach ( glob( $pattern ) as $path ) {
+			wp_delete_file( $path );
 		}
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- Uncached option-name discovery; delete_option below handles each option's cache.
 		$keys = $wpdb->get_col(
