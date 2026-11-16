@@ -54,6 +54,15 @@ Export failures are visible in WooCommerce → Status → Scheduled Actions. Fai
 export files/manifests are cleaned up after one hour, and ready downloads expire
 one hour after readiness. The `catalog_ready.expires_at` value is a Unix timestamp.
 
+In V2 mode, deactivation pauses the plugin's native webhooks, cancels its queued
+webhook deliveries and Action Scheduler group `prq`, and removes canceled export
+files/manifests/locks. The connection and picked fields remain; reactivation
+resumes the webhooks and schedules the next 03:00 export. Uninstall deletes those
+webhooks, export state, picked fields and the connection (including its secret),
+then attempts a signed uninstall notice with a 3-second timeout and no redirects.
+V1 lifecycle cleanup is unchanged. The [V2 lifecycle release gate](tests/V2-LIFECYCLE-PROOF.md)
+must pass before releasing either artifact.
+
 Order delivery uses native WooCommerce webhooks and their native
 `X-WC-Webhook-Signature`, not the timestamped PRQ signature used by plugin routes.
 The shortcode and quiz block render V2 mount elements without a script or cached

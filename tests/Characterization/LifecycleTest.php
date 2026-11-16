@@ -37,6 +37,23 @@ final class LifecycleTest extends TestCase
         \Product_Recommendation_Quiz_For_Ecommerce_Deactivator::deactivate();
     }
 
+    public function test_v1_uninstall_removes_exactly_the_legacy_options_and_cache_entries(): void
+    {
+        if (!defined('WP_UNINSTALL_PLUGIN')) define('WP_UNINSTALL_PLUGIN', true);
+        $deleted = [];
+        $cache = [];
+        Functions\when('delete_option')->alias(function ($key) use (&$deleted) { $deleted[] = $key; return true; });
+        Functions\when('wp_cache_delete')->alias(function ($key, $group) use (&$cache) { $cache[] = [$key, $group]; return true; });
+        Functions\expect('wp_remote_post')->never();
+        Functions\expect('as_unschedule_all_actions')->never();
+        Functions\expect('wp_delete_file')->never();
+
+        require dirname(__DIR__, 2) . '/src/uninstall.php';
+
+        $this->assertSame(self::OPTION_KEYS, $deleted);
+        $this->assertSame(array_map(fn($key) => [$key, 'options'], self::OPTION_KEYS), $cache);
+    }
+
     public function test_uninstall_cleanup_deletes_all_credentials(): void
     {
         // The destructive path (used by uninstall.php) still removes every key.

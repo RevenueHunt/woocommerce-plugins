@@ -65,6 +65,64 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		return true;
 	}
 
+	/** Resume connected V2 stores without changing the V1 activation path. @return void */
+	public static function activate() {
+		if ( ! self::connection() ) {
+			return;
+		}
+		$orders = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
+		$orders->set_webhook_status( 'active' );
+		if ( function_exists( 'as_has_scheduled_action' ) ) {
+			$catalog = new Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog();
+			$catalog->schedule_nightly();
+		}
+	}
+
+	/** Stop V2 background work, retaining the connection for reactivation. @return void */
+	public static function deactivate() {
+		if ( ! self::connection() ) {
+			return;
+		}
+		$orders = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
+		$orders->set_webhook_status( 'paused' );
+		if ( function_exists( 'as_unschedule_all_actions' ) ) {
+			as_unschedule_all_actions( '', array(), 'prq' );
+		}
+		// Canceled batches cannot resume: remove their files and lock so nightly can start afresh.
+		$catalog = new Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog();
+		$catalog->cleanup_all();
+	}
+
+	/** Remove V2 data before attempting a best-effort, bounded uninstall notice. @return void */
+	public static function uninstall() {
+		$connection = self::connection();
+		if ( ! $connection ) {
+			return;
+		}
+		self::deactivate();
+		$orders = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
+		$orders->set_webhook_status( 'delete' );
+		delete_option( 'prq_v2_picked_metafields' );
+		delete_option( self::OPTION );
+
+		$route     = '/api/woocommerce/uninstalled';
+		$body      = wp_json_encode( array( 'shop' => $connection['shop'] ) );
+		$timestamp = (string) time();
+		wp_remote_post(
+			$connection['api_url'] . $route,
+			array(
+				'headers'     => array(
+					'Content-Type'    => 'application/json',
+					'X-PRQ-Timestamp' => $timestamp,
+					'X-PRQ-Signature' => 'sha256=' . hash_hmac( 'sha256', $timestamp . "\nPOST\n" . $route . "\n\n" . $body, $connection['shared_secret'] ),
+				),
+				'body'        => $body,
+				'timeout'     => 3,
+				'redirection' => 0,
+			)
+		);
+	}
+
 	/** Register hooks only for a connected V2 store. @return void */
 	public function run() {
 		if ( ! self::connection() ) {

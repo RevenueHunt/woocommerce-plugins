@@ -60,6 +60,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Orders {
 	 */
 	public function create_webhooks() {
 		$connection = Product_Recommendation_Quiz_For_Ecommerce_V2::connection();
+		$ids        = array();
 		foreach ( array( 'order.created', 'order.updated' ) as $topic ) {
 			$webhook = new WC_Webhook();
 			$webhook->set_name( 'RevenueHunt V2 ' . $topic );
@@ -69,7 +70,77 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Orders {
 			$webhook->set_api_version( 'wp_api_v3' );
 			$webhook->set_status( 'active' );
 			$webhook->set_user_id( get_current_user_id() );
-			$webhook->save();
+			$ids[] = $webhook->save();
+		}
+		$connection['webhook_ids'] = $ids;
+		update_option( Product_Recommendation_Quiz_For_Ecommerce_V2::OPTION, $connection, false );
+	}
+
+	/**
+	 * Find owned webhooks, including connections made before IDs were stored.
+	 *
+	 * @return WC_Webhook[] Native webhooks for this connection.
+	 */
+	private function webhooks() {
+		$connection = Product_Recommendation_Quiz_For_Ecommerce_V2::connection();
+		$ids        = $connection['webhook_ids'] ?? array();
+		$fallback   = empty( $ids );
+		$webhooks   = array();
+		foreach ( $ids as $id ) {
+			$webhook = wc_get_webhook( $id );
+			if ( $webhook ) {
+				$webhooks[ $id ] = $webhook;
+			} else {
+				$fallback = true;
+			}
+		}
+		if ( $fallback ) {
+			$store = new WC_Webhook_Data_Store();
+			foreach ( $store->get_webhooks_ids() as $id ) {
+				$webhook = wc_get_webhook( $id );
+				if ( $webhook && $connection['api_url'] . '/api/woocommerce/orders' === $webhook->get_delivery_url() ) {
+					$webhooks[ $id ] = $webhook;
+				}
+			}
+		}
+		return $webhooks;
+	}
+
+	/**
+	 * Pause/resume native hooks, or permanently delete on uninstall.
+	 *
+	 * @param string $status Native status, or 'delete'.
+	 * @return void
+	 */
+	public function set_webhook_status( $status ) {
+		if ( ! function_exists( 'wc_get_webhook' ) ) {
+			return;
+		}
+		$webhooks = $this->webhooks();
+		foreach ( $webhooks as $webhook ) {
+			if ( 'delete' === $status ) {
+				$webhook->delete( true );
+			} else {
+				$webhook->set_status( $status );
+				$webhook->save();
+			}
+		}
+		// WC's async delivery bypasses the status check: pausing alone is not enough.
+		if ( 'active' !== $status && function_exists( 'as_get_scheduled_actions' ) ) {
+			$actions = as_get_scheduled_actions(
+				array(
+					'hook'     => 'woocommerce_deliver_webhook_async',
+					'group'    => 'woocommerce-webhooks',
+					'status'   => 'pending',
+					'per_page' => -1,
+				)
+			);
+			foreach ( $actions as $action ) {
+				$args = $action->get_args();
+				if ( isset( $args['webhook_id'], $webhooks[ $args['webhook_id'] ] ) ) {
+					as_unschedule_all_actions( 'woocommerce_deliver_webhook_async', $args, 'woocommerce-webhooks' );
+				}
+			}
 		}
 	}
 

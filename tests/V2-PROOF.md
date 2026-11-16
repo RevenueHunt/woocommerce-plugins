@@ -203,8 +203,16 @@ warnings (exit 0). No edge-case test artifact retained.
 
 - V2 storefront script and real admin sign-in are later integration phases; this
   version deliberately emits only the agreed V2 mount, with no cached nonce.
-- Existing uninstall cleanup handles legacy options only; V2 uninstall lifecycle
-  (new options, export files and webhooks) remains a follow-up, not implemented here.
+- V2 uninstall lifecycle was completed afterward; see the required
+  [lifecycle release gate](V2-LIFECYCLE-PROOF.md) for tests and local-store evidence.
+  Accepted boundary: native webhook cleanup requires active WooCommerce (its CRUD API).
+  If WooCommerce itself is inactive at uninstall, native webhook rows can remain;
+  they hold only the derived webhook key, never the master shared secret, and
+  cannot post while WooCommerce is inactive. Phase 3's V2 receiver must reject
+  order webhooks for uninstalled shops if WooCommerce later comes back. No
+  temporary WooCommerce loading or direct database-deletion workaround is included.
+  Export cleanup removes exact plugin-owned guarded uploads; this plugin has no
+  dedicated export directory.
 - `composer audit --format=plain` exited 1: three pre-existing high advisories in
   dev-only `phpcsstandards/phpcsutils`, `squizlabs/php_codesniffer` and
   `wp-coding-standards/wpcs`. These versions were not changed and are not shipped.

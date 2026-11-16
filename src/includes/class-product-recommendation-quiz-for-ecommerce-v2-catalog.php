@@ -324,6 +324,29 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog {
 		exit;
 	}
 
+	/** Remove all guarded export files and resumable state after canceling jobs. @return void */
+	public function cleanup_all() {
+		global $wpdb;
+		$uploads = wp_upload_dir();
+		foreach ( glob( $uploads['basedir'] . '/prq-catalog-*.php' ) as $path ) {
+			if ( preg_match( '/^prq-catalog-[a-f0-9]{48}\.php$/', basename( $path ) ) ) {
+				wp_delete_file( $path );
+			}
+		}
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery -- Uncached option-name discovery; delete_option below handles each option's cache.
+		$keys = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s",
+				$wpdb->esc_like( 'prq_v2_export_' ) . '%',
+				$wpdb->esc_like( 'prq_v2_download_' ) . '%'
+			)
+		);
+		foreach ( $keys as $key ) {
+			delete_option( $key );
+		}
+		delete_option( 'prq_v2_catalog_active' );
+	}
+
 	/**
 	 * Remove stale files and manifests, including failed jobs.
 	 *

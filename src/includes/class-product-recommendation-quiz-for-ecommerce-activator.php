@@ -52,6 +52,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Activator {
 	 * @return void
 	 */
 	public static function activate() {
+		Product_Recommendation_Quiz_For_Ecommerce_V2::activate();
 		// Initialize options with empty values if they don't exist
 		// Using 'no' for autoload to prevent loading on every page
 		foreach ( self::get_option_keys() as $key ) {

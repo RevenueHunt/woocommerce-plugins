@@ -178,6 +178,7 @@ final class V2ModeTest extends TestCase
         Functions\when('untrailingslashit')->alias(fn($s) => rtrim($s, '/'));
         Functions\expect('add_option')->once()->with(V2::OPTION, $connection, '', false)->andReturnUsing(function ($key, $value) use (&$stored) { $stored = $value; return true; });
         Functions\when('get_current_user_id')->justReturn(7);
+        Functions\expect('update_option')->once()->with(V2::OPTION, $connection + ['webhook_ids' => [41, 42]], false)->andReturnUsing(function ($key, $value) use (&$stored) { $stored = $value; return true; });
         $webhook = \Mockery::mock('overload:WC_Webhook');
         $topics = [];
         $webhook->shouldReceive('set_name')->once();
@@ -190,11 +191,12 @@ final class V2ModeTest extends TestCase
         $webhook->shouldReceive('set_api_version')->once()->with('wp_api_v3');
         $webhook->shouldReceive('set_status')->once()->with('active');
         $webhook->shouldReceive('set_user_id')->once()->with(7);
-        $webhook->shouldReceive('save')->once();
+        $nextId = 41;
+        $webhook->shouldReceive('save')->once()->andReturnUsing(function () use (&$nextId) { return $nextId++; });
         $request = new \WP_REST_Request($connection);
         $request->set_route('/wc/v3/prq_set_token');
         $this->assertTrue(V2::connect($request));
-        $this->assertSame($connection, $stored);
+        $this->assertSame($connection + ['webhook_ids' => [41, 42]], $stored);
         $this->assertSame(['order.created', 'order.updated'], $topics);
         $this->assertTrue(V2::connect($request));
     }

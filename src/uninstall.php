@@ -39,6 +39,11 @@ if ( ! defined( 'PRQ_OPTION_SHOP_HASHID' ) ) {
 	define( 'PRQ_OPTION_TOKEN', 'rh_token' );
 }
 
+// Uninstall does not load the main plugin file or its autoloader.
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-autoloader.php';
+Product_Recommendation_Quiz_For_Ecommerce_Autoloader::register();
+Product_Recommendation_Quiz_For_Ecommerce_V2::uninstall();
+
 // Clean up all plugin data.
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-deactivator.php';
 Product_Recommendation_Quiz_For_Ecommerce_Deactivator::cleanup( true );

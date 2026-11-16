@@ -79,6 +79,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Deactivator {
 	 * @return void
 	 */
 	public static function deactivate() {
+		Product_Recommendation_Quiz_For_Ecommerce_V2::deactivate();
 		self::cleanup( false );
 	}
 }
