@@ -107,29 +107,56 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 	}
 
 	/**
-	 * Verify the contract's timestamp.body signature (raw bytes, not parsed JSON).
+	 * Derive the key WooCommerce stores and displays, never expose the master key.
 	 *
 	 * @param string $secret Shared secret.
-	 * @param string $timestamp Unix timestamp header.
-	 * @param string $body Raw request body.
-	 * @param string $signature Signature header.
-	 * @param int    $now Current Unix time.
+	 * @return string Hex-encoded native webhook key.
+	 */
+	public static function webhook_secret( $secret ) {
+		return hash_hmac( 'sha256', 'prq-v2-webhook', $secret );
+	}
+
+	/**
+	 * Verify timestamp, method, REST route, canonical query and raw body bytes.
+	 *
+	 * @param string          $secret Shared secret.
+	 * @param string          $timestamp Unix timestamp header.
+	 * @param WP_REST_Request $request Signed request.
+	 * @param string          $signature Signature header.
+	 * @param int             $now Current Unix time.
 	 * @return bool Whether authentic and within five minutes, including future skew.
 	 */
-	public static function verify( $secret, $timestamp, $body, $signature, $now ) {
-		return '' !== $secret && ctype_digit( $timestamp ) && abs( $now - (int) $timestamp ) <= 300
-			&& hash_equals( 'sha256=' . hash_hmac( 'sha256', $timestamp . '.' . $body, $secret ), $signature );
+	public static function verify( $secret, $timestamp, $request, $signature, $now ) {
+		if ( '' === $secret || ! ctype_digit( $timestamp ) || abs( $now - (int) $timestamp ) > 300 ) {
+			return false;
+		}
+		$query = $request->get_query_params();
+		ksort( $query, SORT_STRING );
+		$parts = array();
+		foreach ( $query as $name => $value ) {
+			// The contract uses flat query parameters, not PHP array notation.
+			if ( ! is_scalar( $value ) ) {
+				return false;
+			}
+			$parts[] = rawurlencode( (string) $name ) . '=' . rawurlencode( (string) $value );
+		}
+		// get_route() is exactly /prq/v3/orders (or /prq/v3/catalog/export), without /wp-json.
+		$payload = $timestamp . "\n" . $request->get_method() . "\n" . $request->get_route() . "\n" . implode( '&', $parts ) . "\n" . $request->get_body();
+		return hash_equals( 'sha256=' . hash_hmac( 'sha256', $payload, $secret ), $signature );
 	}
 
 	/**
 	 * REST permission callback.
 	 *
 	 * @param WP_REST_Request $request Signed request.
-	 * @return bool Whether authorized.
+	 * @return true|WP_Error Whether authorized, or an explicit forbidden response.
 	 */
 	public function authorize( $request ) {
 		$connection = self::connection();
-		return $connection && self::verify( $connection['shared_secret'], (string) $request->get_header( 'X-PRQ-Timestamp' ), $request->get_body(), (string) $request->get_header( 'X-PRQ-Signature' ), time() );
+		if ( $connection && self::verify( $connection['shared_secret'], (string) $request->get_header( 'X-PRQ-Timestamp' ), $request, (string) $request->get_header( 'X-PRQ-Signature' ), time() ) ) {
+			return true;
+		}
+		return new WP_Error( 'prq_invalid_signature', 'Invalid or expired request signature.', array( 'status' => 403 ) );
 	}
 
 	/**

@@ -14,18 +14,74 @@ final class V2ModeTest extends TestCase
         return ['mode' => 'v2', 'shop' => 'wc-ab12cd', 'shared_secret' => str_repeat('s', 32), 'api_url' => 'https://api.example.com', 'admin_url' => 'https://admin.example.com'];
     }
 
-    public function test_signature_covers_raw_bytes_and_requires_fresh_timestamp(): void
+    private function request(string $method, string $route, array $query = [], string $body = ''): \WP_REST_Request
+    {
+        $request = \Mockery::mock(\WP_REST_Request::class);
+        $request->shouldReceive('get_method')->andReturn($method);
+        $request->shouldReceive('get_route')->andReturn($route);
+        $request->shouldReceive('get_query_params')->andReturn($query);
+        $request->shouldReceive('get_body')->andReturn($body);
+        return $request;
+    }
+
+    public function test_order_signature_binds_query_method_and_exact_rest_route(): void
+    {
+        $secret = 'prq-v2-test-secret';
+        // Exact get_route() string: /prq/v3/orders, NOT /wp-json/prq/v3/orders.
+        $route = '/prq/v3/orders';
+        $query = ['number' => 'RH 42/7', 'email' => 'ann+quiz@example.com'];
+        $payload = "1700000000\nGET\n/prq/v3/orders\nemail=ann%2Bquiz%40example.com&number=RH%2042%2F7\n";
+        $this->assertSame('770847424bbdd16fcfcdd5b78a618706b58f5e49e5848d8f25a92801eb84934b', hash_hmac('sha256', $payload, $secret));
+        $signature = 'sha256=' . hash_hmac('sha256', $payload, $secret);
+        $request = $this->request('GET', $route, $query);
+        $this->assertTrue(V2::verify($secret, '1700000000', $request, $signature, 1700000000));
+        $this->assertTrue(V2::verify($secret, '1700000000', $this->request('GET', $route, array_reverse($query, true)), $signature, 1700000000));
+        foreach ([
+            $this->request('GET', $route, array_replace($query, ['number' => 'RH 43/7'])),
+            $this->request('GET', $route, array_replace($query, ['email' => 'other@example.com'])),
+            $this->request('POST', $route, $query),
+            $this->request('GET', '/prq/v3/catalog/export', $query),
+        ] as $tampered) {
+            $this->assertFalse(V2::verify($secret, '1700000000', $tampered, $signature, 1700000000));
+        }
+        Functions\when('get_option')->justReturn($this->connection());
+        $timestamp = (string) time();
+        $request->shouldReceive('get_header')->with('X-PRQ-Timestamp')->andReturn($timestamp);
+        $request->shouldReceive('get_header')->with('X-PRQ-Signature')->andReturn('sha256=' . hash_hmac('sha256', str_replace('1700000000', $timestamp, $payload), $this->connection()['shared_secret']));
+        $this->assertTrue((new V2())->authorize($request));
+    }
+
+    public function test_export_signature_covers_raw_bytes_and_requires_fresh_timestamp(): void
     {
         $body = '{"picked_metafields":["spf"]}';
-        $signature = 'sha256=' . hash_hmac('sha256', '1000.' . $body, 'secret');
-        $this->assertTrue(V2::verify('secret', '1000', $body, $signature, 1000));
-        $this->assertTrue(V2::verify('secret', '1000', $body, $signature, 1300));
-        $this->assertFalse(V2::verify('secret', '1000', $body, $signature, 1301));
-        $this->assertFalse(V2::verify('secret', '1000', $body, $signature, 699));
-        $this->assertFalse(V2::verify('secret', '1000', $body . ' ', $signature, 1000));
-        $this->assertFalse(V2::verify('wrong', '1000', $body, $signature, 1000));
-        $this->assertFalse(V2::verify('secret', '', $body, $signature, 1000));
-        $this->assertFalse(V2::verify('', '1000', $body, $signature, 1000));
+        $request = $this->request('POST', '/prq/v3/catalog/export', [], $body);
+        $signature = 'sha256=' . hash_hmac('sha256', "1000\nPOST\n/prq/v3/catalog/export\n\n" . $body, 'secret');
+        $this->assertTrue(V2::verify('secret', '1000', $request, $signature, 1000));
+        $this->assertTrue(V2::verify('secret', '1000', $request, $signature, 1300));
+        $this->assertFalse(V2::verify('secret', '1000', $request, $signature, 1301));
+        $this->assertFalse(V2::verify('secret', '1000', $request, $signature, 699));
+        $this->assertFalse(V2::verify('secret', '1000', $this->request('POST', '/prq/v3/catalog/export', [], $body . ' '), $signature, 1000));
+        $this->assertFalse(V2::verify('wrong', '1000', $request, $signature, 1000));
+        $this->assertFalse(V2::verify('secret', '', $request, $signature, 1000));
+        $this->assertFalse(V2::verify('', '1000', $request, $signature, 1000));
+    }
+
+    public function test_bad_and_stale_signatures_return_explicit_403(): void
+    {
+        Functions\when('get_option')->justReturn($this->connection());
+        foreach ([['GET', '/prq/v3/orders'], ['POST', '/prq/v3/catalog/export']] as [$method, $route]) {
+            foreach ([(string) time(), (string) (time() - 301)] as $timestamp) {
+                $request = $this->request($method, $route);
+                $signature = $timestamp < time() - 300
+                    ? 'sha256=' . hash_hmac('sha256', "$timestamp\n$method\n$route\n\n", $this->connection()['shared_secret'])
+                    : 'sha256=bad';
+                $request->shouldReceive('get_header')->with('X-PRQ-Timestamp')->andReturn($timestamp);
+                $request->shouldReceive('get_header')->with('X-PRQ-Signature')->andReturn($signature);
+                $error = (new V2())->authorize($request);
+                $this->assertSame('prq_invalid_signature', $error->get_error_code());
+                $this->assertSame(['status' => 403], $error->get_error_data());
+            }
+        }
     }
 
     public function test_admin_jwt_claims_signature_and_iframe_launch_url(): void
@@ -127,7 +183,10 @@ final class V2ModeTest extends TestCase
         $webhook->shouldReceive('set_name')->once();
         $webhook->shouldReceive('set_topic')->once()->andReturnUsing(function ($topic) use (&$topics) { $topics[] = $topic; });
         $webhook->shouldReceive('set_delivery_url')->once()->with('https://api.example.com/api/woocommerce/orders');
-        $webhook->shouldReceive('set_secret')->once()->with($connection['shared_secret']);
+        $derived = hash_hmac('sha256', 'prq-v2-webhook', $connection['shared_secret']);
+        $this->assertNotSame($connection['shared_secret'], $derived);
+        $webhook->shouldReceive('set_secret')->never()->with($connection['shared_secret']);
+        $webhook->shouldReceive('set_secret')->once()->with($derived);
         $webhook->shouldReceive('set_api_version')->once()->with('wp_api_v3');
         $webhook->shouldReceive('set_status')->once()->with('active');
         $webhook->shouldReceive('set_user_id')->once()->with(7);

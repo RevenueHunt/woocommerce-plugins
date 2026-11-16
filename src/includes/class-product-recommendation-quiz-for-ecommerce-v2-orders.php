@@ -65,7 +65,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Orders {
 			$webhook->set_name( 'RevenueHunt V2 ' . $topic );
 			$webhook->set_topic( $topic );
 			$webhook->set_delivery_url( $connection['api_url'] . '/api/woocommerce/orders' );
-			$webhook->set_secret( $connection['shared_secret'] );
+			$webhook->set_secret( Product_Recommendation_Quiz_For_Ecommerce_V2::webhook_secret( $connection['shared_secret'] ) );
 			$webhook->set_api_version( 'wp_api_v3' );
 			$webhook->set_status( 'active' );
 			$webhook->set_user_id( get_current_user_id() );
