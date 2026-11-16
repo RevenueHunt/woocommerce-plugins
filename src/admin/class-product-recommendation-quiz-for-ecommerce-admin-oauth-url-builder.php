@@ -60,6 +60,10 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder {
 	 * @return string The OAuth URL with all required parameters.
 	 */
 	public function prquiz_get_oauth_url() {
+		$connection = Product_Recommendation_Quiz_For_Ecommerce_V2::connection();
+		if ( $connection ) {
+			return $connection['admin_url'] . '/auth/woocommerce?token=' . rawurlencode( Product_Recommendation_Quiz_For_Ecommerce_V2::admin_token( $connection, wp_get_current_user() ) );
+		}
 		if ( Product_Recommendation_Quiz_For_Ecommerce::is_development_environment() ) {
 			$oauth_url = 'http://localhost:9528/public/woocommerce/oauth';
 		} else {

@@ -113,6 +113,21 @@ class Product_Recommendation_Quiz_For_Ecommerce_Autoloader {
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks':
 				require_once plugin_dir_path( __DIR__ ) . 'front/class-product-recommendation-quiz-for-ecommerce-front-embed-blocks.php';
 				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery':
+				require_once plugin_dir_path( __DIR__ ) . 'front/class-product-recommendation-quiz-for-ecommerce-v2-delivery.php';
+				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_V2':
+				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2.php';
+				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog':
+				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2-catalog.php';
+				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog_Product':
+				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2-catalog-product.php';
+				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Orders':
+				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2-orders.php';
+				break;
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller':
 				require_once plugin_dir_path( __DIR__ ) . 'rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php';
 				break;

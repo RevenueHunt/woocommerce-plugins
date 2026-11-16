@@ -11,6 +11,8 @@ abstract class TestCase extends PHPUnitTestCase
     {
         parent::setUp();
         Monkey\setUp();
+        // Default to an existing V1 shop without a V2 connection. Tests can override.
+        Monkey\Functions\when('get_option')->justReturn(false);
     }
 
     protected function tearDown(): void

@@ -76,6 +76,10 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 			'all'
 		);
 
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+			return;
+		}
+
 		$data_to_pass = array(
 			'shop'           => PRQ_STORE_URL,
 			'platform'       => 'woocommerce',

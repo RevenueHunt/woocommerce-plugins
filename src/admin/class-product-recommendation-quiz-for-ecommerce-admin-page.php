@@ -179,6 +179,13 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Page {
 			return;
 		}
 
+		// A V2 connection already passed connect validation; do not run V1 API diagnostics.
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+			nocache_headers();
+			$this->prquiz_authenticated_visit();
+			return;
+		}
+
 		// Check HTTPS/SSL (except for local environments).
 		if ( Product_Recommendation_Quiz_For_Ecommerce::is_development_environment() ) {
 			// Development environment - skip HTTPS check.

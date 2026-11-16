@@ -36,8 +36,10 @@ class Product_Recommendation_Quiz_For_Ecommerce_Delivery_Resolver {
 	 * @return Product_Recommendation_Quiz_For_Ecommerce_Delivery The active delivery.
 	 */
 	public static function resolve( $plugin_name, $version ): Product_Recommendation_Quiz_For_Ecommerce_Delivery {
-		// V1: enqueue embed.js and return the hydration container. The future V3
-		// delivery (self-contained quiz-html) is selected here when available.
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+			return new Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery();
+		}
+		// V1: enqueue embed.js and return the existing hydration container.
 		return new Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script( $plugin_name, $version );
 	}
 }

@@ -108,8 +108,10 @@ parameters:
 			count: 1
 			path: src/includes/class-product-recommendation-quiz-for-ecommerce-activator.php
 
+		# Pre-existing V1 auth branch, exposed by the new WooCommerce stubs.
+		# V2 must not change its behavior; characterize and fix separately.
 		-
-			message: '#^Strict comparison using \=\=\= between null and string will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
+			message: '#^Parameter \#1 \$object_or_class of function is_a expects object, int\|false given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php

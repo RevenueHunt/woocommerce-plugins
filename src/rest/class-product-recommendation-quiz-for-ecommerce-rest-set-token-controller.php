@@ -65,9 +65,18 @@ class Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller {
 	 *
 	 * @since 1.0.0
 	 * @param WP_REST_Request $request The REST API request object.
-	 * @return bool True if authenticated, false otherwise.
+	 * @return bool|WP_Error True if authenticated, otherwise false (V1) or an error (V2).
 	 */
 	public function check_woocommerce_permission( $request ) {
+		// WooCommerce/WordPress REST authentication has already established the user.
+		// V2 must never fall through to the legacy WP_User-only authentication path.
+		if ( 'v2' === $request->get_param( 'mode' ) ) {
+			// phpcs:ignore WordPress.WP.Capabilities.Unknown -- Native WooCommerce capability.
+			if ( get_current_user_id() > 0 && current_user_can( 'manage_woocommerce' ) ) {
+				return true;
+			}
+			return new WP_Error( 'prq_woocommerce_authorize_required', __( "Please connect from WooCommerce's authorize screen.", 'product-recommendation-quiz-for-ecommerce' ), array( 'status' => 403 ) );
+		}
 		// Ensure WooCommerce is available.
 		if ( ! class_exists( 'WC_REST_Authentication' ) ) {
 			return false;
@@ -219,6 +228,14 @@ class Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller {
 				__( 'Invalid api_key format.', 'product-recommendation-quiz-for-ecommerce' ),
 				array( 'status' => 400 )
 			);
+		}
+
+		// V2 is selected only by the monolith at first connect; legacy writes below stay unchanged.
+		if ( 'v2' === $request->get_param( 'mode' ) ) {
+			$connected = Product_Recommendation_Quiz_For_Ecommerce_V2::connect( $request );
+			if ( is_wp_error( $connected ) ) {
+				return $connected;
+			}
 		}
 
 		// Get existing values.

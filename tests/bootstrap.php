@@ -49,7 +49,10 @@ if (!class_exists('WP_Error')) {
 if (!class_exists('WP_REST_Request')) {
     class WP_REST_Request {
         private $params;
+        private $route = '';
         public function __construct(array $params = []) { $this->params = $params; }
+        public function get_route() { return $this->route; }
+        public function set_route($route) { $this->route = $route; }
         public function get_param($key) { return $this->params[$key] ?? null; }
         public function set_param($key, $value) { $this->params[$key] = $value; }
     }

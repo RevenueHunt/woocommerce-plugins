@@ -3,6 +3,9 @@ includes:
 
 parameters:
 	level: 5
+	# WooCommerce documents initialized runtime properties as non-null, though
+	# cart/countries can be absent before the relevant WooCommerce hooks.
+	treatPhpDocTypesAsCertain: false
 	paths:
 		- src
 	# WordPress/WooCommerce symbols are provided by szepeviktor/phpstan-wordpress
@@ -11,3 +14,5 @@ parameters:
 	# must analyse clean.
 	bootstrapFiles:
 		- vendor/szepeviktor/phpstan-wordpress/bootstrap.php
+		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+		- vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php

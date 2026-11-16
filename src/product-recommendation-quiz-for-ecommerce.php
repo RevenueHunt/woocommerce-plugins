@@ -16,7 +16,7 @@
  * Plugin Name:       Product Recommendation Quiz for eCommerce
  * Plugin URI:        https://revenuehunt.com/product-recommendation-quiz-woocommerce/
  * Description:       Advise and delight your customers by engaging them with a personal shopper experience on your store, guiding your customers from start to cart and helping them find the products that best match their needs.
- * Version:           2.5.6
+ * Version:           3.0.0-dev
  * Author:            RevenueHunt
  * Author URI:        https://revenuehunt.com/
  * License:           GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PRQ_PLUGIN_VERSION', '2.5.6' );
+define( 'PRQ_PLUGIN_VERSION', '3.0.0-dev' );
 
 /**
  * Option keys used by the plugin.
@@ -89,6 +89,14 @@ function product_recommendation_quiz_for_ecommerce_run() {
 	$plugin = new Product_Recommendation_Quiz_For_Ecommerce();
 	$plugin->run();
 }
+
+add_action(
+	'plugins_loaded',
+	function () {
+		$v2 = new Product_Recommendation_Quiz_For_Ecommerce_V2();
+		$v2->run();
+	}
+);
 
 add_action(
 	'rest_api_init',

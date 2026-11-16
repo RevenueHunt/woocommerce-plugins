@@ -36,6 +36,33 @@ composer build        # build both artifacts into build/<slug>/
 php tools/build.php woocommerce   # build a single target
 ```
 
+## V2 mode (3.0.0-dev)
+
+The monolith selects the mode at first connect; the `prq_v2_connection` option is
+absent for V1 stores. Existing V1 credentials never opt a shop into V2.
+The shared wire specification is [CONTRACT.md](../../v2/docs/woocommerce/CONTRACT.md).
+
+V2 provisioning uses the WooCommerce-authenticated `wc/v3/prq_set_token` route and
+requires a user with `manage_woocommerce`. The legacy `prq/v1/settoken` route stays
+V1-only. The admin iframe receives a server-minted, 60-second HS256 launch token.
+
+V2 exports use WooCommerce's bundled Action Scheduler (group `prq`), 100 products
+per batch, nightly at 03:00 in the site's timezone or on signed Sync now requests.
+Private random `.php` files in uploads start with an exit/compiler guard; only the
+signed, one-use REST download removes that guard and streams neutral JSONL.
+Export failures are visible in WooCommerce → Status → Scheduled Actions. Failed
+export files/manifests are cleaned up after one hour, and ready downloads expire
+one hour after readiness. The `catalog_ready.expires_at` value is a Unix timestamp.
+
+Order delivery uses native WooCommerce webhooks and their native
+`X-WC-Webhook-Signature`, not the timestamped PRQ signature used by plugin routes.
+The shortcode and quiz block render V2 mount elements without a script or cached
+Store API nonce; the V2 storefront script is a separate phase-3 integration.
+
+See [the verification record](tests/V2-PROOF.md) for the before/after V1 snapshot
+and local-store export proof. WooCommerce stubs are dev-only (not built into either
+artifact); PHPStan needs a 2 GB limit with these stubs.
+
 ## Deploy
 
 Build artifacts feed the existing pipelines (they are **deploy targets**, not

@@ -83,6 +83,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 	 * @since    2.3.9
 	 */
 	public function enqueue_scripts() {
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+			return;
+		}
 		// Don't load the embed script on WooCommerce checkout or cart pages.
 		// The quiz is never rendered there, and a connection timeout would
 		// degrade the shopping experience for no benefit.
