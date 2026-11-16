@@ -201,8 +201,9 @@ warnings (exit 0). No edge-case test artifact retained.
 
 ## Remaining scope / tooling notes
 
-- V2 storefront script and real admin sign-in are later integration phases; this
-  version deliberately emits only the agreed V2 mount, with no cached nonce.
+- The plugin now enqueues the hosted V2 storefront module with its mount (see
+  integration proof below). Actual hosted renderer execution and real admin
+  sign-in still require the V2 services; neither is claimed by this plugin proof.
 - V2 uninstall lifecycle was completed afterward; see the required
   [lifecycle release gate](V2-LIFECYCLE-PROOF.md) for tests and local-store evidence.
   Accepted boundary: native webhook cleanup requires active WooCommerce (its CRUD API).
@@ -216,3 +217,107 @@ warnings (exit 0). No edge-case test artifact retained.
 - `composer audit --format=plain` exited 1: three pre-existing high advisories in
   dev-only `phpcsstandards/phpcsutils`, `squizlabs/php_codesniffer` and
   `wp-coding-standards/wpcs`. These versions were not changed and are not shipped.
+
+## Phase-3 integration fixes: canonical outbound signatures and module enqueue
+
+`catalog_ready`, uninstall, and inbound request verification now share the V2
+class's canonical signer. Uninstall already used the canonical payload; only its
+construction was deduplicated. Native WooCommerce order webhooks still use their
+derived webhook key and native signature. The single-use download capability is
+also unchanged. No `timestamp.body` request signature remains.
+
+### Fixed plugin → V2 test vector
+
+Public synthetic values, independently computed with PHP `hash_hmac` in
+`V2ModeTest` (not the plugin signer) and cross-checked with Python `hmac`:
+
+```text
+secret: prq-v2-test-secret
+timestamp: 1700000000
+method: POST
+route: /api/woocommerce/catalog_ready
+canonical query: (empty, zero bytes)
+body: {"shop":"wc-test","url":"https:\/\/shop.example\/wp-json\/prq\/v3\/catalog\/download?x=1","expires_at":1700003600,"products":42}
+expected hex: c28b5508860cdf47b5b058bad09325fd88199a914514ab3d269223244ad11657
+X-PRQ-Signature: sha256=c28b5508860cdf47b5b058bad09325fd88199a914514ab3d269223244ad11657
+```
+
+The body is exactly the line above, with literal backslashes escaping its slashes
+(default `wp_json_encode`), no final newline. The query inside the JSON `url` is
+**body data**, not the canonical query for the POST. The payload is timestamp,
+`\nPOST\n/api/woocommerce/catalog_ready\n\n`, then those body bytes. The test freezes
+`time()` to `1700000000` via dev-only `patchwork.json`, returns the fixture download
+URL from `add_query_arg`, and asserts the actual `wp_remote_post` body and headers
+from the public catalog batch/retry path.
+
+### Automated checks
+
+From `worktrees/woo-plugin`:
+
+- Before changes: `composer test` — exit **0**, **157 tests / 511 assertions**.
+- Final gate: `composer check` — exit **0**: PHPCS **8 files**, i18n lint clean,
+  PHPStan **39 files** / no errors, PHPUnit **159 tests / 526 assertions**.
+- Red regression run: `vendor/bin/phpunit tests/Characterization/V2ModeTest.php`
+  — exit **2**, **14 tests / 108 assertions**, two failures and two errors. It
+  exposed the old outbound HMAC, absent module enqueue/filter, and frozen-clock
+  leakage into the following test. The clock test now runs in its own process.
+- `vendor/bin/phpunit tests/Characterization/V2ModeTest.php tests/Characterization/V2LifecycleTest.php`
+  — exit **0**, **18 tests / 164 assertions**.
+- `vendor/bin/phpunit tests/Characterization/V1ModeTest.php` — exit **0**,
+  **3 tests / 9 assertions**, unchanged V1 embed URL/payload/tag/HTML.
+- `vendor/bin/phpcs` — exit **0**, **8 files**, after documenting the intentional
+  null version (first run exited **1**, zero errors / one missing-version warning).
+- `vendor/bin/phpstan analyse --memory-limit=2G` — exit **0**, **39 files**, no errors.
+- `composer build` — exit **0**, **2 artifacts**. Neither artifact includes the
+  dev-only Patchwork config. Source files, not generated artifacts, are committed.
+- One-off `php -r` probe requiring `tests/bootstrap.php` — exit **0**: non-scalar
+  signing query returns false; module filter handles absent/double-quoted/
+  single-quoted legacy `type` and is idempotent in all three cases. No probe file.
+
+### Local WordPress 6.8 proof and restoration
+
+Initial state: plugin `product-recommendation-quiz-for-ecommerce` inactive;
+`prq_v2_connection` absent. Other active plugins: `woocommerce`, `prq-v3`.
+Built the artifact above, then installed the generated output:
+
+```bash
+# From worktrees/woo-plugin:
+docker cp build/product-recommendation-quiz-for-ecommerce/. woocommerce-test-wordpress-1:/var/www/html/wp-content/plugins/product-recommendation-quiz-for-ecommerce/
+# From v3/woocommerce-test; all WP-CLI calls use this Compose tools service:
+docker compose --profile tools run --rm wpcli wp plugin activate product-recommendation-quiz-for-ecommerce
+docker compose --profile tools run --rm wpcli wp option add prq_v2_connection '{"mode":"v2","shop":"wc-test","shared_secret":"prq-v2-test-secret","api_url":"http://localhost:3999","admin_url":"http://localhost:3999/"}' --format=json --autoload=no
+docker compose --profile tools run --rm wpcli wp post create --post_type=page --post_status=publish --post_title='PRQ V2 module proof' --post_name=prq-v2-module-proof --post_content='[product_recommendation_quiz id="quiz123"]' --porcelain
+```
+
+All exited **0**; one activated plugin, one option, one page (ID **132**).
+Browser/screenshot of `http://localhost:8088/?page_id=132` confirmed the storefront
+page and inspected the DOM: **one mount**, **one module script**, exact output:
+
+```html
+<div data-prq-shop="wc-test" data-prq-quiz="quiz123"></div>
+<script id="prq-v2-quiz-renderer-js-module" src="http://localhost:3999/woocommerce/quiz-renderer.js" type="module"></script>
+```
+
+There is no version query or nonce on the module. A `curl -L --fail-with-body -sS
+'http://localhost:8088/?page_id=132'` response parsed with Python `HTMLParser`
+asserted the same counts, attributes and URL (exit **0**); the same curl/parser
+check on `?page_id=2` asserted **zero** hosted modules (exit **0**). The first curl
+probe omitted `-L`, saw WordPress's **301**, and its assertion exited **1**;
+following redirects fixed the probe, not the plugin. The browser reported the
+expected `ERR_CONNECTION_REFUSED` loading synthetic `localhost:3999`: this proves
+enqueue/output, **not renderer execution**. WordPress <6.5's fallback enqueue,
+scoped module-tag filter, and no-mount behavior are covered by the unit tests.
+
+Restored immediately after inspection:
+
+```bash
+docker compose --profile tools run --rm wpcli wp plugin deactivate product-recommendation-quiz-for-ecommerce
+docker compose --profile tools run --rm wpcli wp option delete prq_v2_connection
+docker compose --profile tools run --rm wpcli wp post delete 132 --force
+docker compose --profile tools run --rm wpcli wp eval 'if (get_option("prq_v2_connection", false) !== false || get_post(132) !== null || is_plugin_active("product-recommendation-quiz-for-ecommerce/product-recommendation-quiz-for-ecommerce.php")) { throw new Exception("Store not restored"); } echo "RESTORED: synthetic connection absent, page 132 deleted, plugin inactive\n";'
+docker compose --profile tools run --rm wpcli wp plugin list --fields=name,status,version
+```
+
+All exited **0**. One plugin deactivated, one option removed, one page deleted;
+explicit restoration assertion passed. The plugin list matched the initial
+active/inactive state of every plugin. No fixture or probe file remains.

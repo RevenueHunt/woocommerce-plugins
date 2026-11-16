@@ -112,6 +112,31 @@ final class V2ModeTest extends TestCase
         $this->assertSame(rtrim(strtr(base64_encode(hash_hmac('sha256', "$header.$payload", $connection['shared_secret'], true)), '+/', '-_'), '='), $signature);
     }
 
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
+    public function test_catalog_ready_request_matches_independent_fixed_signature_vector(): void
+    {
+        $connection = array_replace($this->connection(), ['shop' => 'wc-test', 'shared_secret' => 'prq-v2-test-secret']);
+        $state = ['expires' => 1700003600, 'products' => 42];
+        Functions\when('time')->justReturn(1700000000);
+        Functions\when('get_option')->alias(fn($key) => $key === V2::OPTION ? $connection : $state);
+        Functions\when('rest_url')->justReturn('https://shop.example/wp-json/prq/v3/catalog/download');
+        Functions\expect('add_query_arg')->once()->with(\Mockery::type('array'), 'https://shop.example/wp-json/prq/v3/catalog/download')->andReturn('https://shop.example/wp-json/prq/v3/catalog/download?x=1');
+        Functions\when('wp_json_encode')->alias('json_encode');
+        $body = '{"shop":"wc-test","url":"https:\/\/shop.example\/wp-json\/prq\/v3\/catalog\/download?x=1","expires_at":1700003600,"products":42}';
+        $expected = 'c28b5508860cdf47b5b058bad09325fd88199a914514ab3d269223244ad11657';
+        $this->assertSame($expected, hash_hmac('sha256', "1700000000\nPOST\n/api/woocommerce/catalog_ready\n\n" . $body, 'prq-v2-test-secret'));
+        Functions\expect('wp_remote_post')->once()->with('https://api.example.com/api/woocommerce/catalog_ready', \Mockery::on(function ($args) use ($body, $expected) {
+            $this->assertSame($body, $args['body']);
+            $this->assertSame('1700000000', $args['headers']['X-PRQ-Timestamp']);
+            $this->assertSame('application/json', $args['headers']['Content-Type']);
+            $this->assertSame('sha256=' . $expected, $args['headers']['X-PRQ-Signature']);
+            return true;
+        }))->andReturn(['response' => ['code' => 200]]);
+        Functions\when('wp_remote_retrieve_response_code')->justReturn(200);
+        (new Catalog())->batch(str_repeat('a', 48));
+    }
+
     public function test_download_url_expires_and_cannot_be_reused_or_tampered(): void
     {
         $id = str_repeat('a', 48);
@@ -152,9 +177,12 @@ final class V2ModeTest extends TestCase
         $this->assertStringNotContainsString('wp_create_nonce', $source);
     }
 
-    public function test_v2_shortcode_and_block_render_mount_only_without_any_script(): void
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
+    public function test_v2_shortcode_and_block_enqueue_hosted_module_only_when_rendering_mount(): void
     {
-        Functions\when('get_option')->justReturn($this->connection());
+        Functions\when('get_option')->justReturn(array_replace($this->connection(), ['admin_url' => 'https://admin.example.com/']));
+        Functions\expect('wp_enqueue_script_module')->twice()->with('prq-v2-quiz-renderer', 'https://admin.example.com/woocommerce/quiz-renderer.js', [], null);
         Functions\when('esc_attr')->alias(fn($s) => htmlspecialchars($s, ENT_QUOTES));
         Functions\when('shortcode_atts')->alias(fn($defaults, $atts) => array_merge($defaults, $atts));
         Functions\expect('wp_enqueue_script')->never();
@@ -163,7 +191,24 @@ final class V2ModeTest extends TestCase
         $expected = '<div data-prq-shop="wc-ab12cd" data-prq-quiz="quiz123"></div>';
         $this->assertSame($expected, (new \Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode($delivery))->render_shortcode(['id' => 'quiz123']));
         $this->assertSame($expected, (new \Product_Recommendation_Quiz_For_Ecommerce_Front_Block($delivery))->render_block(['id' => 'quiz123']));
+        $this->assertSame('', $delivery->render([]));
         (new \Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script('prq', PRQ_PLUGIN_VERSION))->enqueue_scripts();
+    }
+
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
+    public function test_v2_mount_uses_module_tag_filter_before_wordpress_65(): void
+    {
+        $this->assertFalse(function_exists('wp_enqueue_script_module'));
+        Functions\when('get_option')->justReturn($this->connection());
+        Functions\when('esc_attr')->alias(fn($s) => htmlspecialchars($s, ENT_QUOTES));
+        Functions\expect('wp_enqueue_script')->once()->with('prq-v2-quiz-renderer', 'https://admin.example.com/woocommerce/quiz-renderer.js', [], null, true);
+        $delivery = new \Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery();
+        $this->assertSame('<div data-prq-shop="wc-ab12cd" data-prq-quiz="quiz123"></div>', $delivery->render(['id' => 'quiz123']));
+        $tag = '<script type="text/javascript" src="https://admin.example.com/woocommerce/quiz-renderer.js"></script>';
+        $this->assertSame('<script type="module" src="https://admin.example.com/woocommerce/quiz-renderer.js"></script>', $delivery->module_tag($tag, 'prq-v2-quiz-renderer'));
+        $this->assertSame($tag, $delivery->module_tag($tag, 'unrelated'));
+        $this->assertContains('script_loader_tag', $GLOBALS['__prq_filters']);
     }
 
     #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]

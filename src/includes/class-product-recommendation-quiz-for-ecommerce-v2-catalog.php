@@ -232,7 +232,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog {
 	}
 
 	/**
-	 * Announce readiness with the same timestamp.body signature V2 uses.
+	 * Announce readiness with the canonical plugin-to-V2 request signature.
 	 *
 	 * @param string $id Export id.
 	 * @param array  $state Export manifest.
@@ -259,13 +259,14 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog {
 			)
 		);
 		$timestamp  = (string) time();
+		$route      = '/api/woocommerce/catalog_ready';
 		$response   = wp_remote_post(
-			$connection['api_url'] . '/api/woocommerce/catalog_ready',
+			$connection['api_url'] . $route,
 			array(
 				'headers' => array(
 					'Content-Type'    => 'application/json',
 					'X-PRQ-Timestamp' => $timestamp,
-					'X-PRQ-Signature' => 'sha256=' . hash_hmac( 'sha256', $timestamp . '.' . $body, $connection['shared_secret'] ),
+					'X-PRQ-Signature' => Product_Recommendation_Quiz_For_Ecommerce_V2::sign( $connection['shared_secret'], $timestamp, 'POST', $route, array(), $body ),
 				),
 				'body'    => $body,
 				'timeout' => 30,

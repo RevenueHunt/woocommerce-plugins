@@ -114,7 +114,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 				'headers'     => array(
 					'Content-Type'    => 'application/json',
 					'X-PRQ-Timestamp' => $timestamp,
-					'X-PRQ-Signature' => 'sha256=' . hash_hmac( 'sha256', $timestamp . "\nPOST\n" . $route . "\n\n" . $body, $connection['shared_secret'] ),
+					'X-PRQ-Signature' => self::sign( $connection['shared_secret'], $timestamp, 'POST', $route, array(), $body ),
 				),
 				'body'        => $body,
 				'timeout'     => 3,
@@ -188,7 +188,22 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		if ( '' === $secret || ! ctype_digit( $timestamp ) || abs( $now - (int) $timestamp ) > 300 ) {
 			return false;
 		}
-		$query = $request->get_query_params();
+		$expected = self::sign( $secret, $timestamp, $request->get_method(), $request->get_route(), $request->get_query_params(), $request->get_body() );
+		return false !== $expected && hash_equals( $expected, $signature );
+	}
+
+	/**
+	 * Sign either direction with the same canonical request format.
+	 *
+	 * @param string $secret Shared secret.
+	 * @param string $timestamp Unix timestamp header.
+	 * @param string $method Uppercase HTTP method.
+	 * @param string $route Route path (V2 path or WP REST get_route(), no /wp-json).
+	 * @param array  $query Flat query parameters.
+	 * @param string $body Raw body bytes.
+	 * @return string|false Signature header, or false for non-scalar query values.
+	 */
+	public static function sign( $secret, $timestamp, $method, $route, $query, $body ) {
 		ksort( $query, SORT_STRING );
 		$parts = array();
 		foreach ( $query as $name => $value ) {
@@ -198,9 +213,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 			}
 			$parts[] = rawurlencode( (string) $name ) . '=' . rawurlencode( (string) $value );
 		}
-		// get_route() is exactly /prq/v3/orders (or /prq/v3/catalog/export), without /wp-json.
-		$payload = $timestamp . "\n" . $request->get_method() . "\n" . $request->get_route() . "\n" . implode( '&', $parts ) . "\n" . $request->get_body();
-		return hash_equals( 'sha256=' . hash_hmac( 'sha256', $payload, $secret ), $signature );
+		$payload = $timestamp . "\n" . $method . "\n" . $route . "\n" . implode( '&', $parts ) . "\n" . $body;
+		return 'sha256=' . hash_hmac( 'sha256', $payload, $secret );
 	}
 
 	/**

@@ -65,8 +65,10 @@ must pass before releasing either artifact.
 
 Order delivery uses native WooCommerce webhooks and their native
 `X-WC-Webhook-Signature`, not the timestamped PRQ signature used by plugin routes.
-The shortcode and quiz block render V2 mount elements without a script or cached
-Store API nonce; the V2 storefront script is a separate phase-3 integration.
+The shortcode and quiz block render V2 mount elements and enqueue the hosted
+`<admin_url>/woocommerce/quiz-renderer.js` module only on requests with a mount.
+WordPress before 6.5 uses the script enqueue API with a module-tag filter. No
+Store API nonce is printed in cached page output.
 
 See [the verification record](tests/V2-PROOF.md) for the before/after V1 snapshot
 and local-store export proof. WooCommerce stubs are dev-only (not built into either
