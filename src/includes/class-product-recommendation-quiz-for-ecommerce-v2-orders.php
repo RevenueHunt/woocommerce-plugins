@@ -77,30 +77,18 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Orders {
 	}
 
 	/**
-	 * Find owned webhooks, including connections made before IDs were stored.
+	 * Find owned webhooks by stored IDs only, skipping independently deleted rows.
 	 *
 	 * @return WC_Webhook[] Native webhooks for this connection.
 	 */
 	private function webhooks() {
 		$connection = Product_Recommendation_Quiz_For_Ecommerce_V2::connection();
 		$ids        = $connection['webhook_ids'] ?? array();
-		$fallback   = empty( $ids );
 		$webhooks   = array();
 		foreach ( $ids as $id ) {
 			$webhook = wc_get_webhook( $id );
 			if ( $webhook ) {
 				$webhooks[ $id ] = $webhook;
-			} else {
-				$fallback = true;
-			}
-		}
-		if ( $fallback ) {
-			$store = new WC_Webhook_Data_Store();
-			foreach ( $store->get_webhooks_ids() as $id ) {
-				$webhook = wc_get_webhook( $id );
-				if ( $webhook && $connection['api_url'] . '/api/woocommerce/orders' === $webhook->get_delivery_url() ) {
-					$webhooks[ $id ] = $webhook;
-				}
 			}
 		}
 		return $webhooks;

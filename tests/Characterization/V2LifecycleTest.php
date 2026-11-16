@@ -137,19 +137,52 @@ final class V2LifecycleTest extends TestCase
         $this->assertFileExists($this->uploads . '/prq-catalog-unrelated.php');
     }
 
-    public function test_uninstall_finds_legacy_webhooks_by_exact_delivery_url_and_tolerates_500(): void
+    public function test_missing_stored_id_never_claims_same_url_webhook_or_its_deliveries(): void
     {
-        unset($this->options[V2::OPTION]['webhook_ids']);
-        $webhooks = $this->webhooks('paused', true);
-        foreach ($webhooks as $webhook) $webhook->shouldReceive('get_delivery_url')->andReturn('https://api.example.com/api/woocommerce/orders');
+        // Stored IDs are [41, 42], but 42 was deleted independently.
+        $owned = \Mockery::mock('WC_Webhook');
+        $owned->shouldReceive('get_delivery_url')->andReturn('https://api.example.com/api/woocommerce/orders');
+        $owned->shouldReceive('set_status')->with('paused')->twice();
+        $owned->shouldReceive('set_status')->with('active')->once();
+        $owned->shouldReceive('save')->times(3);
+        $owned->shouldReceive('delete')->with(true)->once();
         $other = \Mockery::mock('WC_Webhook');
-        $other->shouldReceive('get_delivery_url')->andReturn('https://other.example.com/api/woocommerce/orders');
-        Functions\when('wc_get_webhook')->alias(fn($id) => $webhooks[$id] ?? $other);
+        $other->shouldReceive('get_delivery_url')->andReturn('https://api.example.com/api/woocommerce/orders');
+        $other->shouldReceive('set_status')->never();
+        $other->shouldReceive('save')->never();
+        $other->shouldReceive('delete')->never();
+        Functions\when('wc_get_webhook')->alias(fn($id) => [41 => $owned, 99 => $other][$id] ?? false);
         $store = \Mockery::mock('overload:WC_Webhook_Data_Store');
-        $store->shouldReceive('get_webhooks_ids')->once()->andReturn([41, 42, 99]);
-        $this->unschedule();
+        $store->shouldReceive('get_webhooks_ids')->andReturn([41, 42, 99]);
+
+        $actions = [];
+        foreach ([41, 99] as $id) {
+            $actions[$id] = \Mockery::mock();
+            $actions[$id]->shouldReceive('get_args')->andReturn(['webhook_id' => $id, 'arg' => 123]);
+        }
+        $pending = $actions;
+        $canceled = [];
+        Functions\when('as_get_scheduled_actions')->alias(function () use (&$pending) { return array_values($pending); });
+        Functions\when('as_unschedule_all_actions')->alias(function ($hook, $args, $group) use (&$pending, &$canceled) {
+            if ($hook === 'woocommerce_deliver_webhook_async') {
+                $this->assertSame('woocommerce-webhooks', $group);
+                $this->assertSame(41, $args['webhook_id']);
+                $canceled[] = $args['webhook_id'];
+                unset($pending[$args['webhook_id']]);
+            }
+        });
+        Functions\when('as_has_scheduled_action')->justReturn(true);
+        Functions\when('add_option')->justReturn(true);
         Functions\expect('wp_remote_post')->once()->andReturn(['response' => ['code' => 500]]);
+
+        \Product_Recommendation_Quiz_For_Ecommerce_Deactivator::deactivate();
+        $this->assertSame([99], array_keys($pending));
+        \Product_Recommendation_Quiz_For_Ecommerce_Activator::activate();
+        $this->assertSame([99], array_keys($pending));
+        $pending[41] = $actions[41];
         V2::uninstall();
+        $this->assertSame([99], array_keys($pending));
+        $this->assertSame([41, 41], $canceled);
         $this->assertSame([], $this->options);
     }
 }
