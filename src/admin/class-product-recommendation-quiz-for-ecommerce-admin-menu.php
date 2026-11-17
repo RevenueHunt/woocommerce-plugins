@@ -63,7 +63,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 	}
 
 	/**
-	 * Register the stylesheets and JavaScript for the admin area.
+	 * Register the stylesheet for the admin area.
+	 *
+	 * The admin loads no script: the RevenueHunt app is the iframe on its own page.
 	 *
 	 * @since    1.0.0
 	 */
@@ -75,24 +77,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 			$this->version,
 			'all'
 		);
-
-		$data_to_pass = array(
-			'shop'           => PRQ_STORE_URL,
-			'platform'       => 'woocommerce',
-			'channel'        => 'wordpress',
-			'plugin_version' => PRQ_PLUGIN_VERSION,
-			'woo_version'    => PRQ_WOO_VERSION,
-			'wp_version'     => PRQ_WP_VERSION,
-		);
-
-		wp_enqueue_script(
-			$this->plugin_name,
-			PRQ_ADMIN_URL . '/embed.js?shop=' . rawurlencode( PRQ_STORE_URL ),
-			array(),
-			PRQ_PLUGIN_VERSION,
-			true
-		);
-		wp_localize_script( $this->plugin_name, 'js_vars', $data_to_pass );
 	}
 
 	/**

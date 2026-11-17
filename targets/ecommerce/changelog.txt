@@ -1,5 +1,10 @@
 *** Product Recommendation Quiz for WooCommerce ***
 
+2026-11-17 - version 2.6.0
+* Dev - The storefront quiz script now ships with the plugin instead of loading from RevenueHunt's servers. It no longer loads Meta's Pixel script; quiz events go to the Pixel your site already loads
+* Dev - The plugin no longer loads any script on WordPress admin pages
+* Dev - The WordPress user who opens the RevenueHunt page is added as a contact when they open it, no longer in the background on other admin pages. See External services
+
 2026-06-26 - version 2.5.6
 * Dev - Marked the quiz block and shortcode rendering as reviewed for the security scanner; attributes are sanitized and output-escaped (no functional change)
 

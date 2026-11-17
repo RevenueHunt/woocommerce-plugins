@@ -101,6 +101,21 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder {
 			'hmac'           => $hmac,
 		);
 
+		// The admin who opens RevenueHunt becomes a contact of the account (documented in the readme).
+		$current_user = wp_get_current_user();
+		if ( $current_user->exists() ) {
+			$params['operator']      = array(
+				'email'        => $current_user->user_email,
+				'display_name' => $current_user->display_name,
+				'first_name'   => get_user_meta( $current_user->ID, 'first_name', true ),
+				'last_name'    => get_user_meta( $current_user->ID, 'last_name', true ),
+				'roles'        => implode( ',', (array) $current_user->roles ),
+				'locale'       => get_user_locale( $current_user ),
+			);
+			$operator_data           = 'purpose=operator_capture&' . $data . '&operator_email=' . $current_user->user_email;
+			$params['operator_hmac'] = base64_encode( hash_hmac( 'sha256', $operator_data, $api_key, true ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- encodes an HMAC signature, not code.
+		}
+
 		// Use PHP_QUERY_RFC3986 so spaces are encoded as %20 and not +.
 		$query = http_build_query( $params, '', '&', PHP_QUERY_RFC3986 );
 
