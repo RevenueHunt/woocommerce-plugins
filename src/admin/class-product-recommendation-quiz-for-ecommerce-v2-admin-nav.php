@@ -13,7 +13,14 @@ if ( ! defined( 'WPINC' ) ) {
 class Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav {
 
 	/**
-	 * Read the locale-specific menu from V2, cached for one day.
+	 * Menus already resolved during this request, keyed by admin URL and locale.
+	 *
+	 * @var array<string, array<array{path: string, label: string}>>
+	 */
+	private static $request_items = array();
+
+	/**
+	 * Memoize the menu per request; cache success a day and failure five minutes.
 	 *
 	 * @return array<array{path: string, label: string}> Validated menu items.
 	 */
@@ -24,10 +31,27 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav {
 		}
 		$locale = get_locale();
 		$key    = 'prq_v2_admin_nav_' . md5( $connection['admin_url'] . '|' . $locale );
-		$cached = get_transient( $key );
-		if ( is_array( $cached ) ) {
-			return $cached;
+		if ( isset( self::$request_items[ $key ] ) ) {
+			return self::$request_items[ $key ];
 		}
+		$cached = get_transient( $key );
+		if ( ! is_array( $cached ) ) {
+			$fetched = self::fetch_items( $connection['admin_url'], $locale );
+			$cached  = $fetched ?? array();
+			set_transient( $key, $cached, null === $fetched ? 5 * MINUTE_IN_SECONDS : DAY_IN_SECONDS );
+		}
+		self::$request_items[ $key ] = $cached;
+		return $cached;
+	}
+
+	/**
+	 * Fetch and validate the advertised menu, distinguishing failure from an empty list.
+	 *
+	 * @param string $admin_url Connected V2 admin URL.
+	 * @param string $locale WordPress locale.
+	 * @return array<array{path: string, label: string}>|null Menu items, or null on failure.
+	 */
+	private static function fetch_items( $admin_url, $locale ) {
 		$query    = http_build_query(
 			array(
 				'platform' => 'woocommerce',
@@ -38,7 +62,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav {
 			PHP_QUERY_RFC3986
 		);
 		$response = wp_remote_get(
-			rtrim( $connection['admin_url'], '/' ) . '/api/admin-nav?' . $query,
+			rtrim( $admin_url, '/' ) . '/api/admin-nav?' . $query,
 			array(
 				'timeout'             => 2,
 				'redirection'         => 0,
@@ -46,18 +70,18 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav {
 			)
 		);
 		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			return array();
+			return null;
 		}
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
 		if ( ! is_array( $data ) || ! isset( $data['items'] ) || ! is_array( $data['items'] ) || array_values( $data['items'] ) !== $data['items'] ) {
-			return array();
+			return null;
 		}
 		$items = array();
 		$paths = array();
 		foreach ( $data['items'] as $item ) {
 			if ( ! is_array( $item ) || ! isset( $item['path'], $item['label'] ) || ! is_string( $item['path'] ) || ! is_string( $item['label'] ) ||
 				! preg_match( '~\A/[a-z0-9/-]*\z~', $item['path'] ) || '' === $item['label'] || sanitize_text_field( $item['label'] ) !== $item['label'] || isset( $paths[ $item['path'] ] ) ) {
-				return array();
+				return null;
 			}
 			$paths[ $item['path'] ] = true;
 			$items[]                = array(
@@ -65,7 +89,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav {
 				'label' => $item['label'],
 			);
 		}
-		set_transient( $key, $items, DAY_IN_SECONDS );
 		return $items;
 	}
 

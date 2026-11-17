@@ -14,12 +14,12 @@ final class V2AdminNavTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->newRequest();
         $this->getBefore = $_GET;
         $_GET = [];
         if (!defined('DAY_IN_SECONDS')) define('DAY_IN_SECONDS', 86400);
         Functions\when('get_option')->justReturn(['mode' => 'v2', 'admin_url' => 'https://admin.example.com/v2']);
         Functions\when('get_locale')->justReturn('en_US');
-        Functions\when('get_transient')->justReturn(false);
         Functions\when('esc_html')->alias(fn($text) => htmlspecialchars($text, ENT_QUOTES));
         Functions\when('wp_remote_retrieve_response_code')->alias(fn($response) => $response['response']['code']);
         Functions\when('wp_remote_retrieve_body')->alias(fn($response) => $response['body']);
@@ -28,7 +28,14 @@ final class V2AdminNavTest extends TestCase
     protected function tearDown(): void
     {
         $_GET = $this->getBefore;
+        $this->newRequest();
         parent::tearDown();
+    }
+
+    /** Simulate PHP clearing request-local statics without adding a production reset API. */
+    private function newRequest(): void
+    {
+        (new \ReflectionProperty(Nav::class, 'request_items'))->setValue(null, []);
     }
 
     private function items(): array
@@ -59,13 +66,31 @@ final class V2AdminNavTest extends TestCase
         $this->assertSame($this->items(), Nav::items()); // Cache hit, no second HTTP call.
     }
 
+    public function test_failed_fetch_is_memoized_and_the_next_request_uses_the_short_failure_cache(): void
+    {
+        $cached = false;
+        $key = 'prq_v2_admin_nav_' . md5('https://admin.example.com/v2|en_US');
+        Functions\expect('get_transient')->twice()->with($key)
+            ->andReturnUsing(function () use (&$cached) { return $cached; });
+        Functions\expect('set_transient')->once()->with($key, [], 5 * MINUTE_IN_SECONDS)
+            ->andReturnUsing(function ($key, $items) use (&$cached) { $cached = $items; return true; });
+        Functions\expect('wp_remote_get')->once()->andReturn(new \WP_Error('timeout', 'Request timed out'));
+        $this->assertSame([], Nav::items());
+        $this->assertSame([], Nav::items());
+        $this->assertSame([], Nav::items());
+        $this->newRequest();
+        $this->assertSame([], Nav::items());
+        $this->assertSame([], Nav::items());
+    }
+
     #[\PHPUnit\Framework\Attributes\DataProvider('unavailableLists')]
     public function test_fetch_failure_or_invalid_list_keeps_only_the_main_item($response): void
     {
+        Functions\when('get_transient')->justReturn(false);
         Functions\expect('wp_remote_get')->once()->andReturn($response);
         Functions\expect('add_menu_page')->once();
         Functions\expect('add_submenu_page')->never();
-        Functions\expect('set_transient')->never();
+        Functions\expect('set_transient')->once()->with(\Mockery::type('string'), [], 5 * MINUTE_IN_SECONDS);
         (new Menu('prq', 'test'))->my_plugin_menu();
     }
 
