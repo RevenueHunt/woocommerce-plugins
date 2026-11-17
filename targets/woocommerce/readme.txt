@@ -115,6 +115,14 @@ This plugin connects to RevenueHunt to build and serve your product recommendati
 2. Connection check — From the plugin's admin page only, your store domain is sent to https://api.revenuehunt.com/api/v1/woocommerce/check to verify that your store's REST API is reachable during setup.
 3. Account connection — During setup, your store's WooCommerce API credentials and connection identifiers are exchanged with RevenueHunt's servers to link your store to your RevenueHunt account.
 
+Stores connected to the new RevenueHunt app use these services instead of the quiz widget above. The storefront code ships inside the plugin; nothing is loaded from RevenueHunt to run it.
+
+4. RevenueHunt app — In WordPress admin, the plugin's page shows the RevenueHunt app from https://admin.revenuehunt.com/v2, where you build quizzes and assistants.
+5. Quiz and assistant copies — When you publish, RevenueHunt sends a copy of each published quiz and assistant, and your storefront settings, to your store's REST API (signed requests). The plugin stores them in your uploads folder, and tells RevenueHunt where quizzes and assistants are placed on your site. WooCommerce sends each new or updated order to https://backend.revenuehunt.com (a webhook the plugin creates when you connect), so RevenueHunt can credit sales to the quiz or assistant that led to them.
+6. Shopper answers, assistant messages and visits — When a shopper takes a quiz or chats with an assistant, their answers, messages, the page address and anonymous visit and click events are sent to https://backend.revenuehunt.com to compute recommendations, write the assistant's replies and show your analytics.
+7. Error reports — If the quiz or assistant fails to load, the error, your store's RevenueHunt ID and the page address are sent to Sentry (https://sentry.io), which RevenueHunt uses to fix problems. Nothing is sent while things work. Sentry's privacy policy: https://sentry.io/privacy/.
+8. Fonts and images — A quiz whose design uses a Google font loads it from Google Fonts (https://fonts.googleapis.com; privacy policy: https://policies.google.com/privacy). A product with no image shows a placeholder image, and a phone number field shows country flags, both from https://cdn.shopify.com (privacy policy: https://www.shopify.com/legal/privacy).
+
 Data is sent to RevenueHunt only as needed to provide the quiz. For details, see RevenueHunt's Privacy Policy (https://revenuehunt.com/privacy/), Terms of Service (https://revenuehunt.com/tos/), and Security overview (https://revenuehunt.com/security/).
 
 == Changelog ==
