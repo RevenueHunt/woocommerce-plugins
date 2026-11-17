@@ -174,7 +174,7 @@ final class V2ModeTest extends TestCase
             $this->assertIsCallable($args['permission_callback']);
         });
         (new V2())->register_routes();
-        $this->assertSame([['prq/v3', '/catalog/export', 'POST'], ['prq/v3', '/catalog/download', 'GET'], ['prq/v3', '/orders', 'GET'], ['prq/v3', '/quizzes/(?P<sqid>[A-Za-z0-9]+)', 'PUT'], ['prq/v3', '/quizzes/(?P<sqid>[A-Za-z0-9]+)', 'DELETE'], ['prq/v3', '/storefront', 'PUT'], ['prq/v3', '/storefront', 'GET']], $routes);
+        $this->assertSame([['prq/v3', '/catalog/export', 'POST'], ['prq/v3', '/catalog/download', 'GET'], ['prq/v3', '/orders', 'GET'], ['prq/v3', '/quizzes/(?P<sqid>[A-Za-z0-9]+)', 'PUT'], ['prq/v3', '/quizzes/(?P<sqid>[A-Za-z0-9]+)', 'DELETE'], ['prq/v3', '/assistants/(?P<sqid>[A-Za-z0-9]+)', 'PUT'], ['prq/v3', '/assistants/(?P<sqid>[A-Za-z0-9]+)', 'DELETE'], ['prq/v3', '/storefront', 'PUT'], ['prq/v3', '/storefront', 'GET']], $routes);
         // Cached storefront output must not contain a Store API nonce.
         $source = file_get_contents(dirname(__DIR__, 2) . '/src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php');
         $this->assertStringNotContainsString('wp_create_nonce', $source);

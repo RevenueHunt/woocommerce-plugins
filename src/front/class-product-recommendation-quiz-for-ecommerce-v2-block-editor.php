@@ -16,7 +16,13 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor {
 	/** Register the shared helper and preload published names. @return void */
 	public static function register() {
 		wp_register_script( self::HANDLE, plugin_dir_url( __FILE__ ) . 'blocks/v2-editor.js', array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' ), PRQ_PLUGIN_VERSION, true );
-		$store = get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::STOREFRONT, array() );
+		$assistants = array();
+		foreach ( get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::ASSISTANTS, array() ) as $id => $assistant ) {
+			$assistants[] = array(
+				'id'   => (string) $id,
+				'name' => $assistant['name'],
+			);
+		}
 		wp_localize_script(
 			self::HANDLE,
 			'prqV2BlocksData',
@@ -24,7 +30,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor {
 				'mode'       => 'v2',
 				'connected'  => (bool) Product_Recommendation_Quiz_For_Ecommerce_V2::connection(),
 				'quizzes'    => (object) get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::QUIZZES, array() ),
-				'assistants' => isset( $store['assistants'] ) ? $store['assistants'] : array(),
+				'assistants' => $assistants,
 				'editUrl'    => admin_url( 'admin.php?page=prqfw' ),
 				'iconUrl'    => plugin_dir_url( __FILE__ ) . '../admin/img/revenuehunt-logo.png',
 			)

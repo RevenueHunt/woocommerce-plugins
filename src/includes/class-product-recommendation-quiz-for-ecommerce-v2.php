@@ -161,6 +161,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 			array( '/orders', 'GET', array( $orders, 'lookup' ), array( $this, 'authorize' ) ),
 			array( '/quizzes/(?P<sqid>[A-Za-z0-9]+)', 'PUT', array( $store, 'put_quiz' ), array( $this, 'authorize' ) ),
 			array( '/quizzes/(?P<sqid>[A-Za-z0-9]+)', 'DELETE', array( $store, 'delete_quiz' ), array( $this, 'authorize' ) ),
+			array( '/assistants/(?P<sqid>[A-Za-z0-9]+)', 'PUT', array( $store, 'put_assistant' ), array( $this, 'authorize' ) ),
+			array( '/assistants/(?P<sqid>[A-Za-z0-9]+)', 'DELETE', array( $store, 'delete_assistant' ), array( $this, 'authorize' ) ),
 			array( '/storefront', 'PUT', array( $store, 'put_storefront' ), array( $this, 'authorize' ) ),
 			array( '/storefront', 'GET', array( $store, 'get_storefront' ), array( $this, 'authorize' ) ),
 		) as $route ) {

@@ -79,10 +79,16 @@ must pass before releasing either artifact.
 Order delivery uses native WooCommerce webhooks and their native
 `X-WC-Webhook-Signature`, not the timestamped PRQ signature used by plugin routes.
 Signed `PUT|DELETE /prq/v3/quizzes/<sqid>` pushes keep published HTML artifacts in
-`uploads/prq-v2/`; `PUT|GET /prq/v3/storefront` stores storefront settings and reports
-local quiz versions, the bundled runtime version, and placements in published
+`uploads/prq-v2/`; signed `PUT|DELETE /prq/v3/assistants/<sqid>` pushes store only
+the public assistant shell (`assistant-<sqid>.html`), never instructions or skills.
+During an assistant rollout the push removes the shell but retains its metadata;
+the footer gives it `src: null` so V2 chooses each conversation's version.
+`PUT|GET /prq/v3/storefront` stores storefront settings and reports local quiz and
+assistant versions, the bundled runtime version, and placements in published
 posts/pages, templates, reusable blocks and block widgets. Uninstall removes the
-copies and both small, autoloaded storefront options.
+copies and all three small, autoloaded storefront options. `prq_v2_assistants` is
+the only source of assistant picker names; storefront pushes need no assistants
+list (a redundant list is ignored).
 
 The shortcode and V2 blocks render id-only mounts (an empty id uses the Store
 default). Published names are preloaded into the editor's pickers; the editor

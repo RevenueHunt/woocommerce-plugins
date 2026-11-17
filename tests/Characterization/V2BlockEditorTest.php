@@ -18,7 +18,8 @@ final class V2BlockEditorTest extends TestCase
         $options = [
             V2::OPTION => ['mode' => 'v2', 'shop' => 'wc-test'],
             Storefront::QUIZZES => ['abc' => ['name' => 'Skin finder']],
-            Storefront::STOREFRONT => ['assistants' => [['id' => 'helper', 'name' => 'Shopping helper']]],
+            Storefront::ASSISTANTS => ['helper' => ['name' => 'Shopping helper', 'version' => 'v1', 'runtime' => 1, 'experiment' => null]],
+            Storefront::STOREFRONT => ['assistants' => [['id' => 'obsolete', 'name' => 'Ignored legacy list']]],
         ];
         Functions\when('get_option')->alias(fn($key, $default = false) => $options[$key] ?? $default);
         Functions\when('plugin_dir_url')->justReturn('https://shop.example/wp-content/plugins/prq/front/');

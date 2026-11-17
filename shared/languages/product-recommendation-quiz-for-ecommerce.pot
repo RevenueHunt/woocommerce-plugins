@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-17T21:44:38+00:00\n"
+"POT-Creation-Date: 2026-11-17T21:50:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: product-recommendation-quiz-for-ecommerce\n"
@@ -405,52 +405,52 @@ msgstr ""
 msgid "Take the quiz"
 msgstr ""
 
-#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:45
+#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:51
 #: front/blocks/v2-editor.js:9
 msgid "RevenueHunt Quiz"
 msgstr ""
 
-#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:46
+#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:52
 #: front/blocks/v2-editor.js:10
 msgid "RevenueHunt Popup Button"
 msgstr ""
 
-#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:47
+#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:53
 #: front/blocks/v2-editor.js:11
 msgid "RevenueHunt Chat Button"
 msgstr ""
 
-#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:48
+#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:54
 #: front/blocks/v2-editor.js:12
 msgid "RevenueHunt Automatic Popup"
 msgstr ""
 
-#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:53
+#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:59
 #: front/blocks/v2-editor.js:36
 msgid "quiz"
 msgstr ""
 
-#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:54
+#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:60
 #: front/blocks/v2-editor.js:37
 msgid "product finder"
 msgstr ""
 
-#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:55
+#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:61
 #: front/blocks/v2-editor.js:38
 msgid "recommendation"
 msgstr ""
 
-#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:56
+#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:62
 #: front/blocks/v2-editor.js:39
 msgid "assistant"
 msgstr ""
 
-#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:57
+#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:63
 #: front/blocks/v2-editor.js:40
 msgid "chat"
 msgstr ""
 
-#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:58
+#: front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php:64
 #: front/blocks/v2-editor.js:41
 msgid "revenuehunt"
 msgstr ""

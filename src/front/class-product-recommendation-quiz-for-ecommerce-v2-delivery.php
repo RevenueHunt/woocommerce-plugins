@@ -128,6 +128,13 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 				'runtime'      => $quiz['runtime'],
 			);
 		}
+		$assistants = array();
+		foreach ( get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::ASSISTANTS, array() ) as $id => $assistant ) {
+			$assistants[ $id ] = array(
+				'src'     => null !== $assistant['experiment'] ? null : $uploads['baseurl'] . '/prq-v2/assistant-' . rawurlencode( (string) $id ) . '.html?v=' . rawurlencode( (string) $assistant['version'] ),
+				'runtime' => $assistant['runtime'],
+			);
+		}
 		$data = array(
 			'shop'                    => $connection['shop'],
 			'runtime'                 => Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::runtime(),
@@ -137,6 +144,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 			'defaultQuiz'             => isset( $store['defaultQuiz'] ) ? $store['defaultQuiz'] : null,
 			'defaultAssistant'        => isset( $store['defaultAssistant'] ) ? $store['defaultAssistant'] : null,
 			'quizzes'                 => (object) $quizzes,
+			'assistants'              => (object) $assistants,
 		);
 		if ( $this->site_wide ) {
 			$data['siteWide'] = $this->site_wide;
