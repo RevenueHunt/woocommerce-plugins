@@ -224,7 +224,7 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 		$health    = new Product_Recommendation_Quiz_For_Ecommerce_Site_Health();
 		$embeds    = new Product_Recommendation_Quiz_For_Ecommerce_Admin_Embeds_Page();
 		$global    = new Product_Recommendation_Quiz_For_Ecommerce_Front_Global_Embed();
-		$blocks    = new Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks();
+		$blocks    = new Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks( $delivery );
 		$operator  = new Product_Recommendation_Quiz_For_Ecommerce_Admin_Operator_Capture();
 
 		add_action( 'plugins_loaded', array( $i18n, 'load_plugin_textdomain' ) );
@@ -235,7 +235,12 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 		add_action( 'admin_init', array( $operator, 'maybe_capture' ) );
 		add_action( 'wp_enqueue_scripts', array( $embed, 'enqueue_scripts' ) );
 		add_filter( 'script_loader_tag', array( $embed, 'add_async_to_embed_script' ), 10, 3 );
-		add_action( 'wp_footer', array( $global, 'render' ) );
+		if ( $delivery instanceof Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery ) {
+			add_action( 'wp_enqueue_scripts', array( $delivery, 'site_wide' ) );
+			add_action( 'wp_footer', array( $delivery, 'footer' ), 9 );
+		} else {
+			add_action( 'wp_footer', array( $global, 'render' ) );
+		}
 		add_action( 'init', array( $shortcode, 'register' ) );
 		add_action( 'init', array( $block, 'register' ) );
 		add_action( 'init', array( $blocks, 'register' ) );

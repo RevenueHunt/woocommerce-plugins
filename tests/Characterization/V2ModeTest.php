@@ -174,7 +174,7 @@ final class V2ModeTest extends TestCase
             $this->assertIsCallable($args['permission_callback']);
         });
         (new V2())->register_routes();
-        $this->assertSame([['prq/v3', '/catalog/export', 'POST'], ['prq/v3', '/catalog/download', 'GET'], ['prq/v3', '/orders', 'GET']], $routes);
+        $this->assertSame([['prq/v3', '/catalog/export', 'POST'], ['prq/v3', '/catalog/download', 'GET'], ['prq/v3', '/orders', 'GET'], ['prq/v3', '/quizzes/(?P<sqid>[A-Za-z0-9]+)', 'PUT'], ['prq/v3', '/quizzes/(?P<sqid>[A-Za-z0-9]+)', 'DELETE'], ['prq/v3', '/storefront', 'PUT'], ['prq/v3', '/storefront', 'GET']], $routes);
         // Cached storefront output must not contain a Store API nonce.
         $source = file_get_contents(dirname(__DIR__, 2) . '/src/front/class-product-recommendation-quiz-for-ecommerce-front-embed-script.php');
         $this->assertStringNotContainsString('wp_create_nonce', $source);
@@ -182,19 +182,20 @@ final class V2ModeTest extends TestCase
 
     #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
-    public function test_v2_shortcode_and_block_enqueue_hosted_module_only_when_rendering_mount(): void
+    public function test_v2_shortcode_and_block_enqueue_local_module_only_when_rendering_mount(): void
     {
         Functions\when('get_option')->justReturn(array_replace($this->connection(), ['admin_url' => 'https://admin.example.com/']));
-        Functions\expect('wp_enqueue_script_module')->twice()->with('prq-v2-quiz-renderer', 'https://admin.example.com/woocommerce/quiz-renderer.js', [], null);
+        Functions\when('plugins_url')->justReturn('https://shop.example/plugins/prq/assets/v2/quiz-renderer.js');
+        Functions\expect('wp_enqueue_script_module')->once()->with('prq-v2-quiz-renderer', 'https://shop.example/plugins/prq/assets/v2/quiz-renderer.js', [], PRQ_PLUGIN_VERSION);
         Functions\when('esc_attr')->alias(fn($s) => htmlspecialchars($s, ENT_QUOTES));
         Functions\when('shortcode_atts')->alias(fn($defaults, $atts) => array_merge($defaults, $atts));
         Functions\expect('wp_enqueue_script')->never();
         Functions\expect('wp_localize_script')->never();
         $delivery = \Product_Recommendation_Quiz_For_Ecommerce_Delivery_Resolver::resolve('prq', PRQ_PLUGIN_VERSION);
-        $expected = '<div data-prq-shop="wc-ab12cd" data-prq-quiz="quiz123"></div>';
+        $expected = '<div data-prq-quiz="quiz123" data-prq-height="600px"></div>';
         $this->assertSame($expected, (new \Product_Recommendation_Quiz_For_Ecommerce_Front_Shortcode($delivery))->render_shortcode(['id' => 'quiz123']));
         $this->assertSame($expected, (new \Product_Recommendation_Quiz_For_Ecommerce_Front_Block($delivery))->render_block(['id' => 'quiz123']));
-        $this->assertSame('', $delivery->render([]));
+        $this->assertSame('<div data-prq-quiz="" data-prq-height="600px"></div>', $delivery->render([]));
         (new \Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script('prq', PRQ_PLUGIN_VERSION))->enqueue_scripts();
     }
 
@@ -205,11 +206,12 @@ final class V2ModeTest extends TestCase
         $this->assertFalse(function_exists('wp_enqueue_script_module'));
         Functions\when('get_option')->justReturn($this->connection());
         Functions\when('esc_attr')->alias(fn($s) => htmlspecialchars($s, ENT_QUOTES));
-        Functions\expect('wp_enqueue_script')->once()->with('prq-v2-quiz-renderer', 'https://admin.example.com/woocommerce/quiz-renderer.js', [], null, true);
+        Functions\when('plugins_url')->justReturn('https://shop.example/plugins/prq/assets/v2/quiz-renderer.js');
+        Functions\expect('wp_enqueue_script')->once()->with('prq-v2-quiz-renderer', 'https://shop.example/plugins/prq/assets/v2/quiz-renderer.js', [], PRQ_PLUGIN_VERSION, true);
         $delivery = new \Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery();
-        $this->assertSame('<div data-prq-shop="wc-ab12cd" data-prq-quiz="quiz123"></div>', $delivery->render(['id' => 'quiz123']));
-        $tag = '<script type="text/javascript" src="https://admin.example.com/woocommerce/quiz-renderer.js"></script>';
-        $this->assertSame('<script type="module" src="https://admin.example.com/woocommerce/quiz-renderer.js"></script>', $delivery->module_tag($tag, 'prq-v2-quiz-renderer'));
+        $this->assertSame('<div data-prq-quiz="quiz123" data-prq-height="600px"></div>', $delivery->render(['id' => 'quiz123']));
+        $tag = '<script type="text/javascript" src="https://shop.example/plugins/prq/assets/v2/quiz-renderer.js"></script>';
+        $this->assertSame('<script type="module" src="https://shop.example/plugins/prq/assets/v2/quiz-renderer.js"></script>', $delivery->module_tag($tag, 'prq-v2-quiz-renderer'));
         $this->assertSame($tag, $delivery->module_tag($tag, 'unrelated'));
         $this->assertContains('script_loader_tag', $GLOBALS['__prq_filters']);
     }

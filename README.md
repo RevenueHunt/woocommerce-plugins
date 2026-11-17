@@ -78,10 +78,28 @@ must pass before releasing either artifact.
 
 Order delivery uses native WooCommerce webhooks and their native
 `X-WC-Webhook-Signature`, not the timestamped PRQ signature used by plugin routes.
-The shortcode and quiz block render V2 mount elements and enqueue the hosted
-`<admin_url>/woocommerce/quiz-renderer.js` module only on requests with a mount.
-WordPress before 6.5 uses the script enqueue API with a module-tag filter. No
-Store API nonce is printed in cached page output.
+Signed `PUT|DELETE /prq/v3/quizzes/<sqid>` pushes keep published HTML artifacts in
+`uploads/prq-v2/`; `PUT|GET /prq/v3/storefront` stores storefront settings and reports
+local quiz versions, the bundled runtime version, and placements in published
+posts/pages, templates, reusable blocks and block widgets. Uninstall removes the
+copies and both small, autoloaded storefront options.
+
+The shortcode and V2 blocks render id-only mounts (an empty id uses the Store
+default). Published names are preloaded into the editor's pickers; the editor
+shows a card and an Edit in RevenueHunt link, not a live quiz. V1 keeps its existing
+editors and Display settings; V2 site-wide pieces come only from V2's Storefront
+page, and skip cart and checkout.
+
+Pages with a mount or enabled site-wide piece enqueue only the plugin's bundled
+`assets/v2/quiz-renderer.js` module and print one inert `#prq-v2-store` JSON manifest
+in the footer. WordPress before 6.5 uses the script enqueue API with a module-tag
+filter. No Store API nonce is printed in cached page output.
+
+Build the runtime in frontend_v2 with `npm run build:woocommerce`, then run
+`tools/sync-v2-runtime.sh /path/to/frontend_v2` before `composer build`. The sync
+replaces the generated `src/assets/v2/` tree (including stale hashed chunks).
+**Until that frontend build is integrated, the committed runtime is an explicitly
+inert placeholder (`runtime: 1`), not a working shopper renderer.**
 
 See [the verification record](tests/V2-PROOF.md) for the before/after V1 snapshot
 and local-store export proof. WooCommerce stubs are dev-only (not built into either

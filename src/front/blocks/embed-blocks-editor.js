@@ -15,6 +15,14 @@
 ( function ( blocks, element, blockEditor, components, i18n ) {
 	'use strict';
 
+	if ( window.prqV2BlocksData && window.prqV2BlocksData.mode === 'v2' ) {
+		window.prqV2Blocks.register( 'revenuehunt/auto-popup-quiz', 'automatic-popup', 'quizId' );
+		window.prqV2Blocks.register( 'revenuehunt/chat-button-quiz', 'chat-button', 'quizId' );
+		window.prqV2Blocks.register( 'revenuehunt/link-popup-quiz', 'link-popup', 'quizId' );
+		window.prqV2Blocks.register( 'revenuehunt/assistant', 'assistant', 'assistantId' );
+		return;
+	}
+
 	var el = element.createElement;
 	var __ = i18n.__;
 	var InspectorControls = blockEditor.InspectorControls;

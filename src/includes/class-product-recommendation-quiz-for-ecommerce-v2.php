@@ -108,6 +108,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		self::deactivate();
 		$orders = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
 		$orders->set_webhook_status( 'delete' );
+		Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::uninstall();
 		delete_option( 'prq_v2_picked_metafields' );
 		delete_option( self::OPTION );
 
@@ -153,10 +154,15 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		}
 		$catalog = new Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog();
 		$orders  = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
+		$store   = new Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront();
 		foreach ( array(
 			array( '/catalog/export', 'POST', array( $catalog, 'queue' ), array( $this, 'authorize' ) ),
 			array( '/catalog/download', 'GET', array( $catalog, 'download' ), array( $catalog, 'authorize_download' ) ),
 			array( '/orders', 'GET', array( $orders, 'lookup' ), array( $this, 'authorize' ) ),
+			array( '/quizzes/(?P<sqid>[A-Za-z0-9]+)', 'PUT', array( $store, 'put_quiz' ), array( $this, 'authorize' ) ),
+			array( '/quizzes/(?P<sqid>[A-Za-z0-9]+)', 'DELETE', array( $store, 'delete_quiz' ), array( $this, 'authorize' ) ),
+			array( '/storefront', 'PUT', array( $store, 'put_storefront' ), array( $this, 'authorize' ) ),
+			array( '/storefront', 'GET', array( $store, 'get_storefront' ), array( $this, 'authorize' ) ),
 		) as $route ) {
 			register_rest_route(
 				'prq/v3',

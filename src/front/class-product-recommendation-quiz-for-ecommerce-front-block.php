@@ -66,10 +66,15 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Block {
 			return;
 		}
 
+		$deps = array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' );
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+			Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor::register();
+			$deps[] = Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor::HANDLE;
+		}
 		wp_register_script(
 			self::EDITOR_HANDLE,
 			plugin_dir_url( __FILE__ ) . 'blocks/quiz/editor.js',
-			array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' ),
+			$deps,
 			PRQ_PLUGIN_VERSION,
 			true
 		);
@@ -81,7 +86,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Block {
 
 		register_block_type(
 			plugin_dir_path( __FILE__ ) . 'blocks/quiz',
-			array( 'render_callback' => array( $this, 'render_block' ) )
+			array( 'render_callback' => array( $this, 'render_block' ) ) + Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor::settings( 'inline' )
 		);
 	}
 

@@ -14,6 +14,11 @@
 ( function ( blocks, element, blockEditor, components, i18n ) {
 	'use strict';
 
+	if ( window.prqV2BlocksData && window.prqV2BlocksData.mode === 'v2' ) {
+		window.prqV2Blocks.register( 'revenuehunt/product-recommendation-quiz-for-ecommerce', 'inline', 'id' );
+		return;
+	}
+
 	var el = element.createElement;
 	var __ = i18n.__;
 	var InspectorControls = blockEditor.InspectorControls;

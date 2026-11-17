@@ -76,6 +76,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Embeds_Page {
 	 * @return void
 	 */
 	public function register_settings() {
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+			return;
+		}
 		register_setting(
 			Product_Recommendation_Quiz_For_Ecommerce_Embeds_Settings::GROUP,
 			Product_Recommendation_Quiz_For_Ecommerce_Embeds_Settings::OPTION,

@@ -122,6 +122,15 @@ class Product_Recommendation_Quiz_For_Ecommerce_Autoloader {
 			case 'Product_Recommendation_Quiz_For_Ecommerce_V2':
 				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2.php';
 				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront':
+				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2-storefront.php';
+				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Placements':
+				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2-placements.php';
+				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor':
+				require_once plugin_dir_path( __DIR__ ) . 'front/class-product-recommendation-quiz-for-ecommerce-v2-block-editor.php';
+				break;
 			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog':
 				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2-catalog.php';
 				break;

@@ -42,6 +42,21 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 	 */
 	const EDITOR_HANDLE = 'product-recommendation-quiz-for-ecommerce-embed-blocks-editor';
 
+	/** Active delivery.
+	 *
+	 * @var Product_Recommendation_Quiz_For_Ecommerce_Delivery|null
+	 */
+	private $delivery;
+
+	/**
+	 * Share the V2 request's manifest and enqueue state with inline placements.
+	 *
+	 * @param Product_Recommendation_Quiz_For_Ecommerce_Delivery|null $delivery Active delivery.
+	 */
+	public function __construct( $delivery = null ) {
+		$this->delivery = $delivery;
+	}
+
 	/**
 	 * Register the shared editor script and the three dynamic blocks.
 	 *
@@ -55,26 +70,47 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 			return;
 		}
 
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+			Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor::register();
+			register_block_type(
+				plugin_dir_path( __FILE__ ) . 'blocks/assistant',
+				array( 'render_callback' => array( $this, 'render_assistant' ) )
+			);
+		}
+		$deps = array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' );
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+			$deps[] = Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor::HANDLE;
+		}
 		wp_register_script(
 			self::EDITOR_HANDLE,
 			plugin_dir_url( __FILE__ ) . 'blocks/embed-blocks-editor.js',
-			array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n' ),
+			$deps,
 			PRQ_PLUGIN_VERSION,
 			true
 		);
 
 		register_block_type(
 			plugin_dir_path( __FILE__ ) . 'blocks/auto-popup',
-			array( 'render_callback' => array( $this, 'render_auto_popup' ) )
+			array( 'render_callback' => array( $this, 'render_auto_popup' ) ) + Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor::settings( 'automatic-popup' )
 		);
 		register_block_type(
 			plugin_dir_path( __FILE__ ) . 'blocks/chat-button',
-			array( 'render_callback' => array( $this, 'render_chat_button' ) )
+			array( 'render_callback' => array( $this, 'render_chat_button' ) ) + Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor::settings( 'chat-button' )
 		);
 		register_block_type(
 			plugin_dir_path( __FILE__ ) . 'blocks/link-popup',
-			array( 'render_callback' => array( $this, 'render_link_popup' ) )
+			array( 'render_callback' => array( $this, 'render_link_popup' ) ) + Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor::settings( 'link-popup' )
 		);
+	}
+
+	/**
+	 * Render a page's store assistant (V2 only).
+	 *
+	 * @param array $attributes Saved assistant id.
+	 * @return string Assistant mount.
+	 */
+	public function render_assistant( $attributes ) {
+		return $this->delivery instanceof Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery ? $this->delivery->piece( 'assistant', $attributes ) : '';
 	}
 
 	/**
@@ -87,6 +123,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 	 * @return string The marker HTML, or '' (no quiz id / already rendered).
 	 */
 	public function render_auto_popup( $attributes ) {
+		if ( $this->delivery instanceof Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery ) {
+			return $this->delivery->piece( 'automaticPopup', $attributes );
+		}
 		// Attributes are sanitized here and output-escaped downstream in Embed_Markers (esc_attr/absint); semgrep cannot trace across the call, so the false positive is suppressed.
 		// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar -- next line is a machine-readable semgrep directive.
 		// nosemgrep: audit.php.wp.security.xss.block-attr
@@ -111,6 +150,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 	 * @return string The marker HTML, or '' (no quiz id / already rendered).
 	 */
 	public function render_chat_button( $attributes ) {
+		if ( $this->delivery instanceof Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery ) {
+			return $this->delivery->piece( 'chatButton', $attributes );
+		}
 		// Attributes are sanitized here and output-escaped downstream in Embed_Markers (esc_attr/absint); semgrep cannot trace across the call, so the false positive is suppressed.
 		// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar -- next line is a machine-readable semgrep directive.
 		// nosemgrep: audit.php.wp.security.xss.block-attr
@@ -137,6 +179,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 	 * @return string The anchor HTML, or '' when no quiz id is set.
 	 */
 	public function render_link_popup( $attributes ) {
+		if ( $this->delivery instanceof Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery ) {
+			return $this->delivery->piece( 'link-popup', $attributes );
+		}
 		$code = isset( $attributes['quizId'] ) ? $attributes['quizId'] : '';
 		$href = Product_Recommendation_Quiz_For_Ecommerce_Embed_Markers::link_href( $code );
 		if ( '' === $href ) {
