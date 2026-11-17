@@ -102,7 +102,10 @@ in the footer. WordPress before 6.5 uses the script enqueue API with a module-ta
 filter. No Store API nonce is printed in cached page output.
 
 Build the runtime in frontend_v2 with `npm run build:woocommerce`, then run
-`tools/sync-v2-runtime.sh /path/to/frontend_v2` before `composer build`. The sync
+`tools/sync-v2-runtime.sh /path/to/frontend_v2` before `composer build`. The build fixes
+V2's backend address (`API_URL`) into the runtime: for a release build it with
+`ENV_FILE=.env.public.production npm run build:woocommerce` (backend.revenuehunt.com);
+a plain build points at the developer's `.env` backend. The sync
 replaces the generated `src/assets/v2/` tree (including stale hashed chunks).
 **Until that frontend build is integrated, the committed runtime is an explicitly
 inert placeholder (`runtime: 1`), not a working shopper renderer.**
