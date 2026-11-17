@@ -130,8 +130,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 		}
 		$assistants = array();
 		foreach ( get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::ASSISTANTS, array() ) as $id => $assistant ) {
+			$path              = '/prq-v2/assistant-' . rawurlencode( (string) $id ) . '.html';
 			$assistants[ $id ] = array(
-				'src'     => null !== $assistant['experiment'] ? null : $uploads['baseurl'] . '/prq-v2/assistant-' . rawurlencode( (string) $id ) . '.html?v=' . rawurlencode( (string) $assistant['version'] ),
+				'src'     => is_file( $uploads['basedir'] . $path ) ? $uploads['baseurl'] . $path . '?v=' . rawurlencode( (string) $assistant['version'] ) : null,
 				'runtime' => $assistant['runtime'],
 			);
 		}

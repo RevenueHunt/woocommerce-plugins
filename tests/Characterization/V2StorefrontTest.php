@@ -111,7 +111,7 @@ final class V2StorefrontTest extends TestCase
     #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
     public function test_assistant_push_rollout_and_delete_store_only_shell_and_public_metadata(): void
     {
-        Functions\expect('wp_enqueue_script_module')->twice()->with('prq-v2-quiz-renderer', 'https://shop.example/wp-content/plugins/prq/assets/v2/quiz-renderer.js', [], PRQ_PLUGIN_VERSION);
+        Functions\expect('wp_enqueue_script_module')->times(3)->with('prq-v2-quiz-renderer', 'https://shop.example/wp-content/plugins/prq/assets/v2/quiz-renderer.js', [], PRQ_PLUGIN_VERSION);
         Functions\expect('wp_enqueue_script')->never();
         $store = new Storefront();
         $body = ['name' => 'Shopping helper', 'version' => 'assistant-v1', 'runtime' => 1,
@@ -147,6 +147,13 @@ final class V2StorefrontTest extends TestCase
         $body['version'] = 'assistant-v2';
         $store->put_assistant($this->request('PUT', '/prq/v3/assistants/helper', $body));
         $this->assertSame($body['shell'], file_get_contents($path));
+        // Missing local files must fall back to V2 even outside a rollout.
+        unlink($path);
+        $delivery = new Delivery();
+        $delivery->piece('assistant', []);
+        ob_start(); $delivery->footer(); $data = json_decode(strip_tags(ob_get_clean()), true, 512, JSON_THROW_ON_ERROR);
+        $this->assertSame(['src' => null, 'runtime' => 1], $data['assistants']['helper']);
+        $store->put_assistant($this->request('PUT', '/prq/v3/assistants/helper', $body));
         $this->assertSame(['ok' => true], $store->delete_assistant($this->request('DELETE', '/prq/v3/assistants/helper')));
         $this->assertFileDoesNotExist($path);
         $this->assertSame([], $this->options[Storefront::ASSISTANTS]);

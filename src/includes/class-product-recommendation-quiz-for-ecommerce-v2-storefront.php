@@ -133,13 +133,13 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 			! isset( $body['name'], $body['version'], $body['runtime'] ) || ! array_key_exists( 'shell', $body ) ||
 			! is_string( $body['name'] ) || ( ! is_string( $body['version'] ) && ! is_int( $body['version'] ) ) || ! is_int( $body['runtime'] ) || $body['runtime'] < 1 ||
 			( null !== $experiment && ! is_array( $experiment ) ) ||
-			( ! is_string( $body['shell'] ) && ! ( null === $body['shell'] && null !== $experiment ) ) ) {
+			( ! is_string( $body['shell'] ) && null !== $body['shell'] ) ) {
 			return new WP_Error( 'prq_invalid_assistant', 'Invalid published assistant shell.', array( 'status' => 400 ) );
 		}
 		$uploads = wp_upload_dir();
 		$dir     = $uploads['basedir'] . '/prq-v2';
 		$path    = $dir . '/assistant-' . $id . '.html';
-		if ( null !== $experiment ) {
+		if ( null === $body['shell'] ) {
 			wp_delete_file( $path );
 		} elseif ( ! empty( $uploads['error'] ) || ! wp_mkdir_p( $dir ) || ! $this->write_file( $path, $body['shell'] ) ) {
 			return new WP_Error( 'prq_store_copy_failed', 'Cannot write assistant store copy.', array( 'status' => 500 ) );
