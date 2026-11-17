@@ -3,7 +3,7 @@ Contributors: revenuehunt
 Donate link: https://revenuehunt.com/
 Tags: quiz, product recommendation, woocommerce, sales automation, ecommerce
 Requires at least: 6.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 2.6.0
 License: GPLv2 or later
@@ -112,8 +112,8 @@ Visit our [FAQs page](https://revenuehunt.com/faqs/ "Frequently Asked Questions"
 This plugin connects to RevenueHunt to build and serve your product recommendation quiz. It relies on these external services:
 
 1. Quiz on your storefront — The quiz script ships with the plugin (front/js/embed.js, readable source). It shows each quiz in a frame loaded from https://preview.revenuehunt.com. When a shopper takes a quiz, their answers (and an email address, if your quiz asks for one) are sent to RevenueHunt to compute and display product recommendations. Errors in the quiz script are reported to https://api.revenuehunt.com so we can fix them. The script is not loaded on cart or checkout pages.
-2. Tracking you set up — If you turn on Meta Pixel or Google Analytics tracking in a quiz, quiz events are sent to the Meta Pixel or Google tag your site already loads. The plugin never loads those scripts itself.
-3. RevenueHunt app — The plugin's admin page shows the RevenueHunt app in a frame from https://admin.revenuehunt.com. Opening that page signs you in by sending your store's name, domain, admin email, country, currency, language and plugin version, and the email, name, roles and language of the WordPress user who opened it, who is added as a contact of your RevenueHunt account. Nothing is sent from other admin pages.
+2. Tracking you set up — If you turn on Meta Pixel, Google Analytics or Klaviyo in a quiz, quiz events (and, for Klaviyo, the email a shopper enters) are passed to the Meta Pixel, Google tag or Klaviyo script your site already loads. The plugin never loads those scripts itself.
+3. RevenueHunt app — The plugin's admin page shows the RevenueHunt app in a frame from https://admin.revenuehunt.com. Opening that page signs you in by sending your store's name, domain, admin email, country, currency, language and plugin version, and the email, name, roles and language of the WordPress user who opened it, who is added as a contact of your RevenueHunt account. In the block editor, the quiz block's preview shows the quiz in a frame from https://admin.revenuehunt.com. Nothing else is sent from admin pages.
 4. Connection check — From the plugin's admin page only, your store domain is sent to https://api.revenuehunt.com/api/v1/woocommerce/check to verify that your store's REST API is reachable during setup.
 5. Account connection — During setup, your store's WooCommerce API credentials and connection identifiers are exchanged with RevenueHunt's servers to link your store to your RevenueHunt account.
 
@@ -123,7 +123,7 @@ Data is sent to RevenueHunt only as needed to provide the quiz. For details, see
 
 = 2.6.0 =
 * Dev - The storefront quiz script now ships with the plugin instead of loading from RevenueHunt's servers. It no longer loads Meta's Pixel script; quiz events go to the Pixel your site already loads.
-* Dev - The plugin no longer loads any script on WordPress admin pages.
+* Dev - The plugin no longer loads RevenueHunt's quiz script on WordPress admin pages.
 * Dev - The WordPress user who opens the RevenueHunt page is added as a contact when they open it, no longer in the background on other admin pages. See External services.
 
 = 2.5.6 =
