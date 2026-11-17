@@ -26,7 +26,7 @@ const popupCss = `
 @media(max-width:768px) { #prq-quiz-container .quiz-content { width:var(--quiz-width-mobile,var(--quiz-width,100%)); height:var(--quiz-height-mobile,var(--quiz-height,100%)); } }
 body.revenuehunt-popup-open .react-dropdown-select-dropdown { z-index:var(--quiz-dropdown-z-index,103)!important; }
 `;
-function installStorefrontPieces(root, store, mountQuiz) {
+function installStorefrontPieces(root, store, mountQuiz, assistantOnPage = false) {
   var _a, _b, _c;
   const controller = new AbortController();
   const { signal } = controller;
@@ -180,7 +180,8 @@ function installStorefrontPieces(root, store, mountQuiz) {
   if (chat && chatId && !(chat.hideAfterCompletion && completed(chatId))) {
     chatHost = document.createElement("div");
     const left = chat.position === "bottom-left";
-    chatHost.style.cssText = `position:fixed;bottom:20px;${left ? "left" : "right"}:20px;z-index:98;display:flex;align-items:center;gap:10px;flex-direction:${left ? "row" : "row-reverse"}`;
+    const bottom = assistantOnPage && !left ? 84 : 20;
+    chatHost.style.cssText = `position:fixed;bottom:${bottom}px;${left ? "left" : "right"}:20px;z-index:97;display:flex;align-items:center;gap:10px;flex-direction:${left ? "row" : "row-reverse"}`;
     const button = document.createElement("button");
     button.type = "button";
     button.className = "revenuehunt-chat";
@@ -270,7 +271,7 @@ function mountQuizAwaitingPreviewHostFrame(host, page, options) {
   return mountHtmlQuiz(host, page, options);
 }
 async function mountWooStorefront(root) {
-  var _a, _b, _c;
+  var _a, _b, _c, _d;
   const script = root.querySelector("#prq-v2-store");
   if (!script || mounted.has(script)) return;
   const store = JSON.parse(script.textContent || "{}");
@@ -281,7 +282,8 @@ async function mountWooStorefront(root) {
   const context = {
     shop: store.shop,
     platform: "woocommerce",
-    locale: store.locale
+    // WordPress writes en_US; V2 takes language tags (en-US) and refuses the rest.
+    locale: (_b = store.locale) == null ? void 0 : _b.replaceAll("_", "-")
   };
   const report = (error) => {
     if (request.signal.aborted) return;
@@ -385,23 +387,29 @@ async function mountWooStorefront(root) {
       report(error);
     }
   };
-  cleanups.add(installStorefrontPieces(root, store, mountQuiz));
+  const [block, ...extraBlocks] = root.querySelectorAll("[data-prq-assistant]");
+  for (const extra of extraBlocks) extra.remove();
+  let assistantHost;
+  let assistantId = "";
+  if (block) {
+    assistantHost = block;
+    assistantId = block.dataset.prqAssistant || store.defaultAssistant || "";
+    document.body.append(block);
+  } else if (((_d = (_c = store.siteWide) == null ? void 0 : _c.assistant) == null ? void 0 : _d.enabled) && store.defaultAssistant) {
+    const host = document.createElement("div");
+    host.setAttribute("placement", "bubble");
+    document.body.append(host);
+    cleanups.add(() => host.remove());
+    assistantHost = host;
+    assistantId = store.defaultAssistant;
+  }
+  cleanups.add(installStorefrontPieces(root, store, mountQuiz, !!assistantId));
   const placements = [];
   for (const host of root.querySelectorAll("[data-prq-quiz]")) {
     const id = host.dataset.prqQuiz || store.defaultQuiz;
     if (id) placements.push(mountQuiz(host, id, "inline"));
   }
-  for (const host of root.querySelectorAll("[data-prq-assistant]"))
-    placements.push(
-      mountAssistant(host, host.dataset.prqAssistant || store.defaultAssistant || "")
-    );
-  if (((_c = (_b = store.siteWide) == null ? void 0 : _b.assistant) == null ? void 0 : _c.enabled) && store.defaultAssistant) {
-    const host = document.createElement("div");
-    host.setAttribute("placement", "bubble");
-    document.body.append(host);
-    cleanups.add(() => host.remove());
-    placements.push(mountAssistant(host, store.defaultAssistant));
-  }
+  if (assistantHost && assistantId) placements.push(mountAssistant(assistantHost, assistantId));
   await Promise.all(placements);
   return () => {
     request.abort();

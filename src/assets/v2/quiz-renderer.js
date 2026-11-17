@@ -1,4 +1,4 @@
-const __vite__fileDeps=["./quiz-renderer-json-renderer-CJBOnGnk.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer2.css","./quiz-renderer-mount-D_glRQuD.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-assistant-mount-C5gNNRop.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-storefront-loader-xdGe8S9L.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+const __vite__fileDeps=["./quiz-renderer-json-renderer-CJBOnGnk.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer2.css","./quiz-renderer-mount-D_glRQuD.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-assistant-mount-C5gNNRop.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-storefront-loader-CQiWvzWc.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
@@ -430,7 +430,7 @@ if (!customElements.get("quiz-renderer")) customElements.define("quiz-renderer",
 const mountStorefront = () => {
   if (document.querySelector("#prq-v2-store, [data-prq-shop][data-prq-quiz]"))
     void __vitePreload(async () => {
-      const { mountStorefrontQuizzes } = await import("./quiz-renderer-storefront-loader-xdGe8S9L.js");
+      const { mountStorefrontQuizzes } = await import("./quiz-renderer-storefront-loader-CQiWvzWc.js");
       return { mountStorefrontQuizzes };
     }, true ? __vite__mapDeps([12,8,9,5,10,11]) : void 0, import.meta.url).then(
       ({ mountStorefrontQuizzes }) => mountStorefrontQuizzes()

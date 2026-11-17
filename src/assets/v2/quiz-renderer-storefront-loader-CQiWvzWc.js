@@ -1,4 +1,4 @@
-const __vite__fileDeps=["./quiz-renderer-woo-storefront-Ds1rfgEi.js","./quiz-renderer.js","./quiz-renderer-mount-D_glRQuD.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-assistant-mount-C5gNNRop.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-storefront-reporter-BOMu-Y8J.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+const __vite__fileDeps=["./quiz-renderer-woo-storefront-Bm04bKB1.js","./quiz-renderer.js","./quiz-renderer-mount-D_glRQuD.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-assistant-mount-C5gNNRop.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-storefront-reporter-BOMu-Y8J.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 import { __vitePreload, GET_QUIZ_URL, readArtifactBody } from "./quiz-renderer.js";
 import { mountHtmlQuiz } from "./quiz-renderer-mount-D_glRQuD.js";
 import { mountShopAssistant } from "./quiz-renderer-assistant-mount-C5gNNRop.js";
@@ -10,7 +10,7 @@ const assistants = /* @__PURE__ */ new Set();
 async function mountStorefrontQuizzes(root = document) {
   if (root.querySelector("#prq-v2-store")) {
     const { mountWooStorefront } = await __vitePreload(async () => {
-      const { mountWooStorefront: mountWooStorefront2 } = await import("./quiz-renderer-woo-storefront-Ds1rfgEi.js");
+      const { mountWooStorefront: mountWooStorefront2 } = await import("./quiz-renderer-woo-storefront-Bm04bKB1.js");
       return { mountWooStorefront: mountWooStorefront2 };
     }, true ? __vite__mapDeps([0,1,2,3,4,5,6]) : void 0, import.meta.url);
     return mountWooStorefront(root);
