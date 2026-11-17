@@ -76,7 +76,24 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 			'all'
 		);
 
-		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+		$connection = Product_Recommendation_Quiz_For_Ecommerce_V2::connection();
+		if ( $connection ) {
+			global $plugin_page;
+			if ( 'prqfw' === $plugin_page ) {
+				$items = Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::items();
+				if ( $items ) {
+					$handle = $this->plugin_name . '-v2-nav';
+					wp_enqueue_script( $handle, plugin_dir_url( __FILE__ ) . 'js/product-recommendation-quiz-for-ecommerce-v2-nav.js', array(), $this->version, true );
+					wp_localize_script(
+						$handle,
+						'prqV2AdminNav',
+						array(
+							'adminUrl' => $connection['admin_url'],
+							'paths'    => array_column( $items, 'path' ),
+						)
+					);
+				}
+			}
 			return;
 		}
 
@@ -115,5 +132,35 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 			'dashicons-format-chat',
 			58
 		);
+		foreach ( Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::items() as $item ) {
+			add_submenu_page(
+				'prqfw',
+				esc_html( $item['label'] ),
+				esc_html( $item['label'] ),
+				'manage_options',
+				Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::menu_slug( $item['path'] ),
+				array( $this->admin_page, 'prquiz_options' )
+			);
+		}
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+			add_filter( 'submenu_file', array( $this, 'current_submenu' ) );
+		}
+	}
+
+	/**
+	 * Keep WordPress's initial selection aligned with the requested V2 page.
+	 *
+	 * @param string|null $submenu_file WordPress's selected submenu.
+	 * @return string|null The matching V2 submenu, or the unchanged selection.
+	 */
+	public function current_submenu( $submenu_file ) {
+		global $plugin_page;
+		if ( 'prqfw' === $plugin_page ) {
+			$path = Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::selected_path();
+			if ( '' !== $path ) {
+				return Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::menu_slug( $path );
+			}
+		}
+		return $submenu_file;
 	}
 }

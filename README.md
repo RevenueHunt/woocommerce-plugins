@@ -46,6 +46,13 @@ V2 provisioning uses the WooCommerce-authenticated `wc/v3/prq_set_token` route a
 requires a user with `manage_woocommerce`. The legacy `prq/v1/settoken` route stays
 V1-only. The admin iframe receives a server-minted, 60-second HS256 launch token.
 
+V2 WordPress submenus come from the public `<admin_url>/api/admin-nav` endpoint,
+with `platform=woocommerce` and the WordPress locale. Validated paths and plain-text
+labels are cached for one day; fetch failure leaves only the main Product Quiz
+item. Menu clicks launch only exact advertised destinations. Origin- and
+iframe-source-checked `rh:navigate` messages keep the selected submenu and reload
+URL aligned with in-iframe navigation. V1 keeps its original Display submenu.
+
 V2 exports use WooCommerce's bundled Action Scheduler (group `prq`), 100 products
 per batch, nightly at 03:00 in the site's timezone or on signed Sync now requests.
 Private random `.php` files in uploads start with an exit/compiler guard; only the

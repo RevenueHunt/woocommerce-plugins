@@ -53,6 +53,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Embeds_Page {
 	 * @return void
 	 */
 	public function add_menu() {
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+			return;
+		}
 		add_submenu_page(
 			self::PARENT_SLUG,
 			__( 'Display', 'product-recommendation-quiz-for-ecommerce' ),

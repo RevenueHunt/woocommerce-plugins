@@ -89,6 +89,8 @@ final class V2ModeTest extends TestCase
         $connection = $this->connection();
         Functions\when('get_option')->justReturn($connection);
         Functions\when('wp_json_encode')->alias('json_encode');
+        Functions\when('get_locale')->justReturn('en_US');
+        Functions\when('get_transient')->justReturn([]); // No advertised menu: retain the default launch URL.
         Functions\when('wp_generate_uuid4')->justReturn('c7e6e7c3-8e62-4c11-a59d-3bc880137d4f');
         Functions\when('wp_get_current_user')->justReturn((object) ['ID' => 7, 'user_email' => 'owner@example.com', 'display_name' => 'Ann']);
         $before = time();

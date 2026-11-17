@@ -65,6 +65,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Autoloader {
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Deactivator':
 				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-deactivator.php';
 				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav':
+				require_once plugin_dir_path( __DIR__ ) . 'admin/class-product-recommendation-quiz-for-ecommerce-v2-admin-nav.php';
+				break;
 			case 'Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu':
 				require_once plugin_dir_path( __DIR__ ) . 'admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php';
 				break;

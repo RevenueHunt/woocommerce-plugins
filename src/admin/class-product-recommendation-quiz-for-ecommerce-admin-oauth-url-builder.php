@@ -62,7 +62,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder {
 	public function prquiz_get_oauth_url() {
 		$connection = Product_Recommendation_Quiz_For_Ecommerce_V2::connection();
 		if ( $connection ) {
-			return $connection['admin_url'] . '/auth/woocommerce?token=' . rawurlencode( Product_Recommendation_Quiz_For_Ecommerce_V2::admin_token( $connection, wp_get_current_user() ) );
+			$url  = $connection['admin_url'] . '/auth/woocommerce?token=' . rawurlencode( Product_Recommendation_Quiz_For_Ecommerce_V2::admin_token( $connection, wp_get_current_user() ) );
+			$path = Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::selected_path();
+			return '' === $path ? $url : $url . '&to=' . rawurlencode( $path );
 		}
 		if ( Product_Recommendation_Quiz_For_Ecommerce::is_development_environment() ) {
 			$oauth_url = 'http://localhost:9528/public/woocommerce/oauth';
