@@ -10,7 +10,8 @@
 	const pathOf = function (link) {
 		return new URL(link.href).searchParams.get('path') || paths[0];
 	};
-	// The app announces its page once it can route; until then a menu click loads the page as usual.
+	// The app announces its page after each iframe load once it can route; until then a menu
+	// click loads the page as usual.
 	let ready = false;
 
 	// Our own menu entries route inside the app, so it (and Copilot beside it) stays loaded.
@@ -22,8 +23,9 @@
 		});
 	});
 
-	// A reloaded app may have closed its full-screen window without saying so.
+	// A reloaded iframe may hold no app, or one that closed its full-screen window without saying so.
 	iframe.addEventListener('load', function () {
+		ready = false;
 		document.body.classList.remove('prq-fullscreen');
 	});
 
