@@ -97,7 +97,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Page {
 				?>
 				</span>
 			</p>
-			<iframe title="<?php esc_attr_e( 'Product Recommendation Quiz for eCommerce', 'product-recommendation-quiz-for-ecommerce' ); ?>" src="<?php echo esc_url( $this->oauth_url_builder->prquiz_get_oauth_url() ); ?>" name="app-iframe" context="Main" class="prq-iframe" allow="microphone"></iframe>
+			<iframe title="<?php esc_attr_e( 'Product Recommendation Quiz for eCommerce', 'product-recommendation-quiz-for-ecommerce' ); ?>" src="<?php echo esc_url( $this->oauth_url_builder->prquiz_get_oauth_url() ); ?>" name="app-iframe" context="Main" class="prq-iframe"<?php echo Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ? ' allow="microphone"' : ''; ?>></iframe>
 		</div>
 		<?php
 	}
