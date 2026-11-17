@@ -75,3 +75,17 @@ a.btn:hover{
     margin-left: -21px !important;
     height: calc(100vh - 85px) !important;
 }
+
+/* The app's full-screen window covers the whole admin, above its toolbar (z-index 99999) and menu. */
+.prq-fullscreen{
+    overflow: hidden;
+}
+
+.prq-fullscreen .prq-iframe{
+    position: fixed !important;
+    inset: 0;
+    z-index: 100000;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+}

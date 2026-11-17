@@ -53,7 +53,11 @@ minutes and leave only the main Product Quiz item. Results are also memoized per
 request, so repeated lookups never repeat the HTTP request. Menu clicks launch
 only exact advertised destinations. Origin- and iframe-source-checked
 `rh:navigate` messages keep the selected submenu and reload URL aligned with
-in-iframe navigation. V1 keeps its original Display submenu.
+in-iframe navigation. Once the app has sent its first `rh:navigate`, plain clicks on
+the plugin's own menu entries post `rh:navigate` into the iframe instead of loading a
+new wp-admin page, so the app routes in place. `rh:fullscreen` (`open: true|false`)
+fixes the iframe over the whole admin while the app's full-screen window is open.
+V1 keeps its original Display submenu.
 
 V2 exports use WooCommerce's bundled Action Scheduler (group `prq`), 100 products
 per batch, nightly at 03:00 in the site's timezone or on signed Sync now requests.

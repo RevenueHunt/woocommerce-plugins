@@ -80,19 +80,17 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 		if ( $connection ) {
 			global $plugin_page;
 			if ( 'prqfw' === $plugin_page ) {
-				$items = Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::items();
-				if ( $items ) {
-					$handle = $this->plugin_name . '-v2-nav';
-					wp_enqueue_script( $handle, plugin_dir_url( __FILE__ ) . 'js/product-recommendation-quiz-for-ecommerce-v2-nav.js', array(), $this->version, true );
-					wp_localize_script(
-						$handle,
-						'prqV2AdminNav',
-						array(
-							'adminUrl' => $connection['admin_url'],
-							'paths'    => array_column( $items, 'path' ),
-						)
-					);
-				}
+				// Also without menu items: the app's full-screen window still covers the whole admin.
+				$handle = $this->plugin_name . '-v2-nav';
+				wp_enqueue_script( $handle, plugin_dir_url( __FILE__ ) . 'js/product-recommendation-quiz-for-ecommerce-v2-nav.js', array(), $this->version, true );
+				wp_localize_script(
+					$handle,
+					'prqV2AdminNav',
+					array(
+						'adminUrl' => $connection['admin_url'],
+						'paths'    => array_column( Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::items(), 'path' ),
+					)
+				);
 			}
 			return;
 		}
