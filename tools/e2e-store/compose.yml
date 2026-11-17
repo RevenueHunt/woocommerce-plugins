@@ -1,0 +1,36 @@
+# Throwaway WooCommerce store for the release end-to-end test. Driven by tools/e2e-store.sh.
+name: prq-e2e
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wp
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wp
+  wordpress:
+    image: wordpress:php8.2-apache
+    depends_on: [db]
+    ports: ["127.0.0.1:8099:80"]
+    environment: &wp
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wp
+      WORDPRESS_DB_NAME: wp
+      # The public HTTPS tunnel ends at Apache over http: tell WordPress (and the plugin's HTTPS check) the truth.
+      WORDPRESS_CONFIG_EXTRA: |
+        if (($$_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https') { $$_SERVER['HTTPS'] = 'on'; }
+    volumes:
+      - wp:/var/www/html
+      - ../../build:/plugins:ro
+  cli:
+    image: wordpress:cli-php8.2
+    depends_on: [wordpress]
+    user: "33:33"
+    environment: *wp
+    volumes:
+      - wp:/var/www/html
+      - ../../build:/plugins:ro
+    entrypoint: ["sleep", "infinity"]
+volumes:
+  wp: {}
