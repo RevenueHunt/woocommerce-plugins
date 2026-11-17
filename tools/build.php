@@ -148,6 +148,17 @@ function build_target(string $key): void {
     echo "  built build/$slug\n";
 }
 
+// Refuse incomplete shopper code before deleting or producing either artifact.
+$runtime = ROOT . '/src/assets/v2';
+if (!is_file($runtime . '/runtime.json')) {
+    fwrite(STDERR, "Build refused: src/assets/v2/runtime.json is missing. Sync the built WooCommerce runtime first.\n");
+    exit(1);
+}
+if (!is_file($runtime . '/quiz-renderer.js') || strpos(file_get_contents($runtime . '/quiz-renderer.js'), 'PRQ_V2_RUNTIME_PLACEHOLDER') !== false) {
+    fwrite(STDERR, "Build refused: the V2 runtime is missing or still a placeholder. Run tools/sync-v2-runtime.sh <frontend_v2 path> first.\n");
+    exit(1);
+}
+
 $only = $argv[1] ?? 'all';
 $keys = $only === 'all' ? ['ecommerce', 'woocommerce'] : [$only];
 echo "Building: " . implode(', ', $keys) . "\n";

@@ -88,7 +88,9 @@ assistant versions, the bundled runtime version, and placements in published
 posts/pages, templates, reusable blocks and block widgets. Uninstall removes the
 copies and all three small, autoloaded storefront options. `prq_v2_assistants` is
 the only source of assistant picker names; storefront pushes need no assistants
-list (a redundant list is ignored).
+list (a redundant list is ignored). Quiz and assistant PUT/DELETE operations share
+a MySQL named lock, invalidate the index caches before reading, and return 503 if
+the lock cannot be acquired within ten seconds so V2 can retry.
 
 The shortcode and V2 blocks render id-only mounts (an empty id uses the Store
 default). Published names are preloaded into the editor's pickers; the editor
@@ -108,7 +110,9 @@ V2's backend address (`API_URL`) into the runtime: for a release build it with
 a plain build points at the developer's `.env` backend. The sync
 replaces the generated `src/assets/v2/` tree (including stale hashed chunks).
 **Until that frontend build is integrated, the committed runtime is an explicitly
-inert placeholder (`runtime: 1`), not a working shopper renderer.**
+inert placeholder (`runtime: 1`), not a working shopper renderer.** `composer build`
+refuses this marked placeholder or a missing `runtime.json` before producing any
+artifacts. CI's existing build steps fail until the real runtime has been synced.
 
 See [the verification record](tests/V2-PROOF.md) for the before/after V1 snapshot
 and local-store export proof. WooCommerce stubs are dev-only (not built into either

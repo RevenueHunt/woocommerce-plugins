@@ -12,6 +12,8 @@ final class V2StorefrontTest extends TestCase
 {
     private array $options;
     private string $uploads;
+    private bool $lockHeld = false;
+    private bool $lockAvailable = true;
 
     protected function setUp(): void
     {
@@ -34,6 +36,22 @@ final class V2StorefrontTest extends TestCase
         Functions\when('esc_html')->alias(fn($value) => htmlspecialchars((string) $value, ENT_QUOTES));
         Functions\when('get_locale')->justReturn('en_US');
         Functions\when('plugins_url')->alias(fn($path) => 'https://shop.example/wp-content/plugins/prq/' . $path);
+        Functions\when('wp_cache_delete')->justReturn(true);
+        $wpdb = \Mockery::mock();
+        $wpdb->shouldReceive('prepare')->with('SELECT GET_LOCK(%s, 10)', 'prq_v2_index')->andReturn('acquire index lock');
+        $wpdb->shouldReceive('prepare')->with('SELECT RELEASE_LOCK(%s)', 'prq_v2_index')->andReturn('release index lock');
+        $wpdb->shouldReceive('get_var')->with('acquire index lock')->andReturnUsing(function () {
+            $this->assertFalse($this->lockHeld);
+            if (!$this->lockAvailable) return '0';
+            $this->lockHeld = true;
+            return '1';
+        });
+        $wpdb->shouldReceive('get_var')->with('release index lock')->andReturnUsing(function () {
+            $this->assertTrue($this->lockHeld);
+            $this->lockHeld = false;
+            return '1';
+        });
+        $GLOBALS['wpdb'] = $wpdb;
     }
 
     protected function tearDown(): void
@@ -41,6 +59,7 @@ final class V2StorefrontTest extends TestCase
         foreach (glob($this->uploads . '/prq-v2/*') ?: [] as $file) unlink($file);
         if (is_dir($this->uploads . '/prq-v2')) rmdir($this->uploads . '/prq-v2');
         rmdir($this->uploads);
+        $this->assertFalse($this->lockHeld, 'Every acquired index lock must be released.');
         unset($GLOBALS['wpdb']);
         parent::tearDown();
     }
@@ -239,8 +258,100 @@ final class V2StorefrontTest extends TestCase
         $this->assertSame('abc', $data['defaultQuiz']);
         $this->assertSame(['popupLinks' => true], $data['siteWide']);
         $this->assertSame('https://shop.example/wp-content/uploads/prq-v2/quiz-abc.html.json?v=v42', $data['quizzes']['abc']['src']);
-        $this->assertSame('https://shop.example/wp-content/uploads/prq-v2/quiz-abc-treatment.html.json?v=v42', $data['quizzes']['abc']['treatmentSrc']);
+        $this->assertSame('https://shop.example/wp-content/uploads/prq-v2/quiz-abc-treatment.html.json?v=v42-exp1', $data['quizzes']['abc']['treatmentSrc']);
         $this->assertStringNotContainsString('shared_secret', $html);
+    }
+
+    public function test_quiz_and_assistant_updates_read_fresh_indexes_inside_the_lock(): void
+    {
+        // Model another request's stale per-option, autoload and missing-option caches.
+        // This is a fresh-read/serialization contract test, not parallel MySQL execution.
+        $cache = [];
+        $invalidations = [];
+        Functions\when('wp_cache_delete')->alias(function ($key, $group) use (&$cache, &$invalidations) {
+            $this->assertTrue($this->lockHeld);
+            $this->assertSame('options', $group);
+            $invalidations[] = $key;
+            unset($cache[$key]);
+            return true;
+        });
+        Functions\when('get_option')->alias(function ($key, $default = false) use (&$cache) {
+            $this->assertTrue($this->lockHeld);
+            if (isset($cache['notoptions'][$key])) return $default;
+            return $cache['alloptions'][$key] ?? $cache[$key] ?? $this->options[$key] ?? $default;
+        });
+        $store = new Storefront();
+        $expectedInvalidations = [];
+        foreach ([Storefront::QUIZZES => 'quiz', Storefront::ASSISTANTS => 'assistant'] as $name => $type) {
+            for ($i = 0; $i < 4; $i++) array_push($expectedInvalidations, $name, 'alloptions', 'notoptions');
+            $put = $type === 'quiz' ? 'put_quiz' : 'put_assistant';
+            $delete = $type === 'quiz' ? 'delete_quiz' : 'delete_assistant';
+            $route = '/prq/v3/' . ($type === 'quiz' ? 'quizzes' : 'assistants') . '/';
+            $body = $type === 'quiz' ? $this->body() : ['name' => 'Helper', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Hello</main>', 'experiment' => null];
+            $cache = [$name => [], 'alloptions' => [$name => []], 'notoptions' => [$name => true]];
+            $this->assertSame(['ok' => true], $store->$put($this->request('PUT', $route . 'A', $body)));
+            $cache = [$name => [], 'alloptions' => [$name => []], 'notoptions' => [$name => true]];
+            $this->assertSame(['ok' => true], $store->$put($this->request('PUT', $route . 'B', $body)));
+            $this->assertSame(['A', 'B'], array_keys($this->options[$name]));
+            $beforeDelete = $this->options[$name];
+            $cache = [$name => ['A' => $beforeDelete['A']], 'alloptions' => [$name => ['A' => $beforeDelete['A']]]];
+            $this->assertSame(['ok' => true], $store->$delete($this->request('DELETE', $route . 'A')));
+            $this->assertSame(['B'], array_keys($this->options[$name]));
+            $cache = [$name => $beforeDelete, 'alloptions' => [$name => $beforeDelete]];
+            $this->assertSame(['ok' => true], $store->$put($this->request('PUT', $route . 'C', $body)));
+            $this->assertSame(['B', 'C'], array_keys($this->options[$name]));
+        }
+        $this->assertSame($expectedInvalidations, $invalidations);
+    }
+
+    public function test_contended_index_lock_returns_retryable_503_before_mutating_files_or_options(): void
+    {
+        $this->lockAvailable = false;
+        Functions\expect('wp_cache_delete')->never();
+        Functions\expect('wp_upload_dir')->never();
+        Functions\expect('update_option')->never();
+        $store = new Storefront();
+        foreach (['put_quiz', 'delete_quiz', 'put_assistant', 'delete_assistant'] as $method) {
+            $body = str_contains($method, 'assistant') ? ['name' => 'Helper', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Hello</main>', 'experiment' => null] : $this->body();
+            $error = $store->$method($this->request('PUT', '/prq/v3/unused/A', $body));
+            $this->assertSame(503, $error->get_error_data()['status']);
+        }
+    }
+
+    public function test_index_lock_is_released_after_a_file_write_failure(): void
+    {
+        Functions\when('wp_mkdir_p')->justReturn(false);
+        $store = new Storefront();
+        $error = $store->put_quiz($this->request('PUT', '/prq/v3/quizzes/A', $this->body()));
+        $this->assertSame(500, $error->get_error_data()['status']);
+        $this->assertFalse($this->lockHeld);
+        $error = $store->put_assistant($this->request('PUT', '/prq/v3/assistants/A', ['name' => 'Helper', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Hello</main>', 'experiment' => null]));
+        $this->assertSame(500, $error->get_error_data()['status']);
+        $this->assertFalse($this->lockHeld);
+    }
+
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
+    public function test_successive_experiments_with_the_same_control_have_different_treatment_urls(): void
+    {
+        Functions\expect('wp_enqueue_script_module')->twice();
+        $store = new Storefront();
+        $body = $this->body();
+        $urls = [];
+        $controls = [];
+        foreach (['exp1', 'exp2'] as $experiment) {
+            $body['experiment']['id'] = $experiment;
+            $store->put_quiz($this->request('PUT', '/prq/v3/quizzes/abc', $body));
+            $delivery = new Delivery();
+            $delivery->render(['id' => 'abc']);
+            ob_start(); $delivery->footer(); $data = json_decode(strip_tags(ob_get_clean()), true);
+            $urls[] = $data['quizzes']['abc']['treatmentSrc'];
+            $controls[] = $data['quizzes']['abc']['src'];
+        }
+        $this->assertSame($controls[0], $controls[1]);
+        $this->assertStringEndsWith('?v=v42-exp1', $urls[0]);
+        $this->assertStringEndsWith('?v=v42-exp2', $urls[1]);
+        $this->assertNotSame($urls[0], $urls[1]);
     }
 
     public function test_uninstall_removes_public_copies_and_all_storefront_options(): void

@@ -120,9 +120,10 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 		foreach ( get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::QUIZZES, array() ) as $id => $quiz ) {
 			$src            = $uploads['baseurl'] . '/prq-v2/quiz-' . rawurlencode( (string) $id );
 			$version        = '?v=' . rawurlencode( (string) $quiz['version'] );
+			$treatment      = ! empty( $quiz['experiment'] ) ? '?v=' . rawurlencode( $quiz['version'] . '-' . $quiz['experiment']['id'] ) : null;
 			$quizzes[ $id ] = array(
 				'src'          => $src . '.html.json' . $version,
-				'treatmentSrc' => ! empty( $quiz['experiment'] ) ? $src . '-treatment.html.json' . $version : null,
+				'treatmentSrc' => null !== $treatment ? $src . '-treatment.html.json' . $treatment : null,
 				'experiment'   => $quiz['experiment'],
 				'scripts'      => $quiz['scripts'],
 				'runtime'      => $quiz['runtime'],

@@ -37,29 +37,32 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 			! $this->is_artifact( $body['artifact'] ) || ( isset( $body['treatment'] ) && ! $this->is_artifact( $body['treatment'] ) ) ) {
 			return new WP_Error( 'prq_invalid_quiz', 'Invalid published HTML quiz.', array( 'status' => 400 ) );
 		}
-		$uploads = wp_upload_dir();
-		$dir     = $uploads['basedir'] . '/prq-v2';
-		if ( ! empty( $uploads['error'] ) || ! wp_mkdir_p( $dir ) ) {
-			return new WP_Error( 'prq_store_copy_failed', 'Cannot create store-copy directory.', array( 'status' => 500 ) );
-		}
-		$path = $dir . '/quiz-' . $id;
-		if ( ! $this->write_file( $path . '.html.json', wp_json_encode( $body['artifact'] ) ) ||
-			( ! empty( $body['treatment'] ) && ! $this->write_file( $path . '-treatment.html.json', wp_json_encode( $body['treatment'] ) ) ) ) {
-			return new WP_Error( 'prq_store_copy_failed', 'Cannot write store copy.', array( 'status' => 500 ) );
-		}
-		if ( empty( $body['treatment'] ) ) {
-			wp_delete_file( $path . '-treatment.html.json' );
-		}
-		$quizzes        = get_option( self::QUIZZES, array() );
-		$quizzes[ $id ] = array(
-			'name'       => $body['name'],
-			'version'    => $body['version'],
-			'runtime'    => $body['runtime'],
-			'scripts'    => $body['scripts'],
-			'experiment' => isset( $body['experiment'] ) ? $body['experiment'] : null,
+		return $this->update_index(
+			self::QUIZZES,
+			function ( $quizzes ) use ( $id, $body ) {
+				$uploads = wp_upload_dir();
+				$dir     = $uploads['basedir'] . '/prq-v2';
+				if ( ! empty( $uploads['error'] ) || ! wp_mkdir_p( $dir ) ) {
+					return new WP_Error( 'prq_store_copy_failed', 'Cannot create store-copy directory.', array( 'status' => 500 ) );
+				}
+				$path = $dir . '/quiz-' . $id;
+				if ( ! $this->write_file( $path . '.html.json', wp_json_encode( $body['artifact'] ) ) ||
+				( ! empty( $body['treatment'] ) && ! $this->write_file( $path . '-treatment.html.json', wp_json_encode( $body['treatment'] ) ) ) ) {
+					return new WP_Error( 'prq_store_copy_failed', 'Cannot write store copy.', array( 'status' => 500 ) );
+				}
+				if ( empty( $body['treatment'] ) ) {
+					wp_delete_file( $path . '-treatment.html.json' );
+				}
+				$quizzes[ $id ] = array(
+					'name'       => $body['name'],
+					'version'    => $body['version'],
+					'runtime'    => $body['runtime'],
+					'scripts'    => $body['scripts'],
+					'experiment' => isset( $body['experiment'] ) ? $body['experiment'] : null,
+				);
+				return $quizzes;
+			}
 		);
-		update_option( self::QUIZZES, $quizzes, true );
-		return array( 'ok' => true );
 	}
 
 	/**
@@ -108,14 +111,17 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 		if ( ! is_string( $id ) || ! preg_match( '/^[A-Za-z0-9]+$/D', $id ) ) {
 			return new WP_Error( 'prq_invalid_quiz', 'Invalid quiz id.', array( 'status' => 400 ) );
 		}
-		$uploads = wp_upload_dir();
-		$path    = $uploads['basedir'] . '/prq-v2/quiz-' . $id;
-		wp_delete_file( $path . '.html.json' );
-		wp_delete_file( $path . '-treatment.html.json' );
-		$quizzes = get_option( self::QUIZZES, array() );
-		unset( $quizzes[ $id ] );
-		update_option( self::QUIZZES, $quizzes, true );
-		return array( 'ok' => true );
+		return $this->update_index(
+			self::QUIZZES,
+			function ( $quizzes ) use ( $id ) {
+				$uploads = wp_upload_dir();
+				$path    = $uploads['basedir'] . '/prq-v2/quiz-' . $id;
+				wp_delete_file( $path . '.html.json' );
+				wp_delete_file( $path . '-treatment.html.json' );
+				unset( $quizzes[ $id ] );
+				return $quizzes;
+			}
+		);
 	}
 
 	/**
@@ -136,23 +142,26 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 			( ! is_string( $body['shell'] ) && null !== $body['shell'] ) ) {
 			return new WP_Error( 'prq_invalid_assistant', 'Invalid published assistant shell.', array( 'status' => 400 ) );
 		}
-		$uploads = wp_upload_dir();
-		$dir     = $uploads['basedir'] . '/prq-v2';
-		$path    = $dir . '/assistant-' . $id . '.html';
-		if ( null === $body['shell'] ) {
-			wp_delete_file( $path );
-		} elseif ( ! empty( $uploads['error'] ) || ! wp_mkdir_p( $dir ) || ! $this->write_file( $path, $body['shell'] ) ) {
-			return new WP_Error( 'prq_store_copy_failed', 'Cannot write assistant store copy.', array( 'status' => 500 ) );
-		}
-		$assistants        = get_option( self::ASSISTANTS, array() );
-		$assistants[ $id ] = array(
-			'name'       => $body['name'],
-			'version'    => $body['version'],
-			'runtime'    => $body['runtime'],
-			'experiment' => $experiment,
+		return $this->update_index(
+			self::ASSISTANTS,
+			function ( $assistants ) use ( $id, $body, $experiment ) {
+				$uploads = wp_upload_dir();
+				$dir     = $uploads['basedir'] . '/prq-v2';
+				$path    = $dir . '/assistant-' . $id . '.html';
+				if ( null === $body['shell'] ) {
+					wp_delete_file( $path );
+				} elseif ( ! empty( $uploads['error'] ) || ! wp_mkdir_p( $dir ) || ! $this->write_file( $path, $body['shell'] ) ) {
+					return new WP_Error( 'prq_store_copy_failed', 'Cannot write assistant store copy.', array( 'status' => 500 ) );
+				}
+				$assistants[ $id ] = array(
+					'name'       => $body['name'],
+					'version'    => $body['version'],
+					'runtime'    => $body['runtime'],
+					'experiment' => $experiment,
+				);
+				return $assistants;
+			}
 		);
-		update_option( self::ASSISTANTS, $assistants, true );
-		return array( 'ok' => true );
 	}
 
 	/**
@@ -166,12 +175,46 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 		if ( ! is_string( $id ) || ! preg_match( '/^[A-Za-z0-9]+$/D', $id ) ) {
 			return new WP_Error( 'prq_invalid_assistant', 'Invalid assistant id.', array( 'status' => 400 ) );
 		}
-		$uploads = wp_upload_dir();
-		wp_delete_file( $uploads['basedir'] . '/prq-v2/assistant-' . $id . '.html' );
-		$assistants = get_option( self::ASSISTANTS, array() );
-		unset( $assistants[ $id ] );
-		update_option( self::ASSISTANTS, $assistants, true );
-		return array( 'ok' => true );
+		return $this->update_index(
+			self::ASSISTANTS,
+			function ( $assistants ) use ( $id ) {
+				$uploads = wp_upload_dir();
+				wp_delete_file( $uploads['basedir'] . '/prq-v2/assistant-' . $id . '.html' );
+				unset( $assistants[ $id ] );
+				return $assistants;
+			}
+		);
+	}
+
+	/**
+	 * Serialize artifact and index changes, reading past another request's caches.
+	 *
+	 * @param string   $name Index option.
+	 * @param callable $change Update the files and return the index, or an error.
+	 * @return array|WP_Error Result; contention is retryable by V2's push job.
+	 */
+	private function update_index( $name, $change ) {
+		global $wpdb;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Connection-scoped mutex, not a cacheable data query.
+		$locked = $wpdb->get_var( $wpdb->prepare( 'SELECT GET_LOCK(%s, 10)', 'prq_v2_index' ) );
+		if ( '1' !== (string) $locked ) {
+			return new WP_Error( 'prq_index_busy', 'Store-copy index is busy; retry this push.', array( 'status' => 503 ) );
+		}
+		try {
+			wp_cache_delete( $name, 'options' );
+			wp_cache_delete( 'alloptions', 'options' );
+			// A request may have booted before the first push created this index.
+			wp_cache_delete( 'notoptions', 'options' );
+			$index = $change( get_option( $name, array() ) );
+			if ( is_wp_error( $index ) ) {
+				return $index;
+			}
+			update_option( $name, $index, true );
+			return array( 'ok' => true );
+		} finally {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Always release the mutex, including file-write failures.
+			$wpdb->get_var( $wpdb->prepare( 'SELECT RELEASE_LOCK(%s)', 'prq_v2_index' ) );
+		}
 	}
 
 	/**
