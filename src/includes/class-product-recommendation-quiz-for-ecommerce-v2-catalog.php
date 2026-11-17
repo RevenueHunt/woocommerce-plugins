@@ -24,6 +24,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog {
 
 	/** Queue the nightly export with the last selection. @return void */
 	public function nightly() {
+		if ( ! Product_Recommendation_Quiz_For_Ecommerce_V2::connection( true ) ) {
+			return;
+		}
 		// The current action is still running, so schedule tomorrow explicitly.
 		$next = new DateTimeImmutable( 'tomorrow 03:00', wp_timezone() );
 		as_schedule_single_action( $next->getTimestamp(), 'prq_v2_catalog_nightly', array(), 'prq' );
@@ -84,7 +87,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog {
 	 */
 	public function batch( $id ) {
 		$state = get_option( 'prq_v2_export_' . $id );
-		if ( ! $state || ! Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+		if ( ! $state || ! Product_Recommendation_Quiz_For_Ecommerce_V2::connection( true ) ) {
 			return;
 		}
 		if ( isset( $state['expires'] ) ) {

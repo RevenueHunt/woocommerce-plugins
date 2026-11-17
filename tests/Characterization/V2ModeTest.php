@@ -118,6 +118,7 @@ final class V2ModeTest extends TestCase
     {
         $connection = array_replace($this->connection(), ['shop' => 'wc-test', 'shared_secret' => 'prq-v2-test-secret']);
         $state = ['expires' => 1700003600, 'products' => 42];
+        Functions\when('wp_cache_delete')->justReturn(true);
         Functions\when('time')->justReturn(1700000000);
         Functions\when('get_option')->alias(fn($key) => $key === V2::OPTION ? $connection : $state);
         Functions\when('rest_url')->justReturn('https://shop.example/wp-json/prq/v3/catalog/download');

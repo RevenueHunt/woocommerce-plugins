@@ -17,9 +17,15 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 	/**
 	 * Read the connection selected by the monolith, never infer it from a domain.
 	 *
+	 * @param bool $fresh Whether a worker needs changes made by another request.
 	 * @return array Connection or empty array for V1.
 	 */
-	public static function connection() {
+	public static function connection( $fresh = false ) {
+		if ( $fresh ) {
+			wp_cache_delete( self::OPTION, 'options' );
+			// A worker booted before connect may have cached the option as missing.
+			wp_cache_delete( 'notoptions', 'options' );
+		}
 		$value = get_option( self::OPTION, array() );
 		return is_array( $value ) && isset( $value['mode'] ) && 'v2' === $value['mode'] ? $value : array();
 	}
@@ -123,18 +129,18 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		);
 	}
 
-	/** Register hooks only for a connected V2 store. @return void */
+	/** Register worker callbacks before connect; keep request hooks V2-only. @return void */
 	public function run() {
-		if ( ! self::connection() ) {
-			return;
-		}
 		$catalog = new Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog();
-		$orders  = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
-		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
-		add_action( 'action_scheduler_init', array( $catalog, 'schedule_nightly' ) );
 		add_action( 'prq_v2_catalog_nightly', array( $catalog, 'nightly' ) );
 		add_action( 'prq_v2_catalog_batch', array( $catalog, 'batch' ), 10, 1 );
 		add_action( 'prq_v2_catalog_cleanup', array( $catalog, 'cleanup' ), 10, 1 );
+		if ( ! self::connection() ) {
+			return;
+		}
+		$orders = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
+		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+		add_action( 'action_scheduler_init', array( $catalog, 'schedule_nightly' ) );
 		add_filter( 'woocommerce_store_api_add_to_cart_data', array( $orders, 'cart_data' ), 10, 2 );
 		add_action( 'woocommerce_checkout_create_order', array( $orders, 'attribute_order' ) );
 		add_action( 'woocommerce_store_api_checkout_update_order_meta', array( $orders, 'attribute_order' ) );
