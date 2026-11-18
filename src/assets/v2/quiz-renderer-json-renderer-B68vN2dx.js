@@ -1,4 +1,4 @@
-const __vite__fileDeps=["./quiz-renderer-dropdown--VXIdBtY.js","./quiz-renderer.js","./quiz-renderer-slot-result-block-helper-Bu2JEZ26.js","./quiz-renderer-storeFrontClient-Dh-TPIVy.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer-react-dropdown-select-CnJA64d0.js","./quiz-renderer-phone-block-B8Y9icmu.js","./quiz-renderer-index-Cpa1_zRc.js","./quiz-renderer-chart-error-boundary-IsJR96AJ.js","./quiz-renderer-chart-result-block-DU0qdWj_.js","./quiz-renderer-custom-chart-core-Dc1Xz6ZV.js","./quiz-renderer-chart-helpers-uheJMlCp.js","./quiz-renderer-rating-block-CeOYGIHG.js","./quiz-renderer-rating-core-B8Kxxfwv.js","./quiz-renderer-result-preview-DoQGAcmQ.js","./quiz-renderer-cart-hGLiNvFe.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-useItemSlotDataFetcher-ac9xH1rl.js","./quiz-renderer-variant-title-B1Oi9SHh.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+const __vite__fileDeps=["./quiz-renderer-dropdown-NFgFIUUC.js","./quiz-renderer.js","./quiz-renderer-slot-result-block-helper-Csi6eriF.js","./quiz-renderer-storeFrontClient-Dh-TPIVy.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer-react-dropdown-select-Df6-WSAM.js","./quiz-renderer-phone-block-CBMz6Aqs.js","./quiz-renderer-index-C8rIW2Bm.js","./quiz-renderer-chart-error-boundary-BS2pLz4Z.js","./quiz-renderer-chart-result-block-CJe8fX2M.js","./quiz-renderer-custom-chart-core-DJeT5ggv.js","./quiz-renderer-chart-helpers-CMuxm1JU.js","./quiz-renderer-rating-block-r89VuRoJ.js","./quiz-renderer-rating-core-BDsIrPfE.js","./quiz-renderer-result-preview-CvyRBJZX.js","./quiz-renderer-cart-hGLiNvFe.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-useItemSlotDataFetcher-ac9xH1rl.js","./quiz-renderer-variant-title-B1Oi9SHh.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
@@ -29710,7 +29710,7 @@ const RendererStoreProvider = ({
     storeRef.current = createIsolatedQuizPublicStore(handle, initialState);
   }
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(QuizStoreContext.Provider, { value: storeRef.current, children }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/shared/contexts/renderer-store-provider.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/shared/contexts/renderer-store-provider.tsx",
     lineNumber: 22,
     columnNumber: 10
   }, void 0);
@@ -29792,13 +29792,13 @@ const preloadQuestionBlocks = (questions) => {
   });
   if (hasMultiSelectDropdown && !preloadedQuestionBlocks.has("dropdown")) {
     preloadedQuestionBlocks.add("dropdown");
-    __vitePreload(() => import("./quiz-renderer-dropdown--VXIdBtY.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]) : void 0, import.meta.url).catch(
+    __vitePreload(() => import("./quiz-renderer-dropdown-NFgFIUUC.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]) : void 0, import.meta.url).catch(
       (err) => console.error("Failed to preload dropdown:", err)
     );
   }
   if (hasMultiSelectDropdown && !preloadedQuestionBlocks.has("react-dropdown-select")) {
     preloadedQuestionBlocks.add("react-dropdown-select");
-    __vitePreload(() => import("./quiz-renderer-react-dropdown-select-CnJA64d0.js"), true ? __vite__mapDeps([10,2,3,4,5,6,1,7,8,9]) : void 0, import.meta.url).catch(
+    __vitePreload(() => import("./quiz-renderer-react-dropdown-select-Df6-WSAM.js"), true ? __vite__mapDeps([10,2,3,4,5,6,1,7,8,9]) : void 0, import.meta.url).catch(
       (err) => console.error("Failed to preload react-dropdown-select:", err)
     );
   }
@@ -29809,7 +29809,7 @@ const preloadQuestionBlocks = (questions) => {
     preloadedQuestionBlocks.add(blockType);
     switch (blockType) {
       case BlockType.PHONE:
-        __vitePreload(() => import("./quiz-renderer-phone-block-B8Y9icmu.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).catch(
+        __vitePreload(() => import("./quiz-renderer-phone-block-CBMz6Aqs.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).catch(
           (err) => console.error("Failed to preload phone block:", err)
         );
         break;
@@ -29824,7 +29824,7 @@ const preloadQuestionBlocks = (questions) => {
           preloadedQuestionBlocks.add(BlockType.BAR_CHART);
           preloadedQuestionBlocks.add(BlockType.CUSTOM_CHART);
           preloadedQuestionBlocks.add(BlockType.RATING_CHART);
-          __vitePreload(() => import("./quiz-renderer-index-Cpa1_zRc.js").then((n) => n.questionChartBlock), true ? __vite__mapDeps([12,1,5,13]) : void 0, import.meta.url).catch((err) => console.error("Failed to preload chart block:", err));
+          __vitePreload(() => import("./quiz-renderer-index-C8rIW2Bm.js").then((n) => n.questionChartBlock), true ? __vite__mapDeps([12,1,5,13]) : void 0, import.meta.url).catch((err) => console.error("Failed to preload chart block:", err));
         }
         break;
     }
@@ -29854,13 +29854,13 @@ const preloadResultBlocks = (results) => {
           preloadedResultBlocks.add(ResultBlockType.RADAR_CHART);
           preloadedResultBlocks.add(ResultBlockType.GAUGE_CHART);
           preloadedResultBlocks.add(ResultBlockType.CUSTOM_CHART);
-          __vitePreload(() => import("./quiz-renderer-chart-result-block-DU0qdWj_.js"), true ? __vite__mapDeps([14,1,15,16,13,4,5,6,7,8,9]) : void 0, import.meta.url).catch(
+          __vitePreload(() => import("./quiz-renderer-chart-result-block-CJe8fX2M.js"), true ? __vite__mapDeps([14,1,15,16,13,4,5,6,7,8,9]) : void 0, import.meta.url).catch(
             (err) => console.error("Failed to preload result chart block:", err)
           );
         }
         break;
       case ResultBlockType.RATING_CHART:
-        __vitePreload(() => import("./quiz-renderer-rating-block-CeOYGIHG.js"), true ? __vite__mapDeps([17,16,18,4,5,6,1,7,8,9]) : void 0, import.meta.url).catch(
+        __vitePreload(() => import("./quiz-renderer-rating-block-r89VuRoJ.js"), true ? __vite__mapDeps([17,16,18,4,5,6,1,7,8,9]) : void 0, import.meta.url).catch(
           (err) => console.error("Failed to preload result rating block:", err)
         );
         break;
@@ -29868,7 +29868,7 @@ const preloadResultBlocks = (results) => {
   });
 };
 const preloadResultsPage = () => {
-  __vitePreload(() => import("./quiz-renderer-result-preview-DoQGAcmQ.js"), true ? __vite__mapDeps([19,8,1,6,7,20,3,2,5,21,22,23,24,4,9]) : void 0, import.meta.url).catch(
+  __vitePreload(() => import("./quiz-renderer-result-preview-CvyRBJZX.js"), true ? __vite__mapDeps([19,8,1,6,7,20,3,2,5,21,22,23,24,4,9]) : void 0, import.meta.url).catch(
     (err) => console.error("Failed to preload results page:", err)
   );
 };
@@ -29950,7 +29950,7 @@ function QuizBuilderProvider({
     [InspectorWrapper, DraftProductPlaceholder]
   );
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(QuizBuilderContext.Provider, { value, children }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/contexts/quiz-builder-context.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/contexts/quiz-builder-context.tsx",
     lineNumber: 77,
     columnNumber: 10
   }, this);
@@ -30158,13 +30158,13 @@ const ShadowDom = ({ shadow, setShadow, children }) => {
   }, [fontFamily, fontFamilyHeading, shadow, preferences]);
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(reactExports.Fragment, { children: [
     /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { ref, className: "preview-shadow__container", style: { height: "100%" } }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shadow-dom/shadow-dom.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shadow-dom/shadow-dom.tsx",
       lineNumber: 160,
       columnNumber: 7
     }, void 0),
     shadow !== void 0 && reactDomExports.createPortal(children, shadow)
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shadow-dom/shadow-dom.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shadow-dom/shadow-dom.tsx",
     lineNumber: 159,
     columnNumber: 5
   }, void 0);
@@ -30224,7 +30224,7 @@ const ButtonBlock = ({ block }) => {
       disabled: isDisabled,
       onKeyDown: handleButtonKeyDown,
       children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "button_text", children: content }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/button/button-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/button/button-block.tsx",
         lineNumber: 41,
         columnNumber: 9
       }, void 0)
@@ -30232,13 +30232,13 @@ const ButtonBlock = ({ block }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/button/button-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/button/button-block.tsx",
       lineNumber: 30,
       columnNumber: 7
     },
     void 0
   ) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/button/button-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/button/button-block.tsx",
     lineNumber: 29,
     columnNumber: 5
   }, void 0);
@@ -40301,7 +40301,7 @@ const ChoiceItem = ({
                 void 0,
                 false,
                 {
-                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
                   lineNumber: 126,
                   columnNumber: 9
                 },
@@ -40317,7 +40317,7 @@ const ChoiceItem = ({
                 void 0,
                 false,
                 {
-                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
                   lineNumber: 153,
                   columnNumber: 9
                 },
@@ -40328,7 +40328,7 @@ const ChoiceItem = ({
           void 0,
           true,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
             lineNumber: 116,
             columnNumber: 7
           },
@@ -40350,21 +40350,21 @@ const ChoiceItem = ({
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
             lineNumber: 167,
             columnNumber: 13
           },
           void 0
         ) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "question-choice__label-thumbnail", children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaCamera, { size: 36, color: "#FFFFFF" }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
           lineNumber: 181,
           columnNumber: 15
         }, void 0) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
           lineNumber: 180,
           columnNumber: 13
         }, void 0) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
           lineNumber: 165,
           columnNumber: 9
         }, void 0)
@@ -40373,7 +40373,7 @@ const ChoiceItem = ({
     void 0,
     true,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
       lineNumber: 104,
       columnNumber: 5
     },
@@ -40474,7 +40474,7 @@ const MultipleChoiceList = ({ block, answer, handleSetChoicesRefs }) => {
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
           lineNumber: 286,
           columnNumber: 15
         },
@@ -40484,7 +40484,7 @@ const MultipleChoiceList = ({ block, answer, handleSetChoicesRefs }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
       lineNumber: 280,
       columnNumber: 13
     },
@@ -40509,17 +40509,17 @@ const MultipleChoiceList = ({ block, answer, handleSetChoicesRefs }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
       lineNumber: 303,
       columnNumber: 13
     },
     void 0
   ) }, choice.ref, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
     lineNumber: 278,
     columnNumber: 9
   }, void 0)) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/multiple-choice-list.tsx",
     lineNumber: 276,
     columnNumber: 5
   }, void 0);
@@ -40733,7 +40733,7 @@ const SliderBar = ({
           whiteSpace: "nowrap"
         },
         children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RenderedContent, { content: String(tooltipValue) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
           lineNumber: 208,
           columnNumber: 11
         }, void 0)
@@ -40741,7 +40741,7 @@ const SliderBar = ({
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
         lineNumber: 191,
         columnNumber: 9
       },
@@ -40773,7 +40773,7 @@ const SliderBar = ({
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
         lineNumber: 236,
         columnNumber: 7
       },
@@ -40798,19 +40798,19 @@ const SliderBar = ({
         choice.ref,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
           lineNumber: 262,
           columnNumber: 13
         },
         void 0
       );
     }) }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
       lineNumber: 258,
       columnNumber: 7
     }, void 0)
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-bar.tsx",
     lineNumber: 189,
     columnNumber: 5
   }, void 0);
@@ -40849,7 +40849,7 @@ const SliderButtons = ({
         style: buttonStyle,
         onKeyDown: handleButtonKeyDown,
         children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RenderedContent, { content: choice.label }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-buttons.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-buttons.tsx",
           lineNumber: 55,
           columnNumber: 11
         }, void 0)
@@ -40857,13 +40857,13 @@ const SliderButtons = ({
       choice.ref,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-buttons.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-buttons.tsx",
         lineNumber: 46,
         columnNumber: 9
       },
       void 0
     )) }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-buttons.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-buttons.tsx",
       lineNumber: 44,
       columnNumber: 5
     }, void 0)
@@ -40884,7 +40884,7 @@ const StarFilled = ({ size = 30 }) => {
         fill: "var(--choice-selected-background-color)"
       },
       children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("path", { d: "M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z" }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
         lineNumber: 33,
         columnNumber: 7
       }, void 0)
@@ -40892,7 +40892,7 @@ const StarFilled = ({ size = 30 }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
       lineNumber: 21,
       columnNumber: 5
     },
@@ -40912,21 +40912,21 @@ const StarHalf = ({ size = 30 }) => {
       children: [
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("defs", { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("linearGradient", { id: "halfStarGradient", x1: "0%", y1: "0%", x2: "100%", y2: "0%", children: [
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("stop", { offset: "50%", stopColor: "var(--choice-selected-background-color)" }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
             lineNumber: 50,
             columnNumber: 11
           }, void 0),
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("stop", { offset: "50%", stopColor: "transparent" }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
             lineNumber: 51,
             columnNumber: 11
           }, void 0)
         ] }, void 0, true, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
           lineNumber: 49,
           columnNumber: 9
         }, void 0) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
           lineNumber: 48,
           columnNumber: 7
         }, void 0),
@@ -40941,7 +40941,7 @@ const StarHalf = ({ size = 30 }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
             lineNumber: 54,
             columnNumber: 7
           },
@@ -40952,7 +40952,7 @@ const StarHalf = ({ size = 30 }) => {
     void 0,
     true,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
       lineNumber: 40,
       columnNumber: 5
     },
@@ -40980,7 +40980,7 @@ const StarEmpty = ({ size = 30 }) => {
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
           lineNumber: 74,
           columnNumber: 7
         },
@@ -40990,7 +40990,7 @@ const StarEmpty = ({ size = 30 }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
       lineNumber: 66,
       columnNumber: 5
     },
@@ -41012,7 +41012,7 @@ const HeartFilled = ({ size = 30 }) => {
         fill: "var(--choice-selected-background-color)"
       },
       children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("path", { d: "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
         lineNumber: 102,
         columnNumber: 7
       }, void 0)
@@ -41020,7 +41020,7 @@ const HeartFilled = ({ size = 30 }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
       lineNumber: 90,
       columnNumber: 5
     },
@@ -41040,21 +41040,21 @@ const HeartHalf = ({ size = 30 }) => {
       children: [
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("defs", { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("linearGradient", { id: "halfHeartGradient", x1: "0%", y1: "0%", x2: "100%", y2: "0%", children: [
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("stop", { offset: "50%", stopColor: "var(--choice-selected-background-color)" }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
             lineNumber: 119,
             columnNumber: 11
           }, void 0),
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("stop", { offset: "50%", stopColor: "transparent" }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
             lineNumber: 120,
             columnNumber: 11
           }, void 0)
         ] }, void 0, true, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
           lineNumber: 118,
           columnNumber: 9
         }, void 0) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
           lineNumber: 117,
           columnNumber: 7
         }, void 0),
@@ -41069,7 +41069,7 @@ const HeartHalf = ({ size = 30 }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
             lineNumber: 123,
             columnNumber: 7
           },
@@ -41080,7 +41080,7 @@ const HeartHalf = ({ size = 30 }) => {
     void 0,
     true,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
       lineNumber: 109,
       columnNumber: 5
     },
@@ -41108,7 +41108,7 @@ const HeartEmpty = ({ size = 30 }) => {
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
           lineNumber: 143,
           columnNumber: 7
         },
@@ -41118,7 +41118,7 @@ const HeartEmpty = ({ size = 30 }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
       lineNumber: 135,
       columnNumber: 5
     },
@@ -41140,7 +41140,7 @@ const CircleFilled = ({ size = 30 }) => {
         fill: "var(--choice-selected-background-color)"
       },
       children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("circle", { cx: "12", cy: "12", r: "10" }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
         lineNumber: 171,
         columnNumber: 7
       }, void 0)
@@ -41148,7 +41148,7 @@ const CircleFilled = ({ size = 30 }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
       lineNumber: 159,
       columnNumber: 5
     },
@@ -41168,21 +41168,21 @@ const CircleHalf = ({ size = 30 }) => {
       children: [
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("defs", { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("linearGradient", { id: "halfCircleGradient", x1: "0%", y1: "0%", x2: "100%", y2: "0%", children: [
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("stop", { offset: "50%", stopColor: "var(--choice-selected-background-color)" }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
             lineNumber: 188,
             columnNumber: 11
           }, void 0),
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("stop", { offset: "50%", stopColor: "transparent" }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
             lineNumber: 189,
             columnNumber: 11
           }, void 0)
         ] }, void 0, true, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
           lineNumber: 187,
           columnNumber: 9
         }, void 0) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
           lineNumber: 186,
           columnNumber: 7
         }, void 0),
@@ -41199,7 +41199,7 @@ const CircleHalf = ({ size = 30 }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
             lineNumber: 192,
             columnNumber: 7
           },
@@ -41210,7 +41210,7 @@ const CircleHalf = ({ size = 30 }) => {
     void 0,
     true,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
       lineNumber: 178,
       columnNumber: 5
     },
@@ -41240,7 +41240,7 @@ const CircleEmpty = ({ size = 30 }) => {
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
           lineNumber: 214,
           columnNumber: 7
         },
@@ -41250,7 +41250,7 @@ const CircleEmpty = ({ size = 30 }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/shared/icons/rating-icons.tsx",
       lineNumber: 206,
       columnNumber: 5
     },
@@ -41285,41 +41285,41 @@ function RatingButton({
       type: "button",
       children: [
         ratingStyle === RatingStyle.HEARTS && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children: isHighlighted ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(HeartFilled, {}, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
           lineNumber: 62,
           columnNumber: 28
         }, this) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(HeartEmpty, {}, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
           lineNumber: 62,
           columnNumber: 46
         }, this) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
           lineNumber: 62,
           columnNumber: 9
         }, this),
         ratingStyle === RatingStyle.CIRCLES && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children: isHighlighted ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CircleFilled, {}, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
           lineNumber: 65,
           columnNumber: 28
         }, this) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CircleEmpty, {}, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
           lineNumber: 65,
           columnNumber: 47
         }, this) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
           lineNumber: 65,
           columnNumber: 9
         }, this),
         ratingStyle === RatingStyle.STARS && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children: isHighlighted ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(StarFilled, {}, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
           lineNumber: 67,
           columnNumber: 64
         }, this) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(StarEmpty, {}, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
           lineNumber: 67,
           columnNumber: 81
         }, this) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
           lineNumber: 67,
           columnNumber: 45
         }, this)
@@ -41328,7 +41328,7 @@ function RatingButton({
     void 0,
     true,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
       lineNumber: 47,
       columnNumber: 5
     },
@@ -41387,13 +41387,13 @@ const SliderStars = ({
       choice.ref,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
         lineNumber: 122,
         columnNumber: 9
       },
       void 0
     )) }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider-types/slider-stars.tsx",
       lineNumber: 120,
       columnNumber: 5
     }, void 0)
@@ -41417,7 +41417,7 @@ const SliderBlock = ({
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
         lineNumber: 26,
         columnNumber: 7
       },
@@ -41432,7 +41432,7 @@ const SliderBlock = ({
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
         lineNumber: 32,
         columnNumber: 7
       },
@@ -41447,7 +41447,7 @@ const SliderBlock = ({
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
         lineNumber: 38,
         columnNumber: 7
       },
@@ -41491,105 +41491,105 @@ const SliderBlock = ({
     renderUpperLabels(sliderType) && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "slider__labels--separate", children: [
       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "slider__labels--separate__item", children: [
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RenderedContent, { content: getFirstChoice.label }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
           lineNumber: 90,
           columnNumber: 13
         }, void 0),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { children: "➜" }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
           lineNumber: 91,
           columnNumber: 13
         }, void 0),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { children: startLabel }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
           lineNumber: 92,
           columnNumber: 13
         }, void 0)
       ] }, void 0, true, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
         lineNumber: 89,
         columnNumber: 11
       }, void 0),
       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "slider__labels--separate__item", children: [
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RenderedContent, { content: getMiddleChoice.label }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
           lineNumber: 95,
           columnNumber: 13
         }, void 0),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { children: "➜" }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
           lineNumber: 96,
           columnNumber: 13
         }, void 0),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { children: middleLabel }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
           lineNumber: 97,
           columnNumber: 13
         }, void 0)
       ] }, void 0, true, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
         lineNumber: 94,
         columnNumber: 11
       }, void 0),
       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "slider__labels--separate__item", children: [
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RenderedContent, { content: getLastChoice.label }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
           lineNumber: 100,
           columnNumber: 13
         }, void 0),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { children: "➜" }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
           lineNumber: 101,
           columnNumber: 13
         }, void 0),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { children: endLabel }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
           lineNumber: 102,
           columnNumber: 13
         }, void 0)
       ] }, void 0, true, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
         lineNumber: 99,
         columnNumber: 11
       }, void 0)
     ] }, void 0, true, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
       lineNumber: 88,
       columnNumber: 9
     }, void 0),
     /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: sliderType === SliderType.SLIDER ? "slider-container" : "", children: renderBySliderType[sliderType] }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
       lineNumber: 106,
       columnNumber: 7
     }, void 0),
     renderLowerLabels(sliderType) && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "slider__labels", children: [
       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { children: startLabel }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
         lineNumber: 111,
         columnNumber: 11
       }, void 0),
       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { children: middleLabel }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
         lineNumber: 112,
         columnNumber: 11
       }, void 0),
       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { children: endLabel }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
         lineNumber: 113,
         columnNumber: 11
       }, void 0)
     ] }, void 0, true, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
       lineNumber: 110,
       columnNumber: 9
     }, void 0)
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/slider.tsx",
     lineNumber: 86,
     columnNumber: 5
   }, void 0);
 };
-const Dropdown = reactExports.lazy(() => __vitePreload(() => import("./quiz-renderer-dropdown--VXIdBtY.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]) : void 0, import.meta.url));
+const Dropdown = reactExports.lazy(() => __vitePreload(() => import("./quiz-renderer-dropdown-NFgFIUUC.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]) : void 0, import.meta.url));
 const ChoiceBlock = ({ block, isActiveQuestion = false }) => {
   var _a;
   const { choices, type } = block.preferences;
@@ -41715,7 +41715,7 @@ const ChoiceBlock = ({ block, isActiveQuestion = false }) => {
             void 0,
             false,
             {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
               lineNumber: 203,
               columnNumber: 11
             },
@@ -41735,13 +41735,13 @@ const ChoiceBlock = ({ block, isActiveQuestion = false }) => {
             void 0,
             false,
             {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
               lineNumber: 211,
               columnNumber: 13
             },
             void 0
           ) }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
             lineNumber: 210,
             columnNumber: 11
           }, void 0),
@@ -41754,7 +41754,7 @@ const ChoiceBlock = ({ block, isActiveQuestion = false }) => {
             void 0,
             false,
             {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
               lineNumber: 227,
               columnNumber: 11
             },
@@ -41765,7 +41765,7 @@ const ChoiceBlock = ({ block, isActiveQuestion = false }) => {
       void 0,
       true,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
         lineNumber: 185,
         columnNumber: 7
       },
@@ -41783,14 +41783,14 @@ const ChoiceBlock = ({ block, isActiveQuestion = false }) => {
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
         lineNumber: 234,
         columnNumber: 9
       },
       void 0
     )
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/choice/choice-block.tsx",
     lineNumber: 184,
     columnNumber: 5
   }, void 0);
@@ -41805,13 +41805,13 @@ const CloudIcon = ({ color = "#cccccc", width = 48, height = 48 }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/icons/cloud-icon.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/icons/cloud-icon.tsx",
       lineNumber: 10,
       columnNumber: 7
     },
     void 0
   ) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/icons/cloud-icon.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/icons/cloud-icon.tsx",
     lineNumber: 9,
     columnNumber: 5
   }, void 0);
@@ -41926,31 +41926,31 @@ const FileUploadBlock = ({ block }) => {
             void 0,
             false,
             {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
               lineNumber: 124,
               columnNumber: 11
             },
             void 0
           ),
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CloudIcon, { color: inputTextColor }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
             lineNumber: 137,
             columnNumber: 11
           }, void 0),
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { id: labelTextId, className: "file-upload-label-text", children: placeholder }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
             lineNumber: 138,
             columnNumber: 11
           }, void 0),
           selectedFile && selectedFile.name ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "file-upload-text", children: selectedFile.name }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
             lineNumber: 142,
             columnNumber: 13
           }, void 0) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "file-upload-text file-size-warning", children: isDragging ? getTranslatedContent({ key: "drop_file_here" }) : (_a = block.preferences.fileUploadDescription) == null ? void 0 : _a.replace(
             "{{size}}",
             convertBytesToMB(sizeAllowed).toString()
           ) }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
             lineNumber: 144,
             columnNumber: 13
           }, void 0)
@@ -41959,13 +41959,13 @@ const FileUploadBlock = ({ block }) => {
       void 0,
       true,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
         lineNumber: 116,
         columnNumber: 9
       },
       void 0
     ) }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
       lineNumber: 115,
       columnNumber: 7
     }, void 0),
@@ -41974,17 +41974,17 @@ const FileUploadBlock = ({ block }) => {
       "{{size}}",
       convertBytesToMB(sizeAllowed).toString()
     ) }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
       lineNumber: 162,
       columnNumber: 9
     }, void 0),
     showFormatWarning && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { id: formatErrorId, className: "file-upload-format-warning", role: "alert", children: block.preferences.errorMessageFileFormat }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
       lineNumber: 170,
       columnNumber: 9
     }, void 0)
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/file-upload-block.tsx",
     lineNumber: 114,
     columnNumber: 5
   }, void 0);
@@ -42023,7 +42023,7 @@ const HeadingBlock = ({ block }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/heading/heading-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/heading/heading-block.tsx",
       lineNumber: 42,
       columnNumber: 5
     },
@@ -42045,11 +42045,11 @@ const VideoPlaceholder = ({
     "question-video__placeholder--right": videoAlignment === Alignment.RIGHT
   });
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: placeholderClass, children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaPlay, { size: 36, color: "#FFFFFF" }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/placeholder/video-placeholder.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/placeholder/video-placeholder.tsx",
     lineNumber: 30,
     columnNumber: 7
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/placeholder/video-placeholder.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/placeholder/video-placeholder.tsx",
     lineNumber: 29,
     columnNumber: 5
   }, void 0);
@@ -42066,11 +42066,11 @@ const ImagePlaceholder = ({ imageSize, imageAlignment }) => {
     "question-image__placeholder--right": imageAlignment === Alignment.RIGHT
   });
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: placeholderClass, children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaCamera, { size: 36, color: "#FFFFFF" }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/placeholder/image-placeholder.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/placeholder/image-placeholder.tsx",
     lineNumber: 24,
     columnNumber: 7
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/placeholder/image-placeholder.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/placeholder/image-placeholder.tsx",
     lineNumber: 23,
     columnNumber: 5
   }, void 0);
@@ -42088,7 +42088,7 @@ const ImageBlock = ({ block }) => {
     "question-image-block__image--right": imageAlignment === Alignment.RIGHT
   });
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { id: block.ref, className: "question-image-block", children: imageUrl ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("img", { src: imageUrl, alt: imageAltText || imageSize + " image", className: imageClass }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/image/image-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/image/image-block.tsx",
     lineNumber: 22,
     columnNumber: 9
   }, void 0) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
@@ -42100,13 +42100,13 @@ const ImageBlock = ({ block }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/image/image-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/image/image-block.tsx",
       lineNumber: 24,
       columnNumber: 9
     },
     void 0
   ) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/image/image-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/image/image-block.tsx",
     lineNumber: 20,
     columnNumber: 5
   }, void 0);
@@ -42266,17 +42266,17 @@ const VideoPlayer = ({
           (() => {
             const type = getMimeType(videoUrl);
             return type ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("source", { src: videoUrl, type }, void 0, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
               lineNumber: 144,
               columnNumber: 25
             }, void 0) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("source", { src: videoUrl }, void 0, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
               lineNumber: 144,
               columnNumber: 65
             }, void 0);
           })(),
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("track", { kind: "captions", srcLang: "en", label: "English", default: true }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
             lineNumber: 146,
             columnNumber: 9
           }, void 0)
@@ -42285,7 +42285,7 @@ const VideoPlayer = ({
       void 0,
       true,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
         lineNumber: 129,
         columnNumber: 7
       },
@@ -42325,7 +42325,7 @@ const VideoPlayer = ({
             void 0,
             false,
             {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
               lineNumber: 172,
               columnNumber: 13
             },
@@ -42335,7 +42335,7 @@ const VideoPlayer = ({
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
           lineNumber: 150,
           columnNumber: 11
         },
@@ -42343,33 +42343,33 @@ const VideoPlayer = ({
       ),
       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "video-player-controls", children: [
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("button", { id: "video-play-pause-button", onClick: () => togglePlayPause(), children: isPaused ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaPlay, { size: 12 }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
           lineNumber: 181,
           columnNumber: 27
         }, void 0) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaPause, { size: 12 }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
           lineNumber: 181,
           columnNumber: 50
         }, void 0) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
           lineNumber: 180,
           columnNumber: 13
         }, void 0),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("button", { id: "video-mute-unmute-button", onClick: () => toggleMute(), children: muted ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaVolumeMute, { size: 18 }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
           lineNumber: 184,
           columnNumber: 24
         }, void 0) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaVolumeUp, { size: 18 }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
           lineNumber: 184,
           columnNumber: 53
         }, void 0) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
           lineNumber: 183,
           columnNumber: 13
         }, void 0),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("button", { id: "video-speed-button", onClick: () => toggleSpeed(), children: speed === 1 ? "1x" : speed === 2 ? "2x" : "1.5x" }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
           lineNumber: 186,
           columnNumber: 13
         }, void 0),
@@ -42379,17 +42379,17 @@ const VideoPlayer = ({
           " ",
           formatVideoTime(((_b = videoRef.current) == null ? void 0 : _b.duration) || 0)
         ] }, void 0, true, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
           lineNumber: 189,
           columnNumber: 13
         }, void 0)
       ] }, void 0, true, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
         lineNumber: 179,
         columnNumber: 11
       }, void 0)
     ] }, void 0, true, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
       lineNumber: 149,
       columnNumber: 9
     }, void 0),
@@ -42407,7 +42407,7 @@ const VideoPlayer = ({
         tabIndex: 0,
         "aria-label": "Play video",
         children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaPlay, { size: 24 }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
           lineNumber: 209,
           columnNumber: 11
         }, void 0)
@@ -42415,14 +42415,14 @@ const VideoPlayer = ({
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
         lineNumber: 197,
         columnNumber: 9
       },
       void 0
     )
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/video-player/video-player.tsx",
     lineNumber: 128,
     columnNumber: 5
   }, void 0);
@@ -42435,11 +42435,11 @@ const VideoBlock = ({ block }) => {
     videoAlignment
   });
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { id: block.ref, className: "question-video-block", children: videoUrl ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: videoClass, title: videoAltText || videoAspectRatio + " video", children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(VideoPlayer, { videoUrl }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/video/video-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/video/video-block.tsx",
     lineNumber: 20,
     columnNumber: 11
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/video/video-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/video/video-block.tsx",
     lineNumber: 19,
     columnNumber: 9
   }, void 0) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
@@ -42451,13 +42451,13 @@ const VideoBlock = ({ block }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/video/video-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/video/video-block.tsx",
       lineNumber: 23,
       columnNumber: 9
     },
     void 0
   ) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/video/video-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/video/video-block.tsx",
     lineNumber: 17,
     columnNumber: 5
   }, void 0);
@@ -42589,27 +42589,27 @@ const DateBlock = ({ block }) => {
             void 0,
             false,
             {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
               lineNumber: 161,
               columnNumber: 15
             },
             void 0
           ) }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
             lineNumber: 160,
             columnNumber: 13
           }, void 0),
           index2 < dateFormatArray.length - 1 && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "question-block-input-date-separator", "aria-hidden": "true", children: "/" }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
             lineNumber: 180,
             columnNumber: 17
           }, void 0) }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
             lineNumber: 179,
             columnNumber: 15
           }, void 0)
         ] }, date, true, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
           lineNumber: 159,
           columnNumber: 11
         }, void 0))
@@ -42617,19 +42617,19 @@ const DateBlock = ({ block }) => {
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
         lineNumber: 151,
         columnNumber: 7
       },
       void 0
     ),
     showError && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { id: errorId, role: "alert", className: "question-block__input-error-message", children: block.preferences.errorMessage }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
       lineNumber: 189,
       columnNumber: 9
     }, void 0)
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/date-block.tsx",
     lineNumber: 150,
     columnNumber: 5
   }, void 0);
@@ -42711,7 +42711,7 @@ const NumberBlock = ({ block }) => {
           tabIndex: 0,
           "aria-label": "Decrease value",
           children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaMinus, { size: 16 }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
             lineNumber: 102,
             columnNumber: 13
           }, void 0)
@@ -42719,7 +42719,7 @@ const NumberBlock = ({ block }) => {
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
           lineNumber: 89,
           columnNumber: 11
         },
@@ -42749,7 +42749,7 @@ const NumberBlock = ({ block }) => {
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
           lineNumber: 104,
           columnNumber: 11
         },
@@ -42770,7 +42770,7 @@ const NumberBlock = ({ block }) => {
           tabIndex: 0,
           "aria-label": "Increase value",
           children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaPlus, { size: 16 }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
             lineNumber: 137,
             columnNumber: 13
           }, void 0)
@@ -42778,28 +42778,28 @@ const NumberBlock = ({ block }) => {
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
           lineNumber: 124,
           columnNumber: 11
         },
         void 0
       )
     ] }, void 0, true, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
       lineNumber: 88,
       columnNumber: 9
     }, void 0),
     showError && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { id: errorId, role: "alert", className: "question-block__input-error-message", dir, children: errorMessage }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
       lineNumber: 141,
       columnNumber: 11
     }, void 0)
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
     lineNumber: 87,
     columnNumber: 7
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/number-block.tsx",
     lineNumber: 86,
     columnNumber: 5
   }, void 0);
@@ -43047,12 +43047,12 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
           },
           children: [
             /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("option", { value: "", children: "Select" }, void 0, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
               lineNumber: 322,
               columnNumber: 13
             }, void 0),
             options.map((option) => /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("option", { value: option.value, children: `${getPrefixFromCountryCode(option.value)} (${getCountryName(option.value)})` }, option.value, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
               lineNumber: 324,
               columnNumber: 15
             }, void 0))
@@ -43061,7 +43061,7 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
         void 0,
         true,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
           lineNumber: 305,
           columnNumber: 11
         },
@@ -43088,7 +43088,7 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
           lineNumber: 332,
           columnNumber: 11
         },
@@ -43118,18 +43118,18 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
               void 0,
               false,
               {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
                 lineNumber: 363,
                 columnNumber: 13
               },
               void 0
             ) }, void 0, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
               lineNumber: 362,
               columnNumber: 11
             }, void 0),
             /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "custom-select-value", children: prefix }, void 0, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
               lineNumber: 370,
               columnNumber: 11
             }, void 0),
@@ -43144,17 +43144,17 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
               void 0,
               false,
               {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
                 lineNumber: 373,
                 columnNumber: 15
               },
               void 0
             ) }, void 0, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
               lineNumber: 372,
               columnNumber: 13
             }, void 0) }, void 0, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
               lineNumber: 371,
               columnNumber: 11
             }, void 0)
@@ -43163,21 +43163,21 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
         void 0,
         true,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
           lineNumber: 349,
           columnNumber: 9
         },
         void 0
       )
     ] }, void 0, true, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
       lineNumber: 303,
       columnNumber: 7
     }, void 0),
     !isMobile && // Focus stays on the button while the arrow keys move through the list, so the
     // highlighted country is announced here (WCAG 4.1.2)
     /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "visually-hidden", role: "status", children: isOpen && options[selectedIndex] ? `${getPrefixFromCountryCode(options[selectedIndex].value)} (${getCountryName(options[selectedIndex].value)})` : "" }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
       lineNumber: 387,
       columnNumber: 9
     }, void 0),
@@ -43191,7 +43191,7 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
         ref: dropdownRef,
         children: [
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "custom-select-search-message", children: searchText ? getTranslatedContent({ key: "phone_filtering" }) + `: ${searchText}` : getTranslatedContent({ key: "phone_please_select" }) }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
             lineNumber: 401,
             columnNumber: 11
           }, void 0),
@@ -43244,19 +43244,19 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
                     void 0,
                     false,
                     {
-                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
                       lineNumber: 446,
                       columnNumber: 17
                     },
                     void 0
                   ),
                   /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "prefix-value", children: optionPrefix }, void 0, false, {
-                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
                     lineNumber: 452,
                     columnNumber: 17
                   }, void 0),
                   /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "country-name", children: countryName2 }, void 0, false, {
-                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
                     lineNumber: 453,
                     columnNumber: 17
                   }, void 0)
@@ -43265,7 +43265,7 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
               option.value,
               true,
               {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
                 lineNumber: 415,
                 columnNumber: 15
               },
@@ -43277,21 +43277,21 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
       void 0,
       true,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
         lineNumber: 394,
         columnNumber: 9
       },
       void 0
     )
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/components/phone-input.tsx",
     lineNumber: 302,
     columnNumber: 5
   }, void 0);
 };
 const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PhoneBlock$1 = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-phone-block-B8Y9icmu.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-phone-block-CBMz6Aqs.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).then((module) => ({
     default: module.PhoneBlock
   }))
 );
@@ -43410,39 +43410,39 @@ const InputBlock = ({ block }) => {
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
         lineNumber: 135,
         columnNumber: 7
       },
       void 0
     ),
     showError && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { id: errorId, role: "alert", className: "question-block__input-error-message", children: errorMessage }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
       lineNumber: 150,
       columnNumber: 9
     }, void 0)
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
     lineNumber: 134,
     columnNumber: 5
   }, void 0) : block.preferences.type === InputType.UPLOAD ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FileUploadBlock, { block }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
     lineNumber: 156,
     columnNumber: 5
   }, void 0) : block.preferences.type === InputType.PHONE ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(reactExports.Suspense, { fallback: null, children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(PhoneBlock$1, { block }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
     lineNumber: 159,
     columnNumber: 7
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
     lineNumber: 158,
     columnNumber: 5
   }, void 0) : block.preferences.type === InputType.NUMBER ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(NumberBlock, { block }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
     lineNumber: 162,
     columnNumber: 5
   }, void 0) : block.preferences.type === InputType.DATE ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(DateBlock, { block }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
     lineNumber: 164,
     columnNumber: 5
   }, void 0) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "question-block__input-container", dir, children: [
@@ -43470,19 +43470,19 @@ const InputBlock = ({ block }) => {
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
         lineNumber: 167,
         columnNumber: 7
       },
       void 0
     ),
     showError && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { id: errorId, role: "alert", className: "question-block__input-error-message", children: errorMessage }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
       lineNumber: 187,
       columnNumber: 9
     }, void 0)
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/question-specific/input/input-block.tsx",
     lineNumber: 166,
     columnNumber: 5
   }, void 0);
@@ -43518,7 +43518,7 @@ const TextBlock = ({ block }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/text/text-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/text/text-block.tsx",
       lineNumber: 31,
       columnNumber: 5
     },
@@ -43692,22 +43692,22 @@ const QuestionCustomHtmlBlock = reactExports.memo(function QuestionCustomHtmlBlo
     actions: { next, previous, overrideNext }
   });
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { id: block.ref, className: "custom-html", children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { ref: containerRef, dangerouslySetInnerHTML: { __html: safeContent } }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/custom-html/custom-html-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/custom-html/custom-html-block.tsx",
     lineNumber: 100,
     columnNumber: 7
   }, this) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/custom-html/custom-html-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/custom-html/custom-html-block.tsx",
     lineNumber: 99,
     columnNumber: 5
   }, this);
 });
 const QuestionChartBlock = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-index-Cpa1_zRc.js").then((n) => n.index), true ? __vite__mapDeps([12,1,5,13]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-index-C8rIW2Bm.js").then((n) => n.index), true ? __vite__mapDeps([12,1,5,13]) : void 0, import.meta.url).then((module) => ({
     default: module.QuestionChartBlock
   }))
 );
 const PhoneBlock = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-phone-block-B8Y9icmu.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-phone-block-CBMz6Aqs.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).then((module) => ({
     default: module.PhoneBlock
   }))
 );
@@ -43733,20 +43733,20 @@ const QuestionBlock = ({ block, isActiveQuestion = false }) => {
     return block.preferences.type;
   };
   const chartBlock = /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(reactExports.Suspense, { fallback: null, children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(QuestionChartBlock, { block }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
     lineNumber: 76,
     columnNumber: 7
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
     lineNumber: 75,
     columnNumber: 5
   }, void 0);
   const phoneBlock = /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(reactExports.Suspense, { fallback: null, children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(PhoneBlock, { block }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
     lineNumber: 82,
     columnNumber: 7
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
     lineNumber: 81,
     columnNumber: 5
   }, void 0);
@@ -43761,43 +43761,43 @@ const QuestionBlock = ({ block, isActiveQuestion = false }) => {
   }
   const renderByBlockType = {
     [BlockType.HEADING]: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(HeadingBlock, { block }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
       lineNumber: 101,
       columnNumber: 26
     }, void 0),
     [BlockType.TEXT]: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(TextBlock, { block }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
       lineNumber: 102,
       columnNumber: 23
     }, void 0),
     [BlockType.CHOICE]: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ChoiceBlock, { block, isActiveQuestion }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
       lineNumber: 104,
       columnNumber: 7
     }, void 0),
     [BlockType.IMAGE]: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ImageBlock, { block }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
       lineNumber: 106,
       columnNumber: 24
     }, void 0),
     [BlockType.VIDEO]: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(VideoBlock, { block }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
       lineNumber: 107,
       columnNumber: 24
     }, void 0),
     [BlockType.INPUT]: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(InputBlock, { block }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
       lineNumber: 108,
       columnNumber: 24
     }, void 0),
     [BlockType.PHONE]: phoneBlock,
     [BlockType.BUTTON]: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ButtonBlock, { block }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
       lineNumber: 110,
       columnNumber: 25
     }, void 0),
     [BlockType.CUSTOM_HTML]: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(QuestionCustomHtmlBlock, { block }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
       lineNumber: 111,
       columnNumber: 30
     }, void 0),
@@ -43815,7 +43815,7 @@ const QuestionBlock = ({ block, isActiveQuestion = false }) => {
       elementName: getElementName(),
       elementType: "questionBlock",
       children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "block question-block", "data-block-ref": block.ref, children: renderByBlockType[block.type] }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
         lineNumber: 128,
         columnNumber: 11
       }, void 0)
@@ -43823,17 +43823,17 @@ const QuestionBlock = ({ block, isActiveQuestion = false }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
       lineNumber: 123,
       columnNumber: 9
     },
     void 0
   ) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "block question-block", "data-block-ref": block.ref, children: renderByBlockType[block.type] }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
     lineNumber: 133,
     columnNumber: 9
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/block/question-block.tsx",
     lineNumber: 121,
     columnNumber: 5
   }, void 0);
@@ -44258,7 +44258,7 @@ const QuestionsPreview = ({
       "aria-label": ariaLabel,
       children: [
         shouldInjectCustomCss ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("style", { children: scopedOrRawCustomCss }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
           lineNumber: 467,
           columnNumber: 32
         }, void 0) : null,
@@ -44284,7 +44284,7 @@ const QuestionsPreview = ({
                     block.ref,
                     false,
                     {
-                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
+                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
                       lineNumber: 487,
                       columnNumber: 21
                     },
@@ -44301,7 +44301,7 @@ const QuestionsPreview = ({
                   block.ref,
                   false,
                   {
-                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
+                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
                     lineNumber: 497,
                     columnNumber: 19
                   },
@@ -44309,11 +44309,11 @@ const QuestionsPreview = ({
                 );
               }
             }) }, void 0, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
               lineNumber: 476,
               columnNumber: 11
             }, void 0) }, void 0, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
               lineNumber: 475,
               columnNumber: 9
             }, void 0)
@@ -44321,7 +44321,7 @@ const QuestionsPreview = ({
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
             lineNumber: 468,
             columnNumber: 7
           },
@@ -44332,7 +44332,7 @@ const QuestionsPreview = ({
     currentQuizPage.ref,
     true,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview.tsx",
       lineNumber: 459,
       columnNumber: 5
     },
@@ -44422,7 +44422,7 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
         },
         children: [
           design.showProgressPercentage && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "navigation-bar__progress-text", children: displayedProgressText }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
             lineNumber: 113,
             columnNumber: 11
           }, void 0),
@@ -44438,13 +44438,13 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
             void 0,
             false,
             {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
               lineNumber: 117,
               columnNumber: 13
             },
             void 0
           ) }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
             lineNumber: 116,
             columnNumber: 11
           }, void 0)
@@ -44453,14 +44453,14 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
       void 0,
       true,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
         lineNumber: 100,
         columnNumber: 7
       },
       void 0
     ),
     showsProgress && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { role: "status", className: "visually-hidden", children: spokenProgressText }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
       lineNumber: 129,
       columnNumber: 9
     }, void 0),
@@ -44482,7 +44482,7 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
                 onClick: () => previous(),
                 onKeyDown: handleNavButtonKeyDown,
                 children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaChevronLeft, { size: 14 }, void 0, false, {
-                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
                   lineNumber: 153,
                   columnNumber: 15
                 }, void 0)
@@ -44490,7 +44490,7 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
               void 0,
               false,
               {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
                 lineNumber: 142,
                 columnNumber: 13
               },
@@ -44505,7 +44505,7 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
                 onKeyDown: handleNavButtonKeyDown,
                 disabled: !isAnswered || currentQuestionIndex === totalQuestions,
                 children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaChevronRight, { size: 14 }, void 0, false, {
-                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
                   lineNumber: 166,
                   columnNumber: 15
                 }, void 0)
@@ -44513,14 +44513,14 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
               void 0,
               false,
               {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
                 lineNumber: 155,
                 columnNumber: 13
               },
               void 0
             )
           ] }, void 0, true, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
             lineNumber: 141,
             columnNumber: 11
           }, void 0),
@@ -44534,7 +44534,7 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
                 onClick: () => previous(),
                 onKeyDown: handleNavButtonKeyDown,
                 children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaChevronUp, { size: 14 }, void 0, false, {
-                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
                   lineNumber: 184,
                   columnNumber: 15
                 }, void 0)
@@ -44542,7 +44542,7 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
               void 0,
               false,
               {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
                 lineNumber: 173,
                 columnNumber: 13
               },
@@ -44557,7 +44557,7 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
                 onClick: () => next(currentQuizPageRef),
                 onKeyDown: handleNavButtonKeyDown,
                 children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FaChevronDown, { size: 14 }, void 0, false, {
-                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
                   lineNumber: 197,
                   columnNumber: 15
                 }, void 0)
@@ -44565,14 +44565,14 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
               void 0,
               false,
               {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
                 lineNumber: 186,
                 columnNumber: 13
               },
               void 0
             )
           ] }, void 0, true, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
             lineNumber: 172,
             columnNumber: 11
           }, void 0)
@@ -44581,14 +44581,14 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
       void 0,
       true,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
         lineNumber: 134,
         columnNumber: 7
       },
       void 0
     )
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
     lineNumber: 99,
     columnNumber: 5
   }, void 0);
@@ -44611,7 +44611,7 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
           lineNumber: 213,
           columnNumber: 9
         },
@@ -44621,7 +44621,7 @@ const NavigationBar = ({ currentQuizPageRef, onHeightChange }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/navigation-bar/navigation-bar.tsx",
       lineNumber: 206,
       columnNumber: 5
     },
@@ -44646,7 +44646,7 @@ const QuestionBackground = ({ question }) => {
   });
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: questionBgClass }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-background.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-background.tsx",
       lineNumber: 30,
       columnNumber: 7
     }, void 0),
@@ -44662,14 +44662,14 @@ const QuestionBackground = ({ question }) => {
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-background.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-background.tsx",
         lineNumber: 31,
         columnNumber: 7
       },
       void 0
     )
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-background.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-background.tsx",
     lineNumber: 29,
     columnNumber: 5
   }, void 0);
@@ -44788,7 +44788,7 @@ const QuestionPreviewWrapper = () => {
         style: { height: wrapperHeight, minHeight: wrapperMinHeight },
         children: [
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(QuestionBackground, { question: currentQuizPage }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
             lineNumber: 170,
             columnNumber: 9
           }, void 0),
@@ -44813,7 +44813,7 @@ const QuestionPreviewWrapper = () => {
                   void 0,
                   false,
                   {
-                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
+                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
                     lineNumber: 181,
                     columnNumber: 15
                   },
@@ -44823,7 +44823,7 @@ const QuestionPreviewWrapper = () => {
               index2 + question.ref,
               false,
               {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
                 lineNumber: 174,
                 columnNumber: 13
               },
@@ -44835,7 +44835,7 @@ const QuestionPreviewWrapper = () => {
       void 0,
       true,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
         lineNumber: 166,
         columnNumber: 7
       },
@@ -44850,14 +44850,14 @@ const QuestionPreviewWrapper = () => {
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
         lineNumber: 194,
         columnNumber: 7
       },
       void 0
     )
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/question/question-preview-wrapper.tsx",
     lineNumber: 165,
     columnNumber: 5
   }, void 0);
@@ -44891,19 +44891,19 @@ const OverPlanPage = ({ timerCount }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
             lineNumber: 24,
             columnNumber: 17
           },
           void 0
         ),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { style: { fontSize: 14, margin: 0, color: questionTextColor }, children: OVER_PLAN_COPY.blocked.body }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
           lineNumber: 34,
           columnNumber: 17
         }, void 0)
       ] }, void 0, true, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
         lineNumber: 23,
         columnNumber: 15
       }, void 0) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children: [
@@ -44921,27 +44921,27 @@ const OverPlanPage = ({ timerCount }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
             lineNumber: 40,
             columnNumber: 17
           },
           void 0
         ),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { style: { fontSize: 14, margin: 0, color: questionTextColor }, children: OVER_PLAN_COPY.countdown.body }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
           lineNumber: 50,
           columnNumber: 17
         }, void 0)
       ] }, void 0, true, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
         lineNumber: 39,
         columnNumber: 15
       }, void 0) }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
         lineNumber: 21,
         columnNumber: 11
       }, void 0) }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
         lineNumber: 20,
         columnNumber: 9
       }, void 0)
@@ -44949,19 +44949,19 @@ const OverPlanPage = ({ timerCount }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
       lineNumber: 16,
       columnNumber: 7
     },
     void 0
   ) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/over-plan/over-plan-page.tsx",
     lineNumber: 15,
     columnNumber: 5
   }, void 0);
 };
 const ResultsPreview = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-result-preview-DoQGAcmQ.js"), true ? __vite__mapDeps([19,8,1,6,7,20,3,2,5,21,22,23,24,4,9]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-result-preview-CvyRBJZX.js"), true ? __vite__mapDeps([19,8,1,6,7,20,3,2,5,21,22,23,24,4,9]) : void 0, import.meta.url).then((module) => ({
     default: module.ResultsPreview
   }))
 );
@@ -45160,12 +45160,12 @@ const Quiz = ({
   }
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ShadowDom, { shadow, setShadow, children: [
     /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("style", { children: stylesContent }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
       lineNumber: 320,
       columnNumber: 7
     }, void 0),
     /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("style", { children: designCss }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
       lineNumber: 321,
       columnNumber: 7
     }, void 0),
@@ -45185,26 +45185,26 @@ const Quiz = ({
             InspectorWrapper,
             DraftProductPlaceholder,
             children: timerCount > 0 ? /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(OverPlanPage, { timerCount }, void 0, false, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
               lineNumber: 341,
               columnNumber: 13
             }, void 0) : /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children: [
               isCurrentQuestion() && showQuestions && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(QuestionPreviewWrapper, {}, void 0, false, {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
                 lineNumber: 344,
                 columnNumber: 56
               }, void 0),
               (isCurrentResult() || !showQuestions) && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(reactExports.Suspense, { fallback: null, children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ResultsPreview, { shop }, void 0, false, {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
                 lineNumber: 347,
                 columnNumber: 19
               }, void 0) }, void 0, false, {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
                 lineNumber: 346,
                 columnNumber: 17
               }, void 0)
             ] }, void 0, true, {
-              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
+              fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
               lineNumber: 343,
               columnNumber: 13
             }, void 0)
@@ -45212,7 +45212,7 @@ const Quiz = ({
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
             lineNumber: 335,
             columnNumber: 9
           },
@@ -45222,14 +45222,14 @@ const Quiz = ({
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
         lineNumber: 325,
         columnNumber: 7
       },
       void 0
     )
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/routes/quiz/quiz.tsx",
     lineNumber: 319,
     columnNumber: 5
   }, void 0);
@@ -45447,11 +45447,11 @@ const usePreviewPersistHook = ({
 };
 const Loader = () => {
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "loader", children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "loader-spinner" }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/ui/loader/loader.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/ui/loader/loader.tsx",
     lineNumber: 6,
     columnNumber: 7
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/ui/loader/loader.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/ui/loader/loader.tsx",
     lineNumber: 5,
     columnNumber: 5
   }, void 0);
@@ -45545,13 +45545,13 @@ const QuizManager = ({
   useQuizTrackingEffects(currentQuizPage);
   if ((quizState == null ? void 0 : quizState.questions.length) === 0 && (quizState == null ? void 0 : quizState.results.length) === 0) {
     return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Loader, {}, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app-quiz-renderer/src/QuizManager.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app-quiz-renderer/src/QuizManager.tsx",
       lineNumber: 126,
       columnNumber: 12
     }, void 0);
   }
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Quiz, { type, overPlanAt }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app-quiz-renderer/src/QuizManager.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app-quiz-renderer/src/QuizManager.tsx",
     lineNumber: 129,
     columnNumber: 10
   }, void 0);
@@ -45594,17 +45594,17 @@ const QuizStoreWrapper = ({
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app-quiz-renderer/src/QuizStoreWrapper.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app-quiz-renderer/src/QuizStoreWrapper.tsx",
       lineNumber: 50,
       columnNumber: 11
     },
     void 0
   ) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app-quiz-renderer/src/QuizStoreWrapper.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app-quiz-renderer/src/QuizStoreWrapper.tsx",
     lineNumber: 49,
     columnNumber: 9
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app-quiz-renderer/src/QuizStoreWrapper.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app-quiz-renderer/src/QuizStoreWrapper.tsx",
     lineNumber: 47,
     columnNumber: 5
   }, void 0);
@@ -45640,7 +45640,7 @@ function App({
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app-quiz-renderer/src/App.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app-quiz-renderer/src/App.tsx",
       lineNumber: 38,
       columnNumber: 5
     },
@@ -45659,11 +45659,11 @@ const MissingQuiz = ({ title }) => {
     fontWeight: "600"
   };
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "missing-quiz__container", style: missingContainerStyles, children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { style: missingTextStyles, children: title ?? "This quiz is not live yet" }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app-quiz-renderer/src/components/missing-quiz.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app-quiz-renderer/src/components/missing-quiz.tsx",
     lineNumber: 17,
     columnNumber: 7
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app-quiz-renderer/src/components/missing-quiz.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app-quiz-renderer/src/components/missing-quiz.tsx",
     lineNumber: 16,
     columnNumber: 5
   }, void 0);
@@ -45674,7 +45674,7 @@ function parseJsonQuiz(value) {
 function mountJsonQuiz(host, context, { quiz, response }) {
   const root2 = createRoot(host);
   root2.render(/* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(App, { ...context, initialQuiz: quiz, initialResponse: response }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app-quiz-renderer/src/json-renderer.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app-quiz-renderer/src/json-renderer.tsx",
     lineNumber: 18,
     columnNumber: 15
   }, this));
@@ -45683,7 +45683,7 @@ function mountJsonQuiz(host, context, { quiz, response }) {
 function mountMissingQuiz(host, title) {
   const root2 = createRoot(host);
   root2.render(/* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MissingQuiz, { title }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app-quiz-renderer/src/json-renderer.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app-quiz-renderer/src/json-renderer.tsx",
     lineNumber: 24,
     columnNumber: 15
   }, this));

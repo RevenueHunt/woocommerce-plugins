@@ -1,7 +1,7 @@
 import { createResponseItemsData } from "./quiz-renderer-useItemSlotDataFetcher-ac9xH1rl.js";
-import { recommendationMetafieldRefs, createRecommendationCard } from "./quiz-renderer-recommendation-card-D5pUYerM.js";
-import { isUsableRecommendationItem } from "./quiz-renderer-recommendation-card-D5pUYerM.js";
-import { htmlQuizResourceKind, setQuizParts } from "./quiz-renderer-mount-D_6h3far.js";
+import { recommendationMetafieldRefs, createRecommendationCard } from "./quiz-renderer-recommendation-card-D0WWyRM8.js";
+import { isUsableRecommendationItem } from "./quiz-renderer-recommendation-card-D0WWyRM8.js";
+import { quizResourceKind, setQuizParts } from "./quiz-renderer-mount-BXrM9heh.js";
 import { SHOPIFY_DEFAULT_VARIANT_TITLE } from "./quiz-renderer-variant-title-B1Oi9SHh.js";
 import "./quiz-renderer.js";
 import "./quiz-renderer-storeFrontClient-Dh-TPIVy.js";
@@ -65,7 +65,7 @@ function sampleRecommendationItem(index, type, title, imageUrl, metafieldRefs) {
     images: { edges: [{ node: image }] },
     variants: { edges: [{ node: variant }, { node: altVariant }] }
   };
-  const item = htmlQuizResourceKind(type) === "product-variants" ? { ...variant, product } : type === "collections" ? {
+  const item = quizResourceKind(type) === "product-variants" ? { ...variant, product } : type === "collections" ? {
     title,
     description: title,
     image,

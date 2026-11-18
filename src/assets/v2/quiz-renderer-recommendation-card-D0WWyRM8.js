@@ -1,9 +1,9 @@
-import { isRecommendationMetafieldRef, setQuizParts, isRecord, htmlQuizResourceKind, HTML_QUIZ_ATTRIBUTE_DEFAULTS, isHtmlQuizItemGid, HTML_QUIZ_ITEM_GID_PREFIXES } from "./quiz-renderer-mount-D_6h3far.js";
+import { isRecommendationMetafieldRef, setQuizParts, isRecord, quizResourceKind, QUIZ_ATTRIBUTE_DEFAULTS, isQuizItemGid, QUIZ_ITEM_GID_PREFIXES } from "./quiz-renderer-mount-BXrM9heh.js";
 import { getVariantDisplayTitle } from "./quiz-renderer-variant-title-B1Oi9SHh.js";
 import { hasVariantChoice } from "./quiz-renderer-has-variant-choice-Bygb1hHs.js";
 import { processImageResultsProduct, PictureType } from "./quiz-renderer-image-processing-B3Hir3-2.js";
 import { formatUnitPrice, formatPriceWithCurrency } from "./quiz-renderer-currency-helper-ggAAwMUm.js";
-const HTML_QUIZ_RASTER_DATA_IMAGE = /^data:image\/(?:png|gif|jpeg|webp|avif|bmp);base64,[A-Za-z0-9+/]+={0,2}$/;
+const QUIZ_RASTER_DATA_IMAGE = /^data:image\/(?:png|gif|jpeg|webp|avif|bmp);base64,[A-Za-z0-9+/]+={0,2}$/;
 function recommendationMetafieldRefs(template, type) {
   const refs = /* @__PURE__ */ new Set();
   for (const field of template.content.querySelectorAll('[data-field="metafield"]')) {
@@ -136,7 +136,7 @@ const money = (value) => {
   return /^\d+(?:\.\d+)?$/.test(amount) && Number.isFinite(Number(amount)) && /^[A-Z]{3}$/.test(currencyCode) ? { amount, currencyCode } : void 0;
 };
 function recommendationItemBindings(item, type, selection) {
-  const isVariant = htmlQuizResourceKind(type) === "product-variants";
+  const isVariant = quizResourceKind(type) === "product-variants";
   const product = isVariant ? record(item.product) : item;
   const title = isVariant ? getVariantDisplayTitle({
     productTitle: string(product.title),
@@ -147,7 +147,7 @@ function recommendationItemBindings(item, type, selection) {
   const variant = selection ? selection.variant : isVariant ? item : variantNodes.find((node) => node.availableForSale === true) ?? variantNodes[0];
   const productImage = type === "collections" ? record(item.image) : firstImage(product);
   const variantImage = record(variant == null ? void 0 : variant.image);
-  const images = ((selection == null ? void 0 : selection.imageSource) ?? HTML_QUIZ_ATTRIBUTE_DEFAULTS["data-image-source"]) === "variant" ? [variantImage, productImage] : [productImage, variantImage];
+  const images = ((selection == null ? void 0 : selection.imageSource) ?? QUIZ_ATTRIBUTE_DEFAULTS["data-image-source"]) === "variant" ? [variantImage, productImage] : [productImage, variantImage];
   return {
     product,
     title,
@@ -182,10 +182,10 @@ function createRecommendationCard(document, item, id, options) {
   select == null ? void 0 : select.setAttribute("aria-label", options.message("selectVariant"));
   let selectedVariant = bindings.variant;
   const variant = selectedVariant;
-  const variantId = htmlQuizResourceKind(options.type) === "product-variants" ? id : string(variant == null ? void 0 : variant.id);
-  const isVariantValid = (value) => isHtmlQuizItemGid(value, HTML_QUIZ_ITEM_GID_PREFIXES.product_variants);
+  const variantId = quizResourceKind(options.type) === "product-variants" ? id : string(variant == null ? void 0 : variant.id);
+  const isVariantValid = (value) => isQuizItemGid(value, QUIZ_ITEM_GID_PREFIXES.product_variants);
   const validVariant = isVariantValid(variantId);
-  const currentVariantId = () => htmlQuizResourceKind(options.type) === "product-variants" ? id : string(selectedVariant == null ? void 0 : selectedVariant.id);
+  const currentVariantId = () => quizResourceKind(options.type) === "product-variants" ? id : string(selectedVariant == null ? void 0 : selectedVariant.id);
   const shortVariantId = () => {
     const requested = currentVariantId();
     return isVariantValid(requested) ? requested.slice(requested.lastIndexOf("/") + 1) : "";
@@ -307,7 +307,7 @@ function createRecommendationCard(document, item, id, options) {
   };
   applySelection(variant);
   let url = safeUrl(string(product.onlineStoreUrl), options.domain);
-  if (url && htmlQuizResourceKind(options.type) === "product-variants") {
+  if (url && quizResourceKind(options.type) === "product-variants") {
     if (!validVariant) url = null;
     else {
       const variantUrl = new URL(url);
@@ -598,7 +598,7 @@ function isUsableRecommendationItem(value) {
   return Boolean(string(record(item.product).title || item.title).trim()) && item.status !== "DRAFT";
 }
 function safeImageUrl(value, domain) {
-  if (HTML_QUIZ_RASTER_DATA_IMAGE.test(value)) return value;
+  if (QUIZ_RASTER_DATA_IMAGE.test(value)) return value;
   return safeUrl(value, domain);
 }
 function safeUrl(value, domain, literal = false) {

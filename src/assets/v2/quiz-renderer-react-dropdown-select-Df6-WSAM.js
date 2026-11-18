@@ -1,5 +1,5 @@
-import { React, reactExports, getAugmentedNamespace, commonjsGlobal, getDefaultExportFromCjs, reactDomExports, useInspectorWrapper, useQuizStore, useLanguageDirection, useQuizLanguageTag, useQuestionHeadingId, jsxDevRuntimeExports, usePlainTextContent, RenderedContent } from "./quiz-renderer-json-renderer-B6X3VaGt.js";
-import { choiceSelectIndicator } from "./quiz-renderer-slot-result-block-helper-Bu2JEZ26.js";
+import { React, reactExports, getAugmentedNamespace, commonjsGlobal, getDefaultExportFromCjs, reactDomExports, useInspectorWrapper, useQuizStore, useLanguageDirection, useQuizLanguageTag, useQuestionHeadingId, jsxDevRuntimeExports, usePlainTextContent, RenderedContent } from "./quiz-renderer-json-renderer-B68vN2dx.js";
+import { choiceSelectIndicator } from "./quiz-renderer-slot-result-block-helper-Csi6eriF.js";
 import "./quiz-renderer-index-BXMeXr7c.js";
 import "./quiz-renderer-image-processing-B3Hir3-2.js";
 import "./quiz-renderer-trackers-bundle-Do5Gpowk.js";
@@ -3172,7 +3172,7 @@ const Select = /* @__PURE__ */ getDefaultExportFromCjs(lib);
 function PlainTextOption({ value, label, dir }) {
   const plainText = usePlainTextContent(label);
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("option", { value, dir, children: plainText }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
     lineNumber: 43,
     columnNumber: 5
   }, this);
@@ -3180,7 +3180,7 @@ function PlainTextOption({ value, label, dir }) {
 function PlainTextLabel({ label }) {
   const plainText = usePlainTextContent(label);
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children: plainText }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
     lineNumber: 52,
     columnNumber: 10
   }, this);
@@ -3215,7 +3215,7 @@ function RemoveOptionButton({ label, onRemove }) {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
       lineNumber: 66,
       columnNumber: 5
     },
@@ -3415,17 +3415,17 @@ const ReactDropdownSelect = ({
     if (availableOptions.length === 0) {
       return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("style", { children: dropdownDynamicStyle }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
           lineNumber: 320,
           columnNumber: 11
         }, void 0),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "react-dropdown-select-no-options", dir, ref: dropdownOptionsRef, children: getTranslatedContent({ key: "dropdown_no_more_options_available" }) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
           lineNumber: 321,
           columnNumber: 11
         }, void 0)
       ] }, void 0, true, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
         lineNumber: 319,
         columnNumber: 9
       }, void 0);
@@ -3474,7 +3474,7 @@ const ReactDropdownSelect = ({
     };
     return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("style", { children: dropdownDynamicStyle }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
         lineNumber: 380,
         columnNumber: 9
       }, void 0),
@@ -3500,12 +3500,12 @@ const ReactDropdownSelect = ({
                 dir,
                 children: [
                   multipleSelection && isSelected && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { "aria-hidden": "true", style: { marginRight: "8px" }, children: "✓" }, void 0, false, {
-                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
                     lineNumber: 403,
                     columnNumber: 19
                   }, void 0),
                   /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RenderedContent, { content: value.label }, void 0, false, {
-                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+                    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
                     lineNumber: 407,
                     columnNumber: 17
                   }, void 0)
@@ -3514,7 +3514,7 @@ const ReactDropdownSelect = ({
               value.value,
               true,
               {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
                 lineNumber: 392,
                 columnNumber: 15
               },
@@ -3525,14 +3525,14 @@ const ReactDropdownSelect = ({
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
           lineNumber: 381,
           columnNumber: 9
         },
         void 0
       )
     ] }, void 0, true, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
       lineNumber: 379,
       columnNumber: 7
     }, void 0);
@@ -3568,25 +3568,25 @@ const ReactDropdownSelect = ({
     const values = state.values;
     if (values.length === 0) {
       return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "react-dropdown-select-placeholder", children: placeholder }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
         lineNumber: 451,
         columnNumber: 14
       }, void 0);
     }
     if (!multipleSelection) {
       return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(PlainTextLabel, { label: values[0].label }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
         lineNumber: 456,
         columnNumber: 14
       }, void 0);
     }
     return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "react-dropdown-select-content", children: values.map((item) => /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "react-dropdown-select-option", children: [
       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { className: "react-dropdown-select-option-label", children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(PlainTextLabel, { label: item.label }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
         lineNumber: 465,
         columnNumber: 15
       }, void 0) }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
         lineNumber: 464,
         columnNumber: 13
       }, void 0),
@@ -3599,18 +3599,18 @@ const ReactDropdownSelect = ({
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
           lineNumber: 467,
           columnNumber: 13
         },
         void 0
       )
     ] }, item.value, true, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
       lineNumber: 463,
       columnNumber: 11
     }, void 0)) }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
       lineNumber: 461,
       columnNumber: 7
     }, void 0);
@@ -3621,7 +3621,7 @@ const ReactDropdownSelect = ({
             font-size: 16px;
           }
         ` }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
       lineNumber: 479,
       columnNumber: 7
     }, void 0),
@@ -3682,7 +3682,7 @@ const ReactDropdownSelect = ({
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
             lineNumber: 492,
             columnNumber: 11
           },
@@ -3692,14 +3692,14 @@ const ReactDropdownSelect = ({
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
         lineNumber: 486,
         columnNumber: 7
       },
       void 0
     )
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
     lineNumber: 478,
     columnNumber: 5
   }, void 0);
@@ -3716,12 +3716,12 @@ const ReactDropdownSelect = ({
         },
         children: [
           /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("option", { value: "", dir, children: content }, void 0, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
             lineNumber: 553,
             columnNumber: 9
           }, void 0),
           options.map((option) => /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(PlainTextOption, { value: option.value, label: option.label, dir }, option.value, false, {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
             lineNumber: 557,
             columnNumber: 11
           }, void 0))
@@ -3730,7 +3730,7 @@ const ReactDropdownSelect = ({
       void 0,
       true,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
         lineNumber: 544,
         columnNumber: 7
       },
@@ -3738,7 +3738,7 @@ const ReactDropdownSelect = ({
     ),
     choiceSelectIndicator
   ] }, void 0, true, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
     lineNumber: 543,
     columnNumber: 5
   }, void 0);
@@ -3754,7 +3754,7 @@ const ReactDropdownSelect = ({
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
         lineNumber: 566,
         columnNumber: 7
       },
@@ -3776,7 +3776,7 @@ const ReactDropdownSelect = ({
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/select/react-dropdown-select.tsx",
       lineNumber: 577,
       columnNumber: 5
     },

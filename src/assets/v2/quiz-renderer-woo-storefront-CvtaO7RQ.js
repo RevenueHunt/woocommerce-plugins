@@ -1,6 +1,6 @@
-const __vite__fileDeps=["./quiz-renderer-recommendation-products-uyC1cFfQ.js","./quiz-renderer-useItemSlotDataFetcher-ac9xH1rl.js","./quiz-renderer.js","./quiz-renderer-storeFrontClient-Dh-TPIVy.js","./quiz-renderer-recommendation-card-D5pUYerM.js","./quiz-renderer-mount-D_6h3far.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-variant-title-B1Oi9SHh.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-storefront-reporter-TqwI4yVH.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+const __vite__fileDeps=["./quiz-renderer-recommendation-products-KsUoSYJJ.js","./quiz-renderer-useItemSlotDataFetcher-ac9xH1rl.js","./quiz-renderer.js","./quiz-renderer-storeFrontClient-Dh-TPIVy.js","./quiz-renderer-recommendation-card-D0WWyRM8.js","./quiz-renderer-mount-BXrM9heh.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-variant-title-B1Oi9SHh.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-storefront-reporter-TqwI4yVH.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 import { getPublicEnvironment, __vitePreload, ASSISTANT_TURN_URL, ASSISTANT_URL, loadArtifact, overPlanGate } from "./quiz-renderer.js";
-import { mountHtmlQuizDocument, createHtmlQuizKernel, htmlQuizTrackingSender, readHtmlQuizRuntime, requireValue, installHtmlQuizProductEvents, htmlQuizPageSource, loadHtmlQuizCommerce, detectHtmlQuizCommerceHost, defaultRecommendationTemplate, HTML_QUIZ_ORDER_STATUS_MESSAGES, mountHtmlQuiz } from "./quiz-renderer-mount-D_6h3far.js";
+import { mountQuizDocument, createQuizKernel, quizTrackingSender, readQuizRuntime, requireValue, installQuizProductEvents, quizPageSource, loadQuizCommerce, detectQuizCommerceHost, defaultRecommendationTemplate, QUIZ_ORDER_STATUS_MESSAGES, mountHtmlQuiz } from "./quiz-renderer-mount-BXrM9heh.js";
 import { formatPriceWithCurrency } from "./quiz-renderer-currency-helper-ggAAwMUm.js";
 import "./quiz-renderer-has-variant-choice-Bygb1hHs.js";
 import "./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js";
@@ -710,7 +710,7 @@ function mountAssistantShell(host, html, context2) {
     element.setAttribute("part", "assistant");
     return element;
   };
-  const shell = mountHtmlQuizDocument(host, html, { ...context2, customCode: false });
+  const shell = mountQuizDocument(host, html, { ...context2, customCode: false });
   const root = shell.root;
   let sequence = 0;
   const conversationId = assistant.conversationId ?? ((_a = assistant.preview) == null ? void 0 : _a.conversationId) ?? (assistant.send ? crypto.randomUUID() : storedConversationId(shop ?? "", assistant.id));
@@ -743,13 +743,13 @@ function mountAssistantShell(host, html, context2) {
     }
     return element;
   };
-  const kernel = createHtmlQuizKernel(root);
-  const tracking = context2.adminPreview || assistant.send || assistant.preview || assistant.products ? void 0 : htmlQuizTrackingSender("assistant");
+  const kernel = createQuizKernel(root);
+  const tracking = context2.adminPreview || assistant.send || assistant.preview || assistant.products ? void 0 : quizTrackingSender("assistant");
   let view;
   let errors;
   let composer;
   let messageInput;
-  const runtime = readHtmlQuizRuntime(root);
+  const runtime = readQuizRuntime(root);
   const title = ((_b = root.querySelector("title")) == null ? void 0 : _b.textContent) ?? "";
   const lang = (context2.locale || host.lang || host.ownerDocument.documentElement.lang || "en").toLowerCase().split(/[-_]/)[0];
   const voiceOn = context2.platform !== "woocommerce" && root.querySelector('meta[name="assistant-voice"][content="on"]') !== null && moonshineHears(lang) && micAllowed();
@@ -1068,7 +1068,7 @@ function mountAssistantShell(host, html, context2) {
       body.append(launcher);
     }
     presentation.id = "assistant-panel";
-    installHtmlQuizProductEvents(kernel);
+    installQuizProductEvents(kernel);
   };
   const button = (label, action) => {
     const node = create("button");
@@ -1100,8 +1100,8 @@ function mountAssistantShell(host, html, context2) {
     var _a2;
     let commerce = quizCarts.get(quiz);
     if (!commerce) {
-      commerce = loadHtmlQuizCommerce(
-        detectHtmlQuizCommerceHost(
+      commerce = loadQuizCommerce(
+        detectQuizCommerceHost(
           window,
           context2.adminPreview,
           context2.platform ?? ((_a2 = context2.run) == null ? void 0 : _a2.platform)
@@ -1146,11 +1146,11 @@ function mountAssistantShell(host, html, context2) {
     const data = await items;
     const commerce = await quizCart(quiz ?? "");
     const { isUsableRecommendationItem } = await __vitePreload(async () => {
-      const { isUsableRecommendationItem: isUsableRecommendationItem2 } = await import("./quiz-renderer-recommendation-products-uyC1cFfQ.js");
+      const { isUsableRecommendationItem: isUsableRecommendationItem2 } = await import("./quiz-renderer-recommendation-products-KsUoSYJJ.js");
       return { isUsableRecommendationItem: isUsableRecommendationItem2 };
     }, true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10]) : void 0, import.meta.url);
     const { recommendationItemBindings } = await __vitePreload(async () => {
-      const { recommendationItemBindings: recommendationItemBindings2 } = await import("./quiz-renderer-recommendation-card-D5pUYerM.js").then((n) => n.recommendationCard);
+      const { recommendationItemBindings: recommendationItemBindings2 } = await import("./quiz-renderer-recommendation-card-D0WWyRM8.js").then((n) => n.recommendationCard);
       return { recommendationItemBindings: recommendationItemBindings2 };
     }, true ? __vite__mapDeps([4,5,2,6,7,8,9,10]) : void 0, import.meta.url);
     if (disposed || !target.isConnected) return;
@@ -1234,12 +1234,12 @@ function mountAssistantShell(host, html, context2) {
           try {
             const trackProductClick = () => {
               const tracked = { id, title: title2, price: price ?? {} };
-              kernel.emit("productClicked", { step: picks.surfaceRef, variant: tracked });
+              kernel.emit("productClicked", { step: picks.resultsStepRef, variant: tracked });
               if (quiz)
                 tracking == null ? void 0 : tracking.run(
                   (track) => track.trackProductClicked(
                     quiz,
-                    picks.surfaceRef,
+                    picks.resultsStepRef,
                     tracked,
                     kernel.state.preferences
                   )
@@ -1302,7 +1302,7 @@ function mountAssistantShell(host, html, context2) {
   };
   const renderCollections = async (collections, target) => {
     const { createRecommendationCard } = await __vitePreload(async () => {
-      const { createRecommendationCard: createRecommendationCard2 } = await import("./quiz-renderer-recommendation-card-D5pUYerM.js").then((n) => n.recommendationCard);
+      const { createRecommendationCard: createRecommendationCard2 } = await import("./quiz-renderer-recommendation-card-D0WWyRM8.js").then((n) => n.recommendationCard);
       return { createRecommendationCard: createRecommendationCard2 };
     }, true ? __vite__mapDeps([4,5,2,6,7,8,9,10]) : void 0, import.meta.url);
     if (disposed || !target.isConnected) return;
@@ -1551,7 +1551,7 @@ function mountAssistantShell(host, html, context2) {
       if (entry.order) {
         const order = entry.order;
         const status = (value) => {
-          const entry2 = HTML_QUIZ_ORDER_STATUS_MESSAGES.find((entry3) => entry3.status === value);
+          const entry2 = QUIZ_ORDER_STATUS_MESSAGES.find((entry3) => entry3.status === value);
           return entry2 ? requireValue(runtime.messages[entry2.key], "Compiled runtime message") : "";
         };
         const tracking2 = order.fulfillments.flatMap(
@@ -1773,7 +1773,7 @@ function mountAssistantShell(host, html, context2) {
       requestId: crypto.randomUUID(),
       expectedSequence: sequence,
       ...reask ? { reask } : tap ? { tap } : text ? { text } : {},
-      source: htmlQuizPageSource(),
+      source: quizPageSource(),
       marketId: window.quiz_market_id == null ? void 0 : String(window.quiz_market_id),
       locale: locale || void 0,
       country: ((_b2 = window.quiz_country) == null ? void 0 : _b2.toUpperCase()) || void 0,

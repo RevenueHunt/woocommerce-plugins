@@ -1,6 +1,6 @@
-import { useQuizStore, reactExports, ChartValueSource, jsxDevRuntimeExports } from "./quiz-renderer-json-renderer-B6X3VaGt.js";
-import { getPreviewValue } from "./quiz-renderer-chart-helpers-uheJMlCp.js";
-import { RatingCore } from "./quiz-renderer-rating-core-B8Kxxfwv.js";
+import { useQuizStore, reactExports, ChartValueSource, jsxDevRuntimeExports } from "./quiz-renderer-json-renderer-B68vN2dx.js";
+import { getPreviewValue } from "./quiz-renderer-chart-helpers-CMuxm1JU.js";
+import { RatingCore } from "./quiz-renderer-rating-core-BDsIrPfE.js";
 import "./quiz-renderer-index-BXMeXr7c.js";
 import "./quiz-renderer-image-processing-B3Hir3-2.js";
 import "./quiz-renderer-trackers-bundle-Do5Gpowk.js";
@@ -24,7 +24,7 @@ const RatingBlock = ({ block }) => {
     return getPreviewValue(inBuilder, true, variableValue, 0, maxRating);
   }, [preferences, variableScores, inBuilder]);
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RatingCore, { value, preferences, blockRef: block.ref }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/rating/rating-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/new-quiz-words/v2/frontend_v2/app/components/quiz/blocks/common/rating/rating-block.tsx",
     lineNumber: 40,
     columnNumber: 10
   }, void 0);

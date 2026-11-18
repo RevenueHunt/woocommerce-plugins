@@ -1,6 +1,6 @@
 const __vite__fileDeps=["./quiz-renderer-storefront-reporter-TqwI4yVH.js","./quiz-renderer.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 import { getPublicEnvironmentVariable, __vitePreload } from "./quiz-renderer.js";
-import { isRecord } from "./quiz-renderer-mount-D_6h3far.js";
+import { isRecord } from "./quiz-renderer-mount-BXrM9heh.js";
 import "./quiz-renderer-has-variant-choice-Bygb1hHs.js";
 import "./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js";
 const API_URL = getPublicEnvironmentVariable("PUBLIC_QUIZ_API_URL") || getPublicEnvironmentVariable("API_URL");

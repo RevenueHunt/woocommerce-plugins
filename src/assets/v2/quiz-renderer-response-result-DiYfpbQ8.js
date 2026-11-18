@@ -1,11 +1,11 @@
 import { strictObject, literal, record, array, optional, string, pipe, maxLength, unknown, minValue, integer, number, minLength, parse } from "./quiz-renderer-index-BXMeXr7c.js";
-import { HTML_QUIZ_CONTRACT_VERSIONS } from "./quiz-renderer-mount-D_6h3far.js";
+import { QUIZ_CONTRACT_VERSIONS } from "./quiz-renderer-mount-BXrM9heh.js";
 import "./quiz-renderer.js";
 import "./quiz-renderer-has-variant-choice-Bygb1hHs.js";
 import "./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js";
 const nonEmptyStringSchema = pipe(string(), minLength(1));
 const recommendationResponseSchema = strictObject({
-  contractVersion: literal(HTML_QUIZ_CONTRACT_VERSIONS.recommendations),
+  contractVersion: literal(QUIZ_CONTRACT_VERSIONS.recommendations),
   responseId: nonEmptyStringSchema,
   recommendations: record(nonEmptyStringSchema, array(nonEmptyStringSchema)),
   responseToken: optional(string()),

@@ -1,4 +1,4 @@
-import { NeedleStyle } from "./quiz-renderer-json-renderer-B6X3VaGt.js";
+import { NeedleStyle } from "./quiz-renderer-json-renderer-B68vN2dx.js";
 const PREVIEW_MIN_RATIO = 0.4;
 function hashString(str) {
   let hash = 5381;
