@@ -1,4 +1,4 @@
-import { clsx, Alignment, jsxDevRuntimeExports, RatingStyle, HeartFilled, HeartHalf, HeartEmpty, CircleFilled, CircleHalf, CircleEmpty, StarFilled, StarHalf, StarEmpty } from "./quiz-renderer-json-renderer-D12Pndit.js";
+import { clsx, Alignment, jsxDevRuntimeExports, RatingStyle, HeartFilled, HeartHalf, HeartEmpty, CircleFilled, CircleHalf, CircleEmpty, StarFilled, StarHalf, StarEmpty } from "./quiz-renderer-json-renderer-B6X3VaGt.js";
 const RatingCore = ({
   value,
   preferences,

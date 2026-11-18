@@ -1,4 +1,4 @@
-import { SlotType, hasDynamicContent, getDataRefsFromDynamicContent, SlotBlockType, jsxDevRuntimeExports, clsx, removeHtmlTags } from "./quiz-renderer-json-renderer-D12Pndit.js";
+import { SlotType, hasDynamicContent, getDataRefsFromDynamicContent, SlotBlockType, jsxDevRuntimeExports, clsx, removeHtmlTags } from "./quiz-renderer-json-renderer-B6X3VaGt.js";
 import { getStoreFrontClient } from "./quiz-renderer-storeFrontClient-Dh-TPIVy.js";
 const getMetafieldSourceForSlot = ({
   slotType,

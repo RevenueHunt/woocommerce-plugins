@@ -1,11 +1,11 @@
-const __vite__fileDeps=["./quiz-renderer-chart-result-block-D4RsimyR.js","./quiz-renderer.js","./quiz-renderer-json-renderer-D12Pndit.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer.1794999053091.css","./quiz-renderer-custom-chart-core-Cl3aB358.js","./quiz-renderer-chart-helpers-VGBsLeJw.js","./quiz-renderer-chart-error-boundary-RfrMKCyB.js","./quiz-renderer-rating-block-DH2CisMI.js","./quiz-renderer-rating-core-B9o-oRjp.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
-import { useLanguageDirection, clsx, Alignment, jsxDevRuntimeExports, useQuizStore, useArrowKeyFocusNavigation, HeadingSize, useRenderedContent, ImageSize, ImagePlaceholder, getVideoContainerClassName, VideoPlayer, VideoPlaceholder, reactExports, hasDynamicContent, dynamicContentPattern, escapeHtml, useQuizStoreApi, useLiquidRenderer, sanitizeCanvasHtml, useCustomHtmlScripts, buildQuizContext, SlotBlockType, ImageSourceType, FaMinus, FaPlus, useInspectorWrapper, useDraftProductPlaceholder, replaceHtmlTags, SlotsLayout, ResultBlockType, FaUndo, useMediaQuery, MEDIA_QUERY_TYPES, transformMediaToContainerQueries, wrapWithScope, createQuizDOMHelpers, Loader, getQuizResponse, getSubmissionAnswers, createQuizResponse } from "./quiz-renderer-json-renderer-D12Pndit.js";
+const __vite__fileDeps=["./quiz-renderer-chart-result-block-DU0qdWj_.js","./quiz-renderer.js","./quiz-renderer-json-renderer-B6X3VaGt.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer.1794999939598.css","./quiz-renderer-custom-chart-core-Dc1Xz6ZV.js","./quiz-renderer-chart-helpers-uheJMlCp.js","./quiz-renderer-chart-error-boundary-IsJR96AJ.js","./quiz-renderer-rating-block-CeOYGIHG.js","./quiz-renderer-rating-core-B8Kxxfwv.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+import { useLanguageDirection, clsx, Alignment, jsxDevRuntimeExports, useQuizStore, useArrowKeyFocusNavigation, HeadingSize, useRenderedContent, ImageSize, ImagePlaceholder, getVideoContainerClassName, VideoPlayer, VideoPlaceholder, reactExports, hasDynamicContent, dynamicContentPattern, escapeHtml, useQuizStoreApi, useLiquidRenderer, sanitizeCanvasHtml, useCustomHtmlScripts, buildQuizContext, SlotBlockType, ImageSourceType, FaMinus, FaPlus, useInspectorWrapper, useDraftProductPlaceholder, replaceHtmlTags, SlotsLayout, ResultBlockType, FaUndo, useMediaQuery, MEDIA_QUERY_TYPES, transformMediaToContainerQueries, wrapWithScope, createQuizDOMHelpers, Loader, getQuizResponse, getSubmissionAnswers, createQuizResponse } from "./quiz-renderer-json-renderer-B6X3VaGt.js";
 import { postQuizRendererMessage } from "./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js";
 import { __vitePreload } from "./quiz-renderer.js";
 import { trackProductAddedToCart, trackCustomerProceedToCheckout, trackProductClicked, trackRetakeQuiz } from "./quiz-renderer-trackers-bundle-Do5Gpowk.js";
 import { getRecommendationsProductVariants, addRecommendationsToCart, createAddAllToCartFunction, createSimpleAddToCart, addToCart, changeToCart, getSellingPlanId, fetchCart, tagCart } from "./quiz-renderer-shopifyCart-BtEmfGDv.js";
 import { createApplyDiscountCodeFunction, parseCartItemsFromFetchCart, updateCart, syncCartNeedsRefresh, refreshCartUI, filterInvalidGids, getVisibleSections, claimOpenCartWhenIdle, applyDiscount, resetCartUIState, cartIntentFor, getSlotsGidsFromRecommendations } from "./quiz-renderer-cart-hGLiNvFe.js";
-import { getMetafieldOwnerForSlotItem, choiceSelectIndicator, slotHeadingClass, slotDescriptionClass, resultsSlotProductListClass, getMockedArray, scanSlotsForMetafieldReferences, fetchVirtualCollections } from "./quiz-renderer-slot-result-block-helper-BXshbcTh.js";
+import { getMetafieldOwnerForSlotItem, choiceSelectIndicator, slotHeadingClass, slotDescriptionClass, resultsSlotProductListClass, getMockedArray, scanSlotsForMetafieldReferences, fetchVirtualCollections } from "./quiz-renderer-slot-result-block-helper-Bu2JEZ26.js";
 import { PictureType, processImageResultsProduct } from "./quiz-renderer-image-processing-B3Hir3-2.js";
 import { formatPriceWithCurrency, getDefaultUnitPricePreview, formatUnitPrice } from "./quiz-renderer-currency-helper-ggAAwMUm.js";
 import { hasVariantChoice } from "./quiz-renderer-has-variant-choice-Bygb1hHs.js";
@@ -3276,12 +3276,12 @@ const formatBlockName = (blockName, t) => {
   return formatTextInTitleCase(blockName);
 };
 const ChartResultBlock = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-chart-result-block-D4RsimyR.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-chart-result-block-DU0qdWj_.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
     default: module.ChartResultBlock
   }))
 );
 const RatingBlock = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-rating-block-DH2CisMI.js"), true ? __vite__mapDeps([13,2,3,4,5,1,6,7,8,9,11,14]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-rating-block-CeOYGIHG.js"), true ? __vite__mapDeps([13,2,3,4,5,1,6,7,8,9,11,14]) : void 0, import.meta.url).then((module) => ({
     default: module.RatingBlock
   }))
 );

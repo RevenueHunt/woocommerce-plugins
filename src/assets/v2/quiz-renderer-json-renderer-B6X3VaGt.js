@@ -1,4 +1,4 @@
-const __vite__fileDeps=["./quiz-renderer-dropdown-LDXB8EX6.js","./quiz-renderer.js","./quiz-renderer-slot-result-block-helper-BXshbcTh.js","./quiz-renderer-storeFrontClient-Dh-TPIVy.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer-react-dropdown-select-BqDsq-z-.js","./quiz-renderer-phone-block-BFNkKMqR.js","./quiz-renderer-index-BOehjGcf.js","./quiz-renderer-chart-error-boundary-RfrMKCyB.js","./quiz-renderer-chart-result-block-D4RsimyR.js","./quiz-renderer-custom-chart-core-Cl3aB358.js","./quiz-renderer-chart-helpers-VGBsLeJw.js","./quiz-renderer-rating-block-DH2CisMI.js","./quiz-renderer-rating-core-B9o-oRjp.js","./quiz-renderer-result-preview-Dm3rCNqJ.js","./quiz-renderer-cart-hGLiNvFe.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-useItemSlotDataFetcher-ac9xH1rl.js","./quiz-renderer-variant-title-B1Oi9SHh.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+const __vite__fileDeps=["./quiz-renderer-dropdown--VXIdBtY.js","./quiz-renderer.js","./quiz-renderer-slot-result-block-helper-Bu2JEZ26.js","./quiz-renderer-storeFrontClient-Dh-TPIVy.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer-react-dropdown-select-CnJA64d0.js","./quiz-renderer-phone-block-B8Y9icmu.js","./quiz-renderer-index-Cpa1_zRc.js","./quiz-renderer-chart-error-boundary-IsJR96AJ.js","./quiz-renderer-chart-result-block-DU0qdWj_.js","./quiz-renderer-custom-chart-core-Dc1Xz6ZV.js","./quiz-renderer-chart-helpers-uheJMlCp.js","./quiz-renderer-rating-block-CeOYGIHG.js","./quiz-renderer-rating-core-B8Kxxfwv.js","./quiz-renderer-result-preview-DoQGAcmQ.js","./quiz-renderer-cart-hGLiNvFe.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-useItemSlotDataFetcher-ac9xH1rl.js","./quiz-renderer-variant-title-B1Oi9SHh.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
@@ -29792,13 +29792,13 @@ const preloadQuestionBlocks = (questions) => {
   });
   if (hasMultiSelectDropdown && !preloadedQuestionBlocks.has("dropdown")) {
     preloadedQuestionBlocks.add("dropdown");
-    __vitePreload(() => import("./quiz-renderer-dropdown-LDXB8EX6.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]) : void 0, import.meta.url).catch(
+    __vitePreload(() => import("./quiz-renderer-dropdown--VXIdBtY.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]) : void 0, import.meta.url).catch(
       (err) => console.error("Failed to preload dropdown:", err)
     );
   }
   if (hasMultiSelectDropdown && !preloadedQuestionBlocks.has("react-dropdown-select")) {
     preloadedQuestionBlocks.add("react-dropdown-select");
-    __vitePreload(() => import("./quiz-renderer-react-dropdown-select-BqDsq-z-.js"), true ? __vite__mapDeps([10,2,3,4,5,6,1,7,8,9]) : void 0, import.meta.url).catch(
+    __vitePreload(() => import("./quiz-renderer-react-dropdown-select-CnJA64d0.js"), true ? __vite__mapDeps([10,2,3,4,5,6,1,7,8,9]) : void 0, import.meta.url).catch(
       (err) => console.error("Failed to preload react-dropdown-select:", err)
     );
   }
@@ -29809,7 +29809,7 @@ const preloadQuestionBlocks = (questions) => {
     preloadedQuestionBlocks.add(blockType);
     switch (blockType) {
       case BlockType.PHONE:
-        __vitePreload(() => import("./quiz-renderer-phone-block-BFNkKMqR.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).catch(
+        __vitePreload(() => import("./quiz-renderer-phone-block-B8Y9icmu.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).catch(
           (err) => console.error("Failed to preload phone block:", err)
         );
         break;
@@ -29824,7 +29824,7 @@ const preloadQuestionBlocks = (questions) => {
           preloadedQuestionBlocks.add(BlockType.BAR_CHART);
           preloadedQuestionBlocks.add(BlockType.CUSTOM_CHART);
           preloadedQuestionBlocks.add(BlockType.RATING_CHART);
-          __vitePreload(() => import("./quiz-renderer-index-BOehjGcf.js").then((n) => n.questionChartBlock), true ? __vite__mapDeps([12,1,5,13]) : void 0, import.meta.url).catch((err) => console.error("Failed to preload chart block:", err));
+          __vitePreload(() => import("./quiz-renderer-index-Cpa1_zRc.js").then((n) => n.questionChartBlock), true ? __vite__mapDeps([12,1,5,13]) : void 0, import.meta.url).catch((err) => console.error("Failed to preload chart block:", err));
         }
         break;
     }
@@ -29854,13 +29854,13 @@ const preloadResultBlocks = (results) => {
           preloadedResultBlocks.add(ResultBlockType.RADAR_CHART);
           preloadedResultBlocks.add(ResultBlockType.GAUGE_CHART);
           preloadedResultBlocks.add(ResultBlockType.CUSTOM_CHART);
-          __vitePreload(() => import("./quiz-renderer-chart-result-block-D4RsimyR.js"), true ? __vite__mapDeps([14,1,15,16,13,4,5,6,7,8,9]) : void 0, import.meta.url).catch(
+          __vitePreload(() => import("./quiz-renderer-chart-result-block-DU0qdWj_.js"), true ? __vite__mapDeps([14,1,15,16,13,4,5,6,7,8,9]) : void 0, import.meta.url).catch(
             (err) => console.error("Failed to preload result chart block:", err)
           );
         }
         break;
       case ResultBlockType.RATING_CHART:
-        __vitePreload(() => import("./quiz-renderer-rating-block-DH2CisMI.js"), true ? __vite__mapDeps([17,16,18,4,5,6,1,7,8,9]) : void 0, import.meta.url).catch(
+        __vitePreload(() => import("./quiz-renderer-rating-block-CeOYGIHG.js"), true ? __vite__mapDeps([17,16,18,4,5,6,1,7,8,9]) : void 0, import.meta.url).catch(
           (err) => console.error("Failed to preload result rating block:", err)
         );
         break;
@@ -29868,7 +29868,7 @@ const preloadResultBlocks = (results) => {
   });
 };
 const preloadResultsPage = () => {
-  __vitePreload(() => import("./quiz-renderer-result-preview-Dm3rCNqJ.js"), true ? __vite__mapDeps([19,8,1,6,7,20,3,2,5,21,22,23,24,4,9]) : void 0, import.meta.url).catch(
+  __vitePreload(() => import("./quiz-renderer-result-preview-DoQGAcmQ.js"), true ? __vite__mapDeps([19,8,1,6,7,20,3,2,5,21,22,23,24,4,9]) : void 0, import.meta.url).catch(
     (err) => console.error("Failed to preload results page:", err)
   );
 };
@@ -41589,7 +41589,7 @@ const SliderBlock = ({
     columnNumber: 5
   }, void 0);
 };
-const Dropdown = reactExports.lazy(() => __vitePreload(() => import("./quiz-renderer-dropdown-LDXB8EX6.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]) : void 0, import.meta.url));
+const Dropdown = reactExports.lazy(() => __vitePreload(() => import("./quiz-renderer-dropdown--VXIdBtY.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9]) : void 0, import.meta.url));
 const ChoiceBlock = ({ block, isActiveQuestion = false }) => {
   var _a;
   const { choices, type } = block.preferences;
@@ -43291,7 +43291,7 @@ const PhoneInput = ({ countryCode, setCountryCode }) => {
 };
 const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PhoneBlock$1 = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-phone-block-BFNkKMqR.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-phone-block-B8Y9icmu.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).then((module) => ({
     default: module.PhoneBlock
   }))
 );
@@ -43702,12 +43702,12 @@ const QuestionCustomHtmlBlock = reactExports.memo(function QuestionCustomHtmlBlo
   }, this);
 });
 const QuestionChartBlock = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-index-BOehjGcf.js").then((n) => n.index), true ? __vite__mapDeps([12,1,5,13]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-index-Cpa1_zRc.js").then((n) => n.index), true ? __vite__mapDeps([12,1,5,13]) : void 0, import.meta.url).then((module) => ({
     default: module.QuestionChartBlock
   }))
 );
 const PhoneBlock = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-phone-block-BFNkKMqR.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-phone-block-B8Y9icmu.js"), true ? __vite__mapDeps([11,1,9,4,5,6,7,8]) : void 0, import.meta.url).then((module) => ({
     default: module.PhoneBlock
   }))
 );
@@ -44961,7 +44961,7 @@ const OverPlanPage = ({ timerCount }) => {
   }, void 0);
 };
 const ResultsPreview = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-result-preview-Dm3rCNqJ.js"), true ? __vite__mapDeps([19,8,1,6,7,20,3,2,5,21,22,23,24,4,9]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-result-preview-DoQGAcmQ.js"), true ? __vite__mapDeps([19,8,1,6,7,20,3,2,5,21,22,23,24,4,9]) : void 0, import.meta.url).then((module) => ({
     default: module.ResultsPreview
   }))
 );

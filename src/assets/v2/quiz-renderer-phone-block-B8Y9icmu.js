@@ -1,6 +1,6 @@
 const __vite__fileDeps=["./quiz-renderer-index-BNeI52BW.js","./quiz-renderer-phone-lib-Dsktln2P.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 import { __vitePreload } from "./quiz-renderer.js";
-import { useQuizStore, reactExports, useQuestionLabelledBy, jsxDevRuntimeExports, PhoneInput } from "./quiz-renderer-json-renderer-D12Pndit.js";
+import { useQuizStore, reactExports, useQuestionLabelledBy, jsxDevRuntimeExports, PhoneInput } from "./quiz-renderer-json-renderer-B6X3VaGt.js";
 import { getPrefixFromCountryCode, countryData } from "./quiz-renderer-country-data-CuDUzlny.js";
 import "./quiz-renderer-index-BXMeXr7c.js";
 import "./quiz-renderer-image-processing-B3Hir3-2.js";

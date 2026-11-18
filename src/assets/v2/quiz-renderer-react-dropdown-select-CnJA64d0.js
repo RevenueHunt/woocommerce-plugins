@@ -1,5 +1,5 @@
-import { React, reactExports, getAugmentedNamespace, commonjsGlobal, getDefaultExportFromCjs, reactDomExports, useInspectorWrapper, useQuizStore, useLanguageDirection, useQuizLanguageTag, useQuestionHeadingId, jsxDevRuntimeExports, usePlainTextContent, RenderedContent } from "./quiz-renderer-json-renderer-D12Pndit.js";
-import { choiceSelectIndicator } from "./quiz-renderer-slot-result-block-helper-BXshbcTh.js";
+import { React, reactExports, getAugmentedNamespace, commonjsGlobal, getDefaultExportFromCjs, reactDomExports, useInspectorWrapper, useQuizStore, useLanguageDirection, useQuizLanguageTag, useQuestionHeadingId, jsxDevRuntimeExports, usePlainTextContent, RenderedContent } from "./quiz-renderer-json-renderer-B6X3VaGt.js";
+import { choiceSelectIndicator } from "./quiz-renderer-slot-result-block-helper-Bu2JEZ26.js";
 import "./quiz-renderer-index-BXMeXr7c.js";
 import "./quiz-renderer-image-processing-B3Hir3-2.js";
 import "./quiz-renderer-trackers-bundle-Do5Gpowk.js";

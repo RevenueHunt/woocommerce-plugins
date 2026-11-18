@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-import { reactExports, jsxDevRuntimeExports } from "./quiz-renderer-json-renderer-D12Pndit.js";
+import { reactExports, jsxDevRuntimeExports } from "./quiz-renderer-json-renderer-B6X3VaGt.js";
 const MAX_RETRY_COUNT = 3;
 class ChartErrorBoundary extends reactExports.Component {
   constructor(props) {
