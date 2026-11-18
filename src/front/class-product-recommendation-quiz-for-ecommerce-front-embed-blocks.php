@@ -151,7 +151,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 	 */
 	public function render_chat_button( $attributes ) {
 		if ( $this->delivery instanceof Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery ) {
-			return $this->delivery->piece( 'chatButton', $attributes );
+			return $this->delivery->piece( 'quizButton', $attributes );
 		}
 		// Attributes are sanitized here and output-escaped downstream in Embed_Markers (esc_attr/absint); semgrep cannot trace across the call, so the false positive is suppressed.
 		// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar -- next line is a machine-readable semgrep directive.

@@ -64,7 +64,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 			'enabled' => true,
 			'quizId'  => '' === $id ? null : $id,
 		);
-		if ( 'chatButton' === $kind ) {
+		if ( 'quizButton' === $kind ) {
 			$config += array(
 				'position' => 'bottom-right',
 				'color'    => ! empty( $atts['color'] ) ? $atts['color'] : '#000000',
@@ -101,7 +101,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 		}
 		$store = get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::STOREFRONT, array() );
 		$wide  = isset( $store['siteWide'] ) ? $store['siteWide'] : array();
-		if ( ! empty( $wide['popupLinks'] ) || ! empty( $wide['chatButton']['enabled'] ) || ! empty( $wide['automaticPopup']['enabled'] ) || ! empty( $wide['assistant']['enabled'] ) ) {
+		if ( ! empty( $wide['popupLinks'] ) || ! empty( $wide['quizButton']['enabled'] ) || ! empty( $wide['automaticPopup']['enabled'] ) || ! empty( $wide['assistant']['enabled'] ) ) {
 			$this->site_wide = $wide;
 			$this->enqueue();
 		}

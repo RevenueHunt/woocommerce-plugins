@@ -246,7 +246,7 @@ final class V2StorefrontTest extends TestCase
         $blocks = new \Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks($delivery);
         $this->assertSame('<a href="#quiz" class="wp-element-button">Take the quiz</a>', $blocks->render_link_popup([]));
         $this->assertSame('<div data-prq-assistant="asst1"></div>', $blocks->render_assistant(['assistantId' => 'asst1']));
-        $this->assertStringContainsString('data-prq-piece="chatButton"', $blocks->render_chat_button(['quizId' => 'abc']));
+        $this->assertStringContainsString('data-prq-piece="quizButton"', $blocks->render_chat_button(['quizId' => 'abc']));
         $this->assertStringContainsString('data-prq-piece="automaticPopup"', $blocks->render_auto_popup([]));
         ob_start(); $delivery->footer(); $delivery->footer(); $html = ob_get_clean();
         $this->assertSame(1, substr_count($html, 'id="prq-v2-store"'));
