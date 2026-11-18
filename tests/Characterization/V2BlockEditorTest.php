@@ -58,7 +58,7 @@ final class V2BlockEditorTest extends TestCase
             'revenuehunt/product-recommendation-quiz-for-ecommerce' => 'RevenueHunt Quiz',
             'revenuehunt/assistant' => 'RevenueHunt Assistant',
             'revenuehunt/auto-popup-quiz' => 'RevenueHunt Automatic Popup',
-            'revenuehunt/chat-button-quiz' => 'RevenueHunt Chat Button',
+            'revenuehunt/chat-button-quiz' => 'RevenueHunt Quiz Button',
             'revenuehunt/link-popup-quiz' => 'RevenueHunt Popup Button',
         ], $registered);
     }

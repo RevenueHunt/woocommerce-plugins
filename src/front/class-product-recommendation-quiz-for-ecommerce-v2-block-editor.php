@@ -50,7 +50,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor {
 		$titles = array(
 			'inline'          => __( 'RevenueHunt Quiz', 'product-recommendation-quiz-for-ecommerce' ),
 			'link-popup'      => __( 'RevenueHunt Popup Button', 'product-recommendation-quiz-for-ecommerce' ),
-			'quiz-button'     => __( 'RevenueHunt Chat Button', 'product-recommendation-quiz-for-ecommerce' ),
+			'quiz-button'     => __( 'RevenueHunt Quiz Button', 'product-recommendation-quiz-for-ecommerce' ),
 			'automatic-popup' => __( 'RevenueHunt Automatic Popup', 'product-recommendation-quiz-for-ecommerce' ),
 		);
 		return array(

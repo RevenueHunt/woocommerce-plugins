@@ -8,7 +8,7 @@
 	var titles = {
 		inline: __( 'RevenueHunt Quiz', 'product-recommendation-quiz-for-ecommerce' ),
 		'link-popup': __( 'RevenueHunt Popup Button', 'product-recommendation-quiz-for-ecommerce' ),
-		'quiz-button': __( 'RevenueHunt Chat Button', 'product-recommendation-quiz-for-ecommerce' ),
+		'quiz-button': __( 'RevenueHunt Quiz Button', 'product-recommendation-quiz-for-ecommerce' ),
 		'automatic-popup': __( 'RevenueHunt Automatic Popup', 'product-recommendation-quiz-for-ecommerce' ),
 		assistant: __( 'RevenueHunt Assistant', 'product-recommendation-quiz-for-ecommerce' )
 	};
