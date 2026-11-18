@@ -7,7 +7,7 @@
 	"icon": "format-chat",
 	"description": "Show your RevenueHunt store assistant on this page.",
 	"textdomain": "product-recommendation-quiz-for-ecommerce",
-	"keywords": ["quiz", "product finder", "recommendation", "assistant", "chat", "revenuehunt"],
+	"keywords": ["recommendation", "assistant", "chat", "revenuehunt"],
 	"supports": {"html": false, "multiple": false},
 	"attributes": {"assistantId": {"type": "string", "default": ""}},
 	"editorScript": "product-recommendation-quiz-for-ecommerce-embed-blocks-editor"

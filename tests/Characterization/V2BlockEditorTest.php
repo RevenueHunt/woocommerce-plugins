@@ -45,7 +45,11 @@ final class V2BlockEditorTest extends TestCase
             $this->assertContains('widgets', [$metadata['category']]);
             $registered[$metadata['name']] = $args['title'] ?? $metadata['title'];
             $keywords = $args['keywords'] ?? $metadata['keywords'];
-            foreach (['quiz', 'product finder', 'recommendation', 'assistant', 'chat', 'revenuehunt'] as $keyword) $this->assertContains($keyword, $keywords);
+            foreach (['recommendation', 'assistant', 'chat', 'revenuehunt'] as $keyword) $this->assertContains($keyword, $keywords);
+            foreach (['quiz', 'product finder'] as $keyword) {
+                if ($metadata['name'] === 'revenuehunt/assistant') $this->assertNotContains($keyword, $keywords);
+                else $this->assertContains($keyword, $keywords);
+            }
         });
         $delivery = new Delivery();
         (new \Product_Recommendation_Quiz_For_Ecommerce_Front_Block($delivery))->register();

@@ -32,14 +32,15 @@
 			title: titles[ kind ],
 			category: 'widgets',
 			icon: icon,
-			keywords: [
+			keywords: ( assistant ? [] : [
 				__( 'quiz', 'product-recommendation-quiz-for-ecommerce' ),
-				__( 'product finder', 'product-recommendation-quiz-for-ecommerce' ),
+				__( 'product finder', 'product-recommendation-quiz-for-ecommerce' )
+			] ).concat( [
 				__( 'recommendation', 'product-recommendation-quiz-for-ecommerce' ),
 				__( 'assistant', 'product-recommendation-quiz-for-ecommerce' ),
 				__( 'chat', 'product-recommendation-quiz-for-ecommerce' ),
 				__( 'revenuehunt', 'product-recommendation-quiz-for-ecommerce' )
-			],
+			] ),
 			edit: function ( props ) {
 				var a = props.attributes;
 				function set( key, value ) {
@@ -81,7 +82,9 @@
 				var selected = options.filter( function ( option ) { return option.value === ( a[ idKey ] || '' ); } )[ 0 ];
 				var instructions = selected ? selected.label : defaultLabel;
 				if ( ! data.connected ) {
-					instructions = __( 'Connect RevenueHunt to show quizzes.', 'product-recommendation-quiz-for-ecommerce' );
+					instructions = assistant
+						? __( 'Connect RevenueHunt to show assistants.', 'product-recommendation-quiz-for-ecommerce' )
+						: __( 'Connect RevenueHunt to show quizzes.', 'product-recommendation-quiz-for-ecommerce' );
 				} else if ( options.length === 1 ) {
 					instructions = assistant
 						? __( 'Publish an assistant in RevenueHunt to show it here.', 'product-recommendation-quiz-for-ecommerce' )
