@@ -1,4 +1,4 @@
-const __vite__fileDeps=["./quiz-renderer-json-renderer-CJBOnGnk.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer2.css","./quiz-renderer-mount-D_glRQuD.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-assistant-mount-C5gNNRop.js","./quiz-renderer-currency-helper-ggAAwMUm.js","./quiz-renderer-storefront-loader-CQiWvzWc.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+const __vite__fileDeps=["./quiz-renderer-json-renderer-svqC5ToN.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer.1794996922386.css","./quiz-renderer-mount-D_6h3far.js","./quiz-renderer-has-variant-choice-Bygb1hHs.js","./quiz-renderer-assistant-mount-BsjhN9D5.js","./quiz-renderer-currency-helper-ggAAwMUm.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
@@ -65,7 +65,7 @@ const __vitePreload = function preload(baseModule, deps, importerUrl) {
     }
   });
 };
-var define_process_env_default = { API_URL: "https://backend.revenuehunt.com", REMIX_BASENAME: "/v2", SENTRY_DSN: "https://f5bd9289b4f35ee9dfb3e335f01911b9@o4508088844288000.ingest.us.sentry.io/4508240980934656", SHOPIFY_API_KEY: "66c8f4d8af29534c6f3d5888d7d93e9e", NODE_ENV: "production" };
+var define_process_env_default = { SENTRY_DSN: "https://16cc640050247046527b6063591a7ca4@o4508088844288000.ingest.us.sentry.io/4508089422446592", SHOPIFY_API_KEY: "57bfaa64a84131f7b589ab638dac5714", API_URL: "http://localhost:3003", REMIX_BASENAME: "/v2", NODE_ENV: "development" };
 function mapToPublicEnvironment(processEnv, previewParents = []) {
   return {
     VOICE_ASSETS_URL: processEnv.VOICE_ASSETS_URL || "",
@@ -93,7 +93,7 @@ function getPublicEnvironmentVariables(variables = []) {
   const envVariables = getPublicEnvironment();
   const isClient = typeof window !== "undefined";
   const environment = isClient ? "client" : "server";
-  const isDevelopment = false;
+  const isDevelopment = true;
   const isLocalhost = isClient && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
   const variablesToReturn = variables.reduce(
     (acc, variable) => {
@@ -189,8 +189,8 @@ async function fetchShopifyFile(fileUrl, signal) {
   return response;
 }
 const renderers = {
-  json: () => __vitePreload(() => import("./quiz-renderer-json-renderer-CJBOnGnk.js").then((n) => n.jsonRenderer), true ? __vite__mapDeps([0,1,2,3,4,5,6,7]) : void 0, import.meta.url),
-  html: () => __vitePreload(() => import("./quiz-renderer-mount-D_glRQuD.js").then((n) => n.mount), true ? __vite__mapDeps([8,9,5]) : void 0, import.meta.url)
+  json: () => __vitePreload(() => import("./quiz-renderer-json-renderer-svqC5ToN.js").then((n) => n.jsonRenderer), true ? __vite__mapDeps([0,1,2,3,4,5,6,7]) : void 0, import.meta.url),
+  html: () => __vitePreload(() => import("./quiz-renderer-mount-D_6h3far.js").then((n) => n.mount), true ? __vite__mapDeps([8,9,5]) : void 0, import.meta.url)
 };
 async function loadQuiz(context, signal) {
   var _a, _b;
@@ -296,7 +296,7 @@ async function overPlanGate(host, overPlanAt, signal, kind, locale) {
   let seconds = overPlanSeconds(overPlanAt);
   if (seconds <= 0) return true;
   const { loadOverPlanCopy } = await __vitePreload(async () => {
-    const { loadOverPlanCopy: loadOverPlanCopy2 } = await import("./quiz-renderer-over-plan-copy-B8iKLUMx.js");
+    const { loadOverPlanCopy: loadOverPlanCopy2 } = await import("./quiz-renderer-over-plan-copy-Ba9e3rM2.js");
     return { loadOverPlanCopy: loadOverPlanCopy2 };
   }, true ? [] : void 0, import.meta.url);
   const copy = await loadOverPlanCopy(kind, locale);
@@ -358,9 +358,9 @@ class QuizRenderer extends HTMLElement {
   }
   async mount(context, request) {
     var _a;
+    const locale = window.quiz_locale;
+    const assistantId = (_a = /^assistant_(.+)$/.exec(context.target)) == null ? void 0 : _a[1];
     try {
-      const locale = window.quiz_locale;
-      const assistantId = (_a = /^assistant_(.+)$/.exec(context.target)) == null ? void 0 : _a[1];
       if (assistantId) {
         this.classList.add("needsclick");
         if (!await overPlanGate(this, context.overPlanAt, request.signal, "assistant", locale))
@@ -368,7 +368,7 @@ class QuizRenderer extends HTMLElement {
         if (!context.myshopifyDomain) throw new Error("A shop assistant needs its shop");
         if (!this.getAttribute("assistant")) this.setAttribute("assistant", "chat");
         const { mountShopAssistant } = await __vitePreload(async () => {
-          const { mountShopAssistant: mountShopAssistant2 } = await import("./quiz-renderer-assistant-mount-C5gNNRop.js");
+          const { mountShopAssistant: mountShopAssistant2 } = await import("./quiz-renderer-assistant-mount-BsjhN9D5.js");
           return { mountShopAssistant: mountShopAssistant2 };
         }, true ? __vite__mapDeps([10,8,9,5,11]) : void 0, import.meta.url);
         const unmount = await mountShopAssistant(
@@ -388,7 +388,7 @@ class QuizRenderer extends HTMLElement {
         this.classList.add("needsclick");
         if (!await overPlanGate(this, context.overPlanAt, request.signal, "quiz", locale)) return;
         const { mountHtmlQuiz } = await __vitePreload(async () => {
-          const { mountHtmlQuiz: mountHtmlQuiz2 } = await import("./quiz-renderer-mount-D_glRQuD.js").then((n) => n.mount);
+          const { mountHtmlQuiz: mountHtmlQuiz2 } = await import("./quiz-renderer-mount-D_6h3far.js").then((n) => n.mount);
           return { mountHtmlQuiz: mountHtmlQuiz2 };
         }, true ? __vite__mapDeps([8,9,5]) : void 0, import.meta.url);
         if (request.signal.aborted) return;
@@ -400,7 +400,7 @@ class QuizRenderer extends HTMLElement {
         });
       } else {
         const { mountJsonQuiz } = await __vitePreload(async () => {
-          const { mountJsonQuiz: mountJsonQuiz2 } = await import("./quiz-renderer-json-renderer-CJBOnGnk.js").then((n) => n.jsonRenderer);
+          const { mountJsonQuiz: mountJsonQuiz2 } = await import("./quiz-renderer-json-renderer-svqC5ToN.js").then((n) => n.jsonRenderer);
           return { mountJsonQuiz: mountJsonQuiz2 };
         }, true ? __vite__mapDeps([0,1,2,3,4,5,6,7]) : void 0, import.meta.url);
         if (request.signal.aborted) return;
@@ -409,14 +409,22 @@ class QuizRenderer extends HTMLElement {
       this.removeAttribute("aria-busy");
     } catch (error) {
       if (request.signal.aborted) return;
-      console.error("[QuizRenderer] Failed to load quiz", error);
+      console.error(`[QuizRenderer] Failed to load ${assistantId ? "assistant" : "quiz"}`, error);
       const { mountMissingQuiz } = await __vitePreload(async () => {
-        const { mountMissingQuiz: mountMissingQuiz2 } = await import("./quiz-renderer-json-renderer-CJBOnGnk.js").then((n) => n.jsonRenderer);
+        const { mountMissingQuiz: mountMissingQuiz2 } = await import("./quiz-renderer-json-renderer-svqC5ToN.js").then((n) => n.jsonRenderer);
         return { mountMissingQuiz: mountMissingQuiz2 };
       }, true ? __vite__mapDeps([0,1,2,3,4,5,6,7]) : void 0, import.meta.url);
+      let title;
+      if (assistantId) {
+        const { loadOverPlanCopy } = await __vitePreload(async () => {
+          const { loadOverPlanCopy: loadOverPlanCopy2 } = await import("./quiz-renderer-over-plan-copy-Ba9e3rM2.js");
+          return { loadOverPlanCopy: loadOverPlanCopy2 };
+        }, true ? [] : void 0, import.meta.url);
+        title = (await loadOverPlanCopy("assistant", locale)).blocked.title;
+      }
       if (request.signal.aborted) return;
       this.removeAttribute("aria-busy");
-      this.unmount = mountMissingQuiz(this);
+      this.unmount = mountMissingQuiz(this, title);
     }
   }
   disconnectedCallback() {
@@ -428,11 +436,11 @@ class QuizRenderer extends HTMLElement {
 }
 if (!customElements.get("quiz-renderer")) customElements.define("quiz-renderer", QuizRenderer);
 const mountStorefront = () => {
-  if (document.querySelector("#prq-v2-store, [data-prq-shop][data-prq-quiz]"))
+  if (document.querySelector("#prq-v2-store"))
     void __vitePreload(async () => {
-      const { mountStorefrontQuizzes } = await import("./quiz-renderer-storefront-loader-CQiWvzWc.js");
+      const { mountStorefrontQuizzes } = await import("./quiz-renderer-storefront-loader-Iy8vIUto.js");
       return { mountStorefrontQuizzes };
-    }, true ? __vite__mapDeps([12,8,9,5,10,11]) : void 0, import.meta.url).then(
+    }, true ? [] : void 0, import.meta.url).then(
       ({ mountStorefrontQuizzes }) => mountStorefrontQuizzes()
     );
 };
@@ -457,6 +465,5 @@ export {
   getPublicEnvironmentVariable,
   loadArtifact,
   overPlanGate,
-  overPlanSeconds,
-  readArtifactBody
+  overPlanSeconds
 };
