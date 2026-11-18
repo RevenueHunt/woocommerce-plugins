@@ -1,11 +1,11 @@
-const __vite__fileDeps=["./quiz-renderer-index-Dkr5l4kn.js","./quiz-renderer-custom-chart-core-B3PPCsWj.js","./quiz-renderer-json-renderer-svqC5ToN.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer.1794996922386.css","./quiz-renderer-chart-helpers-XgFtNqnX.js","./quiz-renderer-rating-core-tk6_ng9w.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
+const __vite__fileDeps=["./quiz-renderer-index-ls5A4N3R.js","./quiz-renderer-custom-chart-core-Cl3aB358.js","./quiz-renderer-json-renderer-D12Pndit.js","./quiz-renderer-index-BXMeXr7c.js","./quiz-renderer-image-processing-B3Hir3-2.js","./quiz-renderer-trackers-bundle-Do5Gpowk.js","./quiz-renderer.js","./quiz-renderer-shopifyCart-BtEmfGDv.js","./quiz-renderer-quiz-renderer-messaging-C9QqZsWP.js","./quiz-renderer-country-data-CuDUzlny.js","./quiz-renderer.1794999053091.css","./quiz-renderer-chart-helpers-VGBsLeJw.js","./quiz-renderer-rating-core-B9o-oRjp.js"],__vite__mapDeps=i=>i.map(i=>__vite__fileDeps[i]);
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
 import { __vitePreload } from "./quiz-renderer.js";
-import { reactExports, useQuizStore, jsxDevRuntimeExports, clsx } from "./quiz-renderer-json-renderer-svqC5ToN.js";
+import { reactExports, useQuizStore, jsxDevRuntimeExports, clsx } from "./quiz-renderer-json-renderer-D12Pndit.js";
 import { BlockType } from "./quiz-renderer-image-processing-B3Hir3-2.js";
-import { ChartErrorBoundary } from "./quiz-renderer-chart-error-boundary--hC0Vt8D.js";
+import { ChartErrorBoundary } from "./quiz-renderer-chart-error-boundary-RfrMKCyB.js";
 function calculateVariableScores(questions, answers) {
   const scores = {};
   const blockMap = /* @__PURE__ */ new Map();
@@ -244,27 +244,27 @@ function mapToChartData(chartType, preferences, context) {
   }
 }
 const GaugeChartCore = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-index-Dkr5l4kn.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-index-ls5A4N3R.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
     default: module.GaugeChartCore
   }))
 );
 const RadarChartCore = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-index-Dkr5l4kn.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-index-ls5A4N3R.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
     default: module.RadarChartCore
   }))
 );
 const BarChartCore = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-index-Dkr5l4kn.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-index-ls5A4N3R.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
     default: module.BarChartCore
   }))
 );
 const CustomChartCore = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-index-Dkr5l4kn.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-index-ls5A4N3R.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
     default: module.CustomChartCore
   }))
 );
 const RatingCore = reactExports.lazy(
-  () => __vitePreload(() => import("./quiz-renderer-index-Dkr5l4kn.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
+  () => __vitePreload(() => import("./quiz-renderer-index-ls5A4N3R.js"), true ? __vite__mapDeps([0,1,2,3,4,5,6,7,8,9,10,11,12]) : void 0, import.meta.url).then((module) => ({
     default: module.RatingCore
   }))
 );
@@ -360,17 +360,17 @@ const QuestionChartBlock = ({ block }) => {
   const renderChart = () => {
     if (needsChartJS && !ChartJS) {
       return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "chart-block__loading", children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("span", { children: "Loading chart..." }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
         lineNumber: 229,
         columnNumber: 11
       }, void 0) }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
         lineNumber: 228,
         columnNumber: 9
       }, void 0);
     }
     const chartFallback = /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "chart-block__loading", style: { minHeight: `${blockHeight}px` } }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
       lineNumber: 235,
       columnNumber: 7
     }, void 0);
@@ -388,13 +388,13 @@ const QuestionChartBlock = ({ block }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
             lineNumber: 245,
             columnNumber: 13
           },
           void 0
         ) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
           lineNumber: 244,
           columnNumber: 11
         }, void 0);
@@ -412,13 +412,13 @@ const QuestionChartBlock = ({ block }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
             lineNumber: 260,
             columnNumber: 13
           },
           void 0
         ) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
           lineNumber: 259,
           columnNumber: 11
         }, void 0);
@@ -436,13 +436,13 @@ const QuestionChartBlock = ({ block }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
             lineNumber: 275,
             columnNumber: 13
           },
           void 0
         ) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
           lineNumber: 274,
           columnNumber: 11
         }, void 0);
@@ -465,13 +465,13 @@ const QuestionChartBlock = ({ block }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
             lineNumber: 290,
             columnNumber: 13
           },
           void 0
         ) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
           lineNumber: 289,
           columnNumber: 11
         }, void 0);
@@ -481,7 +481,7 @@ const QuestionChartBlock = ({ block }) => {
         const ratingBlock = block;
         const ratingHeight = blockHeight / 3;
         return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(reactExports.Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { style: { minHeight: `${ratingHeight}px` } }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
           lineNumber: 312,
           columnNumber: 31
         }, void 0), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
@@ -494,13 +494,13 @@ const QuestionChartBlock = ({ block }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
             lineNumber: 313,
             columnNumber: 13
           },
           void 0
         ) }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
           lineNumber: 312,
           columnNumber: 11
         }, void 0);
@@ -511,7 +511,7 @@ const QuestionChartBlock = ({ block }) => {
   };
   if (block.type === BlockType.RATING_CHART) {
     return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ChartErrorBoundary, { context: "question", blockRef: block.ref, children: renderChart() }, void 0, false, {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
       lineNumber: 330,
       columnNumber: 7
     }, void 0);
@@ -523,11 +523,11 @@ const QuestionChartBlock = ({ block }) => {
     "chart-block--right": alignment === "right"
   });
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { id: block.ref, className: chartClass, style: { minHeight: `${blockHeight}px` }, children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ChartErrorBoundary, { context: "question", blockRef: block.ref, children: renderChart() }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
     lineNumber: 348,
     columnNumber: 7
   }, void 0) }, void 0, false, {
-    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
+    fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/blocks/common/charts/question-chart/question-chart-block.tsx",
     lineNumber: 347,
     columnNumber: 5
   }, void 0);

@@ -174,39 +174,39 @@ function installStorefrontPieces(root, store, mountQuiz, assistantOnPage = false
     const block = root.querySelector(`[data-prq-piece="${name}"]`);
     return block ? JSON.parse(block.dataset.prqConfig || "{}") : (siteWide == null ? void 0 : siteWide.enabled) ? siteWide : void 0;
   };
-  const chat = piece("chatButton", (_b = store.siteWide) == null ? void 0 : _b.chatButton);
-  const chatId = chat && (chat.quizId || store.defaultQuiz);
-  let chatHost;
-  if (chat && chatId && !(chat.hideAfterCompletion && completed(chatId))) {
-    chatHost = document.createElement("div");
-    const left = chat.position === "bottom-left";
+  const quizButton = piece("quizButton", (_b = store.siteWide) == null ? void 0 : _b.quizButton);
+  const buttonQuizId = quizButton && (quizButton.quizId || store.defaultQuiz);
+  let quizButtonHost;
+  if (quizButton && buttonQuizId && !(quizButton.hideAfterCompletion && completed(buttonQuizId))) {
+    quizButtonHost = document.createElement("div");
+    const left = quizButton.position === "bottom-left";
     const bottom = assistantOnPage && !left ? 84 : 20;
-    chatHost.style.cssText = `position:fixed;bottom:${bottom}px;${left ? "left" : "right"}:20px;z-index:97;display:flex;align-items:center;gap:10px;flex-direction:${left ? "row" : "row-reverse"}`;
+    quizButtonHost.style.cssText = `position:fixed;bottom:${bottom}px;${left ? "left" : "right"}:20px;z-index:97;display:flex;align-items:center;gap:10px;flex-direction:${left ? "row" : "row-reverse"}`;
     const button = document.createElement("button");
     button.type = "button";
     button.className = "revenuehunt-chat";
     button.setAttribute("aria-label", "Open quiz");
     button.style.cssText = "position:relative;display:grid;place-items:center;width:50px;height:50px;padding:12px;border:0;border-radius:25px;cursor:pointer;color:white;box-shadow:0 0 3px rgba(0,0,0,.1)";
-    button.style.backgroundColor = chat.color || "#000000";
+    button.style.backgroundColor = quizButton.color || "#000000";
     button.innerHTML = '<svg viewBox="0 0 24 24" width="25" height="25" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
     let dot;
-    if (chat.showDot !== false && getStorage("revenuehunt-notification-closed") !== "true") {
+    if (quizButton.showDot !== false && getStorage("revenuehunt-notification-closed") !== "true") {
       dot = document.createElement("span");
       dot.className = "revenuehunt-dot";
       dot.style.cssText = "position:absolute;right:0;top:0;width:10px;height:10px;background:#f50;border:2px solid white;border-radius:10px;box-sizing:content-box";
       button.append(dot);
     }
-    chatHost.append(button);
+    quizButtonHost.append(button);
     let greeting;
     const dismissGreeting = () => {
       greeting == null ? void 0 : greeting.remove();
       setStorage("revenuehunt-greeting-closed", "true", 7);
     };
-    if (chat.greeting && getStorage("revenuehunt-greeting-closed") !== "true") {
+    if (quizButton.greeting && getStorage("revenuehunt-greeting-closed") !== "true") {
       greeting = document.createElement("div");
       greeting.className = "revenuehunt-greeting";
       greeting.style.cssText = "padding:8px;background:white;color:#666;font:12px Helvetica,Arial,sans-serif;border:1px solid #eee;border-radius:6px;box-shadow:0 0 3px rgba(0,0,0,.1)";
-      greeting.textContent = chat.greeting + " ";
+      greeting.textContent = quizButton.greeting + " ";
       const dismiss = document.createElement("button");
       dismiss.type = "button";
       dismiss.textContent = "×";
@@ -214,20 +214,20 @@ function installStorefrontPieces(root, store, mountQuiz, assistantOnPage = false
       dismiss.style.cssText = "border:0;background:none;color:inherit;cursor:pointer;padding:0 4px";
       dismiss.addEventListener("click", dismissGreeting);
       greeting.append(dismiss);
-      chatHost.append(greeting);
+      quizButtonHost.append(greeting);
     }
     button.addEventListener("click", () => {
       dismissGreeting();
       dot == null ? void 0 : dot.remove();
       setStorage("revenuehunt-notification-closed", "true", 7);
-      open(chatId, chat, "chat");
+      open(buttonQuizId, quizButton, "quiz-button");
     });
-    document.body.append(chatHost);
-    if (chat.hideAfterCompletion)
+    document.body.append(quizButtonHost);
+    if (quizButton.hideAfterCompletion)
       document.addEventListener(
         "quiz:complete",
         () => {
-          if (completed(chatId)) chatHost == null ? void 0 : chatHost.remove();
+          if (completed(buttonQuizId)) quizButtonHost == null ? void 0 : quizButtonHost.remove();
         },
         { signal }
       );
@@ -261,7 +261,7 @@ function installStorefrontPieces(root, store, mountQuiz, assistantOnPage = false
     controller.abort();
     clearInterval(timer);
     close(false);
-    chatHost == null ? void 0 : chatHost.remove();
+    quizButtonHost == null ? void 0 : quizButtonHost.remove();
     style.remove();
   };
 }

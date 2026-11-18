@@ -1,8 +1,8 @@
 import { __vitePreload } from "./quiz-renderer.js";
-import { reactExports, ChartValueSource, jsxDevRuntimeExports, DataPointType, useQuizStore, clsx, ResultBlockType } from "./quiz-renderer-json-renderer-svqC5ToN.js";
-import { GaugeChartCore, RadarChartCore, BarChartCore, CustomChartCore } from "./quiz-renderer-custom-chart-core-B3PPCsWj.js";
-import { getPreviewValue } from "./quiz-renderer-chart-helpers-XgFtNqnX.js";
-import { ChartErrorBoundary } from "./quiz-renderer-chart-error-boundary--hC0Vt8D.js";
+import { reactExports, ChartValueSource, jsxDevRuntimeExports, DataPointType, useQuizStore, clsx, ResultBlockType } from "./quiz-renderer-json-renderer-D12Pndit.js";
+import { GaugeChartCore, RadarChartCore, BarChartCore, CustomChartCore } from "./quiz-renderer-custom-chart-core-Cl3aB358.js";
+import { getPreviewValue } from "./quiz-renderer-chart-helpers-VGBsLeJw.js";
+import { ChartErrorBoundary } from "./quiz-renderer-chart-error-boundary-RfrMKCyB.js";
 import "./quiz-renderer-index-BXMeXr7c.js";
 import "./quiz-renderer-image-processing-B3Hir3-2.js";
 import "./quiz-renderer-trackers-bundle-Do5Gpowk.js";
@@ -32,7 +32,7 @@ const GaugeChart = ({ block, variableScores, ChartJS, inBuilder }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/gauge-chart.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/gauge-chart.tsx",
       lineNumber: 38,
       columnNumber: 5
     },
@@ -74,7 +74,7 @@ const RadarChartComponent = ({
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/radar-chart.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/radar-chart.tsx",
       lineNumber: 52,
       columnNumber: 5
     },
@@ -116,7 +116,7 @@ const BarChartComponent = ({
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/bar-chart.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/bar-chart.tsx",
       lineNumber: 52,
       columnNumber: 5
     },
@@ -151,7 +151,7 @@ const CustomChartComponent = ({
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/custom-chart.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/custom-chart.tsx",
       lineNumber: 44,
       columnNumber: 5
     },
@@ -228,7 +228,7 @@ const ChartResultBlock = ({ block }) => {
         "aria-label": getChartAriaLabel(block),
         style: { minHeight: `${blockHeight}px` },
         children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "chart-block__loading", children: getTranslatedContent({ key: "loading" }) || "Loading..." }, void 0, false, {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
           lineNumber: 107,
           columnNumber: 9
         }, void 0)
@@ -236,7 +236,7 @@ const ChartResultBlock = ({ block }) => {
       void 0,
       false,
       {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
         lineNumber: 101,
         columnNumber: 7
       },
@@ -257,7 +257,7 @@ const ChartResultBlock = ({ block }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
             lineNumber: 119,
             columnNumber: 11
           },
@@ -276,7 +276,7 @@ const ChartResultBlock = ({ block }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
             lineNumber: 129,
             columnNumber: 11
           },
@@ -295,7 +295,7 @@ const ChartResultBlock = ({ block }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
             lineNumber: 139,
             columnNumber: 11
           },
@@ -316,7 +316,7 @@ const ChartResultBlock = ({ block }) => {
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
             lineNumber: 149,
             columnNumber: 11
           },
@@ -335,7 +335,7 @@ const ChartResultBlock = ({ block }) => {
       "aria-label": getChartAriaLabel(block),
       style: { minHeight: `${blockHeight}px` },
       children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ChartErrorBoundary, { context: "result", blockRef: block.ref, children: renderChart() }, void 0, false, {
-        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
+        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
         lineNumber: 171,
         columnNumber: 7
       }, void 0)
@@ -343,7 +343,7 @@ const ChartResultBlock = ({ block }) => {
     void 0,
     false,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/quiz/results/blocks/chart/chart-result-block.tsx",
       lineNumber: 165,
       columnNumber: 5
     },

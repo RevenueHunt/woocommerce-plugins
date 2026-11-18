@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
-import { reactExports, jsxDevRuntimeExports } from "./quiz-renderer-json-renderer-svqC5ToN.js";
+import { reactExports, jsxDevRuntimeExports } from "./quiz-renderer-json-renderer-D12Pndit.js";
 const MAX_RETRY_COUNT = 3;
 class ChartErrorBoundary extends reactExports.Component {
   constructor(props) {
@@ -80,7 +80,7 @@ class ChartErrorBoundary extends reactExports.Component {
         void 0,
         false,
         {
-          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+          fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
           lineNumber: 150,
           columnNumber: 9
         },
@@ -134,17 +134,17 @@ function ChartErrorFallback({
             "aria-hidden": "true",
             children: [
               /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("circle", { cx: "12", cy: "12", r: "10" }, void 0, false, {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                 lineNumber: 220,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("line", { x1: "12", y1: "8", x2: "12", y2: "12" }, void 0, false, {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                 lineNumber: 221,
                 columnNumber: 9
               }, this),
               /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("line", { x1: "12", y1: "16", x2: "12.01", y2: "16" }, void 0, false, {
-                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                 lineNumber: 222,
                 columnNumber: 9
               }, this)
@@ -153,7 +153,7 @@ function ChartErrorFallback({
           void 0,
           true,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
             lineNumber: 208,
             columnNumber: 7
           },
@@ -173,7 +173,7 @@ function ChartErrorFallback({
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
             lineNumber: 226,
             columnNumber: 7
           },
@@ -196,7 +196,7 @@ function ChartErrorFallback({
           void 0,
           true,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
             lineNumber: 237,
             columnNumber: 7
           },
@@ -229,7 +229,7 @@ function ChartErrorFallback({
           void 0,
           false,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
             lineNumber: 253,
             columnNumber: 9
           },
@@ -264,7 +264,7 @@ function ChartErrorFallback({
                 void 0,
                 false,
                 {
-                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                   lineNumber: 293,
                   columnNumber: 11
                 },
@@ -282,46 +282,46 @@ function ChartErrorFallback({
                   children: [
                     /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { style: { margin: "0 0 0.5rem 0" }, children: [
                       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("strong", { children: "Error:" }, void 0, false, {
-                        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                         lineNumber: 312,
                         columnNumber: 15
                       }, this),
                       " ",
                       error.message
                     ] }, void 0, true, {
-                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                       lineNumber: 311,
                       columnNumber: 13
                     }, this),
                     blockRef && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { style: { margin: "0 0 0.5rem 0" }, children: [
                       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("strong", { children: "Block Ref:" }, void 0, false, {
-                        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                         lineNumber: 316,
                         columnNumber: 17
                       }, this),
                       " ",
                       blockRef
                     ] }, void 0, true, {
-                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                       lineNumber: 315,
                       columnNumber: 15
                     }, this),
                     /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { style: { margin: "0 0 0.5rem 0" }, children: [
                       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("strong", { children: "Context:" }, void 0, false, {
-                        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                         lineNumber: 320,
                         columnNumber: 15
                       }, this),
                       " ",
                       context
                     ] }, void 0, true, {
-                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                       lineNumber: 319,
                       columnNumber: 13
                     }, this),
                     /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { style: { margin: "0 0 0.5rem 0" }, children: [
                       /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("strong", { children: "Retry Count:" }, void 0, false, {
-                        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                         lineNumber: 323,
                         columnNumber: 15
                       }, this),
@@ -330,7 +330,7 @@ function ChartErrorFallback({
                       " / ",
                       maxRetries
                     ] }, void 0, true, {
-                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                       lineNumber: 322,
                       columnNumber: 13
                     }, this),
@@ -348,7 +348,7 @@ function ChartErrorFallback({
                       void 0,
                       false,
                       {
-                        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                        fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                         lineNumber: 326,
                         columnNumber: 15
                       },
@@ -359,7 +359,7 @@ function ChartErrorFallback({
                 void 0,
                 true,
                 {
-                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+                  fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
                   lineNumber: 303,
                   columnNumber: 11
                 },
@@ -370,7 +370,7 @@ function ChartErrorFallback({
           void 0,
           true,
           {
-            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+            fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
             lineNumber: 280,
             columnNumber: 9
           },
@@ -381,7 +381,7 @@ function ChartErrorFallback({
     void 0,
     true,
     {
-      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/assistant-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
+      fileName: "/Users/kulupu/Desktop/src/RevenueHunt/worktrees/storefront-words/v2/frontend_v2/app/components/shared/charts/chart-error-boundary.tsx",
       lineNumber: 190,
       columnNumber: 5
     },
