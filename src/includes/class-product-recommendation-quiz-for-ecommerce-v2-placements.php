@@ -96,7 +96,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Placements {
 		$kinds = array(
 			'revenuehunt/product-recommendation-quiz-for-ecommerce' => 'inline',
 			'revenuehunt/link-popup-quiz'  => 'link-popup',
-			'revenuehunt/chat-button-quiz' => 'chat-button',
+			'revenuehunt/chat-button-quiz' => 'quiz-button',
 			'revenuehunt/auto-popup-quiz'  => 'automatic-popup',
 			'revenuehunt/assistant'        => 'assistant',
 		);

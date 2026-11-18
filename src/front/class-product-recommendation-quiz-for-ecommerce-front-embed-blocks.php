@@ -95,7 +95,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks {
 		);
 		register_block_type(
 			plugin_dir_path( __FILE__ ) . 'blocks/chat-button',
-			array( 'render_callback' => array( $this, 'render_chat_button' ) ) + Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor::settings( 'chat-button' )
+			array( 'render_callback' => array( $this, 'render_chat_button' ) ) + Product_Recommendation_Quiz_For_Ecommerce_V2_Block_Editor::settings( 'quiz-button' )
 		);
 		register_block_type(
 			plugin_dir_path( __FILE__ ) . 'blocks/link-popup',

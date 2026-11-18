@@ -222,7 +222,7 @@ final class V2StorefrontTest extends TestCase
         $this->assertSame(1, $result['runtime']);
         $this->assertEquals((object) ['abc' => 'v42'], $result['quizzes']);
         $this->assertEquals((object) ['asst1' => 'assistant-v1'], $result['assistants']);
-        $this->assertSame(['inline', 'shortcode', 'link-popup', 'assistant', 'chat-button'], array_column($result['placements'], 'kind'));
+        $this->assertSame(['inline', 'shortcode', 'link-popup', 'assistant', 'quiz-button'], array_column($result['placements'], 'kind'));
         $this->assertSame(['nested', 'abc', '', null, 'widget'], array_column($result['placements'], 'quizId'));
         $this->assertSame([null, null, null, 'asst1', null], array_column($result['placements'], 'assistantId'));
         $this->assertSame(['kind', 'quizId', 'assistantId', 'postId', 'postType', 'title', 'url'], array_keys($result['placements'][0]));
