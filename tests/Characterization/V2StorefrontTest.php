@@ -94,7 +94,7 @@ final class V2StorefrontTest extends TestCase
         $routes = [];
         Functions\when('register_rest_route')->alias(function ($namespace, $path, $args) use (&$routes) { $routes[$path . ':' . $args['methods']] = $args; });
         (new V2())->register_routes();
-        foreach ([['PUT', '/quizzes/(?P<sqid>[A-Za-z0-9]+)', '/prq/v3/quizzes/abc'], ['DELETE', '/quizzes/(?P<sqid>[A-Za-z0-9]+)', '/prq/v3/quizzes/abc'], ['PUT', '/assistants/(?P<sqid>[A-Za-z0-9]+)', '/prq/v3/assistants/helper'], ['DELETE', '/assistants/(?P<sqid>[A-Za-z0-9]+)', '/prq/v3/assistants/helper'], ['PUT', '/storefront', '/prq/v3/storefront'], ['GET', '/storefront', '/prq/v3/storefront']] as [$method, $pattern, $path]) {
+        foreach ([['PUT', '/quizzes/(?P<sqid>[A-Za-z0-9]+)', '/prq/v3/quizzes/abc'], ['DELETE', '/quizzes/(?P<sqid>[A-Za-z0-9]+)', '/prq/v3/quizzes/abc'], ['PUT', '/assistants/(?P<sqid>[A-Za-z0-9]+)', '/prq/v3/assistants/asst1'], ['DELETE', '/assistants/(?P<sqid>[A-Za-z0-9]+)', '/prq/v3/assistants/asst1'], ['PUT', '/storefront', '/prq/v3/storefront'], ['GET', '/storefront', '/prq/v3/storefront']] as [$method, $pattern, $path]) {
             $route = $routes[$pattern . ':' . $method];
             $this->assertSame(V2::class, get_class($route['permission_callback'][0]));
             $this->assertTrue(call_user_func($route['permission_callback'], $this->request($method, $path, $method === 'PUT' ? $this->body() : null)));
@@ -133,67 +133,67 @@ final class V2StorefrontTest extends TestCase
         Functions\expect('wp_enqueue_script_module')->times(3)->with('prq-v2-quiz-renderer', 'https://shop.example/wp-content/plugins/prq/assets/v2/quiz-renderer.js', [], PRQ_PLUGIN_VERSION);
         Functions\expect('wp_enqueue_script')->never();
         $store = new Storefront();
-        $body = ['name' => 'Shopping helper', 'version' => 'assistant-v1', 'runtime' => 1,
+        $body = ['name' => 'Shopping assistant', 'version' => 'assistant-v1', 'runtime' => 1,
             'shell' => '<main>Welcome! How can I help?</main>', 'experiment' => null,
             'instructions' => 'PRIVATE INSTRUCTIONS', 'skills' => ['PRIVATE SKILL']];
-        $request = $this->request('PUT', '/prq/v3/assistants/helper', $body);
+        $request = $this->request('PUT', '/prq/v3/assistants/asst1', $body);
         $this->assertTrue((new V2())->authorize($request));
         $this->assertSame(['ok' => true], $store->put_assistant($request));
-        $path = $this->uploads . '/prq-v2/assistant-helper.html';
+        $path = $this->uploads . '/prq-v2/assistant-asst1.html';
         $this->assertSame($body['shell'], file_get_contents($path));
-        $this->assertSame(['name' => 'Shopping helper', 'version' => 'assistant-v1', 'runtime' => 1, 'experiment' => null], $this->options[Storefront::ASSISTANTS]['helper']);
+        $this->assertSame(['name' => 'Shopping assistant', 'version' => 'assistant-v1', 'runtime' => 1, 'experiment' => null], $this->options[Storefront::ASSISTANTS]['asst1']);
         $this->assertSame([], glob($this->uploads . '/prq-v2/.prq-*'));
         $delivery = new Delivery();
-        $this->assertSame('<div data-prq-assistant="helper"></div>', $delivery->piece('assistant', ['assistantId' => 'helper']));
+        $this->assertSame('<div data-prq-assistant="asst1"></div>', $delivery->piece('assistant', ['assistantId' => 'asst1']));
         ob_start(); $delivery->footer(); $html = ob_get_clean();
         $data = json_decode(strip_tags($html), true, 512, JSON_THROW_ON_ERROR);
-        $this->assertSame(['src' => 'https://shop.example/wp-content/uploads/prq-v2/assistant-helper.html?v=assistant-v1', 'runtime' => 1], $data['assistants']['helper']);
+        $this->assertSame(['src' => 'https://shop.example/wp-content/uploads/prq-v2/assistant-asst1.html?v=assistant-v1', 'runtime' => 1], $data['assistants']['asst1']);
         $this->assertStringNotContainsString('PRIVATE', $html);
 
         $body['shell'] = null;
         $body['version'] = 'rollout-v2';
         $body['experiment'] = ['id' => 'rollout1', 'trafficSplit' => 50];
-        $this->assertSame(['ok' => true], $store->put_assistant($this->request('PUT', '/prq/v3/assistants/helper', $body)));
+        $this->assertSame(['ok' => true], $store->put_assistant($this->request('PUT', '/prq/v3/assistants/asst1', $body)));
         $this->assertFileDoesNotExist($path);
-        $this->assertSame(['name' => 'Shopping helper', 'version' => 'rollout-v2', 'runtime' => 1, 'experiment' => $body['experiment']], $this->options[Storefront::ASSISTANTS]['helper']);
+        $this->assertSame(['name' => 'Shopping assistant', 'version' => 'rollout-v2', 'runtime' => 1, 'experiment' => $body['experiment']], $this->options[Storefront::ASSISTANTS]['asst1']);
         $delivery = new Delivery();
         $delivery->piece('assistant', []);
         ob_start(); $delivery->footer(); $data = json_decode(strip_tags(ob_get_clean()), true, 512, JSON_THROW_ON_ERROR);
-        $this->assertSame(['src' => null, 'runtime' => 1], $data['assistants']['helper']);
+        $this->assertSame(['src' => null, 'runtime' => 1], $data['assistants']['asst1']);
 
         $body['shell'] = '<main>Rollout finished</main>';
         $body['experiment'] = null;
         $body['version'] = 'assistant-v2';
-        $store->put_assistant($this->request('PUT', '/prq/v3/assistants/helper', $body));
+        $store->put_assistant($this->request('PUT', '/prq/v3/assistants/asst1', $body));
         $this->assertSame($body['shell'], file_get_contents($path));
         // Missing local files must fall back to V2 even outside a rollout.
         unlink($path);
         $delivery = new Delivery();
         $delivery->piece('assistant', []);
         ob_start(); $delivery->footer(); $data = json_decode(strip_tags(ob_get_clean()), true, 512, JSON_THROW_ON_ERROR);
-        $this->assertSame(['src' => null, 'runtime' => 1], $data['assistants']['helper']);
-        $store->put_assistant($this->request('PUT', '/prq/v3/assistants/helper', $body));
-        $this->assertSame(['ok' => true], $store->delete_assistant($this->request('DELETE', '/prq/v3/assistants/helper')));
+        $this->assertSame(['src' => null, 'runtime' => 1], $data['assistants']['asst1']);
+        $store->put_assistant($this->request('PUT', '/prq/v3/assistants/asst1', $body));
+        $this->assertSame(['ok' => true], $store->delete_assistant($this->request('DELETE', '/prq/v3/assistants/asst1')));
         $this->assertFileDoesNotExist($path);
         $this->assertSame([], $this->options[Storefront::ASSISTANTS]);
     }
 
     public function test_storefront_roundtrip_finds_shortcode_nested_blocks_template_part_reusable_block_and_widget(): void
     {
-        $settings = ['defaultQuiz' => 'abc', 'defaultAssistant' => 'helper', 'siteWide' => ['popupLinks' => true, 'assistant' => ['enabled' => true]], 'overPlanAt' => null, 'customFeaturesBlockedAt' => null];
+        $settings = ['defaultQuiz' => 'abc', 'defaultAssistant' => 'asst1', 'siteWide' => ['popupLinks' => true, 'assistant' => ['enabled' => true]], 'overPlanAt' => null, 'customFeaturesBlockedAt' => null];
         $store = new Storefront();
         $this->assertSame(['ok' => true], $store->put_storefront($this->request('PUT', '/prq/v3/storefront', $settings)));
         $this->assertSame($settings, $this->options[Storefront::STOREFRONT]);
         $store->put_storefront($this->request('PUT', '/prq/v3/storefront', $settings + ['assistants' => [['id' => 'obsolete', 'name' => 'Not a second index']]]));
         $this->assertArrayNotHasKey('assistants', $this->options[Storefront::STOREFRONT]);
-        $store->put_assistant($this->request('PUT', '/prq/v3/assistants/helper', ['name' => 'Store helper', 'version' => 'assistant-v1', 'runtime' => 1, 'shell' => '<main>Helper</main>', 'experiment' => null]));
+        $store->put_assistant($this->request('PUT', '/prq/v3/assistants/asst1', ['name' => 'Store assistant', 'version' => 'assistant-v1', 'runtime' => 1, 'shell' => '<main>Assistant</main>', 'experiment' => null]));
         $store->put_quiz($this->request('PUT', '/prq/v3/quizzes/abc', $this->body()));
         $content = '[product_recommendation_quiz id="abc"]<!-- wp:group --><!-- wp:revenuehunt/product-recommendation-quiz-for-ecommerce {"id":"nested"} /--><!-- /wp:group -->';
         $block = fn($name, $attrs = [], $children = []) => ['blockName' => $name, 'attrs' => $attrs, 'innerBlocks' => $children];
         $parsed = [
             $content => [$block('core/group', [], [$block('revenuehunt/product-recommendation-quiz-for-ecommerce', ['id' => 'nested'])])],
             '<!-- wp:revenuehunt/link-popup-quiz /-->' => [$block('revenuehunt/link-popup-quiz')],
-            '<!-- wp:revenuehunt/assistant {"assistantId":"helper"} /-->' => [$block('revenuehunt/assistant', ['assistantId' => 'helper'])],
+            '<!-- wp:revenuehunt/assistant {"assistantId":"asst1"} /-->' => [$block('revenuehunt/assistant', ['assistantId' => 'asst1'])],
             '<!-- wp:revenuehunt/chat-button-quiz {"quizId":"widget"} /-->' => [$block('revenuehunt/chat-button-quiz', ['quizId' => 'widget'])],
         ];
         Functions\when('parse_blocks')->alias(fn($text) => $parsed[$text]);
@@ -215,16 +215,16 @@ final class V2StorefrontTest extends TestCase
         $wpdb->shouldReceive('get_results')->once()->with('candidate query')->andReturn([
             (object) ['ID' => 1, 'post_type' => 'page', 'post_title' => 'Finder', 'post_content' => $content],
             (object) ['ID' => 2, 'post_type' => 'wp_template_part', 'post_title' => 'Header', 'post_content' => array_keys($parsed)[1]],
-            (object) ['ID' => 3, 'post_type' => 'wp_block', 'post_title' => 'Helper', 'post_content' => array_keys($parsed)[2]],
+            (object) ['ID' => 3, 'post_type' => 'wp_block', 'post_title' => 'Assistant', 'post_content' => array_keys($parsed)[2]],
         ]);
         $GLOBALS['wpdb'] = $wpdb;
         $result = $store->get_storefront();
         $this->assertSame(1, $result['runtime']);
         $this->assertEquals((object) ['abc' => 'v42'], $result['quizzes']);
-        $this->assertEquals((object) ['helper' => 'assistant-v1'], $result['assistants']);
+        $this->assertEquals((object) ['asst1' => 'assistant-v1'], $result['assistants']);
         $this->assertSame(['inline', 'shortcode', 'link-popup', 'assistant', 'chat-button'], array_column($result['placements'], 'kind'));
         $this->assertSame(['nested', 'abc', '', null, 'widget'], array_column($result['placements'], 'quizId'));
-        $this->assertSame([null, null, null, 'helper', null], array_column($result['placements'], 'assistantId'));
+        $this->assertSame([null, null, null, 'asst1', null], array_column($result['placements'], 'assistantId'));
         $this->assertSame(['kind', 'quizId', 'assistantId', 'postId', 'postType', 'title', 'url'], array_keys($result['placements'][0]));
         $this->assertSame([1, 1, 2, 3, null], array_column($result['placements'], 'postId'));
     }
@@ -235,7 +235,7 @@ final class V2StorefrontTest extends TestCase
     {
         Functions\expect('wp_enqueue_script_module')->once()->with('prq-v2-quiz-renderer', 'https://shop.example/wp-content/plugins/prq/assets/v2/quiz-renderer.js', [], PRQ_PLUGIN_VERSION);
         Functions\expect('wp_enqueue_script')->never();
-        $this->options[Storefront::STOREFRONT] = ['defaultQuiz' => 'abc', 'defaultAssistant' => 'helper', 'siteWide' => ['popupLinks' => true], 'overPlanAt' => '</script><script>bad</script>'];
+        $this->options[Storefront::STOREFRONT] = ['defaultQuiz' => 'abc', 'defaultAssistant' => 'asst1', 'siteWide' => ['popupLinks' => true], 'overPlanAt' => '</script><script>bad</script>'];
         $store = new Storefront();
         $store->put_quiz($this->request('PUT', '/prq/v3/quizzes/abc', $this->body()));
         $delivery = new Delivery();
@@ -245,7 +245,7 @@ final class V2StorefrontTest extends TestCase
         $this->assertSame('<div data-prq-quiz="abc" data-prq-height="80vh" data-prq-fixed-height data-prq-full-width></div>', $delivery->render(['id' => 'abc', 'height' => 80, 'height_unit' => 'vh', 'fixed_height' => true, 'full_width' => true]));
         $blocks = new \Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Blocks($delivery);
         $this->assertSame('<a href="#quiz" class="wp-element-button">Take the quiz</a>', $blocks->render_link_popup([]));
-        $this->assertSame('<div data-prq-assistant="helper"></div>', $blocks->render_assistant(['assistantId' => 'helper']));
+        $this->assertSame('<div data-prq-assistant="asst1"></div>', $blocks->render_assistant(['assistantId' => 'asst1']));
         $this->assertStringContainsString('data-prq-piece="chatButton"', $blocks->render_chat_button(['quizId' => 'abc']));
         $this->assertStringContainsString('data-prq-piece="automaticPopup"', $blocks->render_auto_popup([]));
         ob_start(); $delivery->footer(); $delivery->footer(); $html = ob_get_clean();
@@ -287,7 +287,7 @@ final class V2StorefrontTest extends TestCase
             $put = $type === 'quiz' ? 'put_quiz' : 'put_assistant';
             $delete = $type === 'quiz' ? 'delete_quiz' : 'delete_assistant';
             $route = '/prq/v3/' . ($type === 'quiz' ? 'quizzes' : 'assistants') . '/';
-            $body = $type === 'quiz' ? $this->body() : ['name' => 'Helper', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Hello</main>', 'experiment' => null];
+            $body = $type === 'quiz' ? $this->body() : ['name' => 'Assistant', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Hello</main>', 'experiment' => null];
             $cache = [$name => [], 'alloptions' => [$name => []], 'notoptions' => [$name => true]];
             $this->assertSame(['ok' => true], $store->$put($this->request('PUT', $route . 'A', $body)));
             $cache = [$name => [], 'alloptions' => [$name => []], 'notoptions' => [$name => true]];
@@ -312,7 +312,7 @@ final class V2StorefrontTest extends TestCase
         Functions\expect('update_option')->never();
         $store = new Storefront();
         foreach (['put_quiz', 'delete_quiz', 'put_assistant', 'delete_assistant'] as $method) {
-            $body = str_contains($method, 'assistant') ? ['name' => 'Helper', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Hello</main>', 'experiment' => null] : $this->body();
+            $body = str_contains($method, 'assistant') ? ['name' => 'Assistant', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Hello</main>', 'experiment' => null] : $this->body();
             $error = $store->$method($this->request('PUT', '/prq/v3/unused/A', $body));
             $this->assertSame(503, $error->get_error_data()['status']);
         }
@@ -325,7 +325,7 @@ final class V2StorefrontTest extends TestCase
         $error = $store->put_quiz($this->request('PUT', '/prq/v3/quizzes/A', $this->body()));
         $this->assertSame(500, $error->get_error_data()['status']);
         $this->assertFalse($this->lockHeld);
-        $error = $store->put_assistant($this->request('PUT', '/prq/v3/assistants/A', ['name' => 'Helper', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Hello</main>', 'experiment' => null]));
+        $error = $store->put_assistant($this->request('PUT', '/prq/v3/assistants/A', ['name' => 'Assistant', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Hello</main>', 'experiment' => null]));
         $this->assertSame(500, $error->get_error_data()['status']);
         $this->assertFalse($this->lockHeld);
     }
@@ -358,7 +358,7 @@ final class V2StorefrontTest extends TestCase
     {
         $store = new Storefront();
         $store->put_quiz($this->request('PUT', '/prq/v3/quizzes/abc', $this->body()));
-        $store->put_assistant($this->request('PUT', '/prq/v3/assistants/helper', ['name' => 'Helper', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Helper</main>', 'experiment' => null]));
+        $store->put_assistant($this->request('PUT', '/prq/v3/assistants/asst1', ['name' => 'Assistant', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Assistant</main>', 'experiment' => null]));
         Storefront::uninstall();
         $this->assertDirectoryDoesNotExist($this->uploads . '/prq-v2');
         $this->assertArrayNotHasKey(Storefront::QUIZZES, $this->options);

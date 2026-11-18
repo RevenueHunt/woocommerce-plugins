@@ -18,7 +18,7 @@ final class V2BlockEditorTest extends TestCase
         $options = [
             V2::OPTION => ['mode' => 'v2', 'shop' => 'wc-test'],
             Storefront::QUIZZES => ['abc' => ['name' => 'Skin finder']],
-            Storefront::ASSISTANTS => ['helper' => ['name' => 'Shopping helper', 'version' => 'v1', 'runtime' => 1, 'experiment' => null]],
+            Storefront::ASSISTANTS => ['asst1' => ['name' => 'Shopping assistant', 'version' => 'v1', 'runtime' => 1, 'experiment' => null]],
             Storefront::STOREFRONT => ['assistants' => [['id' => 'obsolete', 'name' => 'Ignored legacy list']]],
         ];
         Functions\when('get_option')->alias(fn($key, $default = false) => $options[$key] ?? $default);
@@ -34,7 +34,7 @@ final class V2BlockEditorTest extends TestCase
             $this->assertSame('v2', $data['mode']);
             $this->assertTrue($data['connected']);
             $this->assertSame('Skin finder', $data['quizzes']->abc['name']);
-            $this->assertSame([['id' => 'helper', 'name' => 'Shopping helper']], $data['assistants']);
+            $this->assertSame([['id' => 'asst1', 'name' => 'Shopping assistant']], $data['assistants']);
             $this->assertSame('https://shop.example/wp-admin/admin.php?page=prqfw', $data['editUrl']);
         });
         $registered = [];
