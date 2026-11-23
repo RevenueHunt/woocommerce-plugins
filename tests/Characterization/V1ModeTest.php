@@ -24,7 +24,9 @@ final class V1ModeTest extends TestCase
         $handle = 'product-recommendation-quiz-for-ecommerce';
         Functions\when('is_checkout')->justReturn(false);
         Functions\when('is_cart')->justReturn(false);
-        Functions\expect('wp_enqueue_script')->times(3)->with($handle, PRQ_ADMIN_URL . '/embed.js?shop=example.com', [], PRQ_PLUGIN_VERSION, true);
+        // 2.6.0: the storefront loads the plugin's bundled embed.js; the quiz itself stays on PRQ_ADMIN_URL.
+        Functions\when('plugin_dir_url')->justReturn('https://example.com/wp-content/plugins/prq/front/');
+        Functions\expect('wp_enqueue_script')->times(3)->with($handle, 'https://example.com/wp-content/plugins/prq/front/js/embed.js?shop=example.com', [], PRQ_PLUGIN_VERSION, true);
         Functions\expect('wp_localize_script')->times(3)->with($handle, 'js_vars', [
             'shop' => 'example.com', 'platform' => 'woocommerce', 'channel' => 'wordpress',
             'plugin_version' => PRQ_PLUGIN_VERSION, 'woo_version' => '10.0.0', 'wp_version' => '6.7',
