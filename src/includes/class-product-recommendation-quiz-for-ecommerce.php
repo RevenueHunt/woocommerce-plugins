@@ -72,15 +72,15 @@ class Product_Recommendation_Quiz_For_Ecommerce {
 		define( 'PRQ_WOO_VERSION', $this->get_woo_version() );
 		define( 'PRQ_WP_VERSION', get_bloginfo( 'version' ) );
 
+		// A must-use plugin may set both first (a test store on a local RevenueHunt).
 		if ( self::is_development_environment( PRQ_STORE_URL ) ) {
-			// Development environment
-			// ssh -R 80:localhost:3000 ssh.localhost.run
-			define( 'PRQ_API_URL', 'https://xxx-xxx.localhost.run' );
-			define( 'PRQ_ADMIN_URL', 'http://localhost:9528' );
+			// Development environment (ssh -R 80:localhost:3000 ssh.localhost.run).
+			defined( 'PRQ_API_URL' ) || define( 'PRQ_API_URL', 'https://xxx-xxx.localhost.run' );
+			defined( 'PRQ_ADMIN_URL' ) || define( 'PRQ_ADMIN_URL', 'http://localhost:9528' );
 		} else {
-			// Production environment
-			define( 'PRQ_API_URL', 'https://api.revenuehunt.com' );
-			define( 'PRQ_ADMIN_URL', 'https://admin.revenuehunt.com' );
+			// Production environment.
+			defined( 'PRQ_API_URL' ) || define( 'PRQ_API_URL', 'https://api.revenuehunt.com' );
+			defined( 'PRQ_ADMIN_URL' ) || define( 'PRQ_ADMIN_URL', 'https://admin.revenuehunt.com' );
 		}
 
 		$this->plugin_name = 'product-recommendation-quiz-for-ecommerce';
