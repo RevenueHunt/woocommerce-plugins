@@ -65,9 +65,11 @@ final class V2CatalogProductTest extends TestCase
         $size->shouldReceive('get_name')->andReturn('Size');
         $size->shouldReceive('get_options')->andReturn(['50 ml']);
         $size->shouldReceive('get_variation')->andReturn(true);
-        $product = $this->product(12, 'variable', ['get_children' => [45], 'get_attributes' => [$attribute, $size], 'get_catalog_visibility' => 'hidden']);
+        $product = $this->product(12, 'variable', ['get_children' => [45, 46], 'get_attributes' => [$attribute, $size], 'get_catalog_visibility' => 'hidden']);
         $variation = $this->product(45, 'variation', ['get_attributes' => ['pa_size' => '50 ml'], 'get_stock_status' => 'onbackorder', 'managing_stock' => false, 'get_sale_price' => '']);
-        Functions\when('wc_get_product')->justReturn($variation);
+        // Disabled in the product editor: not for sale, so not exported.
+        $disabled = $this->product(46, 'variation', ['get_status' => 'private']);
+        Functions\when('wc_get_product')->alias(fn($id) => $id === 45 ? $variation : $disabled);
         $line = (new Mapper())->line($product, []);
         $this->assertSame('draft', $line['status']);
         $this->assertSame(['Skin type' => ['dry', 'normal']], (array) $line['attributes']);

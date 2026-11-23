@@ -56,7 +56,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog_Product {
 		if ( $product->is_type( 'variable' ) ) {
 			foreach ( $product->get_children() as $variation_id ) {
 				$variation = wc_get_product( $variation_id );
-				if ( $variation ) {
+				// A disabled variation (private) is not for sale: shoppers never see it on the product page.
+				if ( $variation && 'publish' === $variation->get_status() ) {
 					$variants[] = $this->variant( $variation );
 				}
 			}
