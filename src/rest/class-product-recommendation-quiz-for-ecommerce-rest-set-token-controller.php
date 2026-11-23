@@ -65,12 +65,12 @@ class Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller {
 	 *
 	 * @since 1.0.0
 	 * @param WP_REST_Request $request The REST API request object.
-	 * @return bool|WP_Error True if authenticated, otherwise false (V1) or an error (V2).
+	 * @return bool|WP_Error True if authenticated, otherwise false or an error.
 	 */
 	public function check_woocommerce_permission( $request ) {
 		// WooCommerce/WordPress REST authentication has already established the user.
-		// V2 must never fall through to the legacy WP_User-only authentication path.
-		if ( 'v2' === $request->get_param( 'mode' ) ) {
+		// Mode changes must never fall through to legacy WP_User-only authentication.
+		if ( in_array( $request->get_param( 'mode' ), array( 'v1', 'v2' ), true ) ) {
 			// phpcs:ignore WordPress.WP.Capabilities.Unknown -- Native WooCommerce capability.
 			if ( get_current_user_id() > 0 && current_user_can( 'manage_woocommerce' ) ) {
 				return true;
@@ -208,6 +208,12 @@ class Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller {
 			return $rate_limit_check;
 		}
 
+		$mode = $request->get_param( 'mode' );
+		if ( 'v1' === $mode ) {
+			$result = Product_Recommendation_Quiz_For_Ecommerce_V2::disconnect( $request );
+			return is_wp_error( $result ) ? $result : rest_ensure_response( get_option( PRQ_OPTION_SHOP_HASHID ) );
+		}
+
 		// Use WP_REST_Request methods instead of $_REQUEST for security.
 		$new_shop_hashid = sanitize_text_field( $request->get_param( 'shop_hashid' ) );
 		$new_api_key     = sanitize_text_field( $request->get_param( 'api_key' ) );
@@ -230,8 +236,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller {
 			);
 		}
 
-		// V2 is selected only by the monolith at first connect; legacy writes below stay unchanged.
-		if ( 'v2' === $request->get_param( 'mode' ) ) {
+		// V2 is selected by the monolith; legacy writes below stay unchanged.
+		if ( 'v2' === $mode ) {
 			$connected = Product_Recommendation_Quiz_For_Ecommerce_V2::connect( $request );
 			if ( is_wp_error( $connected ) ) {
 				return $connected;

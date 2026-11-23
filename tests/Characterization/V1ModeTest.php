@@ -49,6 +49,13 @@ final class V1ModeTest extends TestCase
         Functions\when('esc_html_e')->alias(function ($s) { echo $s; });
         Functions\when('esc_html__')->returnArg();
         Functions\when('wp_kses')->returnArg();
+        Functions\expect('wp_enqueue_script')->once()->with(
+            'prq-admin-reload',
+            'https://example.com/plugin/admin/js/product-recommendation-quiz-for-ecommerce-admin-reload.js',
+            [],
+            PRQ_PLUGIN_VERSION,
+            true
+        );
         $builder = \Mockery::mock(\Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder::class);
         $builder->shouldReceive('prquiz_get_oauth_url')->once()->andReturn('https://admin.revenuehunt.com/oauth?token=old-token');
         ob_start();

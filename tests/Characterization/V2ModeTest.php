@@ -253,11 +253,15 @@ final class V2ModeTest extends TestCase
 
     #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
-    public function test_first_connect_stores_credentials_once_and_registers_native_order_webhooks(): void
+    #[\PHPUnit\Framework\Attributes\TestWith([false], 'fresh store')]
+    #[\PHPUnit\Framework\Attributes\TestWith(['ab12cd'], 'matching V1 store')]
+    public function test_connect_stores_credentials_once_and_registers_native_order_webhooks($hashid): void
     {
         $stored = false;
         $connection = $this->connection();
-        Functions\when('get_option')->alias(function ($key) use (&$stored) { return $key === V2::OPTION ? $stored : false; });
+        Functions\when('get_option')->alias(function ($key) use (&$stored, $hashid) {
+            return $key === V2::OPTION ? $stored : ($key === PRQ_OPTION_SHOP_HASHID ? $hashid : false);
+        });
         Functions\when('wp_http_validate_url')->returnArg();
         Functions\when('wp_parse_url')->alias('parse_url');
         Functions\when('untrailingslashit')->alias(fn($s) => rtrim($s, '/'));
@@ -286,20 +290,24 @@ final class V2ModeTest extends TestCase
         $this->assertTrue(V2::connect($request));
     }
 
-    public function test_connect_never_upgrades_existing_v1_shop(): void
+    public function test_connect_refuses_a_different_woo_shop_for_an_existing_v1_store(): void
     {
         Functions\when('get_option')->alias(fn($key) => $key === PRQ_OPTION_SHOP_HASHID ? 'existing' : false);
         Functions\expect('add_option')->never();
         Functions\when('get_current_user_id')->justReturn(7);
         $request = new \WP_REST_Request($this->connection());
         $request->set_route('/wc/v3/prq_set_token');
-        $this->assertTrue(V2::connect($request));
+        $error = V2::connect($request);
+        $this->assertInstanceOf(\WP_Error::class, $error);
+        $this->assertSame(403, $error->get_error_data()['status']);
     }
 
-    public function test_v2_permission_requires_authenticated_woocommerce_manager_without_legacy_fallthrough(): void
+    #[\PHPUnit\Framework\Attributes\TestWith(['v1'])]
+    #[\PHPUnit\Framework\Attributes\TestWith(['v2'])]
+    public function test_mode_change_requires_authenticated_woocommerce_manager_without_legacy_fallthrough(string $mode): void
     {
         $controller = new \Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller();
-        $request = new \WP_REST_Request(['mode' => 'v2']);
+        $request = new \WP_REST_Request(['mode' => $mode]);
         Functions\when('get_current_user_id')->justReturn(7);
         Functions\when('current_user_can')->alias(fn($cap) => $cap === 'manage_woocommerce');
         $this->assertTrue($controller->check_woocommerce_permission($request));

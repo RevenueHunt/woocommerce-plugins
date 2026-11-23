@@ -96,6 +96,52 @@ final class V2LifecycleTest extends TestCase
         $this->assertSame($connection, $this->options[V2::OPTION]);
     }
 
+    public function test_mode_v1_removes_connection_and_order_webhooks_but_preserves_shop_data(): void
+    {
+        $this->webhooks('paused', true);
+        $this->unschedule();
+        $path = $this->export();
+        $this->options[PRQ_OPTION_SHOP_HASHID] = 'lifecycle';
+        $this->options[PRQ_OPTION_API_KEY] = 'legacy-key';
+        $this->options['prq_v2_quizzes'] = ['quiz123'];
+        Functions\when('get_current_user_id')->justReturn(7);
+        Functions\when('get_transient')->justReturn(false);
+        Functions\when('set_transient')->justReturn(true);
+        Functions\expect('update_option')->never();
+        $controller = new \Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller();
+        $request = new \WP_REST_Request(['mode' => 'v1', 'shop_hashid' => 'lifecycle']);
+        $request->set_route('/wc/v3/prq_set_token');
+
+        $this->assertSame('lifecycle', $controller->handle($request));
+        $this->assertSame('lifecycle', $controller->handle($request));
+        $this->assertFileDoesNotExist($path);
+        $this->assertSame([
+            'prq_v2_picked_metafields' => ['spf'],
+            PRQ_OPTION_SHOP_HASHID => 'lifecycle',
+            PRQ_OPTION_API_KEY => 'legacy-key',
+            'prq_v2_quizzes' => ['quiz123'],
+        ], $this->options);
+    }
+
+    public function test_mode_v1_refuses_a_different_shop_or_the_legacy_route(): void
+    {
+        $this->options[PRQ_OPTION_SHOP_HASHID] = 'lifecycle';
+        $options = $this->options;
+        Functions\when('get_current_user_id')->justReturn(7);
+        Functions\when('get_transient')->justReturn(false);
+        Functions\when('set_transient')->justReturn(true);
+        $controller = new \Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller();
+
+        foreach (['/wc/v3/prq_set_token' => 'other', '/prq/v1/settoken' => 'lifecycle'] as $route => $hashid) {
+            $request = new \WP_REST_Request(['mode' => 'v1', 'shop_hashid' => $hashid]);
+            $request->set_route($route);
+            $error = $controller->handle($request);
+            $this->assertInstanceOf(\WP_Error::class, $error);
+            $this->assertSame(403, $error->get_error_data()['status']);
+            $this->assertSame($options, $this->options);
+        }
+    }
+
     public function test_reactivate_resumes_and_reschedules_nightly(): void
     {
         $this->webhooks('active');

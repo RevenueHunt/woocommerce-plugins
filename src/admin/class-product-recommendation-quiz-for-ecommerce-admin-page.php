@@ -79,6 +79,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Page {
 	 * @return void
 	 */
 	public function prquiz_authenticated_visit() {
+		wp_enqueue_script( 'prq-admin-reload', plugin_dir_url( __FILE__ ) . 'js/product-recommendation-quiz-for-ecommerce-admin-reload.js', array(), PRQ_PLUGIN_VERSION, true );
 		?>
 		<div class="wrap">
 			<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'img/revenuehunt-logo.png' ); ?>" width="24" height="24" alt="<?php esc_attr_e( 'RevenueHunt', 'product-recommendation-quiz-for-ecommerce' ); ?>" />

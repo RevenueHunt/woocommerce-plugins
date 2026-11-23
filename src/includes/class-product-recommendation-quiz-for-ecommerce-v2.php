@@ -31,7 +31,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 	}
 
 	/**
-	 * Accept V2 credentials only at first connect. Existing V1 shops cannot migrate.
+	 * Accept V2 credentials on first connect or when the matching V1 shop switches.
 	 *
 	 * @param WP_REST_Request $request Token intake request (already authenticated).
 	 * @return true|WP_Error Validation result.
@@ -43,7 +43,11 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		if ( ! get_current_user_id() || '/wc/v3/prq_set_token' !== $request->get_route() ) {
 			return new WP_Error( 'prq_woocommerce_authorize_required', __( "Please connect from WooCommerce's authorize screen.", 'product-recommendation-quiz-for-ecommerce' ), array( 'status' => 403 ) );
 		}
-		if ( self::connection() || get_option( PRQ_OPTION_SHOP_HASHID ) ) {
+		$hashid = get_option( PRQ_OPTION_SHOP_HASHID );
+		if ( $hashid && 'wc-' . $hashid !== $request->get_param( 'shop' ) ) {
+			return new WP_Error( 'prq_shop_mismatch', 'Shop does not match the existing connection.', array( 'status' => 403 ) );
+		}
+		if ( self::connection() ) {
 			return true;
 		}
 		$connection = array( 'mode' => 'v2' );
@@ -68,6 +72,31 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		}
 		$orders = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
 		$orders->create_webhooks();
+		return true;
+	}
+
+	/**
+	 * Switch back to V1 without deleting any shop or storefront data.
+	 *
+	 * @param WP_REST_Request $request Token intake request (already authenticated).
+	 * @return true|WP_Error Switch result.
+	 */
+	public static function disconnect( $request ) {
+		if ( ! get_current_user_id() || '/wc/v3/prq_set_token' !== $request->get_route() ) {
+			return new WP_Error( 'prq_woocommerce_authorize_required', __( "Please connect from WooCommerce's authorize screen.", 'product-recommendation-quiz-for-ecommerce' ), array( 'status' => 403 ) );
+		}
+		$hashid = get_option( PRQ_OPTION_SHOP_HASHID );
+		if ( ! $hashid || $hashid !== $request->get_param( 'shop_hashid' ) ) {
+			return new WP_Error( 'prq_shop_mismatch', 'Shop does not match the existing connection.', array( 'status' => 403 ) );
+		}
+		if ( self::connection() ) {
+			self::deactivate();
+			$orders = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
+			$orders->set_webhook_status( 'delete' );
+			if ( ! delete_option( self::OPTION ) ) {
+				return new WP_Error( 'prq_disconnect_failed', 'Could not remove the V2 connection.', array( 'status' => 500 ) );
+			}
+		}
 		return true;
 	}
 

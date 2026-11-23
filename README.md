@@ -39,7 +39,9 @@ php tools/build.php woocommerce   # build a single target
 ## V2 mode (3.0.0-dev)
 
 The monolith selects the mode at first connect; the `prq_v2_connection` option is
-absent for V1 stores. Existing V1 credentials never opt a shop into V2.
+absent for V1 stores. The monolith can switch an existing V1 store only by matching
+its stored shop hashid. Switching back removes the V2 connection and its order
+webhooks, retaining the V1 options, published V2 content and picked metafields.
 The shared wire specification is [CONTRACT.md](../../v2/docs/woocommerce/CONTRACT.md).
 
 V2 provisioning uses the WooCommerce-authenticated `wc/v3/prq_set_token` route and
@@ -57,7 +59,8 @@ in-iframe navigation. Once the app has sent its first `rh:navigate`, plain click
 the plugin's own menu entries post `rh:navigate` into the iframe instead of loading a
 new wp-admin page, so the app routes in place. `rh:fullscreen` (`open: true|false`)
 fixes the iframe over the whole admin while the app's full-screen window is open.
-V1 keeps its original Display submenu.
+V1 keeps its original Display submenu. Both modes accept `rh:reload` only from
+the admin iframe at its configured origin, reloading WordPress after a switch.
 
 V2 exports use WooCommerce's bundled Action Scheduler (group `prq`), 100 products
 per batch, nightly at 03:00 in the site's timezone or on signed Sync now requests.

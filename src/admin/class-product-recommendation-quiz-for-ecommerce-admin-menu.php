@@ -65,8 +65,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 	/**
 	 * Register the stylesheet for the admin area.
 	 *
-	 * V1 loads no admin script: the RevenueHunt app is the iframe on its own page. V2 adds
-	 * its menu script on that page only.
+	 * V2 adds its menu script on the RevenueHunt iframe page only.
 	 *
 	 * @since    1.0.0
 	 */
