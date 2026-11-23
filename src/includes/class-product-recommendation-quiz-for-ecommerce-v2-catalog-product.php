@@ -123,7 +123,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog_Product {
 			foreach ( $product->get_attributes() as $name => $value ) {
 				$term                 = taxonomy_exists( $name ) ? get_term_by( 'slug', $value, $name ) : false;
 				$variant['options'][] = array(
-					'name'  => wc_attribute_label( $name ),
+					// With the product, a custom attribute's label is the one the merchant typed (Size), not its slug (size).
+					'name'  => wc_attribute_label( $name, $product ),
 					'value' => $term ? $term->name : $value,
 				);
 			}

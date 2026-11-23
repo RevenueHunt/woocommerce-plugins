@@ -14,7 +14,8 @@ final class V2CatalogProductTest extends TestCase
         Functions\when('taxonomy_exists')->justReturn(false);
         Functions\when('wp_get_post_terms')->alias(fn($id, $taxonomy) => $taxonomy === 'product_tag' ? ['vegan'] : []);
         Functions\when('wp_get_attachment_image_url')->justReturn('https://example.com/image.jpg');
-        Functions\when('wc_attribute_label')->alias(fn($name) => $name === 'pa_size' ? 'Size' : $name);
+        // As WooCommerce: a taxonomy's label, or a custom attribute's as typed on the product when it is given.
+        Functions\when('wc_attribute_label')->alias(fn($name, $product = '') => $name === 'pa_size' || ($name === 'size' && $product) ? 'Size' : $name);
         Functions\when('wc_format_decimal')->alias(fn($value, $decimals) => number_format((float) $value, $decimals, '.', ''));
         Functions\when('wc_get_price_decimals')->justReturn(2);
         Functions\when('metadata_exists')->justReturn(true);
@@ -75,6 +76,16 @@ final class V2CatalogProductTest extends TestCase
         $this->assertSame(['Skin type' => ['dry', 'normal']], (array) $line['attributes']);
         $this->assertSame([['id' => 'gid://woocommerce/ProductVariant/45', 'title' => 'Serum', 'sku' => 'SER-50', 'price' => '29.00', 'availability' => 'backorder', 'options' => [['name' => 'Size', 'value' => '50 ml']]]], $line['variants']);
         $this->assertSame('{}', json_encode($line['metafields']));
+    }
+
+    public function test_a_custom_attribute_option_keeps_the_label_the_merchant_typed(): void
+    {
+        Functions\when('get_post_meta')->justReturn('');
+        $product = $this->product(12, 'variable', ['get_children' => [45]]);
+        $variation = $this->product(45, 'variation', ['get_attributes' => ['size' => '30 ml']]);
+        Functions\when('wc_get_product')->justReturn($variation);
+        $line = (new Mapper())->line($product, []);
+        $this->assertSame([['name' => 'Size', 'value' => '30 ml']], $line['variants'][0]['options']);
     }
 
     public function test_a_scheduled_sale_exports_only_the_regular_price_until_it_runs(): void
