@@ -46,7 +46,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Global_Embed {
 	 * @return void
 	 */
 	public function render() {
-		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::storefront() ) {
 			return;
 		}
 		// Match the embed.js enqueue guard: never on cart/checkout.

@@ -219,7 +219,7 @@ final class V2ModeTest extends TestCase
     #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
     public function test_v2_shortcode_and_block_enqueue_local_module_only_when_rendering_mount(): void
     {
-        Functions\when('get_option')->justReturn(array_replace($this->connection(), ['admin_url' => 'https://admin.example.com/']));
+        Functions\when('get_option')->alias(fn($key, $default = false) => $key === V2::OPTION ? $this->connection() : $default);
         Functions\when('plugins_url')->justReturn('https://shop.example/plugins/prq/assets/v2/quiz-renderer.js');
         Functions\expect('wp_enqueue_script_module')->once()->with('prq-v2-quiz-renderer', 'https://shop.example/plugins/prq/assets/v2/quiz-renderer.js', [], PRQ_PLUGIN_VERSION);
         Functions\when('esc_attr')->alias(fn($s) => htmlspecialchars($s, ENT_QUOTES));
@@ -253,22 +253,32 @@ final class V2ModeTest extends TestCase
 
     #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
-    #[\PHPUnit\Framework\Attributes\TestWith([false], 'fresh store')]
-    #[\PHPUnit\Framework\Attributes\TestWith(['ab12cd'], 'matching V1 store')]
-    public function test_connect_stores_credentials_and_rotates_native_order_webhooks_on_retry($hashid): void
+    #[\PHPUnit\Framework\Attributes\TestWith([false, null, false], 'fresh store')]
+    #[\PHPUnit\Framework\Attributes\TestWith(['ab12cd', null, true], 'matching V1 store')]
+    #[\PHPUnit\Framework\Attributes\TestWith(['ab12cd', 'prq_v2_quizzes', false], 'switch again with a published quiz')]
+    #[\PHPUnit\Framework\Attributes\TestWith(['ab12cd', 'prq_v2_assistants', false], 'switch again with a published assistant')]
+    public function test_connect_stores_credentials_and_rotates_native_order_webhooks_on_retry($hashid, ?string $index, bool $held): void
     {
         $stored = false;
+        $options = [PRQ_OPTION_SHOP_HASHID => $hashid];
+        if ($index !== null) {
+            $options[$index] = ['A1' => ['version' => 'v1']];
+        }
         $deleted = [];
         $connection = $this->connection();
         $rotated = array_replace($connection, ['shared_secret' => str_repeat('r', 32)]);
         $store = function ($key, $value) use (&$stored) { $stored = $value; return true; };
-        Functions\when('get_option')->alias(function ($key) use (&$stored, $hashid) {
-            return $key === V2::OPTION ? $stored : ($key === PRQ_OPTION_SHOP_HASHID ? $hashid : false);
+        Functions\when('get_option')->alias(function ($key, $default = false) use (&$stored, &$options) {
+            return $key === V2::OPTION ? $stored : ($options[$key] ?? $default);
         });
         Functions\when('wp_http_validate_url')->returnArg();
         Functions\when('wp_parse_url')->alias('parse_url');
         Functions\when('untrailingslashit')->alias(fn($s) => rtrim($s, '/'));
         Functions\expect('add_option')->once()->with(V2::OPTION, $connection, '', false)->andReturnUsing($store);
+        Functions\expect('add_option')->with('prq_v1_storefront', 1, '', true)->times((int) $held)->andReturnUsing(function ($key, $value) use (&$options) {
+            $options[$key] = $value;
+            return true;
+        });
         Functions\when('get_current_user_id')->justReturn(7);
         Functions\expect('update_option')->once()->with(V2::OPTION, $connection + ['webhook_ids' => [41, 42]], false)->andReturnUsing($store);
         Functions\expect('update_option')->once()->with(V2::OPTION, $rotated, false)->andReturnUsing(function ($key, $value) use (&$deleted, $store) {
@@ -296,7 +306,11 @@ final class V2ModeTest extends TestCase
         $this->assertSame($connection + ['webhook_ids' => [41, 42]], $stored);
         $this->assertSame(['order.created', 'order.updated'], $topics);
         $this->assertSame([$oldSecret, $oldSecret], $secrets);
+        $this->assertSame($held ? 1 : false, get_option('prq_v1_storefront'));
+        $this->assertSame($held ? [] : $stored, V2::storefront());
 
+        // The REST controller saves the hashid after connect() even for a fresh store.
+        $options[PRQ_OPTION_SHOP_HASHID] = 'ab12cd';
         $oldWebhooks = [];
         foreach ([41, 42] as $id) {
             $oldWebhooks[$id] = \Mockery::mock();
@@ -309,6 +323,7 @@ final class V2ModeTest extends TestCase
         $this->assertSame($rotated + ['webhook_ids' => [43, 44]], $stored);
         $this->assertSame(['order.created', 'order.updated', 'order.created', 'order.updated'], $topics);
         $this->assertSame([$oldSecret, $oldSecret, $newSecret, $newSecret], $secrets);
+        $this->assertSame($held ? 1 : false, get_option('prq_v1_storefront'));
     }
 
     #[\PHPUnit\Framework\Attributes\TestWith(['existing'], 'existing V1 store')]

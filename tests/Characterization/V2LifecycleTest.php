@@ -103,6 +103,7 @@ final class V2LifecycleTest extends TestCase
         $path = $this->export();
         $this->options[PRQ_OPTION_SHOP_HASHID] = 'lifecycle';
         $this->options[PRQ_OPTION_API_KEY] = 'legacy-key';
+        $this->options['prq_v1_storefront'] = 1;
         $this->options['prq_v2_quizzes'] = ['quiz123'];
         Functions\when('get_current_user_id')->justReturn(7);
         Functions\when('get_transient')->justReturn(false);
@@ -164,6 +165,7 @@ final class V2LifecycleTest extends TestCase
         // A similarly named file is not ours; never delete arbitrary upload paths.
         file_put_contents($this->uploads . '/prq-catalog-unrelated.php', 'unrelated');
         $connection = $this->options[V2::OPTION];
+        $this->options['prq_v1_storefront'] = 1;
         foreach (['rh_shop_hashid', 'rh_api_key', 'rh_domain', 'rh_token'] as $key) $this->options[$key] = 'legacy';
         Functions\expect('wp_remote_post')->once()->with('https://api.example.com/api/woocommerce/uninstalled', \Mockery::on(function ($args) use ($connection, $path) {
             $this->assertFileDoesNotExist($path);

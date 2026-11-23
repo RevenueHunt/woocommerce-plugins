@@ -27,7 +27,13 @@ final class V2StorefrontTest extends TestCase
             $this->options[$key] = $value;
             return true;
         });
-        Functions\when('delete_option')->alias(function ($key) { unset($this->options[$key]); return true; });
+        Functions\when('delete_option')->alias(function ($key) {
+            if ($key === 'prq_v1_storefront' && isset($this->options[$key])) {
+                $this->assertTrue($this->lockHeld, 'The first push ends the hold inside the index lock.');
+            }
+            unset($this->options[$key]);
+            return true;
+        });
         Functions\when('wp_upload_dir')->justReturn(['basedir' => $this->uploads, 'baseurl' => 'https://shop.example/wp-content/uploads']);
         Functions\when('wp_mkdir_p')->alias(fn($dir) => is_dir($dir) || mkdir($dir, 0777, true));
         Functions\when('wp_delete_file')->alias(function ($path) { if (is_file($path)) unlink($path); });
@@ -110,8 +116,10 @@ final class V2StorefrontTest extends TestCase
         $store = new Storefront();
         $body = $this->body();
         $request = $this->request('PUT', '/prq/v3/quizzes/abc', $body);
+        $this->options['prq_v1_storefront'] = 1;
         $this->assertTrue((new V2())->authorize($request));
         $this->assertSame(['ok' => true], $store->put_quiz($request));
+        $this->assertArrayNotHasKey('prq_v1_storefront', $this->options);
         $path = $this->uploads . '/prq-v2/quiz-abc';
         $this->assertSame($body['artifact'], json_decode(file_get_contents($path . '.html.json'), true));
         $this->assertSame($body['treatment'], json_decode(file_get_contents($path . '-treatment.html.json'), true));
@@ -137,8 +145,10 @@ final class V2StorefrontTest extends TestCase
             'shell' => '<main>Welcome! How can I help?</main>', 'experiment' => null,
             'instructions' => 'PRIVATE INSTRUCTIONS', 'skills' => ['PRIVATE SKILL']];
         $request = $this->request('PUT', '/prq/v3/assistants/asst1', $body);
+        $this->options['prq_v1_storefront'] = 1;
         $this->assertTrue((new V2())->authorize($request));
         $this->assertSame(['ok' => true], $store->put_assistant($request));
+        $this->assertArrayNotHasKey('prq_v1_storefront', $this->options);
         $path = $this->uploads . '/prq-v2/assistant-asst1.html';
         $this->assertSame($body['shell'], file_get_contents($path));
         $this->assertSame(['name' => 'Shopping assistant', 'version' => 'assistant-v1', 'runtime' => 1, 'experiment' => null], $this->options[Storefront::ASSISTANTS]['asst1']);
@@ -178,55 +188,106 @@ final class V2StorefrontTest extends TestCase
         $this->assertSame([], $this->options[Storefront::ASSISTANTS]);
     }
 
-    public function test_storefront_roundtrip_finds_shortcode_nested_blocks_template_part_reusable_block_and_widget(): void
+    public function test_storefront_roundtrip_reports_placements_and_v1_hold(): void
     {
         $settings = ['defaultQuiz' => 'abc', 'defaultAssistant' => 'asst1', 'siteWide' => ['popupLinks' => true, 'assistant' => ['enabled' => true]], 'overPlanAt' => null, 'customFeaturesBlockedAt' => null];
         $store = new Storefront();
+        $this->options['prq_v1_storefront'] = 1;
         $this->assertSame(['ok' => true], $store->put_storefront($this->request('PUT', '/prq/v3/storefront', $settings)));
+        $this->assertSame(1, $this->options['prq_v1_storefront']);
         $this->assertSame($settings, $this->options[Storefront::STOREFRONT]);
         $store->put_storefront($this->request('PUT', '/prq/v3/storefront', $settings + ['assistants' => [['id' => 'obsolete', 'name' => 'Not a second index']]]));
         $this->assertArrayNotHasKey('assistants', $this->options[Storefront::STOREFRONT]);
         $store->put_assistant($this->request('PUT', '/prq/v3/assistants/asst1', ['name' => 'Store assistant', 'version' => 'assistant-v1', 'runtime' => 1, 'shell' => '<main>Assistant</main>', 'experiment' => null]));
         $store->put_quiz($this->request('PUT', '/prq/v3/quizzes/abc', $this->body()));
-        $content = '[product_recommendation_quiz id="abc"]<!-- wp:group --><!-- wp:revenuehunt/product-recommendation-quiz-for-ecommerce {"id":"nested"} /--><!-- /wp:group -->';
+        $content = '[product_recommendation_quiz id="abc"]<!-- wp:group --><!-- wp:revenuehunt/product-recommendation-quiz-for-ecommerce {"id":"nested"} /--><!-- /wp:group --><a href="#quiz-Page2">Open</a><a href="#quiz-Page2">Another</a>';
+        $widget = '<!-- wp:revenuehunt/chat-button-quiz {"quizId":"widget"} /--><a href="#quiz-Widget3">Open</a>';
+        $navigation = '<!-- wp:navigation-link {"url":"/#quiz-Nav4"} /-->';
         $block = fn($name, $attrs = [], $children = []) => ['blockName' => $name, 'attrs' => $attrs, 'innerBlocks' => $children];
         $parsed = [
             $content => [$block('core/group', [], [$block('revenuehunt/product-recommendation-quiz-for-ecommerce', ['id' => 'nested'])])],
             '<!-- wp:revenuehunt/link-popup-quiz /-->' => [$block('revenuehunt/link-popup-quiz')],
             '<!-- wp:revenuehunt/assistant {"assistantId":"asst1"} /-->' => [$block('revenuehunt/assistant', ['assistantId' => 'asst1'])],
-            '<!-- wp:revenuehunt/chat-button-quiz {"quizId":"widget"} /-->' => [$block('revenuehunt/chat-button-quiz', ['quizId' => 'widget'])],
+            $widget => [$block('revenuehunt/chat-button-quiz', ['quizId' => 'widget'])],
+            $navigation => [],
         ];
         Functions\when('parse_blocks')->alias(fn($text) => $parsed[$text]);
         Functions\when('has_shortcode')->alias(fn($text, $tag) => str_contains($text, '[' . $tag));
         Functions\when('get_shortcode_regex')->justReturn('(\\[?)\\[(product_recommendation_quiz)([^\\]]*)\\](?:()())(\\]?)');
-        Functions\when('shortcode_parse_atts')->justReturn(['id' => 'abc']);
+        Functions\when('shortcode_parse_atts')->alias(fn($text) => ['id' => explode('"', $text)[1]]);
         Functions\when('get_permalink')->alias(fn($id) => 'https://shop.example/?p=' . $id);
-        $this->options['widget_block'] = [2 => ['content' => array_keys($parsed)[3]], '_multiwidget' => 1];
+        $this->options['widget_block'] = [2 => ['content' => $widget], '_multiwidget' => 1];
+        $this->options['prq_embeds'] = [
+            'auto_popup' => ['enabled' => true, 'quiz_id' => 'Popup8'],
+            'chat' => ['enabled' => true, 'quiz_id' => 'Chat9'],
+        ];
         $wpdb = \Mockery::mock();
         $wpdb->posts = 'wp_posts';
-        $wpdb->shouldReceive('esc_like')->with('product_recommendation_quiz')->once()->andReturn('product\\_recommendation\\_quiz');
-        $wpdb->shouldReceive('esc_like')->with('wp:revenuehunt/')->once()->andReturn('wp:revenuehunt/');
-        $wpdb->shouldReceive('prepare')->once()->with(\Mockery::on(function ($sql) {
+        $wpdb->postmeta = 'wp_postmeta';
+        $wpdb->shouldReceive('esc_like')->with('product_recommendation_quiz')->andReturn('product\\_recommendation\\_quiz');
+        $wpdb->shouldReceive('esc_like')->with('wp:revenuehunt/')->andReturn('wp:revenuehunt/');
+        $wpdb->shouldReceive('esc_like')->with('#quiz-')->andReturn('#quiz-');
+        $wpdb->shouldReceive('prepare')->twice()->with(\Mockery::on(function ($sql) {
             $this->assertStringContainsString("post_status = 'publish'", $sql);
-            $this->assertStringContainsString("'post', 'page', 'wp_template', 'wp_template_part', 'wp_block'", $sql);
-            $this->assertSame(2, substr_count($sql, 'LIKE %s'));
+            $this->assertStringContainsString("'post', 'page', 'wp_template', 'wp_template_part', 'wp_block', 'wp_navigation'", $sql);
+            $this->assertSame(3, substr_count($sql, 'post_content LIKE %s'));
             return true;
-        }), '%product\\_recommendation\\_quiz%', '%wp:revenuehunt/%')->andReturn('candidate query');
-        $wpdb->shouldReceive('get_results')->once()->with('candidate query')->andReturn([
+        }), '%product\\_recommendation\\_quiz%', '%wp:revenuehunt/%', '%#quiz-%')->andReturn('candidate query');
+        $wpdb->shouldReceive('get_results')->twice()->with('candidate query')->andReturn([
             (object) ['ID' => 1, 'post_type' => 'page', 'post_title' => 'Finder', 'post_content' => $content],
             (object) ['ID' => 2, 'post_type' => 'wp_template_part', 'post_title' => 'Header', 'post_content' => array_keys($parsed)[1]],
             (object) ['ID' => 3, 'post_type' => 'wp_block', 'post_title' => 'Assistant', 'post_content' => array_keys($parsed)[2]],
+            (object) ['ID' => 4, 'post_type' => 'wp_navigation', 'post_title' => 'Navigation', 'post_content' => $navigation],
+        ]);
+        $wpdb->shouldReceive('prepare')->twice()->with(\Mockery::on(function ($sql) {
+            $this->assertStringContainsString("post_type = 'nav_menu_item'", $sql);
+            $this->assertStringContainsString("meta_key = '_menu_item_url'", $sql);
+            $this->assertStringContainsString('meta_value LIKE %s', $sql);
+            return true;
+        }), '%#quiz-%')->andReturn('menu query');
+        $wpdb->shouldReceive('get_results')->twice()->with('menu query')->andReturn([
+            (object) ['ID' => 5, 'post_type' => 'nav_menu_item', 'post_title' => 'Take the quiz', 'meta_value' => '/finder#quiz-Menu5'],
+        ]);
+        $wpdb->shouldReceive('prepare')->twice()->with(\Mockery::on(function ($sql) {
+            $this->assertStringContainsString("post_status = 'publish'", $sql);
+            $this->assertStringContainsString("meta_key = '_elementor_data'", $sql);
+            $this->assertSame(2, substr_count($sql, 'meta_value LIKE %s'));
+            return true;
+        }), '%product\\_recommendation\\_quiz%', '%#quiz-%')->andReturn('elementor query');
+        $wpdb->shouldReceive('get_results')->twice()->with('elementor query')->andReturn([
+            (object) ['ID' => 6, 'post_type' => 'page', 'post_title' => 'Built with Elementor', 'meta_value' => json_encode([
+                ['elements' => [['settings' => ['shortcode' => '[product_recommendation_quiz id="Elementor6"]', 'link' => ['url' => '/finder#quiz-Elementor7']]]]],
+            ])],
         ]);
         $GLOBALS['wpdb'] = $wpdb;
-        $result = $store->get_storefront();
-        $this->assertSame(1, $result['runtime']);
-        $this->assertEquals((object) ['abc' => 'v42'], $result['quizzes']);
-        $this->assertEquals((object) ['asst1' => 'assistant-v1'], $result['assistants']);
-        $this->assertSame(['inline', 'shortcode', 'link-popup', 'assistant', 'quiz-button'], array_column($result['placements'], 'kind'));
-        $this->assertSame(['nested', 'abc', '', null, 'widget'], array_column($result['placements'], 'quizId'));
-        $this->assertSame([null, null, null, 'asst1', null], array_column($result['placements'], 'assistantId'));
-        $this->assertSame(['kind', 'quizId', 'assistantId', 'postId', 'postType', 'title', 'url'], array_keys($result['placements'][0]));
-        $this->assertSame([1, 1, 2, 3, null], array_column($result['placements'], 'postId'));
+        $active = $store->get_storefront();
+        $this->assertFalse($active['v1Storefront']);
+        $this->assertSame(1, $active['runtime']);
+        $this->assertEquals((object) ['abc' => 'v42'], $active['quizzes']);
+        $this->assertEquals((object) ['asst1' => 'assistant-v1'], $active['assistants']);
+        $rows = $active['placements'];
+        $this->assertSame(['inline', 'shortcode', 'quiz-link', 'quiz-link', 'link-popup', 'assistant', 'quiz-link', 'quiz-button', 'quiz-link', 'menu-link', 'shortcode', 'quiz-link'], array_column($rows, 'kind'));
+        $this->assertSame(['nested', 'abc', 'Page2', 'Page2', '', null, 'Nav4', 'widget', 'Widget3', 'Menu5', 'Elementor6', 'Elementor7'], array_column($rows, 'quizId'));
+        $this->assertSame([null, null, null, null, null, 'asst1', null, null, null, null, null, null], array_column($rows, 'assistantId'));
+        $this->assertSame(['kind', 'quizId', 'assistantId', 'postId', 'postType', 'title', 'url'], array_keys($rows[0]));
+        $this->assertSame([1, 1, 1, 1, 2, 3, 4, null, null, 5, 6, 6], array_column($rows, 'postId'));
+        $this->assertSame([
+            'kind' => 'menu-link', 'quizId' => 'Menu5', 'assistantId' => null, 'postId' => 5,
+            'postType' => 'nav_menu_item', 'title' => 'Take the quiz', 'url' => null,
+        ], $rows[9]);
+        foreach (array_slice($rows, 10) as $row) {
+            $this->assertSame('elementor', $row['source']);
+            $this->assertSame('page', $row['postType']);
+            $this->assertSame('Built with Elementor', $row['title']);
+            $this->assertSame('https://shop.example/?p=6', $row['url']);
+        }
+        $this->options['prq_v1_storefront'] = '1';
+        $held = $store->get_storefront();
+        $this->assertTrue($held['v1Storefront']);
+        $this->assertSame(array_merge($rows, [
+            ['kind' => 'automatic-popup', 'quizId' => 'Popup8', 'assistantId' => null, 'postId' => null, 'postType' => 'site_wide', 'title' => '', 'url' => null],
+            ['kind' => 'quiz-button', 'quizId' => 'Chat9', 'assistantId' => null, 'postId' => null, 'postType' => 'site_wide', 'title' => '', 'url' => null],
+        ]), $held['placements']);
     }
 
     #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
@@ -321,6 +382,7 @@ final class V2StorefrontTest extends TestCase
     public function test_index_lock_is_released_after_a_file_write_failure(): void
     {
         Functions\when('wp_mkdir_p')->justReturn(false);
+        $this->options['prq_v1_storefront'] = 1;
         $store = new Storefront();
         $error = $store->put_quiz($this->request('PUT', '/prq/v3/quizzes/A', $this->body()));
         $this->assertSame(500, $error->get_error_data()['status']);
@@ -328,6 +390,7 @@ final class V2StorefrontTest extends TestCase
         $error = $store->put_assistant($this->request('PUT', '/prq/v3/assistants/A', ['name' => 'Assistant', 'version' => 'v1', 'runtime' => 1, 'shell' => '<main>Hello</main>', 'experiment' => null]));
         $this->assertSame(500, $error->get_error_data()['status']);
         $this->assertFalse($this->lockHeld);
+        $this->assertSame(1, $this->options['prq_v1_storefront']);
     }
 
     #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]

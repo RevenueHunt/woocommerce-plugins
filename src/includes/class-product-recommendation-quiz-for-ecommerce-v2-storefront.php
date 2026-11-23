@@ -61,7 +61,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 					'experiment' => isset( $body['experiment'] ) ? $body['experiment'] : null,
 				);
 				return $quizzes;
-			}
+			},
+			true
 		);
 	}
 
@@ -160,7 +161,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 					'experiment' => $experiment,
 				);
 				return $assistants;
-			}
+			},
+			true
 		);
 	}
 
@@ -191,9 +193,10 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 	 *
 	 * @param string   $name Index option.
 	 * @param callable $change Update the files and return the index, or an error.
+	 * @param bool     $end_v1_storefront A successful publish ends the hold; deletions do not.
 	 * @return array|WP_Error Result; contention is retryable by V2's push job.
 	 */
-	private function update_index( $name, $change ) {
+	private function update_index( $name, $change, $end_v1_storefront = false ) {
 		global $wpdb;
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Connection-scoped mutex, not a cacheable data query.
 		$locked = $wpdb->get_var( $wpdb->prepare( 'SELECT GET_LOCK(%s, 10)', 'prq_v2_index' ) );
@@ -205,11 +208,18 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 			wp_cache_delete( 'alloptions', 'options' );
 			// A request may have booted before the first push created this index.
 			wp_cache_delete( 'notoptions', 'options' );
-			$index = $change( get_option( $name, array() ) );
+			$current = get_option( $name, array() );
+			$index   = $change( $current );
 			if ( is_wp_error( $index ) ) {
 				return $index;
 			}
-			update_option( $name, $index, true );
+			// A retry may have already stored the same index.
+			if ( ! update_option( $name, $index, true ) && $current !== $index ) {
+				return new WP_Error( 'prq_store_copy_failed', 'Cannot update store-copy index.', array( 'status' => 500 ) );
+			}
+			if ( $end_v1_storefront && get_option( Product_Recommendation_Quiz_For_Ecommerce_V2::V1_STOREFRONT ) ) {
+				delete_option( Product_Recommendation_Quiz_For_Ecommerce_V2::V1_STOREFRONT );
+			}
 			return array( 'ok' => true );
 		} finally {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Always release the mutex, including file-write failures.
@@ -245,10 +255,11 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 			$assistants[ $id ] = $assistant['version'];
 		}
 		return array(
-			'runtime'    => self::runtime(),
-			'quizzes'    => (object) $quizzes,
-			'assistants' => (object) $assistants,
-			'placements' => ( new Product_Recommendation_Quiz_For_Ecommerce_V2_Placements() )->scan(),
+			'runtime'      => self::runtime(),
+			'quizzes'      => (object) $quizzes,
+			'assistants'   => (object) $assistants,
+			'v1Storefront' => (bool) get_option( Product_Recommendation_Quiz_For_Ecommerce_V2::V1_STOREFRONT ),
+			'placements'   => ( new Product_Recommendation_Quiz_For_Ecommerce_V2_Placements() )->scan(),
 		);
 	}
 

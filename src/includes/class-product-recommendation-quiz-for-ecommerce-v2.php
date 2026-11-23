@@ -14,6 +14,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 	/** Connection option, deliberately not autoloaded. */
 	const OPTION = 'prq_v2_connection';
 
+	/** Autoloaded while the switched store still shows V1 on the storefront. */
+	const V1_STOREFRONT = 'prq_v1_storefront';
+
 	/**
 	 * Read the connection selected by the monolith, never infer it from a domain.
 	 *
@@ -28,6 +31,15 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		}
 		$value = get_option( self::OPTION, array() );
 		return is_array( $value ) && isset( $value['mode'] ) && 'v2' === $value['mode'] ? $value : array();
+	}
+
+	/**
+	 * Keep storefront delivery on V1 until the first new-admin content push.
+	 *
+	 * @return array Active storefront connection, or empty array for V1.
+	 */
+	public static function storefront() {
+		return get_option( self::V1_STOREFRONT ) ? array() : self::connection();
 	}
 
 	/**
@@ -76,6 +88,11 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		} elseif ( ! add_option( self::OPTION, $connection, '', false ) ) {
 			return true;
 		}
+		if ( $hashid && ! $current &&
+			! get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::QUIZZES ) &&
+			! get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::ASSISTANTS ) ) {
+			add_option( self::V1_STOREFRONT, 1, '', true );
+		}
 		$orders->create_webhooks();
 		return true;
 	}
@@ -102,6 +119,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 				return new WP_Error( 'prq_disconnect_failed', 'Could not remove the V2 connection.', array( 'status' => 500 ) );
 			}
 		}
+		delete_option( self::V1_STOREFRONT );
 		return true;
 	}
 
@@ -135,6 +153,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 
 	/** Remove V2 data before attempting a best-effort, bounded uninstall notice. @return void */
 	public static function uninstall() {
+		if ( get_option( self::V1_STOREFRONT ) ) {
+			delete_option( self::V1_STOREFRONT );
+		}
 		$connection = self::connection();
 		if ( ! $connection ) {
 			return;

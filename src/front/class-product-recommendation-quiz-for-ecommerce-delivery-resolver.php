@@ -2,10 +2,8 @@
 /**
  * Selects the active front-end delivery implementation.
  *
- * The single place that decides which delivery fulfils placement. Today there
- * is one implementation (V1 embed.js); when the V3 plugin lands this is where
- * the choice branches on the active connection / configuration, so placement
- * consumers (shortcode, block) never name a concrete delivery.
+ * Chooses delivery for storefront placements (shortcode, blocks and site-wide
+ * hooks) without changing which connection the admin and editor use.
  *
  * @link       https://revenuehunt.com/
  * @since      2.4.0
@@ -36,7 +34,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Delivery_Resolver {
 	 * @return Product_Recommendation_Quiz_For_Ecommerce_Delivery The active delivery.
 	 */
 	public static function resolve( $plugin_name, $version ): Product_Recommendation_Quiz_For_Ecommerce_Delivery {
-		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::connection() ) {
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::storefront() ) {
 			return new Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery();
 		}
 		// V1: enqueue embed.js and return the existing hydration container.
