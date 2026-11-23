@@ -27,6 +27,7 @@ final class DeliveryTest extends TestCase
         if (!defined('PRQ_ADMIN_URL'))   { define('PRQ_ADMIN_URL', 'https://admin.revenuehunt.com'); }
         if (!defined('PRQ_WOO_VERSION')) { define('PRQ_WOO_VERSION', '10.0.0'); }
         if (!defined('PRQ_WP_VERSION'))  { define('PRQ_WP_VERSION', '6.7'); }
+        Functions\when('plugin_dir_url')->justReturn('https://example.com/wp-content/plugins/prq/front/');
     }
 
     private function delivery(): Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script
@@ -54,7 +55,7 @@ final class DeliveryTest extends TestCase
         Functions\when('esc_url')->returnArg();
         Functions\expect('wp_enqueue_script')->once()->with(
             self::HANDLE,
-            'https://admin.revenuehunt.com/embed.js?shop=' . rawurlencode('example.com'),
+            'https://example.com/wp-content/plugins/prq/front/js/embed.js?shop=' . rawurlencode('example.com'),
             [],
             PRQ_PLUGIN_VERSION,
             true

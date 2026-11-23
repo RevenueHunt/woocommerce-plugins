@@ -82,6 +82,18 @@ final class OauthUrlBuilderTest extends TestCase
         $wc->countries = $countries;
         Functions\when('WC')->justReturn($wc);
 
+        $user = \Mockery::mock();
+        $user->shouldReceive('exists')->andReturn(true);
+        $user->ID           = 7;
+        $user->user_email   = 'josé@example.com';
+        $user->display_name = 'José Müller';
+        $user->roles        = ['administrator', 'shop_manager'];
+        Functions\when('wp_get_current_user')->justReturn($user);
+        Functions\when('get_user_meta')->alias(function ($id, $key) {
+            return $key === 'first_name' ? 'José' : 'Müller';
+        });
+        Functions\when('get_user_locale')->justReturn('es_ES');
+
         $url   = $this->builder()->prquiz_get_oauth_url();
         $parts = wp_parse_str_compat(parse_url($url, PHP_URL_QUERY));
 
@@ -97,10 +109,26 @@ final class OauthUrlBuilderTest extends TestCase
         $this->assertSame('en', $parts['locale']);
         $this->assertSame('USD', $parts['currency']);
 
-        $this->assertArrayNotHasKey('operator_email', $parts);
-        $this->assertArrayNotHasKey('operator_name', $parts);
+        // The admin who opens RevenueHunt, signed separately (the monolith's operator_capture payload).
+        $this->assertSame(
+            [
+                'email'        => 'josé@example.com',
+                'display_name' => 'José Müller',
+                'first_name'   => 'José',
+                'last_name'    => 'Müller',
+                'roles'        => 'administrator,shop_manager',
+                'locale'       => 'es_ES',
+            ],
+            $parts['operator']
+        );
         $this->assertArrayNotHasKey('operator_wp_id', $parts);
-        $this->assertArrayNotHasKey('operator_roles', $parts);
+        $operator_data = sprintf(
+            'purpose=operator_capture&hashid=%s&domain=example.com&plugin_version=%s&timestamp=%s&operator_email=josé@example.com',
+            $shop_hashid,
+            PRQ_PLUGIN_VERSION,
+            $parts['timestamp']
+        );
+        $this->assertSame(base64_encode(hash_hmac('sha256', $operator_data, $api_key, true)), $parts['operator_hmac']);
 
         // HMAC: recompute over the exact documented payload using the URL's own
         // timestamp; it must match the hmac the builder emitted.

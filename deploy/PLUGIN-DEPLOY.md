@@ -61,6 +61,32 @@ rm -rf "$STAGE"
 # 3. upload via dashboard: Version > Add Version > Version Number + ZIP + Changes in release
 ```
 
+## 2.6.0 release (bundled embed.js, operator on open, update gate)
+
+In this order. Each step needs the one before it.
+
+1. **Deploy the monolith** with `task/wp-plugin-260` merged (oauth records the operator who opens
+   RevenueHunt; `WoocommerceShop::MIN_PLUGIN_VERSION` ships `nil`, so nobody is gated yet; the
+   hosted embed.js is unchanged, so old plugins are unaffected).
+2. **End-to-end test against production**, with the 2.6.0 build:
+   `tools/e2e-store.sh up 7jHv3Vz GrHLzo` (our own quizzes: custom JS, Meta pixel) prints a public
+   HTTPS store with three products. In its wp-admin (password in `tools/e2e-store/.state/`):
+   - Product Quiz → connect: WooCommerce authorizes, RevenueHunt opens in the frame, signed in.
+     The admin appears as a contact of the new shop (source `woocommerce_admin`).
+   - Put a product in a quiz result, take the quiz on the store, Add to cart: the cart has it.
+   - The inline quiz pages show the quizzes; the pixel page loads nothing from connect.facebook.net.
+   - Keep the store up for step 4.
+3. **Upload**: wordpress.org SVN (above) and woocommerce.com (below), from `composer build`.
+4. **Once 2.6.0 is live on both listings and checked**, raise `MIN_PLUGIN_VERSION` to `"2.6.0"`
+   in the monolith and deploy: older plugins then show only "Update the plugin to continue" in
+   the admin; their storefronts keep working. Check it on the test store:
+   `docker compose -f tools/e2e-store/compose.yml exec -T cli wp plugin install product-recommendation-quiz-for-ecommerce --version=2.5.6 --force`,
+   open Product Quiz: only the update notice, and Go to Plugins opens the Plugins page.
+   Then `tools/e2e-store.sh down` and uninstall the test shop in our admin.
+
+Later releases that change embed.js: regenerate `src/front/js/embed.js` (README "Bundled embed.js")
+and raise `MIN_PLUGIN_VERSION` only when every store must have the change.
+
 ## Gotchas (learned the hard way)
 
 1. **`[youtube ...]` shortcode brackets are required** in readme.txt for the video embed to render on the wp.org listing. Bare URL (autoembed) does NOT reliably work in plugin readme. Form: `[youtube https://www.youtube.com/watch?v=VIDEO_ID]`.

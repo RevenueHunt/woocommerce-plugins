@@ -3,8 +3,8 @@
  * Front-end delivery: the embed.js storefront script.
  *
  * The V1 implementation of the plugin's front-end delivery seam
- * (Product_Recommendation_Quiz_For_Ecommerce_Delivery) — it loads embed.js from
- * admin.revenuehunt.com and returns the inline hydration container embed.js
+ * (Product_Recommendation_Quiz_For_Ecommerce_Delivery) — it loads the plugin's
+ * bundled js/embed.js and returns the inline hydration container embed.js
  * targets. Isolating it here keeps "how the quiz reaches the storefront"
  * swappable without touching the rest of the plugin.
  *
@@ -77,7 +77,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 	 * block those critical pages.
 	 *
 	 * The script is loaded with the 'async' strategy so that even on pages
-	 * where it IS enqueued, a slow or failed connection to admin.revenuehunt.com
+	 * where it IS enqueued, a slow or failed connection to the hosted quiz
 	 * will not block page rendering or execution.
 	 *
 	 * @since    2.3.9
@@ -100,19 +100,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 	}
 
 	/**
-	 * The origin embed.js and the hosted quiz are served from.
-	 *
-	 * Single accessor for the backend origin so both the global enqueue and the
-	 * placement renderer reference it identically.
-	 *
-	 * @since 2.4.0
-	 * @return string The admin/backend origin (no trailing slash).
-	 */
-	private function admin_origin() {
-		return PRQ_ADMIN_URL;
-	}
-
-	/**
 	 * Enqueue embed.js with its js_vars payload.
 	 *
 	 * Shared by the site-wide hook and by placement rendering. WordPress dedupes
@@ -132,7 +119,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 			'wp_version'     => PRQ_WP_VERSION,
 		);
 
-		wp_enqueue_script( $this->plugin_name, $this->admin_origin() . '/embed.js?shop=' . rawurlencode( PRQ_STORE_URL ), array(), PRQ_PLUGIN_VERSION, true );
+		// Bundled with the plugin (built from the same source as the hosted embed.js); embed.js reads ?shop= from its own URL.
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/embed.js?shop=' . rawurlencode( PRQ_STORE_URL ), array(), PRQ_PLUGIN_VERSION, true );
 		wp_localize_script( $this->plugin_name, 'js_vars', $data_to_pass );
 	}
 
@@ -195,7 +183,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Front_Embed_Script implements Pr
 
 		$this->enqueue_embed();
 
-		$quiz_url = $this->admin_origin() . '/public/quiz/' . rawurlencode( $quiz_id );
+		$quiz_url = PRQ_ADMIN_URL . '/public/quiz/' . rawurlencode( $quiz_id );
 
 		$container = sprintf(
 			'<div class="rh-widget rh-inline" data-url="%s"%s style="margin:10px auto;width:100%%;height:%d%s;display:flex;"></div>',

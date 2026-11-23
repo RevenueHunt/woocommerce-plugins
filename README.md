@@ -118,6 +118,24 @@ See [the verification record](tests/V2-PROOF.md) for the before/after V1 snapsho
 and local-store export proof. WooCommerce stubs are dev-only (not built into either
 artifact); PHPStan needs a 2 GB limit with these stubs.
 
+## Bundled embed.js (V1)
+
+`src/front/js/embed.js` is generated, never hand-edited. WordPress.org does not allow
+loading scripts from our servers, so the plugin ships a readable copy of the monolith's
+embed.js, built from the same source as the hosted one (no remote icons, never loads
+Meta's script). Regenerate it in each plugin release that should carry embed changes:
+
+```bash
+M=../v1/monolith   # a monolith checkout at the commit to ship
+node $M/scripts/build-embed.cjs production --wordpress \
+  --commit $(git -C $M rev-parse --short HEAD) --output src/front/js/embed.js
+```
+
+The hosted `admin.revenuehunt.com/embed.js` keeps serving older plugin versions, so the
+quiz-to-embed messages stay additive only. To make every store update, raise
+`WoocommerceShop::MIN_PLUGIN_VERSION` in the monolith: below it, the admin shows only
+"Update the plugin to continue" (the storefront keeps working).
+
 ## Deploy
 
 Build artifacts feed the existing pipelines (they are **deploy targets**, not

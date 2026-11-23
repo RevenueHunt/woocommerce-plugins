@@ -63,7 +63,10 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 	}
 
 	/**
-	 * Register the stylesheets and JavaScript for the admin area.
+	 * Register the stylesheet for the admin area.
+	 *
+	 * V1 loads no admin script: the RevenueHunt app is the iframe on its own page. V2 adds
+	 * its menu script on that page only.
 	 *
 	 * @since    1.0.0
 	 */
@@ -77,41 +80,20 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Menu {
 		);
 
 		$connection = Product_Recommendation_Quiz_For_Ecommerce_V2::connection();
-		if ( $connection ) {
-			global $plugin_page;
-			if ( 'prqfw' === $plugin_page ) {
-				// Also without menu items: the app's full-screen window still covers the whole admin.
-				$handle = $this->plugin_name . '-v2-nav';
-				wp_enqueue_script( $handle, plugin_dir_url( __FILE__ ) . 'js/product-recommendation-quiz-for-ecommerce-v2-nav.js', array(), $this->version, true );
-				wp_localize_script(
-					$handle,
-					'prqV2AdminNav',
-					array(
-						'adminUrl' => $connection['admin_url'],
-						'paths'    => array_column( Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::items(), 'path' ),
-					)
-				);
-			}
-			return;
+		global $plugin_page;
+		if ( $connection && 'prqfw' === $plugin_page ) {
+			// Also without menu items: the app's full-screen window still covers the whole admin.
+			$handle = $this->plugin_name . '-v2-nav';
+			wp_enqueue_script( $handle, plugin_dir_url( __FILE__ ) . 'js/product-recommendation-quiz-for-ecommerce-v2-nav.js', array(), $this->version, true );
+			wp_localize_script(
+				$handle,
+				'prqV2AdminNav',
+				array(
+					'adminUrl' => $connection['admin_url'],
+					'paths'    => array_column( Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::items(), 'path' ),
+				)
+			);
 		}
-
-		$data_to_pass = array(
-			'shop'           => PRQ_STORE_URL,
-			'platform'       => 'woocommerce',
-			'channel'        => 'wordpress',
-			'plugin_version' => PRQ_PLUGIN_VERSION,
-			'woo_version'    => PRQ_WOO_VERSION,
-			'wp_version'     => PRQ_WP_VERSION,
-		);
-
-		wp_enqueue_script(
-			$this->plugin_name,
-			PRQ_ADMIN_URL . '/embed.js?shop=' . rawurlencode( PRQ_STORE_URL ),
-			array(),
-			PRQ_PLUGIN_VERSION,
-			true
-		);
-		wp_localize_script( $this->plugin_name, 'js_vars', $data_to_pass );
 	}
 
 	/**
