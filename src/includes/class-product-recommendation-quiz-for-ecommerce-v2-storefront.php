@@ -217,8 +217,10 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 			if ( ! update_option( $name, $index, true ) && $current !== $index ) {
 				return new WP_Error( 'prq_store_copy_failed', 'Cannot update store-copy index.', array( 'status' => 500 ) );
 			}
-			if ( $end_v1_storefront && get_option( Product_Recommendation_Quiz_For_Ecommerce_V2::V1_STOREFRONT ) ) {
-				delete_option( Product_Recommendation_Quiz_For_Ecommerce_V2::V1_STOREFRONT );
+			// Remember the first push even if all published content is later deleted.
+			if ( $end_v1_storefront && Product_Recommendation_Quiz_For_Ecommerce_V2::v1_storefront_held() &&
+				! update_option( Product_Recommendation_Quiz_For_Ecommerce_V2::V1_STOREFRONT, 'ended', true ) ) {
+				return new WP_Error( 'prq_store_copy_failed', 'Cannot end the V1 storefront hold.', array( 'status' => 500 ) );
 			}
 			return array( 'ok' => true );
 		} finally {
@@ -258,7 +260,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront {
 			'runtime'      => self::runtime(),
 			'quizzes'      => (object) $quizzes,
 			'assistants'   => (object) $assistants,
-			'v1Storefront' => (bool) get_option( Product_Recommendation_Quiz_For_Ecommerce_V2::V1_STOREFRONT ),
+			'v1Storefront' => Product_Recommendation_Quiz_For_Ecommerce_V2::v1_storefront_held(),
 			'placements'   => ( new Product_Recommendation_Quiz_For_Ecommerce_V2_Placements() )->scan(),
 		);
 	}

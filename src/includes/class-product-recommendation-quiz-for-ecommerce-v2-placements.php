@@ -44,7 +44,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Placements {
 			}
 		}
 		$rows = array_merge( $rows, $this->menu_links(), $this->elementor() );
-		if ( get_option( Product_Recommendation_Quiz_For_Ecommerce_V2::V1_STOREFRONT ) ) {
+		if ( Product_Recommendation_Quiz_For_Ecommerce_V2::v1_storefront_held() ) {
 			$settings = Product_Recommendation_Quiz_For_Ecommerce_Embeds_Settings::get();
 			$kinds    = array(
 				'auto_popup' => 'automatic-popup',

@@ -23,17 +23,14 @@ final class V2StorefrontTest extends TestCase
         $this->options = [V2::OPTION => ['mode' => 'v2', 'shop' => 'wc-ab12cd', 'shared_secret' => 'prq-v2-test-secret'], Storefront::QUIZZES => [], Storefront::ASSISTANTS => [], Storefront::STOREFRONT => []];
         Functions\when('get_option')->alias(fn($key, $default = false) => $this->options[$key] ?? $default);
         Functions\when('update_option')->alias(function ($key, $value, $autoload) {
-            $this->assertTrue($autoload);
+            $this->assertSame($key !== V2::OPTION, $autoload);
+            if ($key === 'prq_v1_storefront') {
+                $this->assertTrue($this->lockHeld, 'The first push ends the hold inside the index lock.');
+            }
             $this->options[$key] = $value;
             return true;
         });
-        Functions\when('delete_option')->alias(function ($key) {
-            if ($key === 'prq_v1_storefront' && isset($this->options[$key])) {
-                $this->assertTrue($this->lockHeld, 'The first push ends the hold inside the index lock.');
-            }
-            unset($this->options[$key]);
-            return true;
-        });
+        Functions\when('delete_option')->alias(function ($key) { unset($this->options[$key]); return true; });
         Functions\when('wp_upload_dir')->justReturn(['basedir' => $this->uploads, 'baseurl' => 'https://shop.example/wp-content/uploads']);
         Functions\when('wp_mkdir_p')->alias(fn($dir) => is_dir($dir) || mkdir($dir, 0777, true));
         Functions\when('wp_delete_file')->alias(function ($path) { if (is_file($path)) unlink($path); });
@@ -119,7 +116,7 @@ final class V2StorefrontTest extends TestCase
         $this->options['prq_v1_storefront'] = 1;
         $this->assertTrue((new V2())->authorize($request));
         $this->assertSame(['ok' => true], $store->put_quiz($request));
-        $this->assertArrayNotHasKey('prq_v1_storefront', $this->options);
+        $this->assertSame('ended', $this->options['prq_v1_storefront'] ?? null);
         $path = $this->uploads . '/prq-v2/quiz-abc';
         $this->assertSame($body['artifact'], json_decode(file_get_contents($path . '.html.json'), true));
         $this->assertSame($body['treatment'], json_decode(file_get_contents($path . '-treatment.html.json'), true));
@@ -148,7 +145,7 @@ final class V2StorefrontTest extends TestCase
         $this->options['prq_v1_storefront'] = 1;
         $this->assertTrue((new V2())->authorize($request));
         $this->assertSame(['ok' => true], $store->put_assistant($request));
-        $this->assertArrayNotHasKey('prq_v1_storefront', $this->options);
+        $this->assertSame('ended', $this->options['prq_v1_storefront'] ?? null);
         $path = $this->uploads . '/prq-v2/assistant-asst1.html';
         $this->assertSame($body['shell'], file_get_contents($path));
         $this->assertSame(['name' => 'Shopping assistant', 'version' => 'assistant-v1', 'runtime' => 1, 'experiment' => null], $this->options[Storefront::ASSISTANTS]['asst1']);
@@ -186,6 +183,49 @@ final class V2StorefrontTest extends TestCase
         $this->assertSame(['ok' => true], $store->delete_assistant($this->request('DELETE', '/prq/v3/assistants/asst1')));
         $this->assertFileDoesNotExist($path);
         $this->assertSame([], $this->options[Storefront::ASSISTANTS]);
+    }
+
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
+    public function test_switching_again_after_deleting_the_only_published_quiz_does_not_restart_the_hold(): void
+    {
+        unset($this->options[V2::OPTION]);
+        $this->options[PRQ_OPTION_SHOP_HASHID] = 'ab12cd';
+        Functions\when('get_current_user_id')->justReturn(7);
+        Functions\when('wp_http_validate_url')->returnArg();
+        Functions\when('wp_parse_url')->alias('parse_url');
+        Functions\when('untrailingslashit')->alias(fn($url) => rtrim($url, '/'));
+        Functions\when('add_option')->alias(function ($key, $value) {
+            if (array_key_exists($key, $this->options)) return false;
+            $this->options[$key] = $value;
+            return true;
+        });
+        \Mockery::mock('overload:WC_Webhook')->shouldIgnoreMissing()->shouldReceive('save')->andReturn(41);
+        Functions\when('wc_get_webhook')->justReturn(false);
+        $wpdb = $GLOBALS['wpdb'];
+        $wpdb->options = 'wp_options';
+        $wpdb->shouldReceive('esc_like')->with('prq_v2_export_')->andReturn('prq\\_v2\\_export\\_');
+        $wpdb->shouldReceive('esc_like')->with('prq_v2_download_')->andReturn('prq\\_v2\\_download\\_');
+        $wpdb->shouldReceive('prepare')->with('SELECT option_name FROM wp_options WHERE option_name LIKE %s OR option_name LIKE %s', 'prq\\_v2\\_export\\_%', 'prq\\_v2\\_download\\_%')->andReturn('export lookup');
+        $wpdb->shouldReceive('get_col')->with('export lookup')->andReturn([]);
+        $connect = new \WP_REST_Request(['mode' => 'v2', 'shop' => 'wc-ab12cd', 'shared_secret' => str_repeat('s', 32), 'api_url' => 'https://api.example.com', 'admin_url' => 'https://admin.example.com']);
+        $disconnect = new \WP_REST_Request(['shop_hashid' => 'ab12cd']);
+        $connect->set_route('/wc/v3/prq_set_token');
+        $disconnect->set_route('/wc/v3/prq_set_token');
+        $store = new Storefront();
+
+        $this->assertTrue(V2::connect($connect));
+        $this->assertSame(1, $this->options['prq_v1_storefront']);
+        $this->assertSame([], V2::storefront());
+        $this->assertSame(['ok' => true], $store->put_quiz($this->request('PUT', '/prq/v3/quizzes/abc', $this->body())));
+        $this->assertSame(['ok' => true], $store->delete_quiz($this->request('DELETE', '/prq/v3/quizzes/abc')));
+        $this->assertSame([], $this->options[Storefront::QUIZZES]);
+        $this->assertSame([], $this->options[Storefront::ASSISTANTS]);
+        $this->assertTrue(V2::disconnect($disconnect));
+        $this->assertSame([], V2::connection());
+        $this->assertTrue(V2::connect($connect));
+        $this->assertSame(V2::connection(), V2::storefront(), 'The empty indexes must not re-arm the hold.');
+        $this->assertSame('ended', $this->options['prq_v1_storefront']);
     }
 
     public function test_storefront_roundtrip_reports_placements_and_v1_hold(): void

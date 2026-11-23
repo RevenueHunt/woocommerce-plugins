@@ -14,7 +14,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 	/** Connection option, deliberately not autoloaded. */
 	const OPTION = 'prq_v2_connection';
 
-	/** Autoloaded while the switched store still shows V1 on the storefront. */
+	/** Autoloaded: 1 while V1 is held, 'ended' after the first push. */
 	const V1_STOREFRONT = 'prq_v1_storefront';
 
 	/**
@@ -33,13 +33,18 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		return is_array( $value ) && isset( $value['mode'] ) && 'v2' === $value['mode'] ? $value : array();
 	}
 
+	/** Whether a switched store still shows V1. @return bool Whether the hold is active. */
+	public static function v1_storefront_held() {
+		return in_array( get_option( self::V1_STOREFRONT ), array( 1, '1' ), true );
+	}
+
 	/**
 	 * Keep storefront delivery on V1 until the first new-admin content push.
 	 *
 	 * @return array Active storefront connection, or empty array for V1.
 	 */
 	public static function storefront() {
-		return get_option( self::V1_STOREFRONT ) ? array() : self::connection();
+		return self::v1_storefront_held() ? array() : self::connection();
 	}
 
 	/**
@@ -88,7 +93,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		} elseif ( ! add_option( self::OPTION, $connection, '', false ) ) {
 			return true;
 		}
-		if ( $hashid && ! $current &&
+		if ( $hashid && ! $current && false === get_option( self::V1_STOREFRONT ) &&
 			! get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::QUIZZES ) &&
 			! get_option( Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::ASSISTANTS ) ) {
 			add_option( self::V1_STOREFRONT, 1, '', true );
@@ -119,7 +124,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 				return new WP_Error( 'prq_disconnect_failed', 'Could not remove the V2 connection.', array( 'status' => 500 ) );
 			}
 		}
-		delete_option( self::V1_STOREFRONT );
+		if ( self::v1_storefront_held() ) {
+			delete_option( self::V1_STOREFRONT );
+		}
 		return true;
 	}
 
@@ -153,7 +160,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 
 	/** Remove V2 data before attempting a best-effort, bounded uninstall notice. @return void */
 	public static function uninstall() {
-		if ( get_option( self::V1_STOREFRONT ) ) {
+		if ( false !== get_option( self::V1_STOREFRONT ) ) {
 			delete_option( self::V1_STOREFRONT );
 		}
 		$connection = self::connection();

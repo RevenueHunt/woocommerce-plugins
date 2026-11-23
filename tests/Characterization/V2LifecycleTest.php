@@ -157,7 +157,9 @@ final class V2LifecycleTest extends TestCase
         $this->assertArrayHasKey(V2::OPTION, $this->options);
     }
 
-    public function test_uninstall_deletes_owned_data_and_attempts_signed_notice_despite_http_failure(): void
+    #[\PHPUnit\Framework\Attributes\TestWith([1], 'active hold')]
+    #[\PHPUnit\Framework\Attributes\TestWith(['ended'], 'ended hold')]
+    public function test_uninstall_deletes_owned_data_and_attempts_signed_notice_despite_http_failure($hold): void
     {
         $this->webhooks('paused', true);
         $this->unschedule();
@@ -165,7 +167,7 @@ final class V2LifecycleTest extends TestCase
         // A similarly named file is not ours; never delete arbitrary upload paths.
         file_put_contents($this->uploads . '/prq-catalog-unrelated.php', 'unrelated');
         $connection = $this->options[V2::OPTION];
-        $this->options['prq_v1_storefront'] = 1;
+        $this->options['prq_v1_storefront'] = $hold;
         foreach (['rh_shop_hashid', 'rh_api_key', 'rh_domain', 'rh_token'] as $key) $this->options[$key] = 'legacy';
         Functions\expect('wp_remote_post')->once()->with('https://api.example.com/api/woocommerce/uninstalled', \Mockery::on(function ($args) use ($connection, $path) {
             $this->assertFileDoesNotExist($path);
