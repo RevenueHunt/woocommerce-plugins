@@ -94,6 +94,7 @@ final class V2ModeTest extends TestCase
         Functions\when('wp_generate_uuid4')->justReturn('c7e6e7c3-8e62-4c11-a59d-3bc880137d4f');
         Functions\when('wp_get_current_user')->justReturn((object) ['ID' => 7, 'user_email' => 'owner@example.com', 'display_name' => 'Ann']);
         $before = time();
+        Functions\when('get_option')->alias(fn($name) => $name === 'prq_v2_connection' ? $connection : null); // No V1 shop: no operator capture.
         $url = (new \Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder())->prquiz_get_oauth_url();
         $this->assertStringStartsWith($connection['admin_url'] . '/auth/woocommerce?token=', $url);
         parse_str(parse_url($url, PHP_URL_QUERY), $params);
@@ -112,6 +113,40 @@ final class V2ModeTest extends TestCase
         $this->assertSame(60, $claims['exp'] - $claims['iat']);
         $this->assertMatchesRegularExpression('/^[a-f0-9-]{36}$/', $claims['jti']);
         $this->assertSame(rtrim(strtr(base64_encode(hash_hmac('sha256', "$header.$payload", $connection['shared_secret'], true)), '+/', '-_'), '='), $signature);
+    }
+
+    public function test_opening_the_v2_admin_captures_the_operator_once_a_day(): void
+    {
+        // A V1 shop switched to V2 keeps its hashid and API key: the admin who opens RevenueHunt becomes a contact.
+        if (!defined('PRQ_API_URL')) { define('PRQ_API_URL', 'https://api.revenuehunt.com'); }
+        if (!defined('PRQ_STORE_URL')) { define('PRQ_STORE_URL', 'example.com'); }
+        $options = ['prq_v2_connection' => $this->connection(), 'rh_shop_hashid' => 'AbC123', 'rh_api_key' => 'k3y'];
+        $transients = [];
+        Functions\when('get_option')->alias(fn($name) => $options[$name] ?? null);
+        Functions\when('get_transient')->alias(function ($name) use (&$transients) { return $transients[$name] ?? false; });
+        Functions\when('set_transient')->alias(function ($name, $value) use (&$transients) { $transients[$name] = $value; return true; });
+        Functions\when('is_user_logged_in')->justReturn(true);
+        Functions\when('current_user_can')->justReturn(true);
+        Functions\when('wp_get_current_user')->justReturn(new class { public $ID = 7; public $user_email = 'ann@example.com'; public $display_name = 'Ann'; public $roles = ['administrator']; public function exists() { return true; } });
+        Functions\when('get_user_meta')->justReturn('');
+        Functions\when('get_user_locale')->justReturn('en_US');
+        Functions\when('get_locale')->justReturn('en_US');
+        Functions\when('wp_json_encode')->alias('json_encode');
+        Functions\when('wp_generate_uuid4')->justReturn('c7e6e7c3-8e62-4c11-a59d-3bc880137d4f');
+        $posts = [];
+        Functions\when('wp_remote_post')->alias(function ($url, $args) use (&$posts) { $posts[] = [$url, json_decode($args['body'], true)]; return []; });
+
+        $builder = new \Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder();
+        $this->assertStringStartsWith('https://admin.example.com/auth/woocommerce?token=', $builder->prquiz_get_oauth_url());
+        $builder->prquiz_get_oauth_url();
+
+        $this->assertCount(1, $posts);
+        [$url, $body] = $posts[0];
+        $this->assertSame('https://api.revenuehunt.com/api/v1/woocommerce/operator_capture', $url);
+        $this->assertSame('AbC123', $body['shop_hashid']);
+        $this->assertSame('ann@example.com', $body['operator']['email']);
+        $data = sprintf('purpose=operator_capture&hashid=AbC123&domain=example.com&plugin_version=%s&timestamp=%s&operator_email=ann@example.com', PRQ_PLUGIN_VERSION, $body['timestamp']);
+        $this->assertSame(base64_encode(hash_hmac('sha256', $data, 'k3y', true)), $body['hmac']);
     }
 
     #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]

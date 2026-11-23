@@ -62,6 +62,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_Admin_Oauth_Url_Builder {
 	public function prquiz_get_oauth_url() {
 		$connection = Product_Recommendation_Quiz_For_Ecommerce_V2::connection();
 		if ( $connection ) {
+			// The admin who opens RevenueHunt becomes a contact of the account, as in V1 below.
+			( new Product_Recommendation_Quiz_For_Ecommerce_Admin_Operator_Capture() )->maybe_capture();
 			$url  = $connection['admin_url'] . '/auth/woocommerce?token=' . rawurlencode( Product_Recommendation_Quiz_For_Ecommerce_V2::admin_token( $connection, wp_get_current_user() ) );
 			$path = Product_Recommendation_Quiz_For_Ecommerce_V2_Admin_Nav::selected_path();
 			return '' === $path ? $url : $url . '&to=' . rawurlencode( $path );

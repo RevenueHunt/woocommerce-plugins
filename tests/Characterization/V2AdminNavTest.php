@@ -119,7 +119,8 @@ final class V2AdminNavTest extends TestCase
     {
         $_GET['path'] = $path;
         Functions\when('get_transient')->justReturn($this->items());
-        Functions\when('get_option')->justReturn(['mode' => 'v2', 'admin_url' => 'https://admin.example.com/v2', 'shop' => 'wc-demo', 'shared_secret' => str_repeat('s', 32)]);
+        $connection = ['mode' => 'v2', 'admin_url' => 'https://admin.example.com/v2', 'shop' => 'wc-demo', 'shared_secret' => str_repeat('s', 32)];
+        Functions\when('get_option')->alias(fn($name) => $name === 'prq_v2_connection' ? $connection : false); // No V1 shop: no operator capture.
         Functions\when('wp_json_encode')->alias('json_encode');
         Functions\when('wp_generate_uuid4')->justReturn('test-jti');
         Functions\when('wp_get_current_user')->justReturn((object) ['ID' => 1, 'user_email' => 'admin@example.test', 'display_name' => 'Admin']);

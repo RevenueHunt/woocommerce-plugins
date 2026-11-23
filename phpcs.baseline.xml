@@ -2,6 +2,8 @@
 <phpcs-baseline version="3.13.5">
 <violation file="src/admin/class-product-recommendation-quiz-for-ecommerce-admin-diagnostics.php" sniff="Universal.NamingConventions.NoReservedKeywordParameterNames.stringFound" signature="796d1b0a1c66604289f7758195a17e844a7d671b"/>
 <violation file="src/admin/class-product-recommendation-quiz-for-ecommerce-admin-oauth-url-builder.php" sniff="WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode" signature="838c072871c182a5c9c971d8bedb3fc86cfa4f29"/>
+<violation file="src/admin/class-product-recommendation-quiz-for-ecommerce-admin-operator-capture.php" sniff="WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode" signature="9441fd89d6aa79045e15676dfc052aefa6891faa"/>
+<violation file="src/admin/class-product-recommendation-quiz-for-ecommerce-admin-operator-capture.php" sniff="WordPress.WP.Capabilities.Unknown" signature="811131370de0dc9bb323d131e264d3d7d4a63d7e"/>
 <violation file="src/admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php" sniff="Squiz.Commenting.InlineComment.InvalidEndChar" signature="e853e23c55c00cefb31bbcaa7fce36b3757d2e9a"/>
 <violation file="src/admin/index.php" sniff="Squiz.Commenting.FileComment.WrongStyle" signature="eb222e35589876306a5d3f28aefdba7a61777af3"/>
 <violation file="src/admin/index.php" sniff="Squiz.Commenting.InlineComment.InvalidEndChar" signature="eb222e35589876306a5d3f28aefdba7a61777af3"/>
