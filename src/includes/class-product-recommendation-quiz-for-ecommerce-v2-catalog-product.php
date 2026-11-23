@@ -111,7 +111,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog_Product {
 			'price'        => wc_format_decimal( '' !== $price ? $price : '0', wc_get_price_decimals() ),
 			'availability' => $stock[ $product->get_stock_status() ],
 		);
-		if ( '' !== $product->get_sale_price() ) {
+		// Only a sale running now: a scheduled one keeps its amount in get_sale_price() before it starts and after it ends.
+		if ( '' !== $product->get_sale_price() && $product->is_on_sale() ) {
 			$variant['sale_price'] = wc_format_decimal( $product->get_sale_price(), wc_get_price_decimals() );
 		}
 		if ( $product->managing_stock() && null !== $product->get_stock_quantity() ) {

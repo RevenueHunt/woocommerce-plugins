@@ -28,7 +28,7 @@ final class V2CatalogProductTest extends TestCase
             'get_status' => 'publish', 'get_catalog_visibility' => 'visible', 'get_category_ids' => [7],
             'get_attributes' => [], 'get_children' => [], 'get_sku' => 'SER-50', 'get_regular_price' => '29',
             'get_price' => '24', 'get_sale_price' => '24', 'get_stock_status' => 'instock',
-            'managing_stock' => true, 'get_stock_quantity' => 12,
+            'managing_stock' => true, 'get_stock_quantity' => 12, 'is_on_sale' => true,
         ];
         $product = \Mockery::mock('WC_Product');
         foreach (array_merge($defaults, $overrides) as $method => $value) {
@@ -75,6 +75,13 @@ final class V2CatalogProductTest extends TestCase
         $this->assertSame(['Skin type' => ['dry', 'normal']], (array) $line['attributes']);
         $this->assertSame([['id' => 'gid://woocommerce/ProductVariant/45', 'title' => 'Serum', 'sku' => 'SER-50', 'price' => '29.00', 'availability' => 'backorder', 'options' => [['name' => 'Size', 'value' => '50 ml']]]], $line['variants']);
         $this->assertSame('{}', json_encode($line['metafields']));
+    }
+
+    public function test_a_scheduled_sale_exports_only_the_regular_price_until_it_runs(): void
+    {
+        Functions\when('get_post_meta')->justReturn('');
+        $line = (new Mapper())->line($this->product(12, 'simple', ['get_price' => '29', 'is_on_sale' => false]), []);
+        $this->assertSame([['id' => 'gid://woocommerce/ProductVariant/12', 'title' => 'Serum', 'sku' => 'SER-50', 'price' => '29.00', 'availability' => 'in_stock', 'inventory_quantity' => 12]], $line['variants']);
     }
 
     public function test_custom_field_rule_excludes_all_contract_prefixes_and_size_and_non_scalars(): void
