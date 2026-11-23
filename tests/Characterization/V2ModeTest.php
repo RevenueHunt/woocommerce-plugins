@@ -255,28 +255,36 @@ final class V2ModeTest extends TestCase
     #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
     #[\PHPUnit\Framework\Attributes\TestWith([false], 'fresh store')]
     #[\PHPUnit\Framework\Attributes\TestWith(['ab12cd'], 'matching V1 store')]
-    public function test_connect_stores_credentials_once_and_registers_native_order_webhooks($hashid): void
+    public function test_connect_stores_credentials_and_rotates_native_order_webhooks_on_retry($hashid): void
     {
         $stored = false;
+        $deleted = [];
         $connection = $this->connection();
+        $rotated = array_replace($connection, ['shared_secret' => str_repeat('r', 32)]);
+        $store = function ($key, $value) use (&$stored) { $stored = $value; return true; };
         Functions\when('get_option')->alias(function ($key) use (&$stored, $hashid) {
             return $key === V2::OPTION ? $stored : ($key === PRQ_OPTION_SHOP_HASHID ? $hashid : false);
         });
         Functions\when('wp_http_validate_url')->returnArg();
         Functions\when('wp_parse_url')->alias('parse_url');
         Functions\when('untrailingslashit')->alias(fn($s) => rtrim($s, '/'));
-        Functions\expect('add_option')->once()->with(V2::OPTION, $connection, '', false)->andReturnUsing(function ($key, $value) use (&$stored) { $stored = $value; return true; });
+        Functions\expect('add_option')->once()->with(V2::OPTION, $connection, '', false)->andReturnUsing($store);
         Functions\when('get_current_user_id')->justReturn(7);
-        Functions\expect('update_option')->once()->with(V2::OPTION, $connection + ['webhook_ids' => [41, 42]], false)->andReturnUsing(function ($key, $value) use (&$stored) { $stored = $value; return true; });
+        Functions\expect('update_option')->once()->with(V2::OPTION, $connection + ['webhook_ids' => [41, 42]], false)->andReturnUsing($store);
+        Functions\expect('update_option')->once()->with(V2::OPTION, $rotated, false)->andReturnUsing(function ($key, $value) use (&$deleted, $store) {
+            $this->assertSame([41, 42], $deleted);
+            return $store($key, $value);
+        });
+        Functions\expect('update_option')->once()->with(V2::OPTION, $rotated + ['webhook_ids' => [43, 44]], false)->andReturnUsing($store);
         $webhook = \Mockery::mock('overload:WC_Webhook');
         $topics = [];
+        $secrets = [];
         $webhook->shouldReceive('set_name')->once();
         $webhook->shouldReceive('set_topic')->once()->andReturnUsing(function ($topic) use (&$topics) { $topics[] = $topic; });
         $webhook->shouldReceive('set_delivery_url')->once()->with('https://api.example.com/api/woocommerce/orders');
-        $derived = hash_hmac('sha256', 'prq-v2-webhook', $connection['shared_secret']);
-        $this->assertNotSame($connection['shared_secret'], $derived);
-        $webhook->shouldReceive('set_secret')->never()->with($connection['shared_secret']);
-        $webhook->shouldReceive('set_secret')->once()->with($derived);
+        $oldSecret = hash_hmac('sha256', 'prq-v2-webhook', $connection['shared_secret']);
+        $newSecret = hash_hmac('sha256', 'prq-v2-webhook', $rotated['shared_secret']);
+        $webhook->shouldReceive('set_secret')->once()->andReturnUsing(function ($secret) use (&$secrets) { $secrets[] = $secret; });
         $webhook->shouldReceive('set_api_version')->once()->with('wp_api_v3');
         $webhook->shouldReceive('set_status')->once()->with('active');
         $webhook->shouldReceive('set_user_id')->once()->with(7);
@@ -287,13 +295,30 @@ final class V2ModeTest extends TestCase
         $this->assertTrue(V2::connect($request));
         $this->assertSame($connection + ['webhook_ids' => [41, 42]], $stored);
         $this->assertSame(['order.created', 'order.updated'], $topics);
-        $this->assertTrue(V2::connect($request));
+        $this->assertSame([$oldSecret, $oldSecret], $secrets);
+
+        $oldWebhooks = [];
+        foreach ([41, 42] as $id) {
+            $oldWebhooks[$id] = \Mockery::mock();
+            $oldWebhooks[$id]->shouldReceive('delete')->once()->with(true)->andReturnUsing(function () use (&$deleted, $id) { $deleted[] = $id; });
+        }
+        Functions\when('wc_get_webhook')->alias(fn($id) => $oldWebhooks[$id] ?? false);
+        $retry = new \WP_REST_Request($rotated);
+        $retry->set_route('/wc/v3/prq_set_token');
+        $this->assertTrue(V2::connect($retry));
+        $this->assertSame($rotated + ['webhook_ids' => [43, 44]], $stored);
+        $this->assertSame(['order.created', 'order.updated', 'order.created', 'order.updated'], $topics);
+        $this->assertSame([$oldSecret, $oldSecret, $newSecret, $newSecret], $secrets);
     }
 
-    public function test_connect_refuses_a_different_woo_shop_for_an_existing_v1_store(): void
+    #[\PHPUnit\Framework\Attributes\TestWith(['existing'], 'existing V1 store')]
+    #[\PHPUnit\Framework\Attributes\TestWith([false], 'existing V2 connection')]
+    public function test_connect_refuses_a_different_woo_shop($hashid): void
     {
-        Functions\when('get_option')->alias(fn($key) => $key === PRQ_OPTION_SHOP_HASHID ? 'existing' : false);
+        $stored = $hashid ? false : ['shop' => 'wc-existing'] + $this->connection();
+        Functions\when('get_option')->alias(fn($key) => $key === PRQ_OPTION_SHOP_HASHID ? $hashid : $stored);
         Functions\expect('add_option')->never();
+        Functions\expect('update_option')->never();
         Functions\when('get_current_user_id')->justReturn(7);
         $request = new \WP_REST_Request($this->connection());
         $request->set_route('/wc/v3/prq_set_token');
@@ -333,11 +358,14 @@ final class V2ModeTest extends TestCase
         $this->assertSame('prq_woocommerce_authorize_required', V2::connect($request)->get_error_code());
     }
 
-    public function test_connect_rejects_incomplete_v2_configuration(): void
+    #[\PHPUnit\Framework\Attributes\TestWith([false], 'fresh store')]
+    #[\PHPUnit\Framework\Attributes\TestWith([true], 'existing V2 connection')]
+    public function test_connect_rejects_incomplete_v2_configuration(bool $connected): void
     {
-        Functions\when('get_option')->justReturn(false);
+        Functions\when('get_option')->alias(fn($key) => $key === V2::OPTION && $connected ? $this->connection() : false);
         Functions\when('get_current_user_id')->justReturn(7);
         Functions\expect('add_option')->never();
+        Functions\expect('update_option')->never();
         $request = new \WP_REST_Request(['mode' => 'v2', 'shop' => 'wc-ab12cd']);
         $request->set_route('/wc/v3/prq_set_token');
         $this->assertSame('prq_invalid_connection', V2::connect($request)->get_error_code());

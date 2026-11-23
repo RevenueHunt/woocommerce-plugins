@@ -31,7 +31,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 	}
 
 	/**
-	 * Accept V2 credentials on first connect or when the matching V1 shop switches.
+	 * Accept V2 credentials on first connect, when the matching V1 shop switches, or when the same shop reconnects.
 	 *
 	 * @param WP_REST_Request $request Token intake request (already authenticated).
 	 * @return true|WP_Error Validation result.
@@ -43,12 +43,11 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		if ( ! get_current_user_id() || '/wc/v3/prq_set_token' !== $request->get_route() ) {
 			return new WP_Error( 'prq_woocommerce_authorize_required', __( "Please connect from WooCommerce's authorize screen.", 'product-recommendation-quiz-for-ecommerce' ), array( 'status' => 403 ) );
 		}
-		$hashid = get_option( PRQ_OPTION_SHOP_HASHID );
-		if ( $hashid && 'wc-' . $hashid !== $request->get_param( 'shop' ) ) {
+		$hashid  = get_option( PRQ_OPTION_SHOP_HASHID );
+		$current = self::connection();
+		$shop    = $request->get_param( 'shop' );
+		if ( ( $hashid && 'wc-' . $hashid !== $shop ) || ( $current && ( $current['shop'] ?? '' ) !== $shop ) ) {
 			return new WP_Error( 'prq_shop_mismatch', 'Shop does not match the existing connection.', array( 'status' => 403 ) );
-		}
-		if ( self::connection() ) {
-			return true;
 		}
 		$connection = array( 'mode' => 'v2' );
 		foreach ( array( 'shop', 'shared_secret', 'api_url', 'admin_url' ) as $key ) {
@@ -67,10 +66,16 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 			}
 			$connection[ $key ] = untrailingslashit( $connection[ $key ] );
 		}
-		if ( ! add_option( self::OPTION, $connection, '', false ) ) {
+		$orders = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
+		if ( $current ) {
+			$orders->set_webhook_status( 'delete' );
+			// update_option also returns false for identical values (a retry before webhook IDs were stored).
+			if ( ! update_option( self::OPTION, $connection, false ) && $current !== $connection ) {
+				return new WP_Error( 'prq_connection_update_failed', 'Could not update the V2 connection.', array( 'status' => 500 ) );
+			}
+		} elseif ( ! add_option( self::OPTION, $connection, '', false ) ) {
 			return true;
 		}
-		$orders = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
 		$orders->create_webhooks();
 		return true;
 	}

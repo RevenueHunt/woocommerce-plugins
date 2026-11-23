@@ -53,7 +53,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Orders {
 	}
 
 	/**
-	 * Create the two native WooCommerce webhooks once at connect. WooCommerce owns
+	 * Create the two native WooCommerce webhooks for the current connection. WooCommerce owns
 	 * delivery/retries and X-WC-Webhook-Signature = base64(HMAC-SHA256(raw body)).
 	 *
 	 * @return void
