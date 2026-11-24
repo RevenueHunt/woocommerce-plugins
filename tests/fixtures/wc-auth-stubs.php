@@ -10,6 +10,7 @@
 if (!class_exists('WP_User')) {
     class WP_User
     {
+        public $ID = 0;
     }
 }
 

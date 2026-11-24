@@ -69,7 +69,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller {
 	 */
 	public function check_woocommerce_permission( $request ) {
 		// WooCommerce/WordPress REST authentication has already established the user.
-		// Mode changes must never fall through to legacy WP_User-only authentication.
+		// Mode changes must never fall through to the legacy authentication below.
 		if ( in_array( $request->get_param( 'mode' ), array( 'v1', 'v2' ), true ) ) {
 			// phpcs:ignore WordPress.WP.Capabilities.Unknown -- Native WooCommerce capability.
 			if ( get_current_user_id() > 0 && current_user_can( 'manage_woocommerce' ) ) {
@@ -84,20 +84,20 @@ class Product_Recommendation_Quiz_For_Ecommerce_Rest_Set_Token_Controller {
 
 		$auth = new WC_REST_Authentication();
 		// Note we are not trying to authenticate a specific user, so we need to pass false to the function.
-		$result = $auth->authenticate( false );
+		$result  = $auth->authenticate( false );
+		$user_id = $result instanceof WP_User ? $result->ID : $result;
 
-		// Return false if authentication failed with an error.
-		if ( is_wp_error( $result ) ) {
-			return false;
+		// WooCommerce can return a string from wpdb. Reject malformed or overflowing IDs.
+		if ( is_string( $user_id ) ) {
+			$digits  = ltrim( $user_id, '0' );
+			$user_id = (int) $digits;
+			if ( (string) $user_id !== $digits ) {
+				return false;
+			}
 		}
 
-		// Return true only if we have a valid authenticated user.
-		if ( is_a( $result, 'WP_User' ) ) {
-			return true;
-		}
-
-		// Return false for all other cases (no authentication provided, null, or unexpected values).
-		return false;
+		// phpcs:ignore WordPress.WP.Capabilities.Unknown -- Native WooCommerce capability.
+		return is_int( $user_id ) && $user_id > 0 && user_can( $user_id, 'manage_woocommerce' );
 	}
 
 	/**

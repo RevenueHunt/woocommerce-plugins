@@ -3,6 +3,7 @@
 namespace RevenueHunt\PRQ\Tests\Characterization;
 
 use Brain\Monkey\Functions;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use RevenueHunt\PRQ\Tests\TestCase;
@@ -32,28 +33,55 @@ final class SetTokenControllerTest extends TestCase
         $this->assertFalse($this->controller()->check_woocommerce_permission(new WP_REST_Request()));
     }
 
-    public function test_permission_true_for_authenticated_wp_user(): void
+    #[DataProvider('woocommerceCapabilities')]
+    public function test_permission_checks_capability_for_authenticated_user_id($authenticatedId, bool $canManage): void
     {
         require_once dirname(__DIR__) . '/fixtures/wc-auth-stubs.php';
-        \WC_REST_Authentication::$result = new \WP_User();
+        \WC_REST_Authentication::$result = $authenticatedId;
+        Functions\expect('user_can')->once()->with(42, 'manage_woocommerce')->andReturn($canManage);
+
+        $this->assertSame($canManage, $this->controller()->check_woocommerce_permission(new WP_REST_Request()));
+    }
+
+    public static function woocommerceCapabilities(): array
+    {
+        // WooCommerce 10.7 (class-wc-rest-authentication.php:217) returns wpdb's string user_id.
+        return [
+            'string ID, manager' => ['42', true],
+            'string ID, non-manager' => ['42', false],
+            'integer ID, manager' => [42, true],
+            'integer ID, non-manager' => [42, false],
+        ];
+    }
+
+    public function test_permission_checks_capability_by_wp_user_id(): void
+    {
+        require_once dirname(__DIR__) . '/fixtures/wc-auth-stubs.php';
+        $user = new \WP_User();
+        $user->ID = 42;
+        \WC_REST_Authentication::$result = $user;
+        Functions\expect('user_can')->once()->with(42, 'manage_woocommerce')->andReturn(true);
 
         $this->assertTrue($this->controller()->check_woocommerce_permission(new WP_REST_Request()));
     }
 
-    public function test_permission_false_for_wp_error(): void
+    #[DataProvider('invalidAuthenticationResults')]
+    public function test_permission_false_for_invalid_authentication_result($result): void
     {
         require_once dirname(__DIR__) . '/fixtures/wc-auth-stubs.php';
-        \WC_REST_Authentication::$result = new WP_Error('rest_forbidden', 'no');
+        \WC_REST_Authentication::$result = $result;
+        Functions\expect('user_can')->never();
 
         $this->assertFalse($this->controller()->check_woocommerce_permission(new WP_REST_Request()));
     }
 
-    public function test_permission_false_for_null_result(): void
+    public static function invalidAuthenticationResults(): array
     {
-        require_once dirname(__DIR__) . '/fixtures/wc-auth-stubs.php';
-        \WC_REST_Authentication::$result = null;
-
-        $this->assertFalse($this->controller()->check_woocommerce_permission(new WP_REST_Request()));
+        return [
+            'error' => [new WP_Error('rest_forbidden', 'no')],
+            'null' => [null],
+            'zero' => [0],
+        ];
     }
 
     /* ---------- handle(): only-set-if-empty option contract ---------- */
