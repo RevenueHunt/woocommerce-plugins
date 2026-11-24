@@ -23,6 +23,7 @@ services:
     volumes:
       - wp:/var/www/html
       - ../../build:/plugins:ro
+      - ./path-only-log.conf:/etc/apache2/conf-enabled/zz-path-only-log.conf:ro
   cli:
     image: wordpress:cli-php8.2
     depends_on: [wordpress]
