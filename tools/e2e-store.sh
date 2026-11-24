@@ -10,7 +10,11 @@
 # The address is a Cloudflare quick tunnel (https://<random>.trycloudflare.com, no account):
 # it changes on every `up`, and anyone with the address reaches the store, so keep it up only
 # for the test. The admin password is generated per run and kept in tools/e2e-store/.state.
+#
+# The store's keys and the shop API key travel in query strings: Apache logs paths only
+# (e2e-store/path-only-log.conf), the tunnel log hides queries, and the password goes over stdin.
 set -euo pipefail
+umask 077
 cd "$(dirname "$0")/.."
 
 dir=tools/e2e-store
@@ -20,7 +24,8 @@ wp() { "${compose[@]}" exec -T cli wp "$@"; }
 slug=product-recommendation-quiz-for-ecommerce
 
 install_plugin() {
-    php tools/build.php ecommerce >/dev/null
+    # Readable by the containers' www-data.
+    (umask 022 && php tools/build.php ecommerce) >/dev/null
     "${compose[@]}" exec -T cli sh -c "rm -rf wp-content/plugins/$slug && cp -R /plugins/$slug wp-content/plugins/"
     wp plugin activate "$slug" >/dev/null
     echo "Installed $slug $(wp plugin get "$slug" --field=version)"
@@ -35,7 +40,9 @@ up)
         "${compose[@]}" exec -T cli test -f wp-config.php; do sleep 2; done
 
     [ -f "$state/tunnel.pid" ] && kill "$(cat "$state/tunnel.pid")" 2>/dev/null || true
-    cloudflared tunnel --no-autoupdate --url http://127.0.0.1:8099 >"$state/tunnel.log" 2>&1 &
+    # A failed request is logged with its whole URL: queries hidden. exec keeps the PID cloudflared's.
+    bash -c 'exec cloudflared tunnel --no-autoupdate --url http://127.0.0.1:8099 \
+        > >(sed -u -E "s/\\?[^[:space:]\"]*/?(query hidden)/g") 2>&1' >"$state/tunnel.log" &
     echo $! >"$state/tunnel.pid"
     url=
     for _ in $(seq 1 30); do
@@ -47,8 +54,9 @@ up)
 
     if ! wp core is-installed 2>/dev/null; then
         openssl rand -hex 16 >"$state/admin-password"
+        # The password goes over stdin, never into a command line.
         wp core install --url="$url" --title="PRQ e2e store" --admin_user=admin \
-            --admin_password="$(cat "$state/admin-password")" --admin_email=dev@revenuehunt.com --skip-email >/dev/null
+            --prompt=admin_password --admin_email=dev@revenuehunt.com --skip-email <"$state/admin-password" >/dev/null
         wp core update >/dev/null
         wp core update-db >/dev/null
         wp rewrite structure '/%postname%/' >/dev/null
@@ -79,7 +87,7 @@ down)
     rm -rf "$state"
     ;;
 *)
-    sed -n '3,13p' "$0"
+    sed -n '3,15p' "$0"
     exit 1
     ;;
 esac
