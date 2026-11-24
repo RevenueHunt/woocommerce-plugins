@@ -227,6 +227,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 			array( '/assistants/(?P<sqid>[A-Za-z0-9]+)', 'DELETE', array( $store, 'delete_assistant' ), array( $this, 'authorize' ) ),
 			array( '/storefront', 'PUT', array( $store, 'put_storefront' ), array( $this, 'authorize' ) ),
 			array( '/storefront', 'GET', array( $store, 'get_storefront' ), array( $this, 'authorize' ) ),
+			array( '/brand', 'GET', array( new Product_Recommendation_Quiz_For_Ecommerce_V2_Brand(), 'get_brand' ), array( $this, 'authorize' ) ),
 		) as $route ) {
 			register_rest_route(
 				'prq/v3',

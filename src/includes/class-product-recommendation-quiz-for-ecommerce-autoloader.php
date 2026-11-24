@@ -125,6 +125,9 @@ class Product_Recommendation_Quiz_For_Ecommerce_Autoloader {
 			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront':
 				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2-storefront.php';
 				break;
+			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Brand':
+				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2-brand.php';
+				break;
 			case 'Product_Recommendation_Quiz_For_Ecommerce_V2_Placements':
 				require_once plugin_dir_path( __DIR__ ) . 'includes/class-product-recommendation-quiz-for-ecommerce-v2-placements.php';
 				break;
