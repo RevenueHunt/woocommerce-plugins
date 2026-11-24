@@ -141,8 +141,6 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 			'shop'                    => $connection['shop'],
 			'runtime'                 => Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::runtime(),
 			'locale'                  => get_locale(),
-			'currencyCode'            => get_woocommerce_currency(),
-			'currencyFormat'          => self::currency_format(),
 			'overPlanAt'              => isset( $store['overPlanAt'] ) ? $store['overPlanAt'] : null,
 			'customFeaturesBlockedAt' => isset( $store['customFeaturesBlockedAt'] ) ? $store['customFeaturesBlockedAt'] : null,
 			'defaultQuiz'             => isset( $store['defaultQuiz'] ) ? $store['defaultQuiz'] : null,
@@ -150,6 +148,11 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 			'quizzes'                 => (object) $quizzes,
 			'assistants'              => (object) $assistants,
 		);
+		// WooCommerce may be deactivated while the connection stays: the cards then keep their ISO amounts.
+		if ( function_exists( 'get_woocommerce_currency' ) ) {
+			$data['currencyCode']   = get_woocommerce_currency();
+			$data['currencyFormat'] = self::currency_format();
+		}
 		if ( $this->site_wide ) {
 			$data['siteWide'] = $this->site_wide;
 		}
