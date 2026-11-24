@@ -141,6 +141,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 			'shop'                    => $connection['shop'],
 			'runtime'                 => Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront::runtime(),
 			'locale'                  => get_locale(),
+			'currencyCode'            => get_woocommerce_currency(),
+			'currencyFormat'          => self::currency_format(),
 			'overPlanAt'              => isset( $store['overPlanAt'] ) ? $store['overPlanAt'] : null,
 			'customFeaturesBlockedAt' => isset( $store['customFeaturesBlockedAt'] ) ? $store['customFeaturesBlockedAt'] : null,
 			'defaultQuiz'             => isset( $store['defaultQuiz'] ) ? $store['defaultQuiz'] : null,
@@ -153,6 +155,54 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 		}
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON_HEX_* prevents breaking out of the inert script element.
 		echo '<script type="application/json" id="prq-v2-store">' . wp_json_encode( $data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) . '</script>';
+	}
+
+	/**
+	 * The store's money format (WooCommerce → Settings → General: currency position, separators, decimals) in the
+	 * Shopify `{{amount…}}` syntax the quiz and assistant cards read, so they show prices as the shop does.
+	 * Null when no Shopify variable matches the separators: the cards then show the amount and its ISO code.
+	 *
+	 * @return string|null
+	 */
+	public static function currency_format() {
+		$variables   = array(
+			',.' => 'amount',
+			'.,' => 'amount_with_comma_separator',
+			"'." => 'amount_with_apostrophe_separator',
+			' ,' => 'amount_with_space_separator',
+			' .' => 'amount_with_period_and_space_separator',
+		);
+		$no_decimals = array(
+			',' => 'amount_no_decimals',
+			'.' => 'amount_no_decimals_with_comma_separator',
+			' ' => 'amount_no_decimals_with_space_separator',
+		);
+		// WooCommerce stores a space as typed or as a non-breaking one.
+		$thousand = str_replace( "\u{00A0}", ' ', html_entity_decode( wc_get_price_thousand_separator(), ENT_QUOTES, 'UTF-8' ) );
+		$decimal  = wc_get_price_decimal_separator();
+		switch ( (int) wc_get_price_decimals() ) {
+			case 2:
+				$variable = isset( $variables[ $thousand . $decimal ] ) ? $variables[ $thousand . $decimal ] : null;
+				break;
+			case 0:
+				$variable = isset( $no_decimals[ $thousand ] ) ? $no_decimals[ $thousand ] : null;
+				break;
+			default:
+				$variable = null;
+		}
+		if ( null === $variable ) {
+			return null;
+		}
+		$symbol   = html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, 'UTF-8' );
+		$amount   = '{{' . $variable . '}}';
+		$formats  = array(
+			'left'        => $symbol . $amount,
+			'right'       => $amount . $symbol,
+			'left_space'  => $symbol . "\u{00A0}" . $amount,
+			'right_space' => $amount . "\u{00A0}" . $symbol,
+		);
+		$position = get_option( 'woocommerce_currency_pos', 'left' );
+		return isset( $formats[ $position ] ) ? $formats[ $position ] : $formats['left'];
 	}
 
 	/**

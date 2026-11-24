@@ -38,6 +38,11 @@ final class V2StorefrontTest extends TestCase
         Functions\when('esc_attr')->alias(fn($value) => htmlspecialchars((string) $value, ENT_QUOTES));
         Functions\when('esc_html')->alias(fn($value) => htmlspecialchars((string) $value, ENT_QUOTES));
         Functions\when('get_locale')->justReturn('en_US');
+        Functions\when('get_woocommerce_currency')->justReturn('GBP');
+        Functions\when('get_woocommerce_currency_symbol')->justReturn('&pound;');
+        Functions\when('wc_get_price_thousand_separator')->justReturn(',');
+        Functions\when('wc_get_price_decimal_separator')->justReturn('.');
+        Functions\when('wc_get_price_decimals')->justReturn(2);
         Functions\when('plugins_url')->alias(fn($path) => 'https://shop.example/wp-content/plugins/prq/' . $path);
         Functions\when('wp_cache_delete')->justReturn(true);
         $wpdb = \Mockery::mock();
@@ -355,6 +360,7 @@ final class V2StorefrontTest extends TestCase
         $data = json_decode(strip_tags($html), true, 512, JSON_THROW_ON_ERROR);
         $this->assertSame('wc-ab12cd', $data['shop']);
         $this->assertSame('en_US', $data['locale']);
+        $this->assertSame(['GBP', '£{{amount}}'], [$data['currencyCode'], $data['currencyFormat']]);
         $this->assertSame(1, $data['runtime']);
         $this->assertSame('abc', $data['defaultQuiz']);
         $this->assertSame(['popupLinks' => true], $data['siteWide']);
@@ -455,6 +461,30 @@ final class V2StorefrontTest extends TestCase
         $this->assertStringEndsWith('?v=v42-exp1', $urls[0]);
         $this->assertStringEndsWith('?v=v42-exp2', $urls[1]);
         $this->assertNotSame($urls[0], $urls[1]);
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('currencySettings')]
+    public function test_the_money_format_follows_the_store_currency_settings(string $position, string $thousand, string $decimal, int $decimals, ?string $format): void
+    {
+        $this->options['woocommerce_currency_pos'] = $position;
+        Functions\when('get_woocommerce_currency_symbol')->justReturn('&euro;');
+        Functions\when('wc_get_price_thousand_separator')->justReturn($thousand);
+        Functions\when('wc_get_price_decimal_separator')->justReturn($decimal);
+        Functions\when('wc_get_price_decimals')->justReturn($decimals);
+        $this->assertSame($format, Delivery::currency_format());
+    }
+
+    public static function currencySettings(): array
+    {
+        return [
+            'left' => ['left', ',', '.', 2, '€{{amount}}'],
+            'German, right with a space' => ['right_space', '.', ',', 2, "{{amount_with_comma_separator}}\u{00A0}€"],
+            'French, a non-breaking space' => ['right', '&nbsp;', ',', 2, '{{amount_with_space_separator}}€'],
+            'Swiss' => ['left_space', "'", '.', 2, "€\u{00A0}{{amount_with_apostrophe_separator}}"],
+            'no decimals' => ['left', ',', '.', 0, '€{{amount_no_decimals}}'],
+            'three decimals: the ISO code instead' => ['left', ',', '.', 3, null],
+            'no thousands separator: the ISO code instead' => ['left', '', '.', 2, null],
+        ];
     }
 
     public function test_uninstall_removes_public_copies_and_all_storefront_options(): void
