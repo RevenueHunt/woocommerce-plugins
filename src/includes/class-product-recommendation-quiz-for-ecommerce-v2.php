@@ -202,6 +202,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 			return;
 		}
 		$orders = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
+		// V2 quizzes and assistants read the WP Consent API (statistics, marketing); V1's embed does not.
+		add_filter( 'wp_consent_api_registered_' . plugin_basename( dirname( __DIR__ ) . '/product-recommendation-quiz-for-ecommerce.php' ), '__return_true' );
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 		add_action( 'action_scheduler_init', array( $catalog, 'schedule_nightly' ) );
 		add_filter( 'woocommerce_store_api_add_to_cart_data', array( $orders, 'cart_data' ), 10, 2 );

@@ -236,6 +236,21 @@ final class V2ModeTest extends TestCase
 
     #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
+    public function test_only_a_v2_store_registers_with_the_wp_consent_api(): void
+    {
+        $hook = 'wp_consent_api_registered_product-recommendation-quiz-for-ecommerce/product-recommendation-quiz-for-ecommerce.php';
+        Functions\when('plugin_basename')->alias(fn($file) => basename(dirname($file)) === 'src' ? 'product-recommendation-quiz-for-ecommerce/' . basename($file) : $file);
+        $GLOBALS['__prq_filters'] = [];
+        (new V2())->run();
+        $this->assertNotContains($hook, $GLOBALS['__prq_filters'], 'V1 keeps its embed, which does not read consent.');
+
+        Functions\when('get_option')->justReturn($this->connection());
+        (new V2())->run();
+        $this->assertContains($hook, $GLOBALS['__prq_filters']);
+    }
+
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[\PHPUnit\Framework\Attributes\PreserveGlobalState(false)]
     public function test_v2_mount_uses_module_tag_filter_before_wordpress_65(): void
     {
         $this->assertFalse(function_exists('wp_enqueue_script_module'));
