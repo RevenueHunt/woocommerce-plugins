@@ -153,6 +153,11 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Delivery implements Product_R
 			$data['currencyCode']   = get_woocommerce_currency();
 			$data['currencyFormat'] = self::currency_format();
 		}
+		// Go to cart and Go to checkout buttons open these pages; without them the buttons stay hidden.
+		if ( function_exists( 'wc_get_cart_url' ) ) {
+			$data['cartUrl']     = wc_get_cart_url();
+			$data['checkoutUrl'] = wc_get_checkout_url();
+		}
 		if ( $this->site_wide ) {
 			$data['siteWide'] = $this->site_wide;
 		}

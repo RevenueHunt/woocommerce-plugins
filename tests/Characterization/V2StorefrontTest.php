@@ -40,6 +40,8 @@ final class V2StorefrontTest extends TestCase
         Functions\when('get_locale')->justReturn('en_US');
         Functions\when('get_woocommerce_currency')->justReturn('GBP');
         Functions\when('get_woocommerce_currency_symbol')->justReturn('&pound;');
+        Functions\when('wc_get_cart_url')->justReturn('https://shop.example/basket/');
+        Functions\when('wc_get_checkout_url')->justReturn('https://shop.example/checkout/');
         Functions\when('wc_get_price_thousand_separator')->justReturn(',');
         Functions\when('wc_get_price_decimal_separator')->justReturn('.');
         Functions\when('wc_get_price_decimals')->justReturn(2);
@@ -361,6 +363,7 @@ final class V2StorefrontTest extends TestCase
         $this->assertSame('wc-ab12cd', $data['shop']);
         $this->assertSame('en_US', $data['locale']);
         $this->assertSame(['GBP', '£{{amount}}'], [$data['currencyCode'], $data['currencyFormat']]);
+        $this->assertSame(['https://shop.example/basket/', 'https://shop.example/checkout/'], [$data['cartUrl'], $data['checkoutUrl']]);
         $this->assertSame(1, $data['runtime']);
         $this->assertSame('abc', $data['defaultQuiz']);
         $this->assertSame(['popupLinks' => true], $data['siteWide']);
