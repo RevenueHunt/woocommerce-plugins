@@ -29,6 +29,10 @@ WC-only plugin headers. See `targets/*/target.json`.
 
 ## Commands
 
+The test and lint tooling needs PHP 8.4 or later (PHPUnit 13); CI runs PHP 8.5. That is only
+for development: the plugins themselves still run on PHP 7.4+ and WordPress 6.0+, and the
+build (`tools/build.php`) needs no Composer packages.
+
 ```bash
 composer install      # dev deps (phpunit, brain/monkey)
 composer test         # run the characterization suite (before AND after every change)
