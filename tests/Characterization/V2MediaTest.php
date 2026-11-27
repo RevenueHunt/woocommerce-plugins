@@ -78,28 +78,28 @@ final class V2MediaTest extends TestCase
     public function test_post_refuses_http_without_downloading(): void
     {
         Functions\when('wp_parse_url')->alias('parse_url');
-        Functions\expect('download_url')->never();
+        Functions\expect('wp_safe_remote_get')->never();
 
         $result = (new Media())->add_media($this->uploadRequest(['url' => 'http://cdn.example/serum.jpg']));
         $this->assertSame(400, $result->get_status());
         $this->assertSame('prq_media_invalid', $result->get_data()['code']);
     }
 
-    private function mockDownload(string $url, string $name, array $type, callable $check): void
+    private function mockDownload(string $url, callable $check, ?int $responseCode = 200): void
     {
         $temp = tempnam(sys_get_temp_dir(), 'prq-media-');
         try {
             Functions\when('wp_parse_url')->alias('parse_url');
             Functions\when('wp_basename')->alias('basename');
             Functions\when('sanitize_file_name')->alias(fn($name) => str_replace(' ', '-', $name));
-            Functions\when('remove_filter')->justReturn(true);
             Functions\when('wp_generate_attachment_metadata')->justReturn([]);
-            Functions\when('wp_filesize')->justReturn(123);
-            Functions\expect('download_url')->once()->with($url)->andReturn($temp);
-            $mimes = ['jpg|jpeg' => 'image/jpeg', 'mp4' => 'video/mp4', 'pdf' => 'application/pdf'];
-            Functions\when('get_allowed_mime_types')->justReturn($mimes);
-            Functions\expect('wp_check_filetype_and_ext')->once()->with($temp, $name, $mimes)->andReturn($type);
-            Functions\when('wp_delete_file')->alias('unlink');
+            Functions\expect('wp_tempnam')->once()->withNoArgs()->andReturn($temp);
+            Functions\expect('wp_safe_remote_get')->once()->with($url, [
+                'stream' => true, 'filename' => $temp, 'limit_response_size' => 100 * MB_IN_BYTES + 1,
+                'timeout' => 60, 'redirection' => 3,
+            ])->andReturn($responseCode === null ? new \WP_Error('http_request_failed') : ['response' => ['code' => $responseCode]]);
+            Functions\when('wp_remote_retrieve_response_code')->alias(fn($response) => $response['response']['code']);
+            Functions\expect('wp_delete_file')->once()->with($temp)->andReturnUsing('unlink');
             $check($temp);
             $this->assertFileDoesNotExist($temp);
         } finally {
@@ -107,10 +107,37 @@ final class V2MediaTest extends TestCase
         }
     }
 
+    private function mockMediaType(string $temp, string $name, array $type): void
+    {
+        Functions\when('wp_filesize')->justReturn(123);
+        $mimes = ['jpg|jpeg' => 'image/jpeg', 'mp4' => 'video/mp4', 'pdf' => 'application/pdf'];
+        Functions\when('get_allowed_mime_types')->justReturn($mimes);
+        Functions\expect('wp_check_filetype_and_ext')->once()->with($temp, $name, $mimes)->andReturn($type);
+    }
+
+    public static function failedDownloads(): array
+    {
+        return ['HTTP error' => [null], 'non-2xx response' => [404]];
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('failedDownloads')]
+    public function test_post_rejects_failed_downloads_and_cleans_up_the_owned_temp_file(?int $responseCode): void
+    {
+        $url = 'https://cdn.example/file.jpg';
+        $this->mockDownload($url, function () use ($url) {
+            Functions\expect('wp_check_filetype_and_ext')->never();
+            Functions\expect('media_handle_sideload')->never();
+            $result = (new Media())->add_media($this->uploadRequest(['url' => $url]));
+            $this->assertSame(400, $result->get_status());
+            $this->assertSame(['code' => 'prq_media_invalid', 'message' => 'Could not download the media file.'], $result->get_data());
+        }, $responseCode);
+    }
+
     public function test_post_refuses_non_media_and_deletes_the_download(): void
     {
         $url = 'https://cdn.example/report.pdf';
-        $this->mockDownload($url, 'report.pdf', ['ext' => 'pdf', 'type' => 'application/pdf'], function () use ($url) {
+        $this->mockDownload($url, function ($temp) use ($url) {
+            $this->mockMediaType($temp, 'report.pdf', ['ext' => 'pdf', 'type' => 'application/pdf']);
             Functions\expect('media_handle_sideload')->never();
             $result = (new Media())->add_media($this->uploadRequest(['url' => $url]));
             $this->assertSame(400, $result->get_status());
@@ -122,7 +149,8 @@ final class V2MediaTest extends TestCase
     {
         $image = $this->image();
         $url = 'https://cdn.example/file.jpg';
-        $this->mockDownload($url, 'face-serum.jpg', ['ext' => 'jpg', 'type' => 'image/jpeg'], function ($temp) use ($url, $image) {
+        $this->mockDownload($url, function ($temp) use ($url, $image) {
+            $this->mockMediaType($temp, 'face-serum.jpg', ['ext' => 'jpg', 'type' => 'image/jpeg']);
             Functions\expect('media_handle_sideload')->once()->with(['name' => 'face-serum.jpg', 'tmp_name' => $temp], 0)->andReturn(123);
             Functions\when('wp_slash')->alias('addslashes');
             Functions\expect('update_post_meta')->once()->with(123, '_wp_attachment_image_alt', 'Serum')->andReturn(true);

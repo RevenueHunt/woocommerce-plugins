@@ -73,7 +73,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Media {
 		$name = sanitize_file_name( $name );
 		$alt  = sanitize_text_field( $body['alt'] ?? '' );
 
-		if ( ! function_exists( 'download_url' ) ) {
+		if ( ! function_exists( 'wp_tempnam' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
@@ -83,25 +83,29 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2_Media {
 			require_once ABSPATH . 'wp-admin/includes/image.php';
 		}
 
-		$max_video = 100 * MB_IN_BYTES;
-		// Keep even an unknown-length download bounded. The extra byte detects truncation.
-		$limit_download = static function ( $args, $request_url ) use ( $url, $max_video ) {
-			if ( $url === $request_url && ! empty( $args['stream'] ) ) {
-				$args['limit_response_size'] = $max_video + 1;
-			}
-			return $args;
-		};
-		add_filter( 'http_request_args', $limit_download, 10, 2 );
-		try {
-			$temp = download_url( $url );
-		} finally {
-			remove_filter( 'http_request_args', $limit_download );
-		}
-		if ( is_wp_error( $temp ) ) {
+		// Keep the temporary filename under our control, regardless of the response headers.
+		$temp = wp_tempnam();
+		if ( ! $temp ) {
 			return $this->invalid( __( 'Could not download the media file.', 'product-recommendation-quiz-for-ecommerce' ) );
 		}
 
+		$max_video = 100 * MB_IN_BYTES;
 		try {
+			$response = wp_safe_remote_get(
+				$url,
+				array(
+					'stream'              => true,
+					'filename'            => $temp,
+					'limit_response_size' => $max_video + 1, // The extra byte detects truncation.
+					'timeout'             => 60, // Shorter than the backend's 75-second timeout.
+					'redirection'         => 3,
+				)
+			);
+			$status   = is_wp_error( $response ) ? 0 : (int) wp_remote_retrieve_response_code( $response );
+			if ( $status < 200 || $status >= 300 ) {
+				return $this->invalid( __( 'Could not download the media file.', 'product-recommendation-quiz-for-ecommerce' ) );
+			}
+
 			$size = wp_filesize( $temp );
 			if ( $size > $max_video ) {
 				return $this->invalid( __( 'Media files cannot exceed 100 MB.', 'product-recommendation-quiz-for-ecommerce' ) );

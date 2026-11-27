@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-27T16:04:15+00:00\n"
+"POT-Creation-Date: 2026-11-27T16:25:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: product-recommendation-quiz-for-ecommerce\n"
@@ -467,23 +467,24 @@ msgstr ""
 msgid "Use a valid HTTPS media URL."
 msgstr ""
 
-#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:101
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:89
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:106
 msgid "Could not download the media file."
 msgstr ""
 
-#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:107
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:111
 msgid "Media files cannot exceed 100 MB."
 msgstr ""
 
-#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:115
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:119
 msgid "Use a file type that WordPress allows for images or videos."
 msgstr ""
 
-#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:118
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:122
 msgid "Images cannot exceed 20 MB."
 msgstr ""
 
-#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:129
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:133
 msgid "Could not save the file to the Media Library."
 msgstr ""
 
