@@ -219,6 +219,7 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 		$catalog = new Product_Recommendation_Quiz_For_Ecommerce_V2_Catalog();
 		$orders  = new Product_Recommendation_Quiz_For_Ecommerce_V2_Orders();
 		$store   = new Product_Recommendation_Quiz_For_Ecommerce_V2_Storefront();
+		$media   = new Product_Recommendation_Quiz_For_Ecommerce_V2_Media();
 		foreach ( array(
 			array( '/catalog/export', 'POST', array( $catalog, 'queue' ), array( $this, 'authorize' ) ),
 			array( '/catalog/download', 'GET', array( $catalog, 'download' ), array( $catalog, 'authorize_download' ) ),
@@ -230,6 +231,8 @@ class Product_Recommendation_Quiz_For_Ecommerce_V2 {
 			array( '/storefront', 'PUT', array( $store, 'put_storefront' ), array( $this, 'authorize' ) ),
 			array( '/storefront', 'GET', array( $store, 'get_storefront' ), array( $this, 'authorize' ) ),
 			array( '/brand', 'GET', array( new Product_Recommendation_Quiz_For_Ecommerce_V2_Brand(), 'get_brand' ), array( $this, 'authorize' ) ),
+			array( '/media', 'GET', array( $media, 'list_media' ), array( $this, 'authorize' ) ),
+			array( '/media', 'POST', array( $media, 'add_media' ), array( $this, 'authorize' ) ),
 		) as $route ) {
 			register_rest_route(
 				'prq/v3',

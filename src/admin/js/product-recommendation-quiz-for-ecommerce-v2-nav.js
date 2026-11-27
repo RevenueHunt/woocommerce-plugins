@@ -29,9 +29,57 @@
 		document.body.classList.remove('prq-fullscreen');
 	});
 
+	let pickerOpen = false;
+	const openMedia = function (source, requestId, kind) {
+		const closed = { type: 'rh:media-closed', requestId };
+		if (pickerOpen || typeof window.wp?.media !== 'function') {
+			source.postMessage(closed, origin);
+			return;
+		}
+
+		const frame = window.wp.media({
+			title: prqV2AdminNav.mediaTitle,
+			library: { type: kind },
+			multiple: false,
+			button: { text: prqV2AdminNav.mediaButton },
+		});
+		let replied = false;
+		const reply = function (message) {
+			if (replied) return;
+			replied = true;
+			source.postMessage(message, origin);
+		};
+		frame.on('select', function () {
+			const attachment = frame.state().get('selection').first()?.toJSON();
+			if (!attachment?.url) return;
+			reply({
+				type: 'rh:media-picked', requestId,
+				url: attachment.url, id: attachment.id, alt: attachment.alt || '',
+				width: attachment.width || 0, height: attachment.height || 0, mime: attachment.mime,
+			});
+		});
+		frame.on('close', function () {
+			// WordPress closes the modal before it fires Select in the same click.
+			queueMicrotask(function () {
+				pickerOpen = false;
+				reply(closed);
+				frame.detach();
+			});
+		});
+		pickerOpen = true;
+		frame.open();
+	};
+
 	window.addEventListener('message', function (event) {
-		if (event.origin !== origin || event.source !== iframe.contentWindow) return;
+		if (event.origin !== origin || !event.source) return;
 		const data = event.data;
+		if (data && data.type === 'rh:media-open') {
+			if (event.source !== iframe.contentWindow && event.source.parent !== iframe.contentWindow) return;
+			if (typeof data.requestId !== 'string' || !data.requestId || (data.kind !== 'image' && data.kind !== 'video')) return;
+			openMedia(event.source, data.requestId, data.kind);
+			return;
+		}
+		if (event.source !== iframe.contentWindow) return;
 		if (data && data.type === 'rh:fullscreen') {
 			document.body.classList.toggle('prq-fullscreen', data.open === true);
 			return;

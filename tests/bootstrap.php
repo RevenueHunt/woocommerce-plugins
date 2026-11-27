@@ -16,6 +16,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 define('PRQ_SKIP_BOOTSTRAP', true);
 if (!defined('WPINC'))            define('WPINC', 'wp-includes');
 if (!defined('MINUTE_IN_SECONDS')) define('MINUTE_IN_SECONDS', 60);
+if (!defined('MB_IN_BYTES'))      define('MB_IN_BYTES', 1024 * 1024);
 
 /* ---- deterministic helper stubs (not the behavior under test) ---- */
 if (!function_exists('register_activation_hook'))   { function register_activation_hook($f, $c) {} }
@@ -34,6 +35,16 @@ if (!function_exists('rest_ensure_response'))       { function rest_ensure_respo
 if (!class_exists('WP_Query')) {
     class WP_Query {
         public $posts = [];
+        public $max_num_pages = 0;
+        public static $queryHandler;
+        public function query($args) { return self::$queryHandler ? (self::$queryHandler)($args, $this) : $this->posts; }
+    }
+}
+if (!class_exists('WP_REST_Response')) {
+    class WP_REST_Response {
+        public function __construct(private $data, private $status = 200) {}
+        public function get_data() { return $this->data; }
+        public function get_status() { return $this->status; }
     }
 }
 if (!class_exists('WP_Error')) {

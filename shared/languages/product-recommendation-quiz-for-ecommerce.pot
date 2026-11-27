@@ -9,16 +9,16 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-18T10:35:39+00:00\n"
+"POT-Creation-Date: 2026-11-27T16:04:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: product-recommendation-quiz-for-ecommerce\n"
 
 #. Plugin Name of the plugin
 #: product-recommendation-quiz-for-ecommerce.php
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:86
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:100
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:116
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:87
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:101
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:117
 msgid "Product Recommendation Quiz for eCommerce"
 msgstr ""
 
@@ -34,10 +34,10 @@ msgstr ""
 
 #. Author of the plugin
 #: product-recommendation-quiz-for-ecommerce.php
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:84
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:93
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:114
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:123
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:85
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:94
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:115
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:124
 msgid "RevenueHunt"
 msgstr ""
 
@@ -126,12 +126,12 @@ msgid "Display"
 msgstr ""
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:102
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:168
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:169
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
 #: admin/class-product-recommendation-quiz-for-ecommerce-admin-embeds-page.php:103
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:169
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:170
 msgid "Permission Denied"
 msgstr ""
 
@@ -268,50 +268,58 @@ msgstr ""
 msgid "Any link on your store whose URL is \"#quiz-CODE\" (where CODE is your quiz ID) opens that quiz in a popup when clicked — no setting required. You can also add a Link Popup block from the editor."
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php:125
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php:94
+msgid "Select media"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php:95
+msgid "Select"
+msgstr ""
+
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php:109
 #: admin/class-product-recommendation-quiz-for-ecommerce-site-health.php:85
 #: front/blocks/quiz/editor.js:128
 msgid "Product Recommendation Quiz"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php:126
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-menu.php:110
 msgid "Product Quiz"
 msgstr ""
 
 #. translators: %s: link to the RevenueHunt website (anchor "RevenueHunt").
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:92
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:122
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:93
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:123
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:131
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:132
 msgid "Congratulations!"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:132
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:133
 msgid "You're one step away from getting more conversions and sales in your store."
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:133
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:134
 msgid "We just need you to grant this plugin permission to access your WooCommerce store:"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:135
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:136
 msgid "grant permission now"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:140
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:141
 msgid "this article"
 msgstr ""
 
 #. translators: %s: link to the troubleshooting article (anchor "this article").
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:144
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:145
 #, php-format
 msgid "Are you having trouble granting access? Check out %s"
 msgstr ""
 
-#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:227
+#: admin/class-product-recommendation-quiz-for-ecommerce-admin-page.php:228
 msgid "The cURL extension is required but not installed on your server."
 msgstr ""
 
@@ -455,7 +463,32 @@ msgstr ""
 msgid "revenuehunt"
 msgstr ""
 
-#: includes/class-product-recommendation-quiz-for-ecommerce-v2.php:44
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:67
+msgid "Use a valid HTTPS media URL."
+msgstr ""
+
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:101
+msgid "Could not download the media file."
+msgstr ""
+
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:107
+msgid "Media files cannot exceed 100 MB."
+msgstr ""
+
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:115
+msgid "Use a file type that WordPress allows for images or videos."
+msgstr ""
+
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:118
+msgid "Images cannot exceed 20 MB."
+msgstr ""
+
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2-media.php:129
+msgid "Could not save the file to the Media Library."
+msgstr ""
+
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2.php:61
+#: includes/class-product-recommendation-quiz-for-ecommerce-v2.php:113
 #: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:78
 msgid "Please connect from WooCommerce's authorize screen."
 msgstr ""
@@ -464,11 +497,11 @@ msgstr ""
 msgid "Too many requests. Please try again later."
 msgstr ""
 
-#: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:219
+#: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:225
 msgid "Invalid shop hashid format. Only alphanumeric characters are allowed."
 msgstr ""
 
-#: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:228
+#: rest/class-product-recommendation-quiz-for-ecommerce-rest-set-token-controller.php:234
 msgid "Invalid api_key format."
 msgstr ""
 
